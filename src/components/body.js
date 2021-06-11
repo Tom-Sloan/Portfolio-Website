@@ -6,6 +6,7 @@ import {
     Link
 } from "react-router-dom";
 import { Home } from '../features/home/Home';
+import { Projects } from '../features/projects/Projects';
 import { Footer } from './footerBar'
 
 export function Body() {
@@ -37,14 +38,6 @@ function About() {
     return (
         <div>
             <h2>About</h2>
-        </div>
-    );
-}
-
-function Projects() {
-    return (
-        <div>
-            <h2>Projects</h2>
         </div>
     );
 }

@@ -6,9 +6,9 @@ import {
     Link
 } from "react-router-dom";
 
-export function HeaderBar() {
+export function Footer () {
     return (
-        <div className={styles.headerBar} >
+        <div className={styles.footer} >
             <div className={styles.headerLinks}>
                 <Link className={styles.headerLink} to="/">Home</Link>
                 <Link className={styles.headerLink} to="/about">About</Link>
@@ -17,6 +17,5 @@ export function HeaderBar() {
                 <Link className={styles.headerLink} to="/contact">Contact</Link>
             </div>
         </div>
-
     )
 }

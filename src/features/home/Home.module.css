@@ -1,0 +1,51 @@
+.home {
+    min-width: 100%;
+    max-width: 100%;
+    background-color: cadetblue;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    min-height: 85vh;
+    flex-basis: auto;
+}
+
+.profile {
+    flex-grow: 1;
+    border-radius: 50%;
+    padding: 10%;
+}
+
+.top img{
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-radius: 50%;
+    padding: 10%;
+}
+
+.name {
+    align-content: center;
+}
+
+.top h1{
+    font-size: 70px;
+    font-weight: bold;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    line-height: 80%;
+}
+
+.divider {
+    display: flex;
+    min-height: 20%;
+    max-height: 20%;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 10%;
+}

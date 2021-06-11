@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+
+import { AboutRoute } from './features/About/AboutRoute';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -18,7 +18,7 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about/1">About</Link>
           </li>
           <li>
             <Link to="/projects">Projects</Link>
@@ -38,7 +38,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/about">
-            <About />
+            <AboutRoute />
           </Route>
           <Route path="/projects">
             <Projects />
@@ -65,13 +65,6 @@ function Home() {
   );
 }
 
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
 
 function Projects() {
   return (

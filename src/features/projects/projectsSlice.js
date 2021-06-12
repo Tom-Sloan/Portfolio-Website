@@ -32,26 +32,26 @@ export const projectsSlice = createSlice({
                 },
             },
             {
-                text: "FPGA Prototype",
-                date: "November 2019",
-                enddate: "Ongoing",
+                text: "Boat Refurbrishment",
+                date: "July 2021",
+                enddate: "May 2022",
                 category: {
                     tag: 'medium',
                     color: '#018f69'
                 },
             },
             {
-                text: "Capstone Project: Smart Pillbox",
-                date: "August 2020",
-                enddate: "April 2021",
+                text: "Automated Hydroponics System",
+                date: "July 2021",
+                enddate: "August 2021",
                 category: {
                     tag: 'medium',
                     color: '#018f69'
                 },
             },
             {
-                text: "Full stack dev course",
-                date: "May 2021",
+                text: "Mimicing Robotic Arm",
+                date: "August 2021",
                 enddate: "Ongoing",
                 category: {
                     tag: 'medium',

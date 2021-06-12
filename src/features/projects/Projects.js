@@ -84,6 +84,10 @@ export function Projects() {
         return () => window.removeEventListener("resize", updateWindowDimensions);
     }, [])
 
+    const handleHover = (e) => {
+        console.log("Hover");
+    }
+
     return ( //https://www.freecodecamp.org/news/how-to-create-a-timeline-component-with-react-1b216f23d3d4/
         <div className={styles.page} >
             {/* <div className={styles.parallax} ></div> */}

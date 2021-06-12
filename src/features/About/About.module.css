@@ -1,10 +1,53 @@
-.divisionsContainer{
-    background-color: burlywood;
-    color:black;
-    text-align: center;
-    display: inline-block;
-    min-width: max-content;
+.divisionsContainer {
+  background-color: burlywood;
+  color: black;
+  text-align: center;
+  /* display: inline-block; */
+  /* min-width: max-content; */
+  position: relative;
+  height: 10000px;
 }
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.labelTexts {
+  z-index: 4;
+}
+
+.paddleSvg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+}
+
+.content {
+  position: absolute;
+  width: 90%;
+  height: fit-content;
+  top: 40vh;
+  left: auto;
+  right: auto;
+}
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+  margin: 10px 40px;
+  border: 2px solid yellowgreen;
+}
+.father {
+    position: relative;
+    background-color: rgb(80, 80, 80);
+    width: 100%;
+    height: 80%;
+    overflow: scroll;
+    /* height: 400px; */
+ }
+
 
 /* .svg{
     position: absolute;

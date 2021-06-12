@@ -8,56 +8,76 @@ export const projectsSlice = createSlice({
                 text: "FPGA Prototype",
                 date: "November 2019",
                 enddate: "Ongoing",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
+                category: [
+                    {
+                        tag: 'Hardware',
+                        color: '#66023C'
+                    },
+                    {
+                        tag: 'Programming',
+                        color: '#149e5e'
+                    }
+                ],
             },
             {
                 text: "Capstone Project: Smart Pillbox",
                 date: "August 2020",
                 enddate: "April 2021",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
+                category: [
+                    {
+                        tag: 'IoT',
+                        color: '#018f69'
+                    }
+                ],
             },
             {
                 text: "Full stack dev course",
                 date: "May 2021",
                 enddate: "Ongoing",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
+                category: [
+                    {
+                        tag: 'Web Development',
+                        color: '#018f69'
+                    }
+                ],
             },
             {
                 text: "Boat Refurbrishment",
                 date: "July 2021",
                 enddate: "May 2022",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
+                category: [
+                    {
+                        tag: 'Hardware',
+                        color: '#66023C'
+                    },
+                    {
+                        tag: 'Embedded System',
+                        color: '#018f69'
+                    }
+                ],
             },
             {
                 text: "Automated Hydroponics System",
                 date: "July 2021",
                 enddate: "August 2021",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
+                category: [
+                    {
+                        tag: 'medium',
+                        color: '#018f69'
+                    }
+                ],
             },
             {
                 text: "Mimicing Robotic Arm",
                 date: "August 2021",
                 enddate: "Ongoing",
-                category: {
-                    tag: 'medium',
-                    color: '#018f69'
-                },
-            }
+                category: [
+                    {
+                        tag: 'medium',
+                        color: '#018f69'
+                    }
+                ],
+            },
         ]
     },
     reducers: {

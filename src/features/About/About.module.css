@@ -1,0 +1,14 @@
+.divisionsContainer{
+    background-color: burlywood;
+    color:black;
+    text-align: center;
+    display: inline-block;
+    min-width: max-content;
+}
+
+/* .svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* top:45% 
+} */

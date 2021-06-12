@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './headerStyles.module.css';
+import { AboutRoute } from '../features/About/AboutRoute';
 import {
     Switch,
     Route,
@@ -17,7 +18,7 @@ export function Body() {
                     <Home />
                 </Route>
                 <Route path="/about">
-                    <About />
+                    <AboutRoute />
                 </Route>
                 <Route path="/projects">
                     <Projects />

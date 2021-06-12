@@ -21,23 +21,33 @@ export function Projects() {
                     projects.map((data, idx) => (
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
+                                <span className={styles.timelineCircle} />
                                 <div className={styles.timelineBox} >
-                                    <span className={styles.timelineTag} style={{ background: data.category.color }}>
-                                        {data.category.tag}
-                                    </span>
-                                    <time>{data.date}</time>
-                                    <p>{data.text}</p>
-                                    {data.link && (
-                                        <a
-                                            href={data.link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {data.link.text}s
-                                        </a>
-                                    )}
+                                    <div className={styles.timelineHalf} style={{ justifyContent: 'flex-end' }} >
+                                        {data.category.map(obj => {
+                                            console.log(obj);
+                                            return (
+                                                <span className={styles.timelineTag} style={{ background: obj.color }}>
+                                                    {obj.tag}
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className={styles.timelineHalf} style={{ justifyContent: 'flex-start' }} >
+                                        <time>{data.date}</time>
+                                        <p>{data.text}</p>
+                                        {data.link && (
+                                            <a
+                                                href={data.link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {data.link.text}s
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
-                                <span className={styles.timelineCircle}  />
+
                             </div>
                         </div>
                     ))

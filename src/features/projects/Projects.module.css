@@ -154,15 +154,10 @@ a:link, a:visited, a:hover, a:active {
     transform: rotate(45deg);
     width: 15px;
     height: 15px;
+
     right: auto;
     left: -7.5px;
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.timelineHalf {
-    display: flex;
-    /* max-width: 50%; */
-    flex-wrap: wrap;
 }
 
 /* .timelineItem:nth-child(odd) .timelineContent {
@@ -188,8 +183,10 @@ a:link, a:visited, a:hover, a:active {
     text-transform: uppercase;
     left: auto;
     right: 5px;
-    justify-content: flex-end;
-    width: auto;
+
+    
+    /* justify-content: flex-end;
+    width: auto; */
 }
 
 /* .timelineItem:nth-child(odd) .timelineContent .timelineTag {

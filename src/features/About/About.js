@@ -3,13 +3,15 @@ import styles from "./About.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { updateIndex, selectDivisions } from "./aboutSlice";
 import "./style.css";
+import { Paddle } from "./Paddle";
+
 export function About(props) {
   const dispatch = useDispatch();
   const divisions = useSelector(selectDivisions);
   const index = useSelector(updateIndex);
 
   const selected = parseInt(props.match.params.number, 10) || 0;
-  console.log(selected)
+
   return (
     <div>
       <div className={styles.divisionsContainer}>
@@ -19,27 +21,25 @@ export function About(props) {
           Nostrud do anim eiusmod do fugiat duis magna eiusmod. Id aliqua tempor
           occaecat enim mollit deserunt aliqua.
         </p>
+        <div className={styles.father}>
+          
 
-        {divisions.map((elm, index) => {
-          const zIndexValue = selected === index? 1: 0
-          console.log('selected: ' + selected + ' index ' + index+ ' zindexval ' + zIndexValue)
-          return(<div>
-            {/* https://yoksel.github.io/relative-clip-path/ */}
-            {/* https://codepen.io/anthonydugois/full/mewdyZ */}
-            <svg className="svg">
-              <clipPath
-                id={"my-clip-path-" + (index + 1)}
-                clipPathUnits="objectBoundingBox"
-              >
-                <path d={elm.path}></path>
-              </clipPath>
-            </svg>
-
-            <a href={'http://localhost:3000/about/'+index}>
-              <div style = {{zIndex:zIndexValue}} className={"clipped" + (index + 1)}></div>
-            </a>
-          </div>)
-        })}
+          <div className={styles.title}>
+            {divisions.map((elm) => (
+              <span className={styles.labelTexts}>{elm.color}</span>
+            ))}
+          </div>
+          {divisions.map((elm, index) => {
+            let zIndexValue = selected === index ? 2 : 0;
+            if (index === 1 && zIndexValue === 0) zIndexValue = 1;
+            // const shift = ["10%, "20%", "30%"];
+            return (
+              <div>
+                <Paddle selected={zIndexValue} elm={elm} index={index} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

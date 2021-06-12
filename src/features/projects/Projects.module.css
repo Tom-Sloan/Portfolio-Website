@@ -160,6 +160,12 @@ a:link, a:visited, a:hover, a:active {
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
+.timelineHalf {
+    display: flex;
+    /* max-width: 50%; */
+    flex-wrap: wrap;
+}
+
 /* .timelineItem:nth-child(odd) .timelineContent {
     text-align: left;
     align-items: flex-start;

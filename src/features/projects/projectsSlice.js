@@ -127,4 +127,4 @@ export const projectsSlice = createSlice({
 
 export const selectProjectsArray = (state) => state.project.projects;
 export const { addProject } = projectsSlice.actions;
-export default projectsSlice.reducer;
+export default projectsSlice.reducer;s

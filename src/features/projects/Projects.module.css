@@ -18,7 +18,8 @@
     background-color: #e17b77;
     content: '';
     position: absolute;
-    left: calc(50% - 2px);
+    left: calc(5% - 2px);
+    /* left: 5%; */
     width: 4px;
     height: 100%;
 }
@@ -31,9 +32,9 @@
     margin: 10px 0;
     width: 50%;
 
-    align-self: flex-end;
+    align-self: flex-start;
     justify-content: flex-start;
-    padding-left: 30px;
+    padding-left: calc(5% + 30px);
     padding-right: 0;
 }
 
@@ -145,6 +146,15 @@
     right: auto;
     left: -40px;
 }
+
+/* .timelineBox {
+    background-color: blue;
+} */
+
+/* .timelineCircle:hover .timelineBox {
+    opacity: 0; 
+    filter: alpha(opacity=0);
+} */
 
 /* .timelineItem:nth-child(odd) .timelineContent .timelineCircle {
     right: auto;

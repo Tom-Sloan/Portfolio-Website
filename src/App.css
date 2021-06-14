@@ -3,3 +3,14 @@
   height: 100vh;
 }
 
+:root{
+  --darkest:#222831;
+  --dark: #393E46;
+  --light:#00ADB5;
+  --lightest: #EEEEEE;
+
+  /* --darkest:#1E2022;
+  --dark: #52616B;
+  --light:#C9D6DF;
+  --lightest: #F0F5F9; */
+}

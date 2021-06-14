@@ -1,45 +1,56 @@
-import React, { useState, useEffect } from "react";
+/*
+Goal of component: About-> this is the page itself. This is used for general about page
+  information that is common to all options. This is also used for styling puposes.
+  Gets paddle information, iterates over paddles and generates
+*/
+
+//Libraries
+import React from "react";
 import styles from "./About.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { updateIndex, selectDivisions } from "./aboutSlice";
-import "./style.css";
+import { useSelector } from "react-redux";
+import { selectDivisions, selectIndexNumber } from "./aboutSlice";
 import { Paddle } from "./Paddle";
 
 export function About(props) {
-  const dispatch = useDispatch();
+  //Get paddle information
   const divisions = useSelector(selectDivisions);
-  const index = useSelector(updateIndex);
 
-  const selected = parseInt(props.match.params.number, 10) || 0;
+  //Get which paddle is to be put on top
+  const selected = useSelector(selectIndexNumber);
 
   return (
-    <div>
-      <div className={styles.divisionsContainer}>
-        <h1 style={{ margin: "0px" }}>About Me</h1>
-        <p style={{ margin: "0px 5rem 0px 5rem" }}>
-          Sunt aliqua eiusmod esse cupidatat nulla pariatur consequat quis.
-          Nostrud do anim eiusmod do fugiat duis magna eiusmod. Id aliqua tempor
-          occaecat enim mollit deserunt aliqua.
-        </p>
-        <div className={styles.father}>
-          
+    <div className={styles.divisionsConatiner}>
+      {/* General About page, paddle independant */}
+      <h1>About Me</h1>
+      <p>
+        Sunt aliqua eiusmod esse cupidatat nulla pariatur consequat quis.
+        Nostrud do anim eiusmod do fugiat duis magna eiusmod. Id aliqua tempor
+        occaecat enim mollit deserunt aliqua.
+      </p>
 
-          <div className={styles.title}>
-            {divisions.map((elm) => (
-              <span className={styles.labelTexts}>{elm.color}</span>
-            ))}
-          </div>
-          {divisions.map((elm, index) => {
-            let zIndexValue = selected === index ? 2 : 0;
-            if (index === 1 && zIndexValue === 0) zIndexValue = 1;
-            // const shift = ["10%, "20%", "30%"];
-            return (
-              <div>
-                <Paddle selected={zIndexValue} elm={elm} index={index} />
-              </div>
-            );
-          })}
+      {/* ~Paddle start~ */}
+      
+      {/* Paddle Parent, used to position paddles in the view */}
+      <div className={styles.father}> 
+        {/* Paddle Titles */}
+        <div className={styles.title}>
+          {divisions.map((elm) => (
+            <span className={styles.labelTexts}>{elm.title}</span>
+          ))}
         </div>
+
+        {/* Generate Paddles */}
+        {divisions.map((elm, index) => {
+          /* 
+          figure out the position of the paddle. 
+          0 is for non-selected paddles 1 & 3, 1 for non-selected paddle 2, 2 for active
+          to make the code more universal with different number of paddles this has to change
+          */
+          let zIndexValue = selected === index ? 2 : 0;
+          if (index === 1 && zIndexValue === 0) zIndexValue = 1;
+          
+          return <Paddle selected={zIndexValue} elm={elm} index={index} />;
+        })}
       </div>
     </div>
   );

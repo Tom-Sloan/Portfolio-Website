@@ -16,9 +16,8 @@ The overal structure of the about section has 4 main parts:
 */
 
 import React, { useState, useEffect } from "react";
-import styles from "./About.module.css";
 import {About} from './About'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {Switch, Route } from "react-router-dom";
 
 export function AboutRoute() {
   return (

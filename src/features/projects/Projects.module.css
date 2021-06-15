@@ -154,7 +154,6 @@ a:link, a:visited, a:hover, a:active {
     transform: rotate(45deg);
     width: 15px;
     height: 15px;
-
     right: auto;
     left: -7.5px;
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);

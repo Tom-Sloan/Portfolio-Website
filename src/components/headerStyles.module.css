@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     right: 0;     */
-    background-color: black;
+    background-color: var(--darkest);
     padding: 0px 20px;
     box-shadow: 10px 20px 200px #ccc;
     flex-flow: row nowrap;
@@ -14,7 +14,7 @@
     z-index: 10;
     flex-wrap: wrap;
     justify-content: center;
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid var(--dark);
 }
 
 .headerLinks {
@@ -27,7 +27,7 @@
 }
 
 .headerLink {
-    color: gray;
+    color: var(--light);
     text-decoration: none;
     font-weight: bold;
     transition: color 0.1s ease-in-out 0.1s;

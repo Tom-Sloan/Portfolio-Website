@@ -14,7 +14,7 @@ export const aboutSlice = createSlice({
       {
         // path: "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,",
         // path:'M0,1 L1,1 Q1,0.727,0.75,0.364 Q0.5,0,0.25,0.364 Q0,0.727,0,1',
-        color: "rgb(185, 19, 218)",
+        color: "rgb(85, 19, 218)",
         position: "0 0 600 400",
         title: "Artist",
       },

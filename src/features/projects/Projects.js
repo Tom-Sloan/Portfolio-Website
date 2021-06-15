@@ -29,23 +29,44 @@ export function Projects() {
     }, [])
 
     function isScrolledIntoView(elem) {
-        var docViewTop = document.querySelector(`.${bodyStyle.bodyArea}`).scrollTop;
-        var docViewBottom = docViewTop + getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
+        var docViewTop = document.querySelector(`.${styles.page}`).scrollTop;
+        var docViewBottom = docViewTop + document.querySelector(`.${styles.page}`).offsetHeight;
 
-        var elemTop = getComputedStyle(elem).offset;
-        var elemBottom = elemTop + getComputedStyle(elem).height;
-
-        console.log(elem);
-        console.log(docViewTop);
-        console.log(docViewBottom);
-        console.log(elemTop);
-        console.log(elemBottom);
+        var elemTop = elem.offsetTop;
+        var elemBottom = elemTop + elem.offsetHeight;
 
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }
 
     const handleScroll = (e) => {
-        console.log(isScrolledIntoView(document.querySelector(`.${styles.projectList}`).children[3]));
+        // console.log(Array.from(document.querySelector(`.${styles.projectList}`).children));
+        // let array = Array.from(document.querySelector(`.${styles.projectList}`).children);
+        // for (let i = 2; i < array.length; i++) {
+        //     // console.log(array[i])
+        //     if (isScrolledIntoView(array[i])) {
+        //         if (document.getElementById(`circle ${array[i].id}`)) {
+        //             document.getElementById(`circle ${array[i].id}`).style.backgroundColor = '#b2deff';
+        //             break;
+        //         }
+        //     } else {
+        //         if (document.getElementById(`circle ${array[i].id}`)) {
+        //             document.getElementById(`circle ${array[i].id}`).style.backgroundColor = '#2fc1f2';
+        //         }
+        //     }
+        // }
+
+        Array.from(document.querySelector(`.${styles.projectList}`).children).forEach((elem) => {
+            if (isScrolledIntoView(elem)) {
+                if (document.getElementById(`circle ${elem.id}`)) {
+                    document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#b2deff';
+                    return true;
+                }
+            } else {
+                if (document.getElementById(`circle ${elem.id}`)) {
+                    document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#2fc1f2';
+                }
+            }
+        })
     }
 
     return ( //https://www.freecodecamp.org/news/how-to-create-a-timeline-component-with-react-1b216f23d3d4/
@@ -59,8 +80,8 @@ export function Projects() {
                             projects.map((data, idx) => (
                                 <div className={styles.timelineItem}>
                                     <div className={styles.timelineContent}>
-                                        <a href={`#data ${idx}`}>
-                                            <span className={styles.timelineCircle} />
+                                        <a href={`#data ${idx}`}  >
+                                            <span className={styles.timelineCircle} id={`circle data ${idx}`} />
                                             <div className={styles.timelineBox} >
                                                 <time>{data.date}</time>
                                                 {/* <div className={styles.timelineHalf} style={{ justifyContent: 'flex-end' }} >

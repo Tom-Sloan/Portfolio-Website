@@ -12,15 +12,13 @@ import { useDispatch } from "react-redux";
 import { updateIndex } from "./aboutSlice";
 import { TestData } from "./AboutTestOption";
 
-export function PaddleBody({ elm, zIndex, index, numberOfPaddles }) {
+export function PaddleBody({ elm, index, numberOfPaddles }) {
   const dispatch = useDispatch();
   const offset = 1.5;
   const activeDivStyle = {
     width: 100 - (numberOfPaddles - 1)  * offset + '%',
     backgroundColor: elm.color,
-    zIndex: zIndex,
     left: index * offset + "%",
-    cursor: zIndex === numberOfPaddles ? "default" : "pointer",
     borderRadius:
       index === 0
         ? "0 100px 100px 100px"
@@ -29,16 +27,8 @@ export function PaddleBody({ elm, zIndex, index, numberOfPaddles }) {
         : "100px",
   };
 
-  const handleClick = (e) => {
-    //not do anything if currently the top one
-    if (zIndex !== numberOfPaddles) {
-      dispatch(updateIndex({ index: index }));
-    }
-  };
-
   return (
     <div
-      onClick={handleClick}
       className={styles.content}
       style={activeDivStyle}
     >

@@ -5,7 +5,9 @@ export const projectsSlice = createSlice({
     initialState: {
         projects: [
             {
-                text: "FPGA Prototype",
+                title: "FPGA Prototype",
+                subtitle: "Sensors, GPS, and Bluetooth",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "November 2019",
                 enddate: "Ongoing",
                 category: [
@@ -18,31 +20,44 @@ export const projectsSlice = createSlice({
                         color: '#149e5e'
                     }
                 ],
+                image: 'https://www.einfochips.com/wp-content/uploads/2018/06/fpga-offerings.png'
             },
             {
-                text: "Capstone Project: Smart Pillbox",
+                title: "Smart Pillbox",
+                subtitle: "B. Eng Capstone Project: Tracking Pill Consumption",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "August 2020",
                 enddate: "April 2021",
                 category: [
                     {
+                        tag: 'Hardware',
+                        color: '#66023C'
+                    },
+                    {
                         tag: 'IoT',
-                        color: '#018f69'
+                        color: '#00ADCC'
                     }
                 ],
+                image: 'https://pluspng.com/img-png/pill-png-hd-pills-transparent-png-1600.png'
             },
             {
-                text: "Full stack dev course",
+                title: "Full stack dev course",
+                subtitle: "Front End and Back End, including React and Redux",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "May 2021",
                 enddate: "Ongoing",
                 category: [
                     {
                         tag: 'Web Development',
-                        color: '#018f69'
+                        color: '#FB4D3D'
                     }
                 ],
+                image: 'https://www.credibll.com/build/images/campaign/full-stack-icons/junior-icon.png'
             },
             {
-                text: "Boat Refurbrishment",
+                title: "Boat Refurbrishment",
+                subtitle: "New Hardware Implementation and Restoration",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "July 2021",
                 enddate: "May 2022",
                 category: [
@@ -51,32 +66,51 @@ export const projectsSlice = createSlice({
                         color: '#66023C'
                     },
                     {
-                        tag: 'Embedded System',
-                        color: '#018f69'
+                        tag: 'IoT',
+                        color: '#00ADCC'
                     }
                 ],
+                image: 'https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png'
             },
             {
-                text: "Automated Hydroponics System",
+                title: "Automated Hydroponics System",
+                subtitle: "Sensors, Pumps, and Free Food",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "July 2021",
                 enddate: "August 2021",
                 category: [
                     {
-                        tag: 'medium',
-                        color: '#018f69'
+                        tag: 'Hardware',
+                        color: '#66023C'
+                    },
+                    {
+                        tag: 'Embedded',
+                        color: '#042A2B'
                     }
                 ],
+                image: 'https://clipground.com/images/hydroponic-png-9.png'
             },
             {
-                text: "Mimicing Robotic Arm",
+                title: "Mimicing Robotic Arm",
+                subtitle: "Computer Vision and Tracking",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
                 date: "August 2021",
                 enddate: "Ongoing",
                 category: [
                     {
-                        tag: 'medium',
-                        color: '#018f69'
+                        tag: 'Hardware',
+                        color: '#66023C'
+                    },
+                    {
+                        tag: 'Embedded',
+                        color: '#042A2B'
+                    },
+                    {
+                        tag: 'Programming',
+                        color: '#149e5e'
                     }
                 ],
+                image: 'https://i.pinimg.com/originals/92/86/b3/9286b3892a1f1c21e004c9d3156b780e.png'
             },
         ]
     },

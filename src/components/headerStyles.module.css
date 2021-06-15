@@ -43,8 +43,8 @@
     min-height: 90%;
     max-height: 90%;
     display: flex;
-    overflow-y: scroll;
     overflow-x: hidden;
+    overflow-y: auto;
     /* padding: 23px; */
     /* box-sizing: content-box; */
     flex-flow: column;

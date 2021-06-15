@@ -1,48 +1,54 @@
+/*
+PaddleJs is made up of two parts:
+1. The stylized svgs that lead into the content and act like fancy tabs
+2. The body components that contain the relevant information
+
+The body components are stacked whereas the svgs are designed to be in a grid format but look statcked 
+*/
+
 import React, { useRef, useEffect } from "react";
 import styles from "./About.module.css";
 import { useDispatch } from "react-redux";
 import { updateIndex } from "./aboutSlice";
-import { TestData } from "./AboutTestOption";
 
-export function Paddle({ elm, zIndex, index, numberOfPaddles }) {
+export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
   const divRef = useRef(null);
   const borderRef = useRef(null);
   const dispatch = useDispatch();
 
-  const activeDivStyle = {
-    backgroundColor: elm.color,
-    zIndex: zIndex,
-    left: index * 2.5 + "%",
-    cursor: zIndex === 2 ? "default" : "pointer",
-    top: 50 +  zIndex + 'vh',
-  };
-
   const titleGridLocation = {
-    gridColumn: index + 1 + "/span 1",
-    width: '90%',
-    border: '2px dashed yellow',
-    margin: '0 5px',
-    overflow:'hidden',
-    fontSize: '3rem',
+    width: "100%",
+    textAlign:
+      index === 0 ? "left" : index === numberOfPaddles - 1 ? "right" : "center",
+    fontSize: "3rem",
+    margin: "0 0",
   };
 
   useEffect(() => {
-
-    console.log('here' + index)
+    const width = 100 / numberOfPaddles;
+    const delta =
+      index === 0
+        ? 0
+        : index === numberOfPaddles - 1
+        ? (width * 3) / 2 - width
+        : ((width * 3) / 2 - width) / 2;
 
     let borderStyle = {
       zIndex: zIndex,
       clipPath: "url(#clipPath" + index + ")",
-      height: 38 +  zIndex + 'vh',
+      height: 30 + "vh",
+      width: (width * 3) / 2 + "%",
+      left: width * index - delta + "%",
     };
-    console.log(borderStyle.height)
-  
+
     let style = {
-      zIndex: zIndex,
       background: elm.color,
       clipPath: "url(#clipPath" + index + ")",
       gridTemplateColumns: `repeat(${numberOfPaddles}, minmax(0, 1fr))`,
-      // borderTop: `1px solid ${elm.color}`,
+      left: "5%",
+      width: "100%",
+      height: "100%",
+      margin: "0 0",
     };
 
     Object.entries(style).forEach(([key, value]) => {
@@ -67,31 +73,21 @@ export function Paddle({ elm, zIndex, index, numberOfPaddles }) {
       {/* https://yoksel.github.io/relative-clip-path/ */}
       {/* https://codepen.io/anthonydugois/full/mewdyZ */}
       {/* Paddle Titles */}
-
       <svg className={styles.paddleSvg}>
         <clipPath id={"clipPath" + index} clipPathUnits="objectBoundingBox">
           <path d={elm.path}></path>
         </clipPath>
       </svg>
 
+      {/* <div style={{ border: "2px dotted turquoise" }}> */}
       <button className={styles.svgBtn} ref={borderRef} onClick={handleClick}>
         <div className={styles.svgDiv} ref={divRef}>
-          <span style={titleGridLocation} className={styles.labelTexts}>
+          <p style={titleGridLocation} className={styles.labelTexts}>
             {elm.title}
-          </span>
+          </p>
         </div>
       </button>
-
-      {
-        <div
-          onClick={handleClick}
-          className={styles.content}
-          style={activeDivStyle}
-        >
-          <TestData />
-          {index === 2 && <TestData />}
-        </div>
-      }
+      {/* </div> */}
     </div>
   );
 }

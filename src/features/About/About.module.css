@@ -1,4 +1,5 @@
 .divisionsContainer {
+  background-color: var(--dark);
 }
 
 .labelTexts {
@@ -35,15 +36,40 @@
   margin: 40px 80px;
 }
 .father {
-  /* align-items: center; */
+  background-color: var(--dark);
   position: relative;
-  /* background-color: rgb(177, 13, 13); */
   width: 100%;
-  /* border: 2px solid rgb(255, 3, 221); */
   overflow: visible;
+  transform: perspective(0);
+  transform-style: preserve-3d;
 }
 .LeadBlock {
   position: absolute;
   height: 90vh;
-
 }
+.mother {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s linear;
+}
+.mover {
+  /* top:0; */
+  /* width: 100px; */
+  /* position: absolute; */
+  /* left: 50%; */
+  /* margin-left: -50px; */
+  /* bottom: 100px; */
+  /* z-index: 0;
+  animation: move 0.4s ; */
+  transform: translate3d(0, 10px, 100px);
+}
+/* 
+@keyframes move {
+  from {
+    z-index: 0;
+    transform: scale(1);
+  }
+  to {
+    z-index: 4;
+    transform: scale(1.25);
+  }
+} */

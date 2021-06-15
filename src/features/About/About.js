@@ -21,7 +21,7 @@ export function About(props) {
   //Get which paddle is to be put on top
   const selected = useSelector(selectIndexNumber);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //Used to set the height of the parent container of the paddles
   const fatherRef = useRef(null);
@@ -30,12 +30,11 @@ export function About(props) {
   //children that are absolute toeghter. Note, if anyother *unique* absolute children are added then they must be added.
   useEffect(() => {
     //get the child heights
-    const leadBlockHeight =
-      Number(
-        getComputedStyle(
-          document.querySelector(`.${styles.LeadBlock}`)
-        ).height.slice(0, -2)
-      ) ;
+    const leadBlockHeight = Number(
+      getComputedStyle(
+        document.querySelector(`.${styles.LeadBlock}`)
+      ).height.slice(0, -2)
+    );
 
     let svgHeight = 0;
 
@@ -43,15 +42,15 @@ export function About(props) {
       const height = Number(getComputedStyle(elm).height.slice(0, -2)) - 1;
       if (height > svgHeight) svgHeight = height;
 
-      elm.style.top = leadBlockHeight+"px";
+      elm.style.top = leadBlockHeight + "px";
     });
-    
+
     let divHeight = 0;
     document.querySelectorAll(`.${styles.content}`).forEach((elm) => {
       const height = Number(getComputedStyle(elm).height.slice(0, -2));
       if (height > divHeight) divHeight = height;
 
-      elm.style.top = svgHeight + leadBlockHeight +"px";
+      elm.style.top = svgHeight + leadBlockHeight + "px";
     });
 
     //Assign the calculated heights to the parent element
@@ -65,18 +64,12 @@ export function About(props) {
     if (index !== selected) {
       dispatch(updateIndex({ index: index }));
     }
-  }
+  };
 
   return (
     <div className={styles.divisionsConatiner}>
       {/* General About page, paddle independant */}
-      <h1>About Me</h1>
-      <p>
-        Sunt aliqua eiusmod esse cupidatat nulla pariatur consequat quis.
-        Nostrud do anim eiusmod do fugiat duis magna eiusmod. Id aliqua tempor
-        occaecat enim mollit deserunt aliqua.
-      </p>
-
+      
       {/* ~Paddle start~ */}
 
       {/* Paddle Parent, used to position paddles in the view */}
@@ -93,26 +86,40 @@ export function About(props) {
           else if (index > selected)
             zIndexValue = divisions.length - index + selected;
 
+          zIndexValue = 0;
           const paths = [
             "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
             "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
             "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
           ];
+
+          const colors = [
+            '#006a4e',
+            '#2e856e',
+            '#5ca08e',
+            '#8abaae',
+            '#b8d5cd'
+          ]
           const selectionNum =
             index === 0 ? 0 : index === divisions.length - 1 ? 2 : 1;
           const element = {
             ...elm,
             // color: colors[index],
             path: paths[selectionNum],
+            color: colors[selectionNum],
           };
 
           return (
-            <div onMouseEnter={(e) => handleEnter(e, index)}>
+            <div
+              onMouseEnter={(e) => handleEnter(e, index)}
+              className={`${index === selected && styles.mover} ${styles.mother}`}
+            >
               <LeadBlock
                 index={index}
                 title={element.title}
                 numberOfPaddles={divisions.length}
                 color={element.color}
+                isSelected={index === selected}
               />
               <PaddleTop
                 zIndex={zIndexValue}

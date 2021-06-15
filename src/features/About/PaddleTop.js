@@ -11,7 +11,7 @@ import styles from "./About.module.css";
 import { useDispatch } from "react-redux";
 import { updateIndex } from "./aboutSlice";
 
-export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
+export function PaddleTop({ elm, index, numberOfPaddles }) {
   const divRef = useRef(null);
   const borderRef = useRef(null);
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
         : ((width * 3) / 2 - width) / 2;
 
     let borderStyle = {
-      zIndex: zIndex,
       clipPath: "url(#clipPath" + index + ")",
       height: 30 + "vh",
       width: (width * 3) / 2 + "%",
@@ -59,14 +58,8 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zIndex]);
+  }, []);
 
-  const handleClick = (e) => {
-    //not do anything if currently the top one
-    if (zIndex !== numberOfPaddles) {
-      dispatch(updateIndex({ index: index }));
-    }
-  };
 
   return (
     <div>
@@ -80,7 +73,7 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
       </svg>
 
       {/* <div style={{ border: "2px dotted turquoise" }}> */}
-      <button className={styles.svgBtn} ref={borderRef} onClick={handleClick}>
+      <button className={styles.svgBtn} ref={borderRef} >
         <div className={styles.svgDiv} ref={divRef}>
           <p style={titleGridLocation} className={styles.labelTexts}>
             {elm.title}

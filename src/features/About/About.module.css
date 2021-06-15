@@ -49,19 +49,9 @@
 }
 .mother {
   transform: translate3d(0, 0, 0);
-  transition: transform 0.4s linear;
+  transition: transform 0.2s linear;
 }
-.mover {
-  /* top:0; */
-  /* width: 100px; */
-  /* position: absolute; */
-  /* left: 50%; */
-  /* margin-left: -50px; */
-  /* bottom: 100px; */
-  /* z-index: 0;
-  animation: move 0.4s ; */
-  transform: translate3d(0, 10px, 100px);
-}
+
 /* 
 @keyframes move {
   from {

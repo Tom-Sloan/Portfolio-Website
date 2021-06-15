@@ -5,7 +5,7 @@ Goal of component: About-> this is the page itself. This is used for general abo
 */
 
 //Libraries
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./About.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { selectDivisions, selectIndexNumber } from "./aboutSlice";
@@ -25,6 +25,23 @@ export function About(props) {
 
   //Used to set the height of the parent container of the paddles
   const fatherRef = useRef(null);
+
+  //Used to maintain a consistent color for each paddle
+  const [colors, setColors] = useState([
+    "#006a4e",
+    "#2e856e",
+    "#5ca08e",
+    "#8abaae",
+    "#b8d5cd",
+  ]);
+
+  const [lastChecked, setLastChecked] = useState([]);
+
+  const paths = [
+    "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
+    "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
+    "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
+  ];
 
   //Used to set the element height of the paddle parent. This done by adding the heights of the
   //children that are absolute toeghter. Note, if anyother *unique* absolute children are added then they must be added.
@@ -56,63 +73,77 @@ export function About(props) {
     //Assign the calculated heights to the parent element
     fatherRef.current.style.height =
       leadBlockHeight + svgHeight + divHeight + "px";
-  }, [selected]);
-  // const colors = generateRandomColors(divisions.length);
-  // console.log(colors);
 
+
+    let temp = lastChecked.map((elm, index) =>{
+      console.log(elm)
+       if (selected === index) {
+        return divisions.length;
+      } else {
+        return elm <= 0? 0: elm - 1;
+      }
+    })
+     console.log(temp)
+     setLastChecked([...temp]);
+  }, [selected]);
+
+  useEffect(() => {
+    const temp = [];
+    for (const element in divisions) temp.push(0);
+
+    setLastChecked([...temp]);
+  }, []);
   const handleEnter = (e, index) => {
     if (index !== selected) {
       dispatch(updateIndex({ index: index }));
     }
   };
+  if (colors.length < divisions.length) {
+    setColors((prev) => [
+      ...prev,
+      ...generateRandomColors(divisions.length - prev.length),
+    ]);
+  }
 
   return (
     <div className={styles.divisionsConatiner}>
       {/* General About page, paddle independant */}
-      
-      {/* ~Paddle start~ */}
 
+      {/* ~Paddle start~ */}
       {/* Paddle Parent, used to position paddles in the view */}
       <div className={styles.father} ref={fatherRef}>
         {/* Generate Paddles */}
         {divisions.map((elm, index) => {
-          /* 
-          figure out the position of the paddle. It asumes the assumption that the goal 
-          is for paddles before the selected one to be increading in z index and the ones agter to be decreasing
-          */
-          let zIndexValue = 0;
-          if (index < selected) zIndexValue = index;
-          else if (index === selected) zIndexValue = divisions.length;
-          else if (index > selected)
-            zIndexValue = divisions.length - index + selected;
-
-          zIndexValue = 0;
-          const paths = [
-            "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
-            "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
-            "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
-          ];
-
-          const colors = [
-            '#006a4e',
-            '#2e856e',
-            '#5ca08e',
-            '#8abaae',
-            '#b8d5cd'
-          ]
-          const selectionNum =
+          const positionType =
             index === 0 ? 0 : index === divisions.length - 1 ? 2 : 1;
+
           const element = {
             ...elm,
             // color: colors[index],
-            path: paths[selectionNum],
-            color: colors[selectionNum],
+            path: paths[positionType],
+            color: colors[index] || generateRandomColors(1)[0],
+          };
+
+          
+          // console.log("her");
+          // console.log(lastChecked);
+          
+          const position = lastChecked[index] * 10 || 0;
+          console.log(position);
+          console.log(divisions.length * 10)
+          
+          const style = {
+            transform:
+              index === selected
+                ? `translate3d(0, ${position / 5 + "px"}, ${position * 10 + "px"})`
+                : `translate3d(0, 0, ${position + "px"})`,
           };
 
           return (
             <div
               onMouseEnter={(e) => handleEnter(e, index)}
-              className={`${index === selected && styles.mover} ${styles.mother}`}
+              style={style}
+              className={`${index === selected} ${styles.mother}`}
             >
               <LeadBlock
                 index={index}
@@ -122,13 +153,11 @@ export function About(props) {
                 isSelected={index === selected}
               />
               <PaddleTop
-                zIndex={zIndexValue}
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}
               />
               <PaddleBody
-                zIndex={zIndexValue}
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}

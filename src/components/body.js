@@ -7,7 +7,7 @@ import {
     Link
 } from "react-router-dom";
 import { Home } from '../features/home/Home';
-import { Projects } from '../features/projects/Projects';
+import { Projects, handleScroll } from '../features/projects/Projects';
 import { Footer } from './footerBar'
 
 export function Body() {
@@ -15,22 +15,38 @@ export function Body() {
         <div className={styles.bodyArea} >
             <Switch>
                 <Route exact path="/">
-                    <Home />
+                    <div className={styles.parent} >
+                        <Home />
+                        <Footer />
+                    </div>
                 </Route>
                 <Route path="/about">
-                    <AboutRoute />
+                    <div className={styles.parent} >
+                        <AboutRoute />
+                        <Footer />
+                    </div>
                 </Route>
                 <Route path="/projects">
-                    <Projects />
+                    <div className={styles.parallaxParent} >
+                        <div className={styles.parallax} ></div>
+                        <Projects />
+                        <Footer />
+                    </div>
                 </Route>
                 <Route path="/resume">
-                    <Resume />
+                    <div className={styles.parent} >
+                        <Resume />
+                        <Footer />
+                    </div>
                 </Route>
                 <Route path="/contact">
-                    <Contact />
+                    <div className={styles.parent} >
+                        <Home />
+                        <Footer />
+                    </div>
                 </Route>
             </Switch>
-            <Footer />
+
         </div>
     )
 }

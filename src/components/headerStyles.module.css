@@ -48,6 +48,7 @@
     /* padding: 23px; */
     /* box-sizing: content-box; */
     flex-flow: column;
+    perspective: 1px;
 }
 
 .footer {

@@ -11,6 +11,8 @@ export function Projects() {
     // console.log(projects);
 
     useEffect(() => {
+        handleScroll();
+
         document.querySelector(`.${styles.parallax}`).style.height = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
         document.querySelector(`.${styles.parallax}`).style.width = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
         // document.querySelector(`.${styles.project} img`).style.height = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
@@ -27,6 +29,11 @@ export function Projects() {
 
         return () => window.removeEventListener("resize", updateWindowDimensions);
     }, [])
+
+    useEffect(() => {
+        const childHeight = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
+        
+    })
 
     function isScrolledIntoView(elem) {
         var docViewTop = document.querySelector(`.${styles.page}`).scrollTop;

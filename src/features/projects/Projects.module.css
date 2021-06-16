@@ -10,7 +10,7 @@ a:link, a:visited, a:hover, a:active {
     perspective: 1px;
     min-height: 100vh;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: visible;
 }
 
 .projectContainer {
@@ -47,6 +47,11 @@ a:link, a:visited, a:hover, a:active {
 
 .projectContainer h1 {
     color: #2aa6cf;
+    padding: 5% 0;
+}
+
+.projectContainer p {
+    padding-bottom: 5%;
 }
 /* 
 .projectContainer p {

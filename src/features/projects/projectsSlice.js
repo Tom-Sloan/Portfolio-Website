@@ -20,7 +20,8 @@ export const projectsSlice = createSlice({
                         color: '#149e5e'
                     }
                 ],
-                image: 'https://www.einfochips.com/wp-content/uploads/2018/06/fpga-offerings.png'
+                image: 'https://www.einfochips.com/wp-content/uploads/2018/06/fpga-offerings.png',
+                link: 'https://en.wikipedia.org/wiki/Field-programmable_gate_array',
             },
             {
                 title: "Smart Pillbox",
@@ -38,7 +39,8 @@ export const projectsSlice = createSlice({
                         color: '#00ADCC'
                     }
                 ],
-                image: 'https://pluspng.com/img-png/pill-png-hd-pills-transparent-png-1600.png'
+                image: 'https://pluspng.com/img-png/pill-png-hd-pills-transparent-png-1600.png',
+                link: 'https://en.wikipedia.org/wiki/Smart_device',
             },
             {
                 title: "Full stack dev course",
@@ -52,7 +54,8 @@ export const projectsSlice = createSlice({
                         color: '#FB4D3D'
                     }
                 ],
-                image: 'https://www.credibll.com/build/images/campaign/full-stack-icons/junior-icon.png'
+                image: 'https://www.credibll.com/build/images/campaign/full-stack-icons/junior-icon.png',
+                link: 'https://www.codecademy.com/learn/paths/front-end-engineer-career-path',
             },
             {
                 title: "Boat Refurbrishment",
@@ -70,7 +73,7 @@ export const projectsSlice = createSlice({
                         color: '#00ADCC'
                     }
                 ],
-                image: 'https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png'
+                image: 'https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png',
             },
             {
                 title: "Automated Hydroponics System",
@@ -88,7 +91,8 @@ export const projectsSlice = createSlice({
                         color: '#042A2B'
                     }
                 ],
-                image: 'https://clipground.com/images/hydroponic-png-9.png'
+                image: 'https://clipground.com/images/hydroponic-png-9.png',
+                link: 'https://en.wikipedia.org/wiki/Hydroponics',
             },
             {
                 title: "Mimicing Robotic Arm",

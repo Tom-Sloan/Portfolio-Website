@@ -1,10 +1,64 @@
 /*
 PaddleJs is made up of two parts:
 1. The stylized svgs that lead into the content and act like fancy tabs
-2. The body components that contain the relevant information
 
-The body components are stacked whereas the svgs are designed to be in a grid format but look statcked 
+####REQUIRED CSS########
+.paddleSvg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+}
+
+.svgBtn {
+  background: var(--dark);
+  position: absolute;
+  top: 0;
+  padding: 0;
+  border-width: 0;
+}
+.svgDiv {
+  width: 100%;
+  height: 100%;
+  margin: 0 0;
+}
+
+
+#######DEMO#########
+const elms = [
+  {
+    title:'title1'
+  },
+  {
+    title:'title2'
+  },
+]
+
+const paths = [
+    "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
+    "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
+    "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
+  ];
+elms.map((elm, index) =>{
+  const positionType = index === 0 ? 0 : index === divisions.length - 1 ? 2 : 1;
+
+  const element = {
+      title: ...elm,
+      path: paths[positionType],
+      color: colors[index] || generateRandomColors(1)[0],
+    };
+
+  return (<PaddleTop
+    elm={element}
+    index={index}
+    numberOfPaddles={divisions.length}
+  /> )
+})
+
 */
+
+
 
 import React, { useRef, useEffect } from "react";
 import styles from "./About.module.css";

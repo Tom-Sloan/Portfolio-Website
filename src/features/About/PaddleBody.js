@@ -17,18 +17,10 @@ export function PaddleBody({
   position,
   transform,
 }) {
-  const offset = 1.5;
-
   const activeDivStyle = {
     backgroundColor: elm.color,
   };
 
-  const visibility = {
-    opacity: position !== numberOfPaddles ? "0" : "1",
-    transition: "opacity 1.25s",
-  };
-  const positionType = index === 0 ? 0 : index === numberOfPaddles - 1 ? 2 : 1;
-  const textTypes = ["left", "center", "right"];
   const titleLocation = {
     width: !(position % 2) ? "100%" : "0",
   };

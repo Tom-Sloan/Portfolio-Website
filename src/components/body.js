@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./headerStyles.module.css";
-import { AboutRoute } from "../features/About/AboutRoute";
-import { Switch, Route, Link } from "react-router-dom";
+import { AboutController } from "../features/About/AboutController";
+import { Switch, Route } from "react-router-dom";
 import { Home } from "../features/home/Home";
-import { Projects, handleScroll } from "../features/projects/Projects";
+import { Projects } from "../features/projects/Projects";
 import { Footer } from "./footerBar";
 import { Resume } from "../features/resume/Resume";
 
@@ -18,7 +18,7 @@ export function Body() {
           </div>
         </Route>
         <Route path="/about">
-          <AboutRoute />
+          <AboutController />
         </Route>
         <Route path="/projects">
           <div className={styles.parallaxParent}>

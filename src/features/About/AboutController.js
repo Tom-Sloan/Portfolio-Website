@@ -3,7 +3,7 @@ import { About } from "./About";
 import { Footer } from "../../components/footerBar";
 import styles from "../../components/headerStyles.module.css";
 
-export function AboutRoute() {
+export function AboutController() {
   const [lastScroll, setLastScroll] = useState(0);
   const [toggleAnimation, setToggleAnimation] = useState(false)
   const parentRef = useRef(null);

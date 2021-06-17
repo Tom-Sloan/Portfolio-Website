@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./About.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { updateIndex } from "./aboutSlice";
 
@@ -40,6 +38,9 @@ export function LeadBlock({
       ? `calc(40px + ${diameter * index}vh + ${2 * index}vh)`
       : "40px",
     transform: transform,
+    transition: toggleAnimation
+      ? "transform 0.2s ease-out, top 0.6s ease-out 0.6s, left 0.6s ease-out"
+      : "transform 0.2s ease-out, top 0.6s ease-out, left 0.6s ease-out 0.6s",
   };
   // console.log(style.transform);
   //change the index if the paddle the user enter is not the one they were on

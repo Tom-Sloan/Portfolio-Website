@@ -11,6 +11,7 @@
   --shadowEnd:var(--shadowEnd2);
   --text:var(--text2);
   --filter:var(--filter2);
+  --textShadingEnd:var(--textShadingEnd2);
 }
 
 .dark-theme {
@@ -22,6 +23,7 @@
   --shadowEnd:var(--shadowEnd1);
   --text:var(--text1);
   --filter:var(--filter1);
+  --textShadingEnd:var(--textShadingEnd1);
 }
 
 :root {
@@ -31,6 +33,7 @@
   --lightest1: #eeeeee;
   --shadowStart1:rgba(96, 97, 99, 0.4);
   --shadowEnd1:rgba(96, 97, 99, 0.7);
+  --textShadingEnd1:rgba(128, 128, 128, 0.4);
 
   --darkest2: #f0f5f9;
   --dark2: #c9d6df;
@@ -44,4 +47,5 @@
 
   --filter1: invert(0%);
   --filter2: invert(100%);
+  --textShadingEnd2:rgba(128, 128, 128, 0.4);
 }

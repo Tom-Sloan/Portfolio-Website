@@ -11,13 +11,14 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 export function Projects() {
     const projects = useSelector(selectProjectsArray);
     // console.log(projects);
-    
+
     const updateWindowDimensions = () => {
         document.querySelector(`.${bodyStyle.parallax}`).style.height = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
         document.querySelector(`.${bodyStyle.parallax}`).style.width = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
         document.querySelector(`.${styles.page}`).style.height = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
         document.querySelector(`.${styles.page}`).style.width = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
 
+        // document.document.querySelector(`.${styles.page}`).style.height
         // console.log(getComputedStyle(document.querySelector(`.${styles.projectList}`)).height);
         // console.log(getComputedStyle(document.querySelector(`.${styles.page}`)).height)
         // console.log(document.querySelector(`.${styles.projectList}`).children);
@@ -30,7 +31,7 @@ export function Projects() {
                 if (isScrolledIntoView(elem)) {
                     if (document.getElementById(`circle ${elem.id}`)) {
                         document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#b2deff';
-                        return true;
+                        // return true;
                     }
                 } else {
                     if (document.getElementById(`circle ${elem.id}`)) {
@@ -40,10 +41,21 @@ export function Projects() {
             });
         }
 
-        document.querySelector(`.${bodyStyle.parallaxParent}`).addEventListener('scroll', updateTimeline);
-        updateTimeline();
+        console.log(document.querySelector(`.${bodyStyle.parallaxParent}`))
 
-        return () => document.querySelector(`.${bodyStyle.parallaxParent}`).removeEventListener('scroll', updateTimeline);
+
+        //THIS
+
+        document.querySelector(`.${bodyStyle.parallaxParent}`).addEventListener('scroll', updateTimeline);
+        
+        try {
+            updateTimeline();
+        } catch(e) {
+            console.log(e);
+        }
+        
+        // return () => document.querySelector(`.${bodyStyle.parallaxParent}`).removeEventListener('scroll', updateTimeline);
+
 
     }, [])
 
@@ -52,7 +64,7 @@ export function Projects() {
         var docViewBottom = docViewTop + document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight;
 
         var elemTop = elem.offsetTop;
-        var elemBottom = Math.min(elemTop + elem.offsetHeight, elemTop + ((window.screen.height)/2) );
+        var elemBottom = Math.min(elemTop + elem.offsetHeight, elemTop + ((window.screen.height) / 2));
 
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }

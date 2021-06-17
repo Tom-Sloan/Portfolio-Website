@@ -11,17 +11,18 @@ import styles from "./About.module.css";
 import { useDispatch } from "react-redux";
 import { updateIndex } from "./aboutSlice";
 
-export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
+export function PaddleTop({ elm, index, numberOfPaddles }) {
   const divRef = useRef(null);
   const borderRef = useRef(null);
-  const dispatch = useDispatch();
+
+  const selectionPosition =  index === 0 ? 0 : index === numberOfPaddles - 1 ? 2 : 1;
 
   const titleGridLocation = {
     width: "100%",
-    textAlign:
-      index === 0 ? "left" : index === numberOfPaddles - 1 ? "right" : "center",
+    textAlign:['left', 'center',"right"][selectionPosition],
     fontSize: "3rem",
-    margin: "0 0",
+    margin:['0 40px', '0', '0 40px 0 0'][selectionPosition],
+    float:['left', 'center', 'right'][selectionPosition]
   };
 
   useEffect(() => {
@@ -30,11 +31,10 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
       index === 0
         ? 0
         : index === numberOfPaddles - 1
-        ? (width * 3) / 2 - width
+        ? (width * 3) / 2 - width 
         : ((width * 3) / 2 - width) / 2;
 
     let borderStyle = {
-      zIndex: zIndex,
       clipPath: "url(#clipPath" + index + ")",
       height: 30 + "vh",
       width: (width * 3) / 2 + "%",
@@ -59,17 +59,11 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zIndex]);
+  }, []);
 
-  const handleClick = (e) => {
-    //not do anything if currently the top one
-    if (zIndex !== numberOfPaddles) {
-      dispatch(updateIndex({ index: index }));
-    }
-  };
 
   return (
-    <div>
+    <div style={{visibility:'hidden'}}>
       {/* https://yoksel.github.io/relative-clip-path/ */}
       {/* https://codepen.io/anthonydugois/full/mewdyZ */}
       {/* Paddle Titles */}
@@ -80,7 +74,7 @@ export function PaddleTop({ elm, zIndex, index, numberOfPaddles }) {
       </svg>
 
       {/* <div style={{ border: "2px dotted turquoise" }}> */}
-      <button className={styles.svgBtn} ref={borderRef} onClick={handleClick}>
+      <button className={styles.svgBtn} ref={borderRef} >
         <div className={styles.svgDiv} ref={divRef}>
           <p style={titleGridLocation} className={styles.labelTexts}>
             {elm.title}

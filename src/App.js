@@ -11,7 +11,7 @@ import { Body } from './components/body';
 function App() {
   return (
     <Router>
-      <div className='App'>
+      <div className='App  light-theme '>
         <HeaderBar />
         <Body />
       </div>

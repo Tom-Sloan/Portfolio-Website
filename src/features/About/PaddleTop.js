@@ -14,14 +14,15 @@ import { updateIndex } from "./aboutSlice";
 export function PaddleTop({ elm, index, numberOfPaddles }) {
   const divRef = useRef(null);
   const borderRef = useRef(null);
-  const dispatch = useDispatch();
+
+  const selectionPosition =  index === 0 ? 0 : index === numberOfPaddles - 1 ? 2 : 1;
 
   const titleGridLocation = {
     width: "100%",
-    textAlign:
-      index === 0 ? "left" : index === numberOfPaddles - 1 ? "right" : "center",
+    textAlign:['left', 'center',"right"][selectionPosition],
     fontSize: "3rem",
-    margin: "0 0",
+    margin:['0 40px', '0', '0 40px 0 0'][selectionPosition],
+    float:['left', 'center', 'right'][selectionPosition]
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export function PaddleTop({ elm, index, numberOfPaddles }) {
       index === 0
         ? 0
         : index === numberOfPaddles - 1
-        ? (width * 3) / 2 - width
+        ? (width * 3) / 2 - width 
         : ((width * 3) / 2 - width) / 2;
 
     let borderStyle = {
@@ -62,7 +63,7 @@ export function PaddleTop({ elm, index, numberOfPaddles }) {
 
 
   return (
-    <div>
+    <div style={{visibility:'hidden'}}>
       {/* https://yoksel.github.io/relative-clip-path/ */}
       {/* https://codepen.io/anthonydugois/full/mewdyZ */}
       {/* Paddle Titles */}

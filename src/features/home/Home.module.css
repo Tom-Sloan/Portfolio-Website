@@ -1,7 +1,7 @@
 .home {
     min-width: 100%;
     max-width: 100%;
-    background-color: cadetblue;
+    background-color: var(--light1);
 }
 
 .top {
@@ -27,6 +27,8 @@
 
 .name {
     align-content: center;
+    color: var(--dark);
+    text-shadow: 0 0 5px  var(--shadowStart), 4px 4px 5px var(--shadowEnd);
 }
 
 .top h1{
@@ -36,15 +38,15 @@
     margin-bottom: 0;
     margin-block-start: 0;
     margin-block-end: 0;
-    line-height: 80%;
+    line-height: 83%;
 }
 
 .divider {
     display: flex;
     min-height: 20%;
     max-height: 20%;
-    background-color: black;
-    color: white;
+    background-color: var(--dark);
+    color: var(--lightest);
     justify-content: center;
     align-items: center;
     padding: 5% 10%;

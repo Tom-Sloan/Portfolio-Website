@@ -35,13 +35,6 @@ export function Body() {
     )
 }
 
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
-        </div>
-    );
-}
 
 function Resume() {
     return (

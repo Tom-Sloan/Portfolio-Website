@@ -48,15 +48,21 @@
     /* padding: 23px; */
     /* box-sizing: content-box; */
     flex-flow: column;
+    scroll-behavior: smooth;
+    background-color: var(--dark);
 }
 
 .footer {
     min-width: 100%;
     max-width: 100%;
-    background-color: black;
+    background-color: var(--darkest);
     display: flex;
     justify-content: center;
     align-content: center;
     padding: 50px 0px;
-    border-top: 3px solid white;
+    border-top: 3px solid var(--dark);
+}
+
+.colorUIChangeIcon{
+    color: var(--light)
 }

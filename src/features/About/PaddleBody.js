@@ -40,7 +40,7 @@ export function PaddleBody({ elm, index, numberOfPaddles, position, transform })
         <div className={styles.subheading} style={subheadingStyle}>
           Adipisicing ea officia commodo deserunt officia excepteur cupidatat.
         </div>
-        <TestData/>
+        <TestData numberOfRepeat={index+1}/>
       </div>
     </div>
   );

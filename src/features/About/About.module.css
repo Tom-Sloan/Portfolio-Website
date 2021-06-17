@@ -38,7 +38,7 @@
 .content {
   position: absolute;
   /* padding: 40px; */
-  box-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--shadowEnd);
+  box-shadow: 0 0 5px var(--shadowStart), 8px 8px 5px var(--shadowEnd);
   border-radius: 4px;
   transition: transform 1s ease-out;
 }

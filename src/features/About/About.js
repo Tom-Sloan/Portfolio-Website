@@ -156,8 +156,8 @@ export function About(props) {
 
           const style = {
             transform: !(position % 2)
-              ? `translate3d(${0}, ${height}px, ${position + "px"})`
-              : `translate3d(0, ${height}px, ${position + "px"})`,
+              ? `translate3d(${-100}px, ${height}px, ${position + "px"})`
+              : `translate3d(100px, ${height}px, ${position + "px"})`,
           };
           
 

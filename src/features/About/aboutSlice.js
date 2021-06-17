@@ -19,6 +19,18 @@ export const aboutSlice = createSlice({
       {
         title: "Artist",
       },
+      {
+        title: "Artist",
+      },
+      {
+        title: "Music",
+      },
+      {
+        title: "Personal",
+      },
+      {
+        title: "Artist",
+      },
     ],
     indexNumber: 0,
   },

@@ -1,7 +1,7 @@
 import styles from "./Projects.module.css";
 import bodyStyle from "../../components/headerStyles.module.css";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { selectProjectsArray } from "./projectsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";

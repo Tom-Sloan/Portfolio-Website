@@ -5,6 +5,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import { Home } from "../features/home/Home";
 import { Projects, handleScroll } from "../features/projects/Projects";
 import { Footer } from "./footerBar";
+import { Resume } from "../features/resume/Resume";
 
 export function Body() {
   return (
@@ -34,19 +35,11 @@ export function Body() {
         </Route>
         <Route path="/contact">
           <div className={styles.parent}>
-            <Home />
+            <Contact />
             <Footer />
           </div>
         </Route>
       </Switch>
-    </div>
-  );
-}
-
-function Resume() {
-  return (
-    <div>
-      <h2>Resume</h2>
     </div>
   );
 }

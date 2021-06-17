@@ -5,14 +5,19 @@ export const aboutSlice = createSlice({
   initialState: {
     division: [
       {
-        title: "Personaaaal",
+        title: "Personal",
       },
       {
         title: "Artist",
       },
-
       {
         title: "Music",
+      },
+      {
+        title: "Personal",
+      },
+      {
+        title: "Artist",
       },
     ],
     indexNumber: 0,

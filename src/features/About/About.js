@@ -34,8 +34,9 @@ export function About(props) {
     "#8abaae",
     "#b8d5cd",
   ]);
-
+  const offset = 100;
   const [lastChecked, setLastChecked] = useState([]);
+  const [paddleHeights, setPaddleHeights] = useState([]);
 
   const paths = [
     "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
@@ -43,73 +44,100 @@ export function About(props) {
     "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
   ];
 
+  const pixelToNum = (i) => Number(i.slice(0, -2));
   //Used to set the element height of the paddle parent. This done by adding the heights of the
   //children that are absolute toeghter. Note, if anyother *unique* absolute children are added then they must be added.
   useEffect(() => {
     //get the child heights
-    const leadBlockHeight = Number(
-      getComputedStyle(
-        document.querySelector(`.${styles.LeadBlock}`)
-      ).height.slice(0, -2)
-    );
+    // const leadBlock = getComputedStyle(
+    //   document.querySelector(`.${styles.LeadBlock}`)
+    // );
+    // let leadBlockHeight =
+    //   pixelToNum(leadBlock.height) + pixelToNum(leadBlock.top) + offset;
 
-    let svgHeight = 0;
+    // let svgHeight = 0;
 
-    document.querySelectorAll(`.${styles.svgBtn}`).forEach((elm) => {
-      const height = Number(getComputedStyle(elm).height.slice(0, -2)) - 1;
-      if (height > svgHeight) svgHeight = height;
+    // document.querySelectorAll(`.${styles.svgBtn}`).forEach((elm) => {
+    //   const height = Number(getComputedStyle(elm).height.slice(0, -2)) - 1;
+    //   if (height > svgHeight) svgHeight = height;
 
-      elm.style.top = leadBlockHeight + "px";
-    });
+    //   elm.style.top = leadBlockHeight + "px";
+    // });
 
-    let divHeight = 0;
+    let cummulativeDivHeight = 0;
+    let divHeights = [];
+
     document.querySelectorAll(`.${styles.content}`).forEach((elm) => {
       const height = Number(getComputedStyle(elm).height.slice(0, -2));
-      if (height > divHeight) divHeight = height;
-
-      elm.style.top = svgHeight + leadBlockHeight + "px";
+      cummulativeDivHeight += height + offset;
+      divHeights.push(height);
     });
+    setPaddleHeights([...divHeights]);
 
     //Assign the calculated heights to the parent element
-    fatherRef.current.style.height =
-      leadBlockHeight + svgHeight + divHeight + "px";
+    fatherRef.current.style.height = 400 + cummulativeDivHeight + "px";
 
-
-    let temp = lastChecked.map((elm, index) =>{
-      console.log(elm)
-       if (selected === index) {
-        return divisions.length;
-      } else {
-        return elm <= 0? 0: elm - 1;
-      }
-    })
-     console.log(temp)
-     setLastChecked([...temp]);
+    let temp = lastChecked.map((position, index) => {
+        return position < lastChecked[selected]?position+1:position
+    });
+    temp[selected] = 0
+    console.log(temp)
+    setLastChecked([...temp]);
   }, [selected]);
 
   useEffect(() => {
     const temp = [];
-    for (const element in divisions) temp.push(0);
+    for (let i = 0; i < divisions.length; i++) {
+      temp.push(i);
+    }
 
     setLastChecked([...temp]);
   }, []);
-  const handleEnter = (e, index) => {
-    if (index !== selected) {
-      dispatch(updateIndex({ index: index }));
-    }
-  };
+
+  //Get a random color if the number of colors is more than the hardcoded amount amount
   if (colors.length < divisions.length) {
     setColors((prev) => [
       ...prev,
       ...generateRandomColors(divisions.length - prev.length),
     ]);
   }
+  const getCummHeight = (tileNum) => {
+    let height = 0;
+    const position = lastChecked[tileNum];
+    // console.log('--------------')
+    // console.log('tileNum:' + tileNum + '\tposition: ' + position)
+    
 
+    for (let i = 0; i < position; i++) {
+      const indexOfPosition = lastChecked.indexOf(i)
+      // console.log('TileNum' + i + '\tHigherTileNum: ' + indexOfPosition)
+      height += paddleHeights[indexOfPosition] + offset;
+    }
+    return height;
+  };
   return (
-    <div className={styles.divisionsConatiner}>
+    <div className={styles.divisionsContainer}>
       {/* General About page, paddle independant */}
 
       {/* ~Paddle start~ */}
+      <div className={styles.bubbleContainer}>
+        {divisions.map((elm, index) => {
+          const element = {
+            ...elm,
+            color: colors[index] || generateRandomColors(1)[0],
+          };
+
+          return (
+            <LeadBlock
+              index={index}
+              title={element.title}
+              numberOfPaddles={divisions.length}
+              color={element.color}
+              isSelected={index === selected}
+            />
+          );
+        })}
+      </div>
       {/* Paddle Parent, used to position paddles in the view */}
       <div className={styles.father} ref={fatherRef}>
         {/* Generate Paddles */}
@@ -119,48 +147,33 @@ export function About(props) {
 
           const element = {
             ...elm,
-            // color: colors[index],
             path: paths[positionType],
             color: colors[index] || generateRandomColors(1)[0],
           };
 
-          
-          // console.log("her");
-          // console.log(lastChecked);
-          
-          const position = lastChecked[index] * 10 || 0;
-          console.log(position);
-          console.log(divisions.length * 10)
-          
+          const position = lastChecked[index] || 0;
+          const height = getCummHeight(index) + offset || 0;
+
           const style = {
-            transform:
-              index === selected
-                ? `translate3d(0, ${position / 5 + "px"}, ${position * 10 + "px"})`
-                : `translate3d(0, 0, ${position + "px"})`,
+            transform: !(position % 2)
+              ? `translate3d(${0}, ${height}px, ${position + "px"})`
+              : `translate3d(0, ${height}px, ${position + "px"})`,
           };
+          
 
           return (
-            <div
-              onMouseEnter={(e) => handleEnter(e, index)}
-              style={style}
-              className={`${index === selected} ${styles.mother}`}
-            >
-              <LeadBlock
-                index={index}
-                title={element.title}
-                numberOfPaddles={divisions.length}
-                color={element.color}
-                isSelected={index === selected}
-              />
-              <PaddleTop
+            <div className={`${styles.mother}`}>
+              {/* <PaddleTop
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}
-              />
+              /> */}
               <PaddleBody
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}
+                position={position}
+                transform={style}
               />
             </div>
           );

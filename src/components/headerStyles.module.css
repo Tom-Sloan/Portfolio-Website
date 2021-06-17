@@ -34,7 +34,7 @@
 }
 
 .headerLink:hover {
-    color: snow;
+    color: var(--lightest);
 }
 
 .bodyArea {
@@ -69,6 +69,7 @@
 .parallax {
     background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg');
     /* background-repeat: repeat; */
+    filter: var(--filter);
     height: 100%;
     position: absolute;
     top: 0;
@@ -102,5 +103,17 @@
 }
 
 .colorUIChangeIcon{
-    color: var(--light)
+    color: var(--light);
+}
+
+/* .colorUIChangeIcon:hover {
+    color: var(--lightest);
+} */
+
+.iconContainer {
+    padding: 10px;
+}
+
+.iconContainer:hover>.colorUIChangeIcon {
+    color: var(--lightest);
 }

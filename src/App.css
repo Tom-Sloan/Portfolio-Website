@@ -9,6 +9,8 @@
   --lightest: var(--lightest2);
   --shadowStart:var(--shadowStart2);
   --shadowEnd:var(--shadowEnd2);
+  --text:var(--text2);
+  --filter:var(--filter2);
 }
 
 .dark-theme {
@@ -18,6 +20,8 @@
   --lightest: var(--lightest1);
   --shadowStart:var(--shadowStart1);
   --shadowEnd:var(--shadowEnd1);
+  --text:var(--text1);
+  --filter:var(--filter1);
 }
 
 :root {
@@ -34,4 +38,10 @@
   --lightest2: #1e2022;
   --shadowStart2:rgba(0,0,0,.05);
   --shadowEnd2: rgba(0,0,0,.1);
+
+  --text1: white;
+  --text2: black;
+
+  --filter1: invert(0%);
+  --filter2: invert(100%);
 }

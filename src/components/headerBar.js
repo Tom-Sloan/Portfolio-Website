@@ -6,12 +6,12 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons'
 
 export function HeaderBar() {
-    
+
   const handleClick = (e) => {
-      document.querySelector('.App').classList.toggle('dark-theme');
+    document.querySelector('.App').classList.toggle('dark-theme');
   };
-  
-  
+
+
   return (
     <div className={styles.headerBar}>
       <div className={styles.headerLinks}>
@@ -30,8 +30,10 @@ export function HeaderBar() {
         <Link className={styles.headerLink} to="/contact">
           Contact
         </Link>
-        <FontAwesomeIcon onClick={handleClick} className={styles.colorUIChangeIcon} icon={faCoffee} />
+        <div className={styles.iconContainer} onClick={handleClick} >
+          <FontAwesomeIcon className={styles.colorUIChangeIcon} icon={faCoffee} />
+        </div>
       </div>
-    </div>
+    </div >
   );
 }

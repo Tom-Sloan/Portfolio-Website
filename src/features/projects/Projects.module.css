@@ -14,7 +14,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .projectContainer {
-    color: white;
+    color: var(--text);
     text-align: center;
     box-sizing: border-box;
     /* background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg');
@@ -45,7 +45,8 @@ a:link, a:visited, a:hover, a:active {
 } */
 
 .projectContainer h1 {
-    color: #2aa6cf;
+    /* color: #2aa6cf; */
+    color: var(--light1);
     padding: 5% 0;
 }
 
@@ -77,7 +78,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .timelineContainer::after {
-    background-color: #2aa6cf;
+    /* background-color: #2aa6cf; */
+    background-color: var(--light1);
     content: '';
     position: absolute;
     left: calc(5% - 2px);
@@ -224,8 +226,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .timelineContent .timelineCircle {
-    background-color: #2fc1f2;
-    border: 3px solid #2aa6cf;
+    background-color: #00b3bd;
+    /* border: 3px solid #2aa6cf; */
+    border: 3px solid var(--light1);
     border-radius: 50%;
     position: absolute;
     top: calc(50% - 10px);
@@ -263,6 +266,8 @@ a:link, a:visited, a:hover, a:active {
 .projectList {
     margin-right: 220px;
     /* border: 3px solid greenyellow; */
+    /* font-size: large; */
+    font-weight: bold;
 }
 
 .project {
@@ -275,11 +280,13 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .project h2{
-    color: #2aa6cf;
+    /* color: #2aa6cf; */
+    color: var(--light1);
 }
 
 .project h3 {
-    font-weight: lighter;
+    /* font-weight: lighter; */
+    font-size: larger;
 }
 
 .project p {
@@ -295,6 +302,8 @@ a:link, a:visited, a:hover, a:active {
 
 .project time {
     color: #777;
+    font-size: initial;
+    font-weight: normal;
 }
 
 .tags {
@@ -303,11 +312,15 @@ a:link, a:visited, a:hover, a:active {
     margin-left: 5px;
     padding: 1px 5px;
     border-radius: 5px;
+    color: white;
+    font-size: initial;
+    font-weight: normal;
 }
 
 .linkData {
     margin-left: 10px;
-    color: #2aa6cf;
+    /* color: #2aa6cf; */
+    color: var(--light1);
 }
 
 @media only screen and (max-width: 1023px) {

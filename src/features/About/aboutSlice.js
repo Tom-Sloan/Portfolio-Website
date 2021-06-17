@@ -14,23 +14,12 @@ export const aboutSlice = createSlice({
         title: "Music",
       },
       {
-        title: "Personal",
-      },
-      {
-        title: "Artist",
-      },
-      {
         title: "Artist",
       },
       {
         title: "Music",
       },
-      {
-        title: "Personal",
-      },
-      {
-        title: "Artist",
-      },
+      
     ],
     indexNumber: 0,
   },

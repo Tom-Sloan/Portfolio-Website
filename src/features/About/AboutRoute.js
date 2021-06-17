@@ -1,29 +1,33 @@
-/*
-The overal structure of the about section has 4 main parts:
-1. About route: this used to differeniate btwn the subsections avaliable. 
-  This is what is used to make the svgs clickable and to change z-index.
-  this can moved to the parent componenet but it is here for clarity.
-
-2. About: this is the page itself. This is used for general about page
-  information that is common to all options. This is also used for styling puposes
-
-3. Paddle: this are the svgs and content containers. Each option had its own paddle
-  component. inside of here is the styling and setup to make the paddles have shaped 
-  svgs and to be clickable to the link in 1. 
-
-4. (*Option): these files are the setup elements that are inside each paddle and contain the 
-  relevant information to each option.
-*/
-
-import React, { useState, useEffect } from "react";
-import {About} from './About'
-import {Switch, Route } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { About } from "./About";
+import { Footer } from "../../components/footerBar";
+import styles from "../../components/headerStyles.module.css";
 
 export function AboutRoute() {
+  const [lastScroll, setLastScroll] = useState(0);
+  const [toggleAnimation, setToggleAnimation] = useState(false)
+  const parentRef = useRef(null);
+  const handleScroll = (e) => {
+    const currentScroll = parentRef.current.scrollTop;
+    if (currentScroll <= 10) {
+      // console.log('here')
+      // console.log(toggleAnimation)
+      if (toggleAnimation)
+        setToggleAnimation(false)
+    }
+    if (currentScroll > lastScroll) {
+      // down
+      if (!toggleAnimation)
+        setToggleAnimation(true)
+    }
+    setLastScroll(currentScroll);
+    // console.log(currentScroll)
+  };
+
   return (
-    <Switch>
-      <Route exact path="/about" component={About} />
-      <Route path="/about/:number" component={About} />
-    </Switch>
+    <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
+      <About parentPosition={lastScroll} toggleAnimation={toggleAnimation} />
+      <Footer />
+    </div>
   );
 }

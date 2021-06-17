@@ -10,37 +10,43 @@ import React from "react";
 import styles from "./About.module.css";
 import { TestData } from "./AboutTestOption";
 
-export function PaddleBody({ elm, index, numberOfPaddles, position, transform }) {
+export function PaddleBody({
+  elm,
+  index,
+  numberOfPaddles,
+  position,
+  transform,
+}) {
   const offset = 1.5;
 
   const activeDivStyle = {
-    width: "60%",
-    backgroundColor: elm.color,    
+    backgroundColor: elm.color,
   };
-  for(const [key, value] of Object.entries(transform))
-    activeDivStyle[key] = value
-  
+
   const visibility = {
     opacity: position !== numberOfPaddles ? "0" : "1",
     transition: "opacity 1.25s",
   };
-  const positionType =
-  index === 0 ? 0 : index === numberOfPaddles - 1 ? 2 : 1;
-  const textTypes = ['left', 'center', 'right'];
-  const subheadingStyle={
-    textAlign: textTypes[positionType]
-  }
+  const positionType = index === 0 ? 0 : index === numberOfPaddles - 1 ? 2 : 1;
+  const textTypes = ["left", "center", "right"];
+  const titleLocation = {
+    width: !(position % 2) ? "100%" : "0",
+  };
   return (
     <div
       id={"paddle-" + index}
       className={`${styles.content}`}
-      style={activeDivStyle}
+      style={transform}
     >
-      <div className={styles.contentContainer} >
-        <div className={styles.subheading} style={subheadingStyle}>
+      <h2 style={titleLocation} className={styles.labelTexts}>
+        {elm.title}
+      </h2>
+
+      <div className={styles.contentContainer} style={activeDivStyle}>
+        <div className={styles.subheading}>
           Adipisicing ea officia commodo deserunt officia excepteur cupidatat.
         </div>
-        <TestData numberOfRepeat={index+1}/>
+        <TestData numberOfRepeat={index + 1} />
       </div>
     </div>
   );

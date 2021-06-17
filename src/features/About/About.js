@@ -5,7 +5,7 @@ Goal of component: About-> this is the page itself. This is used for general abo
 */
 
 //Libraries
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./About.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { selectDivisions, selectIndexNumber } from "./aboutSlice";
@@ -26,112 +26,154 @@ export function About(props) {
   //Used to set the height of the parent container of the paddles
   const fatherRef = useRef(null);
 
+  //Used to maintain a consistent color for each paddle
+  const [colors, setColors] = useState([
+    "#006a4e",
+    "#2e856e",
+    "#5ca08e",
+    "#8abaae",
+    "#b8d5cd",
+  ]);
+  const offset = 100;
+  const [lastChecked, setLastChecked] = useState([]);
+  const [paddleHeights, setPaddleHeights] = useState([]);
+
+  const paths = [
+    "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
+    "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
+    "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
+  ];
+
+  const pixelToNum = (i) => Number(i.slice(0, -2));
   //Used to set the element height of the paddle parent. This done by adding the heights of the
   //children that are absolute toeghter. Note, if anyother *unique* absolute children are added then they must be added.
   useEffect(() => {
     //get the child heights
-    const leadBlockHeight = Number(
-      getComputedStyle(
-        document.querySelector(`.${styles.LeadBlock}`)
-      ).height.slice(0, -2)
-    );
+    // const leadBlock = getComputedStyle(
+    //   document.querySelector(`.${styles.LeadBlock}`)
+    // );
+    // let leadBlockHeight =
+    //   pixelToNum(leadBlock.height) + pixelToNum(leadBlock.top) + offset;
 
-    let svgHeight = 0;
+    // let svgHeight = 0;
 
-    document.querySelectorAll(`.${styles.svgBtn}`).forEach((elm) => {
-      const height = Number(getComputedStyle(elm).height.slice(0, -2)) - 1;
-      if (height > svgHeight) svgHeight = height;
+    // document.querySelectorAll(`.${styles.svgBtn}`).forEach((elm) => {
+    //   const height = Number(getComputedStyle(elm).height.slice(0, -2)) - 1;
+    //   if (height > svgHeight) svgHeight = height;
 
-      elm.style.top = leadBlockHeight + "px";
-    });
+    //   elm.style.top = leadBlockHeight + "px";
+    // });
 
-    let divHeight = 0;
+    let cummulativeDivHeight = 0;
+    let divHeights = [];
+
     document.querySelectorAll(`.${styles.content}`).forEach((elm) => {
       const height = Number(getComputedStyle(elm).height.slice(0, -2));
-      if (height > divHeight) divHeight = height;
-
-      elm.style.top = svgHeight + leadBlockHeight + "px";
+      cummulativeDivHeight += height + offset;
+      divHeights.push(height);
     });
+    setPaddleHeights([...divHeights]);
 
     //Assign the calculated heights to the parent element
-    fatherRef.current.style.height =
-      leadBlockHeight + svgHeight + divHeight + "px";
+    fatherRef.current.style.height = 400 + cummulativeDivHeight + "px";
+
+    let temp = lastChecked.map((position, index) => {
+        return position < lastChecked[selected]?position+1:position
+    });
+    temp[selected] = 0
+    console.log(temp)
+    setLastChecked([...temp]);
   }, [selected]);
-  // const colors = generateRandomColors(divisions.length);
-  // console.log(colors);
 
-  const handleEnter = (e, index) => {
-    if (index !== selected) {
-      dispatch(updateIndex({ index: index }));
+  useEffect(() => {
+    const temp = [];
+    for (let i = 0; i < divisions.length; i++) {
+      temp.push(i);
     }
+
+    setLastChecked([...temp]);
+  }, []);
+
+  //Get a random color if the number of colors is more than the hardcoded amount amount
+  if (colors.length < divisions.length) {
+    setColors((prev) => [
+      ...prev,
+      ...generateRandomColors(divisions.length - prev.length),
+    ]);
+  }
+  const getCummHeight = (tileNum) => {
+    let height = 0;
+    const position = lastChecked[tileNum];
+    // console.log('--------------')
+    // console.log('tileNum:' + tileNum + '\tposition: ' + position)
+    
+
+    for (let i = 0; i < position; i++) {
+      const indexOfPosition = lastChecked.indexOf(i)
+      // console.log('TileNum' + i + '\tHigherTileNum: ' + indexOfPosition)
+      height += paddleHeights[indexOfPosition] + offset;
+    }
+    return height;
   };
-
   return (
-    <div className={styles.divisionsConatiner}>
+    <div className={styles.divisionsContainer}>
       {/* General About page, paddle independant */}
-      
-      {/* ~Paddle start~ */}
 
+      {/* ~Paddle start~ */}
+      <div className={styles.bubbleContainer}>
+        {divisions.map((elm, index) => {
+          const element = {
+            ...elm,
+            color: colors[index] || generateRandomColors(1)[0],
+          };
+
+          return (
+            <LeadBlock
+              index={index}
+              title={element.title}
+              numberOfPaddles={divisions.length}
+              color={element.color}
+              isSelected={index === selected}
+            />
+          );
+        })}
+      </div>
       {/* Paddle Parent, used to position paddles in the view */}
       <div className={styles.father} ref={fatherRef}>
         {/* Generate Paddles */}
         {divisions.map((elm, index) => {
-          /* 
-          figure out the position of the paddle. It asumes the assumption that the goal 
-          is for paddles before the selected one to be increading in z index and the ones agter to be decreasing
-          */
-          let zIndexValue = 0;
-          if (index < selected) zIndexValue = index;
-          else if (index === selected) zIndexValue = divisions.length;
-          else if (index > selected)
-            zIndexValue = divisions.length - index + selected;
-
-          zIndexValue = 0;
-          const paths = [
-            "M0,1 L0,0 L0.667,0 Q0.667,1,1,1 L0,1",
-            "M0.167,1 L1,1 Q0.833,1,0.833,0 L0.167,0 Q0.167,1,0,1 L0.167,1",
-            "M0,1 L1,1 L1,0 L0.333,0 Q0.333,1,0,1",
-          ];
-
-          const colors = [
-            '#006a4e',
-            '#2e856e',
-            '#5ca08e',
-            '#8abaae',
-            '#b8d5cd'
-          ]
-          const selectionNum =
+          const positionType =
             index === 0 ? 0 : index === divisions.length - 1 ? 2 : 1;
+
           const element = {
             ...elm,
-            // color: colors[index],
-            path: paths[selectionNum],
-            color: colors[selectionNum],
+            path: paths[positionType],
+            color: colors[index] || generateRandomColors(1)[0],
           };
 
+          const position = lastChecked[index] || 0;
+          const height = getCummHeight(index) + offset || 0;
+
+          const style = {
+            transform: !(position % 2)
+              ? `translate3d(${-100}px, ${height}px, ${position + "px"})`
+              : `translate3d(100px, ${height}px, ${position + "px"})`,
+          };
+          
+
           return (
-            <div
-              onMouseEnter={(e) => handleEnter(e, index)}
-              className={`${index === selected && styles.mover} ${styles.mother}`}
-            >
-              <LeadBlock
-                index={index}
-                title={element.title}
-                numberOfPaddles={divisions.length}
-                color={element.color}
-                isSelected={index === selected}
-              />
-              <PaddleTop
-                zIndex={zIndexValue}
+            <div className={`${styles.mother}`}>
+              {/* <PaddleTop
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}
-              />
+              /> */}
               <PaddleBody
-                zIndex={zIndexValue}
                 elm={element}
                 index={index}
                 numberOfPaddles={divisions.length}
+                position={position}
+                transform={style}
               />
             </div>
           );

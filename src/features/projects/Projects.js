@@ -27,18 +27,22 @@ export function Projects() {
 
     useEffect(() => {
         const updateTimeline = () => {
-            Array.from(document.querySelector(`.${styles.projectList}`).children).forEach((elem) => {
-                if (isScrolledIntoView(elem)) {
-                    if (document.getElementById(`circle ${elem.id}`)) {
-                        document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#b2deff';
-                        // return true;
+            try {
+                Array.from(document.querySelector(`.${styles.projectList}`).children).forEach((elem) => {
+                    if (isScrolledIntoView(elem)) {
+                        if (document.getElementById(`circle ${elem.id}`)) {
+                            document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#b2deff';
+                            // return true;
+                        }
+                    } else {
+                        if (document.getElementById(`circle ${elem.id}`)) {
+                            document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#2fc1f2';
+                        }
                     }
-                } else {
-                    if (document.getElementById(`circle ${elem.id}`)) {
-                        document.getElementById(`circle ${elem.id}`).style.backgroundColor = '#2fc1f2';
-                    }
-                }
-            });
+                });
+            } catch(e) {
+                console.log(e)
+            }
         }
 
         console.log(document.querySelector(`.${bodyStyle.parallaxParent}`))
@@ -85,42 +89,39 @@ export function Projects() {
     }, [])
 
     useEffect(() => {
-        document.querySelector(`.${styles.parallax}`).style.height = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
-        document.querySelector(`.${styles.parallax}`).style.width = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
-        // document.querySelector(`.${styles.project} img`).style.height = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
-
-        const updateWindowDimensions = () => {
-            document.querySelector(`.${styles.parallax}`).style.height = getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
-            document.querySelector(`.${styles.parallax}`).style.width = getComputedStyle(document.querySelector(`.${bodyStyle.bodyArea}`)).width;
-        };
-
         window.addEventListener("resize", updateWindowDimensions);
-        updateWindowDimensions();
+
+        try {
+            updateWindowDimensions();
+        } catch (e) {
+            console.log(e);
+        }
+        
 
         // console.log(document.querySelector(`.${styles.projectList}`).children[3]);
 
         return () => window.removeEventListener("resize", updateWindowDimensions);
     }, [])
 
-    function isScrolledIntoView(elem) {
-        var docViewTop = document.querySelector(`.${bodyStyle.bodyArea}`).scrollTop;
-        var docViewBottom = docViewTop + getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
+    // function isScrolledIntoView(elem) {
+    //     var docViewTop = document.querySelector(`.${bodyStyle.bodyArea}`).scrollTop;
+    //     var docViewBottom = docViewTop + getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
 
-        var elemTop = getComputedStyle(elem).offset;
-        var elemBottom = elemTop + getComputedStyle(elem).height;
+    //     var elemTop = getComputedStyle(elem).offset;
+    //     var elemBottom = elemTop + getComputedStyle(elem).height;
 
-        console.log(elem);
-        console.log(docViewTop);
-        console.log(docViewBottom);
-        console.log(elemTop);
-        console.log(elemBottom);
+    //     console.log(elem);
+    //     console.log(docViewTop);
+    //     console.log(docViewBottom);
+    //     console.log(elemTop);
+    //     console.log(elemBottom);
 
-        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-    }
+    //     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    // }
 
-    const handleScroll = (e) => {
-        console.log(isScrolledIntoView(document.querySelector(`.${styles.projectList}`).children[3]));
-    }
+    // const handleScroll = (e) => {
+    //     console.log(isScrolledIntoView(document.querySelector(`.${styles.projectList}`).children[3]));
+    // }
 
     return ( //https://www.freecodecamp.org/news/how-to-create-a-timeline-component-with-react-1b216f23d3d4/
         <div className={styles.page} >

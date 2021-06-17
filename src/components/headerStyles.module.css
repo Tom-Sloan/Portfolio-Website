@@ -52,7 +52,7 @@
 }
 
 .parent {
-    perspective: 1px;
+    /* perspective: 1px; */
     /* min-height: 100vh; */
     overflow-x: hidden;
     overflow-y: visible;

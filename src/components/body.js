@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./headerStyles.module.css";
-import { AboutController } from "../features/About/AboutController";
+import { BubbleTiles } from "./BubbleTiles/BubbleTiles";
 import { Switch, Route } from "react-router-dom";
 import { Home } from "../features/home/Home";
 import { Projects } from "../features/projects/Projects";
 import { Footer } from "./footerBar";
 import { Resume } from "../features/resume/Resume";
+import {TestData} from '../features/About/AboutTestOption';
 
 export function Body() {
   return (
@@ -18,7 +19,7 @@ export function Body() {
           </div>
         </Route>
         <Route path="/about">
-          <AboutController />
+          <BubbleTiles titles={bubbleTiles.titles} components={bubbleTiles.components} colors={bubbleTiles.colors} offset={bubbleTiles.offset}/>
         </Route>
         <Route path="/projects">
           <div className={styles.parallaxParent}>
@@ -50,4 +51,35 @@ function Contact() {
       <h2>Contact</h2>
     </div>
   );
+}
+
+
+const bubbleTiles = {
+  titles: [
+    "Personal",
+    "Artist",
+    "Music",
+    "Personal",
+    "Artist",
+  ],
+
+  components:[
+    <TestData numberOfRepeat={3} />,
+    <TestData numberOfRepeat={4} />,
+    <TestData numberOfRepeat={3} />,
+    <TestData numberOfRepeat={2} />,
+    <TestData numberOfRepeat={5} />,
+
+  ],
+
+  colors: [
+    "#006a4e",
+    "#2e856e",
+    "#5ca08e",
+    "#8abaae",
+    "#b8d5cd",
+  ],
+
+  offset: 40,
+
 }

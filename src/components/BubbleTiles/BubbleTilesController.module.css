@@ -1,0 +1,73 @@
+/* Parent Container of  BubbleTile */
+.parent {
+  /* perspective: 1px; */
+  /* min-height: 100vh; */
+  overflow-x: hidden;
+  overflow-y: visible;
+  background-color: var(--dark);
+  scroll-behavior: smooth;
+}
+
+
+/* Parent contianer of the BubbleTileController page, used to give a unique class ID */
+.divisionsContainer {
+}
+
+/*-------- Bubble CSS --------*/
+/* Container for all bubbles */
+.bubbleContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+  margin-top: 1px;
+}
+
+/* Each unqiue bubble */
+.Bubbles {
+  position: absolute;
+  box-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--shadowEnd);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark);
+  scroll-behavior: smooth;
+}
+
+/* Bubble size increase on hover, only on vertical alignment, it is overwritten in horizontal alignment */
+.Bubbles:hover {
+  transform: scale(1.1);
+}
+
+/*-------- Tile CsSS --------*/
+/* Parent Container of all the tiles */
+.father {
+  position: relative;
+  width: 80%;
+  overflow: hidden;
+  transform: perspective(100px);
+  transform-style: preserve-3d;
+  left: 20%;
+}
+
+/* Container of complete tile (incl floating title) */
+.contentContainer {
+  position: absolute;
+  width: 80%;
+  transition: transform 1s ease-out;
+}
+
+/* Coloured Tile */
+.content {
+  padding: 40px;
+  box-shadow: 0 0 5px var(--shadowStart), 8px 8px 5px var(--shadowEnd);
+  border-radius: 8px;
+}
+
+/* Title above tiles*/
+.tileTitles {
+  text-align: right;
+  transition: width 0.4s ease-out;
+  text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
+}
+

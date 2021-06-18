@@ -61,9 +61,7 @@ elms.map((elm, index) =>{
 
 
 import React, { useRef, useEffect } from "react";
-import styles from "./About.module.css";
-import { useDispatch } from "react-redux";
-import { updateIndex } from "./aboutSlice";
+import styles from "./BubbleTilesController.module.css";
 
 export function PaddleTop({ elm, index, numberOfPaddles }) {
   const divRef = useRef(null);
@@ -130,7 +128,7 @@ export function PaddleTop({ elm, index, numberOfPaddles }) {
       {/* <div style={{ border: "2px dotted turquoise" }}> */}
       <button className={styles.svgBtn} ref={borderRef} >
         <div className={styles.svgDiv} ref={divRef}>
-          <p style={titleGridLocation} className={styles.labelTexts}>
+          <p style={titleGridLocation} className={styles.tileTitles}>
             {elm.title}
           </p>
         </div>

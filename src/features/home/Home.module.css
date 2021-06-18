@@ -28,7 +28,7 @@
 .name {
     align-content: center;
     color: var(--dark);
-    text-shadow: 0 0 5px  var(--shadowStart), 4px 4px 5px var(--shadowEnd);
+    text-shadow: 0 0 5px  var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
 }
 
 .top h1{

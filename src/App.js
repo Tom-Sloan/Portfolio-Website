@@ -7,11 +7,13 @@ import {
 } from "react-router-dom";
 import { HeaderBar } from './components/headerBar';
 import { Body } from './components/body';
+import { LandingPage } from './components/LandingPage'
 
 function App() {
   return (
     <Router>
       <div className='App  light-theme '>
+        <LandingPage />
         <HeaderBar />
         <Body />
       </div>

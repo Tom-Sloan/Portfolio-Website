@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./headerStyles.module.css";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee, faMugHot } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee, faMugHot, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 
 export function HeaderBar() {
   const [mugSelector, setMugSelector] = useState(0);
@@ -12,10 +12,15 @@ export function HeaderBar() {
     setMugSelector((prev) => (prev ? 0 : 1));
   };
 
-  console.log(mugSelector);
   return (
     <div className={styles.headerBar}>
       <div className={styles.headerLinks}>
+      <div className={styles.iconContainer} onClick={(e) => document.querySelector('.App').scrollTo(0, 0)}>
+          <FontAwesomeIcon
+            className={styles.colorUIChangeIcon}
+            icon={faAngleDoubleUp}
+          />
+        </div>
         <Link className={styles.headerLink} to="/">
           Home
         </Link>
@@ -33,7 +38,6 @@ export function HeaderBar() {
         </Link>
         <div className={styles.iconContainer} onClick={handleClick}>
           <FontAwesomeIcon
-            onClick={handleClick}
             className={styles.colorUIChangeIcon}
             icon={mugs[mugSelector]}
           />

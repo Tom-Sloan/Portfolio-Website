@@ -58,7 +58,6 @@
     overflow-x: hidden;
     overflow-y: visible;
     background-color: var(--dark);
-    scroll-behavior: smooth;
 }
 
 .parallaxParent {

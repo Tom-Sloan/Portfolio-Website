@@ -13,7 +13,7 @@ import { BubbleTilesController } from "./BubbleTilesController";
 import { Footer } from "../footerBar";
 import styles from "./BubbleTilesController.module.css";
 
-export function BubbleTiles({titles, components, colors, offset}) {
+export function BubbleTiles({visualData}) {
   
   //Used to detect when the user is scrolling to trigger the bubbles animation. Scrolling is used instead of observer
   //because we need to know the user position to trigger the bubble size increase on scrolling when their corresponding element is
@@ -51,7 +51,7 @@ export function BubbleTiles({titles, components, colors, offset}) {
   
   return (
     <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
-      <BubbleTilesController parentPosition={lastScroll} toggleAnimation={toggleAnimation} titles={titles} components={components} bubbleTileColors={colors} offset={offset}/>
+      <BubbleTilesController parentPosition={lastScroll} toggleAnimation={toggleAnimation} displayItems={visualData.displayData || {}} offset={visualData.offset || 100}/>
       <Footer />
     </div>
   );

@@ -3,7 +3,7 @@ Goal of component: BubbleTilesController-> this is the page itself. This is used
   information that is common to all options. This is also used for styling puposes.
   Gets tile information, iterates over tiles and generates
 
-  definitions:
+  Definitions:
   Paddle/Tile -> the hovering div that moves around
   Position    -> Each tile has a position = The number of Paddles(-1) subtract the number of other tiles that have been referenced
                   since the last time this tile has been selected. 0 is the tile at the top of the view, #tiles-1 is the one at the bottom
@@ -24,13 +24,11 @@ import { generateRandomColors } from "./helpFunctions";
 export function BubbleTilesController({
   parentPosition,
   toggleAnimation,
-  titles,
-  components,
-  bubbleTileColors,
+  displayItems,
   offset = 100,
 }) {
   //Get tile information
-  const numberOfBubbleTiles = components.length;
+  const numberOfBubbleTiles = displayItems.length;
 
   //Get which tile is to be put on top
   // let selected = useSelector(selectIndexNumber);
@@ -40,7 +38,7 @@ export function BubbleTilesController({
   const fatherRef = useRef(null);
 
   //Used to maintain a consistent color for each tile in the event of >5 tiles being created
-  const [colors, setColors] = useState(bubbleTileColors);
+  const [colors, setColors] = useState([]);
 
   //Contains the positions of the tiles after the last update
   const [lastChecked, setLastChecked] = useState([]);
@@ -71,6 +69,7 @@ export function BubbleTilesController({
   //3. To offset the tile parent elemnt to give the bubbles space
   //4. To increase the parent component of both the tiles and bubbles to be their size put together plus an offset at the bottom
   // 2 & 3 are done by adding the heights of the children that are absolute toeghter.
+  // 5. Get the colors for any tiles missing colors
   // Note, if any other *unique* absolute children are added then they must be added.
   useEffect(() => {
     //function that gets toggled on window resize
@@ -117,18 +116,21 @@ export function BubbleTilesController({
 
     setLastChecked([...temp]);
 
+    //Get colors for elements missing colors
+    const colorTemp = []
+    for(const elm in displayItems){
+      colorTemp.push(generateRandomColors(1)[0])
+    }
+
+     //Get a random color if the number of colors is more than the hardcoded amount amount
+    setColors(colorTemp);
+  
+
     //Removes the event listener so this function is not called on resize changes not on the BubbleTile page
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
 
-  //Get a random color if the number of colors is more than the hardcoded amount amount
-  if (colors.length < numberOfBubbleTiles) {
-    setColors((prev) => [
-      ...prev,
-      ...generateRandomColors(numberOfBubbleTiles - prev.length),
-    ]);
-  }
-
+ 
   //Calculates the height the tile show be placed at. This is because the tiel will be at variying locations based on the
   //position it is in and because different tiles will be different thicknesses
   const getCummHeight = (tileNum) => {
@@ -153,11 +155,14 @@ export function BubbleTilesController({
     <div className={styles.divisionsContainer}>
       {/* Start of bubble section */}
       <div className={styles.bubbleContainer}>
+        
         {/* Iterating over the provided components */}
-        {components.map((_, index) => {
+        {displayItems.map((elm, index) => {
+          
           // Onscreen is the variable that changes as the user scrolls down. If this variable is true, the bubble gets larger. It
           // is set to true when the component that we are curretnly iterating over is in on screen
           let OnScreen = false;
+          
           //Get the position of the component
           const position = lastChecked[index];
 
@@ -166,6 +171,7 @@ export function BubbleTilesController({
           // is at a location of the tile to the next tile the onscreen will be true. This works for the last positioned tile because getCummHeight returns the parent height for invalid indexes
           // toggleAnimation is the variable that controls whether the bubbles are in their vertical (true) or horizontal (false) display mode
           if (toggleAnimation) {
+            
             //get Index of the tile in the next position
             const indexOfPosition = lastChecked.indexOf(position + 1);
 
@@ -177,11 +183,11 @@ export function BubbleTilesController({
 
           //Create the object with required parts for Bubbles
           const component = {
-            title: titles[index], //Title to be displayed inside bubble
+            title: elm.title, //Title to be displayed inside bubble
             index: index, //Index of the component
             isSelected: index === selected, //if the component is selected (no impact if not in horizontal view)
             OnScreen: OnScreen, //if the component is on screen (no impact if in verical view)
-            color: colors[index] || generateRandomColors(1)[0], //color to make bubble
+            color: elm.color || colors[index], //color to make bubble
             position: position,
           };
 
@@ -201,16 +207,16 @@ export function BubbleTilesController({
       {/* Paddle Parent, used to position tiles in the view */}
       <div className={styles.father} ref={fatherRef}>
         {/* Generate Paddles */}
-        {components.map((elm, index) => {
+        {displayItems.map((elm, index) => {
           const position = lastChecked[index] || 0;
 
           // const height = getCummHeight(index) + offset || 0;
           const height = getCummHeight(index) || 0;
 
           const component = {
-            element: elm,
-            color: colors[index] || generateRandomColors(1)[0], //color to make bubble
-            title: titles[index], //Title to be displayed above tile
+            element: elm.component,
+            color: elm.color || colors[index], //color to make bubble
+            title: elm.title, //Title to be displayed above tile
             position: position, //current position of tile, this is used to control the text alignment of the title (width of the element is adjusted so alignment can be transitioned)
             index: index, //index of component
             height: height, // the distance the component should be from the top of the parent component

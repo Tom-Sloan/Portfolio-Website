@@ -60,7 +60,7 @@ const bubbleTilesInitial = {
     {
       title: "Personal",
       component: <TestData numberOfRepeat={3} />,
-      // color: "#006a4e",
+      color: "#006a4e",
     },
     {
       title: "Artist",

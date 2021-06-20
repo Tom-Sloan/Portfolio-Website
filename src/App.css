@@ -1,6 +1,7 @@
 .App {
   overflow: hidden;
   height: 100vh;
+  scroll-behavior: smooth;
 }
 .light-theme {
   --darkest: var(--darkest2);

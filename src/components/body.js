@@ -83,5 +83,5 @@ const bubbleTilesInitial = {
       color: "#b8d5cd",
     },
   ],
-  offset: 40,
+  
 };

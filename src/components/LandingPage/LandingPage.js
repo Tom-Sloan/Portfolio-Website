@@ -5,11 +5,12 @@ import styles from "./LandingPage.module.css";
 export function LandingPage() {
   const landingPageRef = useRef(null);
   const [world, setWorld] = useState();
-  const [startGame, setStartGame] = useState(false);
+  const [startGame, setStartGame] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     if (document.cookie.includes("landingPage")) {
-      console.log("here");
+
       // document
       //   .querySelector(".App")
       //   .scrollTo(0, landingPageRef.current.clientHeight);
@@ -21,32 +22,32 @@ export function LandingPage() {
 
     //Add world
     setWorld(World(landingPageRef.current));
-
-    document
-      .querySelector(".App")
-      .addEventListener("scroll", handleRestart);
+    setIsRunning(true)
+    document.querySelector(".App").addEventListener("scroll", handleRestart);
 
     return window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   const handleScroll = (e) => {
-    console.log("wheel");
+    
     document
       .querySelector(".App")
       .scrollTo(0, landingPageRef.current.clientHeight);
-    setTimeout(()=>world.stop(), 3000);
+    if(isRunning){
+      setTimeout(() => world.stop(), 3000);
+      setIsRunning(false)
+    }
   };
-  const handleRestart = ({target}) => {
-    if(!target.scrollTop){
+  const handleRestart = ({ target }) => {
+    if (!target.scrollTop) {
       setWorld(World(landingPageRef.current));
+      setIsRunning(true)
     }
   };
   const handleClick = () => {
-    if(!startGame){
-      setStartGame(true);
-      world.runGame()
-    }
-  }
+    world.runGame(startGame);
+    setStartGame(prev=>!prev);
+  };
   return (
     <div
       id="LandingPage"

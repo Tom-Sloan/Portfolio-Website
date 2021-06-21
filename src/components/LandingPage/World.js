@@ -5,11 +5,10 @@ export default function World(reference) {
   const bodies = [];
   const width = reference.clientWidth;
   const height = reference.clientHeight;
-  const redColor = '#F23557';
-  const yellowColor = '#F0D43A';
-  const blueColor = '#22B2DA';
-  const darkColor = '#3B4A6B';
-
+  const redColor = "#F23557";
+  const yellowColor = "#F0D43A";
+  const blueColor = "#22B2DA";
+  const darkColor = "#3B4A6B";
 
   //Create module aliases
   const Engine = Matter.Engine,
@@ -48,7 +47,7 @@ export default function World(reference) {
   //Create Bodies
   const circle1 = Bodies.circle(210, 100, 30, {
     restitution: 0.9,
-    frictionAir: 0.01,
+    frictionAir: 0.05,
     render: {
       fillStyle: blueColor,
     },
@@ -84,8 +83,8 @@ export default function World(reference) {
   const floatingDiamonds = Composites.stack(
     width / 8,
     height / 8,
-    5,
-    4,
+    7,
+    3,
     height / 6,
     width / 8,
     (x, y) => {
@@ -107,9 +106,7 @@ export default function World(reference) {
         pointA: { x: elm.position.x, y: elm.position.y },
         stiffness: 0.0001,
         length: 0,
-        render: {
-          visible: false,
-        },
+
       })
     );
   });
@@ -117,9 +114,7 @@ export default function World(reference) {
   //EVENTS
   //Add create new body event
   Matter.Events.on(mouseConstraint, "mousemove", function (event) {
-    
     try {
-      console.log(bodies);
       const circle1 = bodies[0];
       var targetAngle = Matter.Vector.angle(circle1.position, mouse.position);
       var force = 0.008;
@@ -132,19 +127,39 @@ export default function World(reference) {
       console.log(e);
     }
   });
+  const getPosition = () => {
+    const outsideValue = Math.floor(Math.random() * 2);
+    const sideValue = Math.floor(Math.random() * 2) ? 1 : -1
+    const widthValues = [
+      Math.floor(Math.random() * width),
+      sideValue? width + 100 : -100,
+    ][outsideValue ? 1 : 0];
+    const heightValues = [
+      sideValue? height + 100 : -100,
+      Math.floor(Math.random() * height),
+    ][outsideValue ? 1 : 0];
+    // console.log(outsideValue, sideValue, widthValues, heightValues)
+    return { x: widthValues, y: heightValues };
+  };
   let timeout;
   const runGame = (toggle) => {
-      if(toggle){
-        setTimeout(function createEnemies(){
-          World.add(engine.world, Bodies.circle(150, 50, 30, { restitution: 0.9 }));
-          timeout = setTimeout(createEnemies, 1000)
-      }}else{
-        clearTimeout(timeout)
-      }
-    }, 1000)
-
-  }
-
+    if (toggle) {
+      setTimeout(function createEnemies() {
+        const pos = getPosition();
+        const enemy = Bodies.circle(pos.x, pos.y, 30, {
+          restitution: 0.9,
+          frictionAir: 0,
+        });
+        World.add(engine.world, enemy);
+        const scaleForce = 0.0003;
+        console.log({ x:(circle1.position.x - enemy.position.x) * scaleForce, y: (circle1.position.y - enemy.position.y) * scaleForce })
+        Body.applyForce(enemy, enemy.position, { x:(circle1.position.x - enemy.position.x) * scaleForce, y: (circle1.position.y - enemy.position.y) * scaleForce });
+        timeout = setTimeout(createEnemies, 1000);
+      }, 1000);
+    } else {
+      clearTimeout(timeout);
+    }
+  };
 
   //create render
   const render = Render.create({
@@ -172,7 +187,7 @@ export default function World(reference) {
 
   // run the engine
   Runner.run(runner, engine);
-  console.log(bodies);
+  // console.log(bodies);
   return {
     world: world,
     engine: engine,

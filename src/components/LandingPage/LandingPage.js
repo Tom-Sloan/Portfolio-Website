@@ -5,6 +5,7 @@ import styles from "./LandingPage.module.css";
 export function LandingPage() {
   const landingPageRef = useRef(null);
   const [world, setWorld] = useState();
+  const [startGame, setStartGame] = useState(false);
 
   useEffect(() => {
     if (document.cookie.includes("landingPage")) {
@@ -40,7 +41,12 @@ export function LandingPage() {
       setWorld(World(landingPageRef.current));
     }
   };
-
+  const handleClick = () => {
+    if(!startGame){
+      setStartGame(true);
+      world.runGame()
+    }
+  }
   return (
     <div
       id="LandingPage"
@@ -48,6 +54,7 @@ export function LandingPage() {
       style={{ height: "100vh" }}
       onWheel={handleScroll}
       className={styles.landingPageContainer}
+      onClick={handleClick}
     >
       {/* <World /> */}
     </div>

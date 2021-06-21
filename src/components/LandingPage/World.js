@@ -1,7 +1,16 @@
 import Matter from "matter-js";
 
 export default function World(reference) {
+  //Create array of bodies
   const bodies = [];
+  const width = reference.clientWidth;
+  const height = reference.clientHeight;
+  const redColor = '#F23557';
+  const yellowColor = '#F0D43A';
+  const blueColor = '#22B2DA';
+  const darkColor = '#3B4A6B';
+
+
   //Create module aliases
   const Engine = Matter.Engine,
     Render = Matter.Render,
@@ -13,15 +22,17 @@ export default function World(reference) {
     Composites = Matter.Composites,
     Composite = Matter.Composite,
     Constraint = Matter.Constraint,
-    Body = Matter.Body;
+    Body = Matter.Body,
+    Vector = Matter.Vector.create;
 
   //Create an engine
   const engine = Engine.create({
     gravity: {
-      y: 1,
+      y: 0,
     },
   });
 
+  //BODY CREATION
   // add mouse control
   const mouse = Mouse.create(reference);
   const mouseConstraint = MouseConstraint.create(engine, {
@@ -35,80 +46,105 @@ export default function World(reference) {
   });
 
   //Create Bodies
-  bodies.push(Bodies.circle(210, 100, 30, { restitution: 0.9 }));
-  bodies.push(Bodies.circle(110, 50, 30, { restitution: 0.9 }));
-
-  bodies.push(Bodies.rectangle(200, 0, 600, 50, { isStatic: true }));
-  bodies.push(Bodies.rectangle(200, 600, 600, 50, { isStatic: true }));
-  bodies.push(Bodies.rectangle(260, 300, 50, 600, { isStatic: true }));
-  bodies.push(Bodies.rectangle(0, 300, 50, 600, { isStatic: true }));
+  const circle1 = Bodies.circle(210, 100, 30, {
+    restitution: 0.9,
+    frictionAir: 0.01,
+    render: {
+      fillStyle: blueColor,
+    },
+  });
+  bodies.push(circle1);
+  const circle2 = Bodies.circle(300, 500, 30, {
+    restitution: 0.9,
+    frictionAir: 0.1,
+  });
+  const a = Constraint.create({
+    bodyB: circle2,
+    pointA: { x: circle2.position.x, y: circle2.position.y },
+    stiffness: 0.0001,
+    length: 0,
+    render: {
+      visible: false,
+    },
+  });
+  bodies.push(a);
+  bodies.push(circle2);
 
   bodies.push(mouseConstraint);
-  bodies.push(
-    Composites.pyramid(320, 220, 16, 7, 0, 0, function (x, y) {
-      return Bodies.rectangle(x, y, 30, 30, {
-        render: {
-          fillStyle: "red",
-          strokeStyle: "black",
-        },
-      });
-    })
-  );
-
-  var group = Body.nextGroup(true);
-
-  var ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
-      collisionFilter: { group: group },
-    });
-  });
-
-  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: "line" },
-  });
-  Composite.add(
-    ropeA,
-    Constraint.create({
-      bodyB: ropeA.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
-
-  bodies.push(ropeA);
-  var boxes = Composites.stack(500, 80, 3, 1, 10, 0, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 40);
-  });
-
-  Composites.chain(boxes, 0.5, 0, -0.5, 0, { stiffness: 1 });
-
-  Composite.add(
-    boxes,
-    Constraint.create({
-      bodyA: boxes.bodies[0],
-      pointB: { x: 600, y: 15 },
-      stiffness: 0.0002,
-    })
-  );
-
-  bodies.push(boxes);
 
   const vertices = [
-    {x : 0 , y : 0},
-    {x : 0 , y : 50},
-    {x : 25 , y : 25},
-    {x : 50 , y : 50},
-    {x : 50 , y : 0}
-]
-bodies.push(Bodies.fromVertices(300, 300, vertices))
+    { x: 25, y: 0 },
+    { x: 0, y: 25 },
+    { x: 25, y: 50 },
+    { x: 50, y: 25 },
+  ];
+  const verticesBody = Bodies.fromVertices(400, 300, vertices);
+  bodies.push(verticesBody);
 
-  //Add create new body event
-  Matter.Events.on(mouseConstraint, "mousedown", function (event) {
-    World.add(engine.world, Bodies.circle(150, 50, 30, { restitution: 0.9 }));
+  const floatingDiamonds = Composites.stack(
+    width / 8,
+    height / 8,
+    5,
+    4,
+    height / 6,
+    width / 8,
+    (x, y) => {
+      return Bodies.fromVertices(x, y, vertices, {
+        restitution: 0.9,
+        frictionAir: 0.01,
+        render: {
+          fillStyle: yellowColor,
+        },
+      });
+    }
+  );
+  bodies.push(floatingDiamonds);
+
+  floatingDiamonds.bodies.forEach((elm) => {
+    bodies.push(
+      Constraint.create({
+        bodyB: elm,
+        pointA: { x: elm.position.x, y: elm.position.y },
+        stiffness: 0.0001,
+        length: 0,
+        render: {
+          visible: false,
+        },
+      })
+    );
   });
+
+  //EVENTS
+  //Add create new body event
+  Matter.Events.on(mouseConstraint, "mousemove", function (event) {
+    
+    try {
+      console.log(bodies);
+      const circle1 = bodies[0];
+      var targetAngle = Matter.Vector.angle(circle1.position, mouse.position);
+      var force = 0.008;
+
+      Body.applyForce(circle1, circle1.position, {
+        x: Math.cos(targetAngle) * force,
+        y: Math.sin(targetAngle) * force,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  });
+  let timeout;
+  const runGame = (toggle) => {
+      if(toggle){
+        setTimeout(function createEnemies(){
+          World.add(engine.world, Bodies.circle(150, 50, 30, { restitution: 0.9 }));
+          timeout = setTimeout(createEnemies, 1000)
+      }}else{
+        clearTimeout(timeout)
+      }
+    }, 1000)
+
+  }
+
 
   //create render
   const render = Render.create({
@@ -116,8 +152,8 @@ bodies.push(Bodies.fromVertices(300, 300, vertices))
     engine: engine,
     options: {
       background: "transparent",
-      width: reference.clientWidth,
-      height: reference.clientHeight,
+      width: width,
+      height: height,
       wireframes: false,
       showAngleIndicator: true,
       showCollisions: true,
@@ -126,7 +162,7 @@ bodies.push(Bodies.fromVertices(300, 300, vertices))
   });
 
   //Add bodies to world
-  const world=engine.world;
+  const world = engine.world;
   World.add(world, bodies);
 
   Render.run(render);
@@ -136,12 +172,15 @@ bodies.push(Bodies.fromVertices(300, 300, vertices))
 
   // run the engine
   Runner.run(runner, engine);
-
+  console.log(bodies);
   return {
+    world: world,
     engine: engine,
     runner: runner,
     render: render,
     canvas: render.canvas,
+    bodies: bodies,
+    runGame: runGame,
     stop: function () {
       World.clear(world);
       Engine.clear(engine);
@@ -151,131 +190,6 @@ bodies.push(Bodies.fromVertices(300, 300, vertices))
       render.canvas = null;
       render.context = null;
       render.textures = {};
-      console.log("reset clicked");
     },
   };
 }
-/*
-import Matter from "matter-js";
-
-export default function World(reference) {
-  var Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        Body = Matter.Body,
-        Composite = Matter.Composite,
-        Composites = Matter.Composites,
-        Constraint = Matter.Constraint,
-        MouseConstraint = Matter.MouseConstraint,
-        Mouse = Matter.Mouse,
-        Bodies = Matter.Bodies;
-
-    // create engine
-    var engine = Engine.create(),
-        world = engine.world;
-
-    // create renderer
-    var render = Render.create({
-        element: reference,
-        engine: engine,
-        options: {
-            width: reference.clientWidth,
-            height: reference.clientHeight,
-            showAngleIndicator: true,
-            showCollisions: true,
-            showVelocity: true
-        }
-    });
-
-    Render.run(render);
-
-    // create runner
-    var runner = Runner.create();
-    Runner.run(runner, engine);
-
-    // add bodies
-    var group = Body.nextGroup(true);
-        
-    var ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function(x, y) {
-        return Bodies.rectangle(x, y, 50, 20, { collisionFilter: { group: group } });
-    });
-    
-    Composites.chain(ropeA, 0.5, 0, -0.5, 0, { stiffness: 0.8, length: 2, render: { type: 'line' } });
-    Composite.add(ropeA, Constraint.create({ 
-        bodyB: ropeA.bodies[0],
-        pointB: { x: -25, y: 0 },
-        pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-        stiffness: 0.5
-    }));
-    
-    group = Body.nextGroup(true);
-    
-    var ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function(x, y) {
-        return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
-    });
-    
-    Composites.chain(ropeB, 0.5, 0, -0.5, 0, { stiffness: 0.8, length: 2, render: { type: 'line' } });
-    Composite.add(ropeB, Constraint.create({ 
-        bodyB: ropeB.bodies[0],
-        pointB: { x: -20, y: 0 },
-        pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-        stiffness: 0.5
-    }));
-    
-    group = Body.nextGroup(true);
-
-    var ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function(x, y) {
-        return Bodies.rectangle(x - 20, y, 50, 20, { collisionFilter: { group: group }, chamfer: 5 });
-    });
-    
-    Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
-    Composite.add(ropeC, Constraint.create({ 
-        bodyB: ropeC.bodies[0],
-        pointB: { x: -20, y: 0 },
-        pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
-        stiffness: 0.5
-    }));
-    
-    Composite.add(world, [
-        ropeA,
-        ropeB,
-        ropeC,
-        Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true })
-    ]);
-
-    // add mouse control
-    var mouse = Mouse.create(render.canvas),
-        mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.2,
-                render: {
-                    visible: false
-                }
-            }
-        });
-
-    Composite.add(world, mouseConstraint);
-
-    // keep the mouse in sync with rendering
-    render.mouse = mouse;
-
-    // fit the render viewport to the scene
-    Render.lookAt(render, {
-        min: { x: 0, y: 0 },
-        max: { x: 700, y: 600 }
-    });
-
-    // context for MatterTools.Demo
-    return {
-        engine: engine,
-        runner: runner,
-        render: render,
-        canvas: render.canvas,
-        stop: function() {
-            Matter.Render.stop(render);
-            Matter.Runner.stop(runner);
-        }
-    };
-}
-*/

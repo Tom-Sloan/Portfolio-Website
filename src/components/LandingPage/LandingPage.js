@@ -19,17 +19,16 @@ export function LandingPage() {
 
   useEffect(() => {
     if (document.cookie.includes("landingPage")) {
-      // document
-      //   .querySelector(".App")
-      //   .scrollTo(0, landingPageRef.current.clientHeight);
+      document
+        .querySelector(".App")
+        .scrollTo(0, landingPageRef.current.clientHeight);
     } else {
       console.log("not here");
       document.cookie =
         "landingPage=visited; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      //Add world
+      startWorld();
     }
-
-    //Add world
-    startWorld();
 
     document.querySelector(".App").addEventListener("scroll", handleRestart);
 
@@ -39,7 +38,7 @@ export function LandingPage() {
   const handleButtonPress = (destination = "home") => {
     history.push(destination);
     console.log(destination === "projects");
-   
+
     if (destination === "about") {
       setCurrentDisplayed(<BubbleTiles visualData={bubbleTilesInitial} />);
     } else if (destination === "projects") {
@@ -59,7 +58,7 @@ export function LandingPage() {
         </div>
       );
       console.log("here");
-    }else{
+    } else {
       setCurrentDisplayed(<BubbleTiles visualData={bubbleTilesInitial} />);
     }
 
@@ -69,6 +68,7 @@ export function LandingPage() {
     stopWorld();
   };
   const stopWorld = () => {
+    console.log("here");
     document
       .querySelector(".App")
       .scrollTo(0, landingPageRef.current.clientHeight);
@@ -149,7 +149,11 @@ export function LandingPage() {
       onClick={closePopUp}
       onWheel={handleScroll}
     >
-      <div ref={popUpReference} className={landingPageStyles.hidden} onWheel={handleClick}>
+      <div
+        ref={popUpReference}
+        className={landingPageStyles.hidden}
+        onWheel={handleClick}
+      >
         <div
           className={landingPageStyles.modal_container}
           onClick={handleClick}

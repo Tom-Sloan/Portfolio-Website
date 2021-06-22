@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./headerStyles.module.css";
 import { BubbleTiles } from "./BubbleTiles/BubbleTiles";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { Home } from "../features/home/Home";
 import { Projects } from "../features/projects/Projects";
 import { Footer } from "./footerBar";
 import { Resume } from "../features/resume/Resume";
 import { TestData } from "../features/About/AboutTestOption";
+import Background from "../features/projects/background";
 
 export function Body() {
+  const projectsBackgroundRef = useRef(null);
+  const location = useLocation();
+  const [projectChange, setProjectChange] = useState();
+  useEffect(() => {
+    if (location.pathname === "/projects")
+      setProjectChange(Background(projectsBackgroundRef.current));
+  }, [location]);
   return (
     <div className={styles.bodyArea}>
       <Switch>
@@ -19,13 +27,14 @@ export function Body() {
           </div>
         </Route>
         <Route path="/about">
-          <BubbleTiles
-            visualData={bubbleTilesInitial}
-          />
+          <BubbleTiles visualData={bubbleTilesInitial} />
         </Route>
         <Route path="/projects">
           <div className={styles.parallaxParent}>
-            <div className={styles.parallax}></div>
+            <div
+              ref={projectsBackgroundRef}
+              className={`${styles.parallax}`}
+            ></div>
             <Projects />
             <Footer />
           </div>
@@ -83,5 +92,4 @@ const bubbleTilesInitial = {
       color: "#b8d5cd",
     },
   ],
-  
 };

@@ -68,9 +68,9 @@
 }
 
 .parallax {
-    background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg');
+    /* background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg'); */
     /* background-repeat: repeat; */
-    filter: var(--filter);
+    /* filter: var(--filter); */
     height: 100%;
     position: absolute;
     top: 0;
@@ -83,6 +83,7 @@
     scroll-behavior: smooth;
     background-color: var(--dark);
 }
+
 
 .footer {
     min-width: 100%;

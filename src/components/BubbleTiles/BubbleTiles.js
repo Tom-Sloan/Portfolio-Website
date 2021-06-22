@@ -52,7 +52,6 @@ export function BubbleTiles({visualData}) {
   return (
     <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
       <BubbleTilesController parentPosition={lastScroll} toggleAnimation={toggleAnimation} displayItems={visualData.displayData || {}} offset={visualData.offset || 100}/>
-      <Footer />
     </div>
   );
 }

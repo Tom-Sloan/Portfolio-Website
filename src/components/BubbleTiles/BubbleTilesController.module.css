@@ -6,11 +6,15 @@
   overflow-y: visible;
   background-color: var(--dark);
   scroll-behavior: smooth;
+  height: 100%;
+  width:100%;
+  border-radius: var(--popUpBorderRadius);
 }
 
 
 /* Parent contianer of the BubbleTileController page, used to give a unique class ID */
 .divisionsContainer {
+
 }
 
 /*-------- Bubble CSS --------*/

@@ -49,4 +49,5 @@
 
   --filter1: invert(0%);
   --filter2: invert(100%);
+  --popUpBorderRadius: 10px;
 }

@@ -1,6 +1,48 @@
-.landingPageContainer{
-    background-color: var(--darkest);
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+.landingPageContainer {
+  background-color: var(--darkest);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.hidden {
+  display: none;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgb(93, 89, 106);
+  background: radial-gradient(
+    circle,
+    rgba(93, 89, 106, 0.973) 0%,
+    rgba(235, 232, 233, 0.521) 100%
+  );
+  overflow-y: scroll;
+  padding: 20px;
+  box-sizing: border-box;
+
+}
+
+.modal_content {
+    background-color: var(--dark);
+  padding: 2px;
+  /* overflow-x: hidden; */
+  border-radius: var(--popUpBorderRadius);
+  border: 2px solid black;
+  height: 100%;
+  /* border: 10px solid salmon; */
+}
+.modal_container {
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  margin-bottom: 20px;
+  height:90%;
+  /* border: 10px solid olive; */
 }

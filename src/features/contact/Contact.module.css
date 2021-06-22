@@ -1,0 +1,31 @@
+.contactParent {
+    text-align: center;
+    height: 90%;
+    /* line-height: 200%; */
+    color: var(--text);
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+}
+
+.contactParent hr {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100vw;
+    /* flex-basis: 100%; */
+}
+
+.icons {
+    font-size: xx-large;
+}
+
+.contact a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.1s ease-in-out 0.1s;
+}
+
+.contact a:hover {
+    color: var(--lightest);
+}

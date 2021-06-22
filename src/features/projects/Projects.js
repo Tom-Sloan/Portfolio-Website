@@ -36,21 +36,21 @@ export function Projects() {
                     document.querySelector(`.${styles.projectList}`).children
                 ).forEach((elem) => {
                     // console.log(elem);
-                    console.log(isScrolledIntoView(elem));
-                    console.log(elem);
+                    // console.log(isScrolledIntoView(elem));
+                    // console.log(elem);
                     if (isScrolledIntoView(elem)) {
-                        console.log(elem.children[0]);
-                        if (document.getElementById(`circle ${elem.children[0].id}`)) {
+                        // console.log(elem.children[0]);
+                        if (document.getElementById(`circle ${elem.id}`)) {
                             document.getElementById(
-                                `circle ${elem.children[0].id}`
+                                `circle ${elem.id}`
                             ).style.backgroundColor = "#00dae6";
                             // return true;
                             // console.log('hello');
                         }
                     } else {
-                        if (document.getElementById(`circle ${elem.children[0].id}`)) {
+                        if (document.getElementById(`circle ${elem.id}`)) {
                             document.getElementById(
-                                `circle ${elem.children[0].id}`
+                                `circle ${elem.id}`
                             ).style.backgroundColor = '#00adb5' /*"#2fc1f2"*/;
                         }
                     }
@@ -106,7 +106,7 @@ export function Projects() {
         console.log(elemTop);
         console.log(elemBottom);
 
-        return /*elemBottom >= docViewBottom &&*/ elemTop <= docViewTop;
+        return elemBottom <= docViewBottom && elemTop >= docViewTop;
     }
 
     const handleHover = (e) => {
@@ -225,7 +225,7 @@ export function Projects() {
                                     </div>
                                 </div>
                             ))}
-                        <div className={styles.timelineItem}>
+                        {/* <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <a
                                     href={`#footer`}
@@ -242,12 +242,12 @@ export function Projects() {
                                     <time>Footer<br></br>End</time>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.projectList} onChange={updateWindowDimensions}>
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
-                                <div className={styles.stickyContainer} >
+                                // <div className={styles.stickyContainer} >
                                     <div className={styles.project} id={`data ${idx}`}>
                                         <h2>
                                             {data.title}
@@ -287,7 +287,7 @@ export function Projects() {
                                         </time>
                                         <p>{data.description}</p>
                                     </div>
-                                </div>
+                                // </div>
                             ))}
                     </div>
 

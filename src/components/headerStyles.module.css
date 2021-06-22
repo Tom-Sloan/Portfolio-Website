@@ -71,6 +71,7 @@
 .parallax {
     /* background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg'); */
     /* background-repeat: repeat; */
+    background-color: var(--lightest);
     /* filter: var(--filter); */
     height: 100%;
     position: absolute;

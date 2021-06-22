@@ -89,7 +89,7 @@ export default function Background(reference) {
     }
     index++
     if (index< 1000){
-      setTimeout(()=>creation(index), 100)
+      setTimeout(()=>creation(index), 1000)
     }
   }, 1000);
 

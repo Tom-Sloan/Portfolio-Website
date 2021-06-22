@@ -22,14 +22,13 @@
     rgba(93, 89, 106, 0.973) 0%,
     rgba(235, 232, 233, 0.521) 100%
   );
-  overflow-y: scroll;
+  overflow-y: hidden;
   padding: 20px;
   box-sizing: border-box;
-
 }
 
 .modal_content {
-    background-color: var(--dark);
+  background-color: var(--dark);
   padding: 2px;
   /* overflow-x: hidden; */
   border-radius: var(--popUpBorderRadius);
@@ -39,10 +38,10 @@
 }
 .modal_container {
   position: absolute;
-  top: 5%;
   left: 10%;
   width: 80%;
   margin-bottom: 20px;
-  height:90%;
+  height: 100%;
+  top:0;
   /* border: 10px solid olive; */
 }

@@ -65,6 +65,7 @@
     /* min-height: 100vh; */
     overflow-x: hidden;
     overflow-y: visible;
+    /* height: '78vh' */
 }
 
 .parallax {

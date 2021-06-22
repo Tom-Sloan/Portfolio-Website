@@ -25,12 +25,12 @@ export function Tiles({ elm }) {
   return (
     //The entire tile, given a id so the bubble links will connect with them
     <div
-      id={"paddle-" + elm.index}
+      
       className={`${styles.contentContainer}`}
       style={style}
     >
       {/* Title */}
-      <h2 style={titleLocation} className={styles.tileTitles}>
+      <h2 id={"paddle-" + elm.index} style={titleLocation} className={styles.tileTitles}>
         {elm.title}
       </h2>
 

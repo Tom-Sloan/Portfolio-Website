@@ -1,4 +1,4 @@
-import Matter, { Vector } from "matter-js";
+import Matter, { World } from "matter-js";
 import Render from "../../components/LandingPage/Render";
 
 export default function Background(reference) {
@@ -58,8 +58,9 @@ export default function Background(reference) {
   Runner.run(runner, engine);
 
   // add bodies
-  
+  let timeoutId;
   setTimeout(function creation(index = 1) {
+    console.log(Composite.allBodies(world))
     let body = Bodies.circle(
       Common.random(0, width),
       Common.random(0, height),
@@ -88,8 +89,9 @@ export default function Background(reference) {
       console.log(e);
     }
     index++
-    if (index< 1000){
-      setTimeout(()=>creation(index), 1000)
+    if (index< 100){
+      timeoutId = setTimeout(()=>creation(index), 1000)
+      console.log('still here!!')
     }
   }, 1000);
 
@@ -107,6 +109,8 @@ export default function Background(reference) {
     bodies: bodies,
     runGame: () => {},
     stop: function () {
+      clearTimeout(timeoutId);
+      World.clear(world);
       Engine.clear(engine);
       Render.stop(render);
       Runner.stop(runner);
@@ -114,6 +118,7 @@ export default function Background(reference) {
       render.canvas = null;
       render.context = null;
       render.textures = {};
+      console.log('done! deleting')
     },
   };
 }

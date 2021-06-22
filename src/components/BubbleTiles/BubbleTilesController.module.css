@@ -7,14 +7,13 @@
   background-color: var(--dark);
   scroll-behavior: smooth;
   height: 100%;
-  width:100%;
-  border-radius: var(--popUpBorderRadius);
+  width: 100%;
 }
-
 
 /* Parent contianer of the BubbleTileController page, used to give a unique class ID */
 .divisionsContainer {
-
+  height: 100%;
+  width: 100%;
 }
 
 /*-------- Bubble CSS --------*/
@@ -24,6 +23,8 @@
   position: sticky;
   top: -1px;
   margin-top: 1px;
+  width: 100%;
+  height: 100px;
 }
 
 /* Each unqiue bubble */
@@ -75,3 +76,54 @@
   text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
 }
 
+/* Next Back Buttons */
+.nextBackButtons{
+  display: none;
+}
+.nextBackButtonsContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  font-size: 2em;
+}
+.svgContainers{
+  padding: 10px 40px;
+}
+
+@media only screen and (max-width: 850px) {
+  .nextBackButtons{
+    display:block;
+    position: fixed;
+    top: 11vh;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    /* background-color: blanchedalmond; */
+    z-index: 1;
+  }
+
+  .bubbleContainer {
+    display: none;
+  }
+
+  .father {
+    /* background-color: blueviolet; */
+    width: 100%;
+    left: 0;
+  }
+  .tileTitles {
+    text-align: left !important;
+  }
+  .contentContainer {
+    /* left:0; */
+    position: static;
+    width: 80%;
+    -webkit-transform: none !important;
+    transform: none !important;
+    margin: 0 auto;
+    text-align: left !important;
+  }
+}

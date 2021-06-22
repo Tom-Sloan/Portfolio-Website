@@ -114,6 +114,7 @@ export default function World(reference, teleportationBalls) {
     bodies: bodies,
     runGame: () => {},
     stop: function () {
+      World.clear(world);
       Engine.clear(engine);
       Render.stop(render);
       Runner.stop(runner);

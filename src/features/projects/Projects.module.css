@@ -272,26 +272,30 @@ a:active {
     margin-right: 220px;
     /* border: 3px solid greenyellow; */
     /* font-size: large; */
-    position: sticky;
+    /* position: sticky; */
     font-weight: bold;
     height: 100%;
 }
 
-.stickyContainer {
-    height: 150vh;
-    /* margin-bottom: 100vh; */
-}
+/* .stickyContainer {
+    height: 200vh;
+} */
 
 .project {
     text-align: left;
     /* padding: 50px 0; */
     margin: 10vh 0;
     top: 20vh;
-    bottom: 0;
+    bottom: 10vh;
     width: 100%;
     height: auto;
-    position:sticky;
+    /* position:sticky; */
     /* margin: 0 10%; */
+    background-color: var(--backgroundShade);
+    border: 3px solid var(--lightest);
+    border-radius: var(--popUpBorderRadius);
+    padding: 10px;
+    display:inline-block;
 }
 
 .project h2 {
@@ -306,13 +310,15 @@ a:active {
 
 .project p {
   padding: 0;
+  font-weight: lighter;
 }
 
 .project img {
   float: right;
   width: auto;
   height: 20vh;
-  /* object-fit: cover; */
+  /* border: 1px solid green; */
+  object-fit: scale-down;
 }
 
 .project time {
@@ -394,12 +400,21 @@ a:active {
   }
 
   .timelineContainer {
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    display: none;
   }
 
   .projectList {
-    margin-right: 50px;
+    margin: 0 5%;
     /* border: 3px solid greenyellow; */
+  }
+
+  .project img {
+    float: none;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid green; */
+    object-fit: cover;
   }
 
   /* .timelineContent */

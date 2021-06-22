@@ -13,6 +13,7 @@
   --text: var(--text2);
   --filter: var(--filter2);
   --textShadingEnd: var(--textShadingEnd2);
+  --backgroundShade: var(--backgroundShade2);
 }
 
 .dark-theme {
@@ -25,6 +26,7 @@
   --text: var(--text1);
   --filter: var(--filter1);
   --textShadingEnd: var(--textShadingEnd1);
+  --backgroundShade: var(--backgroundShade1);
 }
 
 :root {
@@ -50,4 +52,7 @@
   --filter1: invert(0%);
   --filter2: invert(100%);
   --popUpBorderRadius: 10px;
+
+  --backgroundShade1: rgba(82, 85, 87, 0.8);
+  --backgroundShade2: rgba(240, 245, 249, 0.8);
 }

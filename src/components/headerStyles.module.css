@@ -9,7 +9,7 @@
     right: 0;     */
     background-color: var(--darkest);
     padding: 0px 20px;
-    box-shadow: 10px 20px 200px #ccc;
+    /* box-shadow: 10px 20px 200px #ccc; */
     flex-flow: row nowrap;
     flex-shrink: 0;
     z-index: 10;
@@ -55,6 +55,7 @@
 .parent {
     /* perspective: 1px; */
     /* min-height: 100vh; */
+    min-width: 100%;
     overflow-x: hidden;
     overflow-y: visible;
     background-color: var(--dark);
@@ -62,10 +63,30 @@
 
 .parallaxParent {
     perspective: 1px;
-    /* min-height: 100vh; */
+    min-width: 100%;
     overflow-x: hidden;
     overflow-y: visible;
-    /* height: '78vh' */
+    scroll-behavior: smooth;
+}
+
+.parent::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.parent {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.parallaxParent::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.parallaxParent {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .parallax {
@@ -82,7 +103,7 @@
     transform: translateZ(-1px) scale(2);
 
     
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     background-color: var(--dark);
 }
 
@@ -90,18 +111,16 @@
 .footer {
     min-width: 100%;
     max-width: 100%;
-    min-height: 10%;
-    max-height: 10%;
+    text-align: center;
+    min-height: 10vh;
+    max-height: 10vh;
     background-color: var(--darkest);
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 50px 0px;
+    /* padding: 50px 0px; */
     height: 10vh;
 
     /* border-top: 3px solid white; */
     transform: translateZ(0);
-
+    color: var(--text);
 
     border-top: 3px solid var(--dark);
 }
@@ -120,4 +139,10 @@
 
 .iconContainer:hover>.colorUIChangeIcon {
     color: var(--lightest);
+}
+
+.footerIcons {
+    font-size: xx-large;
+    margin: 2vh 5px 0 5px;
+    text-decoration: none;
 }

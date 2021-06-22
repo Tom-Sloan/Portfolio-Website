@@ -7,7 +7,8 @@ import { ProjectsContainer } from "../features/projects/ProjectsContainer";
 import { Footer } from "./footerBar";
 import { Resume } from "../features/resume/Resume";
 import { TestData } from "../features/About/AboutTestOption";
-
+import Background from "../features/projects/background";
+import { Contact } from "../features/contact/Contact";
 
 export function Body() {
   
@@ -39,14 +40,6 @@ export function Body() {
           </div>
         </Route>
       </Switch>
-    </div>
-  );
-}
-
-function Contact() {
-  return (
-    <div>
-      <h2>Contact</h2>
     </div>
   );
 }

@@ -35,21 +35,35 @@ export function Projects() {
                 Array.from(
                     document.querySelector(`.${styles.projectList}`).children
                 ).forEach((elem) => {
+                    // console.log(elem);
+                    console.log(isScrolledIntoView(elem));
+                    console.log(elem);
                     if (isScrolledIntoView(elem)) {
-                        if (document.getElementById(`circle ${elem.id}`)) {
+                        console.log(elem.children[0]);
+                        if (document.getElementById(`circle ${elem.children[0].id}`)) {
                             document.getElementById(
-                                `circle ${elem.id}`
-                            ).style.backgroundColor = "#b2deff";
+                                `circle ${elem.children[0].id}`
+                            ).style.backgroundColor = "#00dae6";
                             // return true;
+                            // console.log('hello');
                         }
                     } else {
-                        if (document.getElementById(`circle ${elem.id}`)) {
+                        if (document.getElementById(`circle ${elem.children[0].id}`)) {
                             document.getElementById(
-                                `circle ${elem.id}`
-                            ).style.backgroundColor = "#2fc1f2";
+                                `circle ${elem.children[0].id}`
+                            ).style.backgroundColor = '#00adb5' /*"#2fc1f2"*/;
                         }
                     }
                 });
+
+                var winScroll = document.querySelector(`.${bodyStyle.parallaxParent}`).scrollTop;
+                var height = document.querySelector(`.${styles.page}`).offsetHeight - document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight + document.querySelector(`.${bodyStyle.footer}`).offsetHeight;
+                var scrolled = (winScroll / height) * 100;
+                document.getElementById('my_bars').style.height = scrolled + "%";
+
+                // console.log(winScroll);
+                // console.log(height);
+                // console.log(scrolled);
             } catch (e) {
                 console.log(e);
             }
@@ -81,28 +95,34 @@ export function Projects() {
             document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight;
 
         var elemTop = elem.offsetTop;
-        var elemBottom = Math.min(
-            elemTop + elem.offsetHeight,
-            elemTop + window.screen.height / 2
-        );
+        // var elemBottom = Math.max(
+        //     elemTop + elem.offsetHeight,
+        //     elemTop + window.screen.height / 2
+        // );
+        var elemBottom = elemTop + elem.offsetHeight;
 
-        return elemBottom <= docViewBottom && elemTop >= docViewTop;
+        console.log(docViewTop);
+        console.log(docViewBottom);
+        console.log(elemTop);
+        console.log(elemBottom);
+
+        return /*elemBottom >= docViewBottom &&*/ elemTop <= docViewTop;
     }
 
     const handleHover = (e) => {
-        e.target.style.backgroundColor = "#b2deff";
+        e.target.style.backgroundColor = "#00dae6";
     };
 
     const handleNoHover = (e) => {
-        e.target.style.backgroundColor = "#2aa6cf";
+        e.target.style.backgroundColor = "#00adb5";
     };
 
-    useEffect(() => {
-        window.addEventListener("resize", updateWindowDimensions);
-        updateWindowDimensions();
+    // useEffect(() => {
+    //     window.addEventListener("resize", updateWindowDimensions);
+    //     updateWindowDimensions();
 
-        return () => window.removeEventListener("resize", updateWindowDimensions);
-    }, []);
+    //     return () => window.removeEventListener("resize", updateWindowDimensions);
+    // }, []);
 
     useEffect(() => {
         window.addEventListener("resize", updateWindowDimensions);
@@ -144,7 +164,23 @@ export function Projects() {
             {/* <div className={styles.parallax} ></div> */}
             <div className={styles.projectContainer}>
                 <div className={styles.projects}>
+                    {/* <h1>Projects</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        ultricies, ex eu vestibulum consequat, lorem mauris viverra sem,
+                        eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit
+                        est, tristique at consequat sed, egestas eget turpis. Cras vel
+                        fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus.
+                        Quisque placerat leo id dui fermentum, at ornare nibh feugiat.
+                        Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non.
+                        Donec massa velit, viverra quis aliquam nec, ultricies ut tellus.
+                        Vivamus fringilla sagittis suscipit. Donec quis mattis enim,
+                        fermentum placerat orci.
+                    </p> */}
                     <div className={styles.timelineContainer}>
+                        <div className={styles.progressContainer}>
+                            <div className={styles.progressBar} id='my_bars' ></div>
+                        </div>
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
                                 <div className={styles.timelineItem}>
@@ -161,7 +197,7 @@ export function Projects() {
                                             />
                                         </a>
                                         <div className={styles.timelineBox}>
-                                            <time>{data.date}</time>
+                                            <time>{data.monthstart}<br></br>{data.yearstart}</time>
                                             {/* <div className={styles.timelineHalf} style={{ justifyContent: 'flex-end' }} >
                                             {data.category.map(obj => {
                                                 console.log(obj);
@@ -189,64 +225,74 @@ export function Projects() {
                                     </div>
                                 </div>
                             ))}
+                        <div className={styles.timelineItem}>
+                            <div className={styles.timelineContent}>
+                                <a
+                                    href={`#footer`}
+                                    className={styles.circleLink}
+                                    onMouseEnter={handleHover}
+                                    onMouseLeave={handleNoHover}
+                                >
+                                    <span
+                                        className={styles.timelineCircle}
+                                        id={`circle data ${projects.length}`}
+                                    />
+                                </a>
+                                <div className={styles.timelineBox}>
+                                    <time>Footer<br></br>End</time>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.projectList} onChange={updateWindowDimensions}>
-                        <h1>Projects</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                            ultricies, ex eu vestibulum consequat, lorem mauris viverra sem,
-                            eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit
-                            est, tristique at consequat sed, egestas eget turpis. Cras vel
-                            fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus.
-                            Quisque placerat leo id dui fermentum, at ornare nibh feugiat.
-                            Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non.
-                            Donec massa velit, viverra quis aliquam nec, ultricies ut tellus.
-                            Vivamus fringilla sagittis suscipit. Donec quis mattis enim,
-                            fermentum placerat orci.
-                        </p>
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
-                                <div className={styles.project} id={`data ${idx}`}>
-                                    <h2>
-                                        {data.title}
-                                        {data.link && (
-                                            <a
-                                                href={data.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={styles.linkData}
-                                            >
-                                                <FontAwesomeIcon icon={faExternalLinkAlt} />
-                                            </a>
-                                        )}
-                                    </h2>
-                                    <hr style={{ borderColor: "#2aa6cf" }} />
-                                    {data.category.map((item) => {
-                                        return (
-                                            <span
-                                                className={styles.tags}
-                                                style={{ background: item.color }}
-                                            >
-                                                {item.tag}
-                                            </span>
-                                        );
-                                    })}
+                                <div className={styles.stickyContainer} >
+                                    <div className={styles.project} id={`data ${idx}`}>
+                                        <h2>
+                                            {data.title}
+                                            {data.link && (
+                                                <a
+                                                    href={data.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={styles.linkData}
+                                                >
+                                                    <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                                </a>
+                                            )}
+                                        </h2>
+                                        <hr style={{ borderColor: "#2aa6cf" }} />
+                                        {data.category.map((item) => {
+                                            return (
+                                                <span
+                                                    className={styles.tags}
+                                                    style={{ background: item.color }}
+                                                >
+                                                    {item.tag}
+                                                </span>
+                                            );
+                                        })}
 
-                                    <h3>{data.subtitle}</h3>
-                                    {data.image && (
-                                        <img
-                                            src={data.image}
-                                            alt=""
-                                            onLoad={updateWindowDimensions}
-                                        />
-                                    )}
-                                    <time>
-                                        {data.date} - {data.enddate}
-                                    </time>
-                                    <p>{data.description}</p>
+                                        <h3>{data.subtitle}</h3>
+                                        {data.image && (
+                                            <img
+                                                src={data.image}
+                                                alt=""
+                                                onLoad={updateWindowDimensions}
+                                            />
+                                        )}
+                                        <time>
+                                            {data.monthstart} {data.yearstart} - {data.monthend} {data.yearend}
+                                        </time>
+                                        <p>{data.description}</p>
+                                    </div>
                                 </div>
                             ))}
                     </div>
+
+
+
                 </div>
             </div>
         </div>

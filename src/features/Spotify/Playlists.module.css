@@ -1,0 +1,93 @@
+.spotifyParent {
+    height:100%;
+}
+
+/* .spotifyParent iframe:nth-child(even) {
+    margin-left: auto;
+} */
+
+.spotifyPlaylist {
+    display: flex;
+    padding: 20px 0;
+}
+
+.spotifyPlaylist:nth-child(even) {
+    flex-flow: row-reverse;
+}
+
+.spotifyPlaylist iframe {
+    height: 380px;
+    width: 100%;
+}
+
+.spotifyPlaylist:nth-child(even) iframe {
+    height: 380px;
+    width: 100%;
+}
+
+.bubble {
+    padding: 20px;
+    background-color: var(--backgroundShade);
+    border: 3px solid var(--lightest);
+    border-radius: var(--popUpBorderRadius);
+}
+
+.spotifyText {
+    display: inline-flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: var(--text);
+    /* padding: 0 50px; */
+    
+}
+
+.spotifyPlaylist:nth-child(odd) .spotifyText {
+    padding-left: 20px;
+}
+
+.spotifyPlaylist:nth-child(even) .spotifyText {
+    padding-right: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .spotifyPlaylist {
+        flex-flow: column;
+    }
+
+    .spotifyPlaylist:nth-child(even) {
+        flex-flow: column;
+    }
+
+    .spotifyPlaylist iframe {
+        height: 380px;
+        width: 100%;
+    }
+
+    .bubble {
+        width: 100%;
+    }
+
+    .spotifyPlaylist:nth-child(odd) .spotifyText {
+        padding-left: 0;
+    }
+    
+    .spotifyPlaylist:nth-child(even) .spotifyText {
+        padding-right: 0;
+    }
+
+    .spotifyPlaylist iframe {
+        height: 50vh;
+        width: 100%;
+    }
+    
+    .spotifyPlaylist:nth-child(even) iframe {
+        height: 50vh;
+        width: 100%;
+    }
+
+    .spotifyText {
+        margin-top: 20px;;
+    }
+}

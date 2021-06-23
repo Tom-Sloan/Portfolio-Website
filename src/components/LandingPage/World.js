@@ -113,7 +113,7 @@ export default function World(reference, teleportationBalls) {
     bodies: bodies,
     runGame: () => {},
     stop: (function () {
-      var executed = false;
+      let executed = false;
       return function () {
         if (!executed) {
           // World.clear(world);

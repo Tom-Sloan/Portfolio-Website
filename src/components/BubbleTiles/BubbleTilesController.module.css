@@ -8,6 +8,7 @@
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 /* Parent contianer of the BubbleTileController page, used to give a unique class ID */

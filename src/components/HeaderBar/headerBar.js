@@ -9,28 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { HeaderButtons } from "./headerButtons";
 import ScrollMenu from "react-horizontal-scrolling-menu";
-const headerLinks = [
-  {
-    destination: "/",
-    title: "Home",
-  },
-  {
-    destination: "/about",
-    title: "About",
-  },
-  {
-    destination: "/projects",
-    title: "Projects",
-  },
-  {
-    destination: "/resume",
-    title: "Resume",
-  },
-  {
-    destination: "/contact",
-    title: "Contact",
-  },
-];
 
 export function HeaderBar() {
   const [mugSelector, setMugSelector] = useState(0);
@@ -56,7 +34,7 @@ export function HeaderBar() {
         </div>
 
         {headerLinks.map((elm) => (
-          <Link className={styles.headerLink} to={elm.destination}>
+          <Link className={styles.headerLink} to={elm.destination} key={elm.destination}>
             {elm.title}
           </Link>
         ))}
@@ -80,15 +58,38 @@ export function HeaderBar() {
   );
 }
 export const Menu = (list, selected) =>
-  list.map((el) => {
+  list.map((el, index) => {
     return (
-      <Link  to={el.destination}>
+      <Link to={el.destination} key={el.title + '-link-' + index}>
         <HeaderButtons
-          name={el.title}
+          name={el.title + '-' + index}
           text={el.title}
-          key={el}
+          key={el.title + '-' + index}
           selected={selected}
         />
       </Link>
     );
   });
+
+const headerLinks = [
+  {
+    destination: "/",
+    title: "Home",
+  },
+  {
+    destination: "/about",
+    title: "About",
+  },
+  {
+    destination: "/projects",
+    title: "Projects",
+  },
+  {
+    destination: "/resume",
+    title: "Resume",
+  },
+  {
+    destination: "/contact",
+    title: "Contact",
+  },
+];

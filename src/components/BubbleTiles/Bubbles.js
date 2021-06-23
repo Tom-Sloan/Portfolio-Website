@@ -6,6 +6,7 @@ export function Bubbles({
   numberOfPaddles,
   toggleAnimation,
   handleSelection,
+  name
 }) {
   //Diameter of bubble (in vh)
   const diameter = 10;
@@ -89,7 +90,7 @@ export function Bubbles({
       onMouseEnter={(e) => handleEnter(e, elm.index)}
     >
       {/* the bubbles */}
-      <div style={style} className={styles.Bubbles}>
+      <div style={style} className={`${styles.Bubbles} ${styles.Bubbles+name}`}>
         {/* title with default value */}
         <p>{elm.title || ""}</p>
       </div>

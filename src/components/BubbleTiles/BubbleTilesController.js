@@ -26,9 +26,11 @@ export function BubbleTilesController({
   parentPosition,
   toggleAnimation,
   displayItems,
+  name = "default",
+  parentHeight,
   offset = 100,
 }) {
-
+  
   //Get tile information
   const numberOfBubbleTiles = displayItems.length;
 
@@ -77,10 +79,10 @@ export function BubbleTilesController({
     //function that gets toggled on window resize
     const updateWindowDimensions = () => {
       let checkingOffset = offset;
-      if (window.innerWidth <= 850) checkingOffset = 20;
+      if (window.innerWidth <= 850) checkingOffset = 40;
       //Get bubbles height to offset the tile parent component
       const bubbles = getComputedStyle(
-        document.querySelector(`.${styles.Bubbles}`)
+        document.querySelector(`.${styles.Bubbles + name}`)
       );
 
       //get the height of the bubbles Element
@@ -90,7 +92,7 @@ export function BubbleTilesController({
       let divHeights = []; //stores new div hights temperaly
 
       document
-        .querySelectorAll(`.${styles.contentContainer}`)
+        .querySelectorAll(`.${styles.contentContainer + name}`)
         .forEach((elm) => {
           const height = pixelToNum(getComputedStyle(elm).height); // height of the tile without offset
           cummulativeDivHeight += height + checkingOffset; //adding the height of the tile with offset to the control variable
@@ -102,7 +104,9 @@ export function BubbleTilesController({
 
       // Assign the calculated heights to the parent component.
       // This has to be done bc the sticky element doesn't impact parent height since it is not a scrolling neigbour
-      document.querySelector(`.${styles.divisionsContainer}`).style.height =
+      document.querySelector(
+        `.${styles.divisionsContainer + name}`
+      ).style.height =
         checkingOffset + cummulativeDivHeight + bubblesHeight + "px";
 
       // fatherRef.current.style.top = bubblesHeight + "px"; // assigns the offset so the tiles are not on top of the bubbles
@@ -123,7 +127,7 @@ export function BubbleTilesController({
 
     //Get colors for elements missing colors
     const colorTemp = [];
-    for (const elm in displayItems) {
+    for (const _ in displayItems) {
       colorTemp.push(generateRandomColors(1)[0]);
     }
 
@@ -133,9 +137,8 @@ export function BubbleTilesController({
     //Removes the event listener so this function is not called on resize changes not on the BubbleTile page
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
-  
 
-  //Calculates the height the tile show be placed at. This is because the tiel will be at variying locations based on the
+  //Calculates the height the tile show be placed at. This is because the tile will be at variying locations based on the
   //position it is in and because different tiles will be different thicknesses
   const getCummHeight = (tileNum) => {
     //In case it is an invalid call, returns the bottom of the parent
@@ -153,12 +156,38 @@ export function BubbleTilesController({
     }
     return height;
   };
-  const nextBackStyle ={
-    top: parentPosition+'px',
-  }
+
+  //Calculates the current tile on screen, this works for when the tiles are ordered only (therefore not when they are doing 3d translates)
+  const getOnScreen = () => {
+    
+    let height = 0;
+    //Gets the heights of the tiles that are at lower positions then the tile we are investigating, adds the offset between each
+    for (let i = 0; i < displayItems.length; i++) {
+      height += tileHeights[i];
+      if (parentPosition + parentHeight / 4< height)
+        return i
+    }
+    console.log(height, parentPosition)
+    return displayItems.length-1;
+  };
+
+
+
+  const nextBackStyle = {
+    top: parentPosition + "px",
+  };
+
   return (
     // Division container contains two parts, first the bubbles, second the tiles
-    <div className={styles.divisionsContainer}>
+    <div
+      className={`${styles.divisionsContainer} ${
+        styles.divisionsContainer + name
+      }`}
+    >
+      {/* Make the floating toggle btns for modile and small screens */}
+      <div style={nextBackStyle} className={styles.nextBackButtons}>
+        <NextBack numberOfPaddles={numberOfBubbleTiles} visibleTile={getOnScreen()}/>
+      </div>
 
       {/* Start of bubble section */}
       <div className={styles.bubbleContainer}>
@@ -202,6 +231,7 @@ export function BubbleTilesController({
               numberOfPaddles={numberOfBubbleTiles}
               toggleAnimation={toggleAnimation}
               handleSelection={setSelected}
+              name={name}
             />
           );
         })}
@@ -210,12 +240,6 @@ export function BubbleTilesController({
       {/* Start of TileSection */}
       {/* Paddle Parent, used to position tiles in the view */}
       <div className={styles.father} ref={fatherRef}>
-
-        {/* Make the floating toggle btns for modile and small screens */}
-        <div style={nextBackStyle} className={styles.nextBackButtons}>
-          <NextBack numberOfPaddles={numberOfBubbleTiles} />
-        </div>
-
         {/* Generate Paddles */}
         {displayItems.map((elm, index) => {
           const position = lastChecked[index] || 0;
@@ -232,7 +256,7 @@ export function BubbleTilesController({
             height: height, // the distance the component should be from the top of the parent component
           };
 
-          return <Tiles key={"tile-" + index} elm={component} />;
+          return <Tiles key={"tile-" + index} elm={component} name={name} />;
         })}
       </div>
     </div>

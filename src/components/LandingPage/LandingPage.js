@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import World from "./World";
 import landingPageStyles from "./LandingPage.module.css";
 import { BubbleTiles } from "../BubbleTiles/BubbleTiles";
-import { TestData } from "../../features/about/AboutTestOption";
+import { TestData } from "../../features/About/AboutTestOption";
 import { ResumeContainer } from "../../features/resume/ResumeContainer";
 import { ProjectsContainer } from "../../features/projects/ProjectsContainer";
 

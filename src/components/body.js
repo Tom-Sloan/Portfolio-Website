@@ -6,8 +6,9 @@ import { Home } from "../features/home/Home";
 import { ProjectsContainer } from "../features/projects/ProjectsContainer";
 import { Footer } from "./FooterBar/footerBar";
 import { ResumeContainer } from "../features/resume/ResumeContainer";
-import { TestData } from "../features/about/AboutTestOption";
-import { Contact } from "../features/contact/Contact";
+import { TestData } from "../../features/about/AboutTestOption.js";
+import { Contact } from "../../features/contact/Contact";
+
 
 export function Body() {
   

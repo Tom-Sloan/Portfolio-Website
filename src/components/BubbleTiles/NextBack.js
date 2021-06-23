@@ -6,46 +6,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-export const NextBack = ({ numberOfPaddles }) => {
-  const [tileNumber, setTileNumber] = useState(0);
-  
-  const handleClick = (e, direction) => {
-    // console.log(document.querySelector(`.${styles.nextBackButtonsContainer}`));
-    if (direction === "up") {
-      setTimeout(
-        () => setTileNumber((prev) => (prev - 1 >= 0 ? prev - 1 : prev)),
-        10
-      );
-    } else if (direction === "down") {
-      setTimeout(
-        () =>
-          setTileNumber((prev) =>
-            prev + 1 < numberOfPaddles ? prev + 1 : prev
-          ),
-        10
-      );
-    }
-
-  };
-
+export const NextBack = ({ numberOfPaddles, visibleTile }) => {
 
   return (
     <div className={styles.nextBackButtonsContainer}>
       <a
-        href={"#paddle-" + (tileNumber - 1 >= 0 ? tileNumber - 1 : tileNumber)}
+        href={"#paddle-" + (visibleTile - 1 >= 0 ? visibleTile - 1 : visibleTile)}
         className={styles.svgContainers}
-        onMouseUp={(e) => handleClick(e, "up")}
+        // onMouseUp={(e) => handleClick(e, "up")}
       >
         <FontAwesomeIcon
           className={styles.colorUIChangeIcon}
           icon={faAngleDoubleUp}
         />
       </a>
-      <div className={styles.displayNumber}>{tileNumber+1}</div>
+      <div className={styles.displayNumber}>{visibleTile+1}</div>
       <a
-        href={"#paddle-" + (tileNumber + 1 < numberOfPaddles ? tileNumber + 1 : tileNumber)}
+        href={"#paddle-" + (visibleTile + 1 < numberOfPaddles ? visibleTile + 1 : visibleTile)}
         className={styles.svgContainers}
-        onMouseUp={(e) => handleClick(e, "down")}
+        // onMouseUp={(e) => handleClick(e, "down")}
       >
         <FontAwesomeIcon
           className={styles.colorUIChangeIcon}

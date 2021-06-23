@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./BubbleTilesController.module.css";
 
-export function Tiles({ elm }) {
+export function Tiles({ elm, name}) {
   // For the colored part of the tile
   //The dynamic part of the style of the tile to be created
   const tileStyle = {
@@ -26,7 +26,7 @@ export function Tiles({ elm }) {
     //The entire tile, given a id so the bubble links will connect with them
     <div
       
-      className={`${styles.contentContainer}`}
+      className={`${styles.contentContainer} ${styles.contentContainer+name}`}
       style={style}
     >
       {/* Title */}

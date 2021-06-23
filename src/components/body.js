@@ -42,31 +42,32 @@ export function Body() {
 }
 
 const bubbleTilesInitial = {
+  name:'Body',
   displayData: [
     {
       title: "Personal",
       component: <TestData numberOfRepeat={3} />,
-      color: "#006a4e",
+      color: "#66023C",
     },
     {
       title: "Artist",
       component: <TestData numberOfRepeat={3} />,
-      color: "#2e856e",
+      color: "#992B43",
     },
     {
       title: "Music",
       component: <TestData numberOfRepeat={3} />,
-      color: "#5ca08e",
+      color: "#C45744",
     },
     {
       title: "Personal",
       component: <TestData numberOfRepeat={3} />,
-      color: "#8abaae",
+      color: "#E38946",
     },
     {
       title: "Artist",
       component: <TestData numberOfRepeat={3} />,
-      color: "#b8d5cd",
+      color: "#F5BF51",
     },
   ],
 
@@ -94,6 +95,6 @@ const bubbleTilesInitial = {
   //   "#575A5E",
   // ],
 
-  offset: 40,
+  offset: 20,
 
 }

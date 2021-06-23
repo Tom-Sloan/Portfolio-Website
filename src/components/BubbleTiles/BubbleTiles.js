@@ -22,6 +22,8 @@ export function BubbleTiles({visualData}) {
   //Contians the last position of the user inside parentRef
   const [lastScroll, setLastScroll] = useState(0);
 
+  const [clientHeight, setClientHeight] = useState(0);
+
   //Control variable to dictate when the bubbles are in vertical (true) or horizontal position (false)
   const [toggleAnimation, setToggleAnimation] = useState(false)
   
@@ -47,11 +49,12 @@ export function BubbleTiles({visualData}) {
     }
     //Record current position
     setLastScroll(currentScroll);
+    setClientHeight(e.target.clientHeight)
   };
   
   return (
     <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
-      <BubbleTilesController parentPosition={lastScroll} toggleAnimation={toggleAnimation} displayItems={visualData.displayData || {}} offset={visualData.offset || 100}/>
+      <BubbleTilesController parentPosition={lastScroll} parentHeight = {clientHeight} toggleAnimation={toggleAnimation} name={visualData.name} displayItems={visualData.displayData || {}} offset={visualData.offset || 100}/>
       <Footer />
     </div>
   );

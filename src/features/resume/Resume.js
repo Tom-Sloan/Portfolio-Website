@@ -65,7 +65,7 @@ export function Resume() {
             Oops! Your browser doesn't support PDFs!
           </p>
           <p>
-            <a href={resume} target="_blank">
+            <a href={resume} target="_blank" rel="noreferrer">
               Download Instead
             </a>
           </p>

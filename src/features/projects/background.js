@@ -60,7 +60,6 @@ export default function Background(reference) {
   // add bodies
   let timeoutId;
   setTimeout(function creation(index = 1) {
-    console.log(Composite.allBodies(world))
     let body = Bodies.circle(
       Common.random(0, width),
       Common.random(0, height),
@@ -91,7 +90,6 @@ export default function Background(reference) {
     index++
     if (index< 100){
       timeoutId = setTimeout(()=>creation(index), 1000)
-      console.log('still here!!')
     }
   }, 1000);
 

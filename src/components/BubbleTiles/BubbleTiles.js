@@ -10,7 +10,7 @@ colors: An arry which contains the colors to be used in the bubble and tile back
 
 import React, { useState, useRef } from "react";
 import { BubbleTilesController } from "./BubbleTilesController";
-import { Footer } from "../footerBar";
+import { Footer } from "../FooterBar/footerBar";
 import styles from "./BubbleTilesController.module.css";
 
 export function BubbleTiles({visualData}) {

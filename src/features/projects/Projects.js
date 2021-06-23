@@ -1,5 +1,5 @@
 import styles from "./Projects.module.css";
-import bodyStyle from "../../components/headerStyles.module.css";
+import bodyStyle from "../../components/BodyStyles.module.css";
 import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { selectProjectsArray } from "./projectsSlice";

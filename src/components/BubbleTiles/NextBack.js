@@ -41,6 +41,7 @@ export const NextBack = ({ numberOfPaddles }) => {
           icon={faAngleDoubleUp}
         />
       </a>
+      <div className={styles.displayNumber}>{tileNumber+1}</div>
       <a
         href={"#paddle-" + (tileNumber + 1 < numberOfPaddles ? tileNumber + 1 : tileNumber)}
         className={styles.svgContainers}

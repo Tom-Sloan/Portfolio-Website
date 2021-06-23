@@ -17,7 +17,7 @@ import styles from "./BubbleTilesController.module.css";
 //The two parts of the design.
 import { Tiles } from "./Tiles"; // This contains the paddles/tiles code
 import { Bubbles } from "./Bubbles"; // contains the floating bubble code
-import { NextBack} from './NextBack'
+import { NextBack } from "./NextBack";
 
 //Used in case someone makes a verison with more than the number of hardcoded nice colors that I selected
 import { generateRandomColors } from "./helpFunctions";
@@ -28,6 +28,7 @@ export function BubbleTilesController({
   displayItems,
   offset = 100,
 }) {
+
   //Get tile information
   const numberOfBubbleTiles = displayItems.length;
 
@@ -75,14 +76,13 @@ export function BubbleTilesController({
   useEffect(() => {
     //function that gets toggled on window resize
     const updateWindowDimensions = () => {
-      
       let checkingOffset = offset;
       if (window.innerWidth <= 850) checkingOffset = 20;
       //Get bubbles height to offset the tile parent component
       const bubbles = getComputedStyle(
         document.querySelector(`.${styles.Bubbles}`)
       );
-      
+
       //get the height of the bubbles Element
       let bubblesHeight = pixelToNum(bubbles.height) + pixelToNum(bubbles.top);
 
@@ -133,6 +133,7 @@ export function BubbleTilesController({
     //Removes the event listener so this function is not called on resize changes not on the BubbleTile page
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
+  
 
   //Calculates the height the tile show be placed at. This is because the tiel will be at variying locations based on the
   //position it is in and because different tiles will be different thicknesses
@@ -152,16 +153,13 @@ export function BubbleTilesController({
     }
     return height;
   };
-  // const bubbleContainerDimensions = {
-  // height: toggleAnimation? '100vh':'100px',
-  // }
+  const nextBackStyle ={
+    top: parentPosition+'px',
+  }
   return (
     // Division container contains two parts, first the bubbles, second the tiles
     <div className={styles.divisionsContainer}>
-      {/* Make the floating toggle btns for modile and small screens */}
-      <div className={styles.nextBackButtons}>
-        <NextBack numberOfPaddles={numberOfBubbleTiles}/>
-      </div>
+
       {/* Start of bubble section */}
       <div className={styles.bubbleContainer}>
         {/* Iterating over the provided components */}
@@ -212,6 +210,12 @@ export function BubbleTilesController({
       {/* Start of TileSection */}
       {/* Paddle Parent, used to position tiles in the view */}
       <div className={styles.father} ref={fatherRef}>
+
+        {/* Make the floating toggle btns for modile and small screens */}
+        <div style={nextBackStyle} className={styles.nextBackButtons}>
+          <NextBack numberOfPaddles={numberOfBubbleTiles} />
+        </div>
+
         {/* Generate Paddles */}
         {displayItems.map((elm, index) => {
           const position = lastChecked[index] || 0;

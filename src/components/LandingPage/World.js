@@ -6,7 +6,6 @@ export default function World(reference, teleportationBalls) {
   const bodies = [];
   const width = reference.clientWidth;
   const height = reference.clientHeight;
-  
 
   //Create module aliases
   const Engine = Matter.Engine,
@@ -29,8 +28,8 @@ export default function World(reference, teleportationBalls) {
     element: reference,
     engine: engine,
     options: {
-      width: width,
-      height: height,
+      width: width ,
+      height: height ,
       background: "transparent",
       wireframes: false,
     },
@@ -62,7 +61,7 @@ export default function World(reference, teleportationBalls) {
   for (let i = 0; i < rowNum; i++) {
     cloth.bodies[i].isStatic = true;
   }
-  
+
   cloth.bodies[rowNum * colmNum - rowNum + 1].isStatic = true;
   cloth.bodies[rowNum * colmNum - 1].isStatic = true;
   cloth.bodies[rowNum * colmNum - rowNum].isStatic = true;
@@ -113,16 +112,21 @@ export default function World(reference, teleportationBalls) {
     canvas: render.canvas,
     bodies: bodies,
     runGame: () => {},
-    stop: function () {
-      World.clear(world);
-      Engine.clear(engine);
-      Render.stop(render);
-      Runner.stop(runner);
-      render.canvas.remove();
-      render.canvas = null;
-      render.context = null;
-      render.textures = {};
-    },
+    stop: (function () {
+      var executed = false;
+      return function () {
+        if (!executed) {
+          // World.clear(world);
+          Engine.clear(engine);
+          Render.stop(render);
+          Runner.stop(runner);
+          render.canvas.remove();
+          render.canvas = null;
+          render.context = null;
+          render.textures = {};
+        }
+      };
+    })(),
   };
 }
 
@@ -212,7 +216,7 @@ const clothFunc = function (
       return Bodies.circle(x, y, particleRadius, particleOptions);
     }
   );
-  
+
   Composites.mesh(cloth, columns, rows, crossBrace, constraintOptions);
 
   cloth.label = "Cloth Body";

@@ -27,8 +27,8 @@ export function Contact() {
                 <div className={styles.contact} >
                     <FontAwesomeIcon className={styles.icons} icon={faPaperPlane} />
                     <h3>Or send an email</h3>
-                    <p><a href='mailto:danneasmith@gmail.com' target='_blank'>Daniel Neasmith</a></p>
-                    <p><a href='mailto:tsloan81@gmail.com' target='_blank'>Tom Sloan</a></p>
+                    <p><u><a href='mailto:danneasmith@gmail.com' target='_blank'>Daniel Neasmith</a></u> @ DanNeasmith@gmail.com</p>
+                    <p><u><a href='mailto:tsloan81@gmail.com' target='_blank'>Tom Sloan</a></u> @ tsloan81@gmail.com</p>
                 </div>
                 {/* <form action="mailto:danneasmith@gmail.com" method="post" enctype="text/plain" >
                 {FirstName:<input type="text" name="FirstName" />

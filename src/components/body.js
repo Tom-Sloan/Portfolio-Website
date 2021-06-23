@@ -1,13 +1,12 @@
 import React from "react";
-import styles from "./headerStyles.module.css";
+import styles from "./BodyStyles.module.css";
 import { BubbleTiles } from "./BubbleTiles/BubbleTiles";
 import { Switch, Route } from "react-router-dom";
 import { Home } from "../features/home/Home";
 import { ProjectsContainer } from "../features/projects/ProjectsContainer";
-import { Footer } from "./footerBar";
-import { Resume } from "../features/resume/Resume";
-import { TestData } from "../features/About/AboutTestOption";
-import Background from "../features/projects/background";
+import { Footer } from "./FooterBar/footerBar";
+import { ResumeContainer } from "../features/resume/ResumeContainer";
+import { TestData } from "../features/about/AboutTestOption";
 import { Contact } from "../features/contact/Contact";
 
 export function Body() {
@@ -28,10 +27,7 @@ export function Body() {
           <ProjectsContainer />
         </Route>
         <Route path="/resume">
-          <div className={styles.parent}>
-            <Resume />
-            <Footer />
-          </div>
+          <ResumeContainer />
         </Route>
         <Route path="/contact">
           <div className={styles.parent}>

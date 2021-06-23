@@ -1,8 +1,8 @@
-import styles from "../../components/headerStyles.module.css";
+import styles from "../../components/BodyStyles.module.css";
 import { Projects } from "./Projects";
 import { useRef, useEffect, useState } from "react";
 import Background from "./background";
-import { Footer } from '../../components/footerBar'
+import { Footer } from '../../components/FooterBar/footerBar'
 
 export function ProjectsContainer() {
   const projectsBackgroundRef = useRef(null);

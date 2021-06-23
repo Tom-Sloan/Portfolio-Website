@@ -4,7 +4,7 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+
 
 export const NextBack = ({ numberOfPaddles, visibleTile }) => {
 

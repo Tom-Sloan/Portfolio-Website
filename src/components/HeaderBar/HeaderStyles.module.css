@@ -58,6 +58,11 @@
 
 }
 
+@media only screen and (max-width: 600px) {
+    .angleDoubleUp {
+      display:none;
+    }
+  }
 .colorUIChangeIcon{
     color: var(--light);
 }

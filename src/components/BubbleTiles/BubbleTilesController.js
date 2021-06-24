@@ -30,7 +30,6 @@ export function BubbleTilesController({
   parentHeight,
   offset = 100,
 }) {
-  
   //Get tile information
   const numberOfBubbleTiles = displayItems.length;
 
@@ -159,26 +158,24 @@ export function BubbleTilesController({
 
   //Calculates the current tile on screen, this works for when the tiles are ordered only (therefore not when they are doing 3d translates)
   const getOnScreen = () => {
-    
     let height = 0;
-    //Gets the heights of the tiles that are at lower positions then the tile we are investigating, adds the offset between each
+    // This returns the first index where the currenltly parentPosition (scroll distance from top for parent) is less than the height of the current tile plus all tha preceed it.
+    //e.g. if tileHeight=[10, 10 , 10] and the parentPosition is 15, then index 1 is returned since 15<20 and 15>10 
     for (let i = 0; i < displayItems.length; i++) {
       height += tileHeights[i];
-      if (parentPosition + parentHeight / 4< height)
-        return i
+      if (parentPosition + parentHeight / 4 < height) return i;
     }
-    console.log(height, parentPosition)
-    return displayItems.length-1;
+    
+    //This is returned by default so there is no error
+    return displayItems.length - 1;
   };
-
-
 
   const nextBackStyle = {
     top: parentPosition + "px",
   };
 
   return (
-    // Division container contains two parts, first the bubbles, second the tiles
+    // Division container contains three parts, first the Arrows that appear when the screen is small, second the bubbles (which disapear with a small screen), third the tiles
     <div
       className={`${styles.divisionsContainer} ${
         styles.divisionsContainer + name
@@ -186,7 +183,10 @@ export function BubbleTilesController({
     >
       {/* Make the floating toggle btns for modile and small screens */}
       <div style={nextBackStyle} className={styles.nextBackButtons}>
-        <NextBack numberOfPaddles={numberOfBubbleTiles} visibleTile={getOnScreen()}/>
+        <NextBack
+          numberOfPaddles={numberOfBubbleTiles}
+          visibleTile={getOnScreen()}
+        />
       </div>
 
       {/* Start of bubble section */}

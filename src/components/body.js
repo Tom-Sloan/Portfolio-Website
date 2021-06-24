@@ -8,6 +8,7 @@ import { Footer } from "./FooterBar/footerBar";
 import { ResumeContainer } from "../features/resume/ResumeContainer";
 import { TestData } from "../features/About/AboutTestOption.js";
 import { Contact } from "../features/contact/Contact";
+import { Playlists } from "../features/Spotify/Playlists";
 
 
 export function Body() {
@@ -46,7 +47,7 @@ const bubbleTilesInitial = {
   displayData: [
     {
       title: "Personal",
-      component: <TestData numberOfRepeat={3} />,
+      component: <Playlists />,
       color: "#66023C",
     },
     {

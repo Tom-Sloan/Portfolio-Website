@@ -137,7 +137,7 @@
     background-color: var(--darkest);
     /* padding: 50px 0px; */
     height: 10vh;
-
+    line-height: 0%;
     /* border-top: 3px solid white; */
     transform: translateZ(0);
     color: var(--text);
@@ -163,7 +163,7 @@
 }
 
 .footerIcons {
-    font-size: xx-large;
+    font-size: 3vh;
     margin: 2vh 5px 0 5px;
     text-decoration: none;
 }

@@ -283,8 +283,8 @@ a:active {
 
 .project {
     text-align: left;
-    /* padding: 50px 0; */
-    margin: 10vh 0;
+    /* padding-bottom: 30vh; */
+    margin: 10vh 0 30vh 0;
     top: 20vh;
     bottom: 10vh;
     width: 100%;
@@ -349,7 +349,7 @@ a:active {
     position: absolute;
     left: calc(5% - 2px);
     width: 4px;
-    height: 95%;
+    height: 96%;
     top: 15px;
     /* bottom: 50px; */
     /* position: absolute;

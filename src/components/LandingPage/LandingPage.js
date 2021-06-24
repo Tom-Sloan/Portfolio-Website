@@ -1,3 +1,9 @@
+/* 
+Landing page
+
+This is the location of first arrival for people who visit the site. On mobile, it will no display
+*/
+
 import { useRef, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import World from "./World";
@@ -18,9 +24,9 @@ export function LandingPage() {
   useEffect(() => {
     console.log("herere and I shouldn't be");
     if (document.cookie.includes("landingPage")) {
-      document
-        .querySelector(".App")
-        .scrollTo(0, landingPageRef.current.clientHeight);
+      // document
+      //   .querySelector(".App")
+      //   .scrollTo(0, landingPageRef.current.clientHeight);
     } else {
       document.cookie =
         "landingPage=visited; expires=Fri, 31 Dec 9999 23:59:59 GMT";
@@ -35,7 +41,7 @@ export function LandingPage() {
 
     window.addEventListener("resize", deboucedUpdateWindowDimensions);
 
-    document.querySelector(".App").addEventListener("scroll", handleRestart);
+    document.querySelector(".App").addEventListener("scroll", handleRestart,  {passive: true});
 
     return window.removeEventListener("scroll", handleRestart);
   }, []);

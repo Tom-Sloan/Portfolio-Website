@@ -2,9 +2,13 @@
 BubbleTiles in the entry point for a user using this code.
 
 It requires:
-titles: An array which contains the title to be used in both the bubbles and above the tile. Default is blank, give '' for no title
-element: An arry which contains the contents of the tiles. This varibale controls the number of tiles, the other two have defaults if insufficient inputs are given
-colors: An arry which contains the colors to be used in the bubble and tile backgrounds.
+name (string): this will be used for all document.querySElector calls so should be unique to instance. there is a default name ('default')
+offset (int): This is the distance between the tiles 
+displayData (array of objects):
+  -> Objects contain
+      title : the title to be used in both the bubbles and floating above the tile. Default is no tilte if not given
+      componenet : The contents of the tiles, default is no content for tile, in such a case the tile will be padding tall
+      color: Contains the color to be used in the bubble and tile backgrounds. There is a random color generator if this is not given, however, the color may (probably) be ugly
 
 */
 

@@ -28,7 +28,7 @@ export function HeaderBar() {
           onClick={(e) => document.querySelector(".App").scrollTo(0, 0)}
         >
           <FontAwesomeIcon
-            className={styles.colorUIChangeIcon}
+            className={`${styles.colorUIChangeIcon} ${styles.angleDoubleUp}`}
             icon={faAngleDoubleUp}
           />
         </div>

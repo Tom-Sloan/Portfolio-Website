@@ -1,22 +1,27 @@
 .contactParent {
     text-align: center;
-    height: 90%;
-    /* line-height: 200%; */
+    height: 100%;
     color: var(--text);
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
+    margin: 0;
 }
 
 .contactParent hr {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     width: 100vw;
+    line-height: 0%;
     /* flex-basis: 100%; */
 }
 
+.contactParent h3 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
 .icons {
-    font-size: xx-large;
+    font-size: 3vh;
 }
 
 .contact a {

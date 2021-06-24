@@ -10,18 +10,23 @@ export function Playlists() {
         setPlaylists(temp);
     }
 
-    useEffect(() => {
-        fetchPlaylists();
-    }, [])
+    // useEffect(() => {
+    //     fetchPlaylists();
+    // }, [])
 
     const handleClick = (e) => {
+        console.log("Hi");
+        fetchPlaylists();
         console.log(playlists)
-        console.log(document.querySelector(`.${styles.spotifyParent}`))
+        // console.log(document.querySelector(`.${styles.spotifyParent}`))
         // console.log(`https://open.spotify.com/embed/album/${playlists[0].id}`)
     }
 
     return (
-        <div className={styles.spotifyParent} onClick={handleClick} >
+        <div className={styles.spotifyParent} >
+            {playlists.length == 0 && (
+                <button type="button" onClick={handleClick} >Load Spotify Playlists</button>
+            )}
             {playlists.length > 0 && (
                 playlists.map((playlist) => (
                     <div className={styles.spotifyPlaylist}  >

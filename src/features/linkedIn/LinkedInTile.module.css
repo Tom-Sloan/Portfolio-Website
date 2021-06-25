@@ -1,0 +1,36 @@
+.work h1 {
+    text-align: center;
+    margin: 2% 0;
+}
+
+.workPlace {
+    padding: 20px;
+    background-color: var(--backgroundShade);
+    border: 3px solid var(--lightest);
+    border-radius: var(--popUpBorderRadius);
+}
+
+.workPlace:nth-child(even) {
+    margin: 0 25% 5% 10%;
+}
+
+.workPlace:nth-child(odd) {
+    margin: 5% 10% 5% 25%;
+}
+
+.workPlace:nth-child(even) img {
+    float: right;
+}
+
+.workPlace:nth-child(odd) img {
+    float: left;
+}
+
+.workPlace:nth-child(even) h3, .workPlace:nth-child(even) h2 {
+    text-align: left;
+}
+
+.workPlace:nth-child(odd) h3, .workPlace:nth-child(odd) h2 {
+    text-align: right;
+}
+

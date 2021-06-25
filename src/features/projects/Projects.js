@@ -1,5 +1,6 @@
 import styles from "./Projects.module.css";
 import bodyStyle from "../../components/BodyStyles.module.css";
+import footerStyle from "../../components/FooterBar/FooterStyles.module.css";
 import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { selectProjectsArray } from "./projectsSlice";

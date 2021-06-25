@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Spotify from "./Spotify";
 import styles from './Playlists.module.css';
 
-export function Playlists() {
+export function Playlists({updateFatherDimensions}) {
     const [playlists, setPlaylists] = useState([])
 
     const fetchPlaylists = async () => {
@@ -18,6 +18,7 @@ export function Playlists() {
         console.log("Hi");
         fetchPlaylists();
         console.log(playlists)
+        // console.log(updateFatherDimensions);
         // console.log(document.querySelector(`.${styles.spotifyParent}`))
         // console.log(`https://open.spotify.com/embed/album/${playlists[0].id}`)
     }
@@ -30,7 +31,7 @@ export function Playlists() {
             {playlists.length > 0 && (
                 playlists.map((playlist) => (
                     <div className={styles.spotifyPlaylist}  >
-                        <iframe src={`https://open.spotify.com/embed/playlist/${playlist.id}`} frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        <iframe src={`https://open.spotify.com/embed/playlist/${playlist.id}`} onLoad={updateFatherDimensions} frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <div className={styles.spotifyText} >
                             <div className={styles.bubble} >
                                 <h2>{playlist.name}</h2>

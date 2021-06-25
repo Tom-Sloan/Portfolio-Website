@@ -35,11 +35,12 @@ export function Experience() {
     }
 
     useEffect(() => {
-        console.log("Is this even happening");
+        // console.log("Is this even happening");
 
         const updateTimeline = () => {
             try {
                 const children = document.querySelector(`.${styles.experienceList}`).children;
+                // console.log(getComputedStyle(document.querySelector(`.${styles.experienceList}`)).marginTop);
 
                 Array.from(
                     children
@@ -60,7 +61,10 @@ export function Experience() {
                 });
 
                 var winScroll = document.querySelector(`.${resumeStyle.parent}`).scrollTop;
-                var height = document.querySelector(`.${styles.experienceContainer}`).offsetHeight - children[children.length - 1].offsetHeight ;
+                var height = document.querySelector(`.${styles.experienceContainer}`).offsetHeight - children[children.length - 1].offsetHeight - (window.innerHeight * 0.05);
+                // console.log(document.querySelector(`.${styles.experienceContainer}`).offsetHeight);
+                // console.log(window.innerHeight);
+                // console.log(height);
                 var scrolled = (winScroll / height) * 100;
 
                 if (scrolled >= 100) {
@@ -74,7 +78,7 @@ export function Experience() {
             }
         }
 
-        console.log(document.querySelector(`.${resumeStyle.parent}`));
+        // console.log(document.querySelector(`.${resumeStyle.parent}`));
 
         document
             .querySelector(`.${resumeStyle.parent}`)

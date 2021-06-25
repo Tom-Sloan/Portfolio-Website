@@ -93,6 +93,7 @@ export function Resume() {
           <br/>
           <PDFReader className={styles.tom} showAllPage='true' url="./Tom_Sloan_CV_Dec_2019.pdf" />
         </div> */}
+        <a href={resume} download>Click here to download resume</a>
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js" >
           <Viewer fileUrl={resume} />
         </Worker>

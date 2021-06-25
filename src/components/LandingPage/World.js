@@ -28,8 +28,8 @@ export default function World(reference, teleportationBalls) {
     element: reference,
     engine: engine,
     options: {
-      width: width ,
-      height: height ,
+      width: width,
+      height: height,
       background: "transparent",
       wireframes: false,
     },
@@ -66,13 +66,7 @@ export default function World(reference, teleportationBalls) {
   cloth.bodies[rowNum * colmNum - 1].isStatic = true;
   cloth.bodies[rowNum * colmNum - rowNum].isStatic = true;
   cloth.bodies[rowNum * colmNum - 2].isStatic = true;
-  Composite.add(world, [
-    cloth,
-    Bodies.circle(300, 500, 80, {
-      isStatic: true,
-      render: { fillStyle: "#F60a19" },
-    }),
-  ]);
+  Composite.add(world, [cloth]);
 
   // add mouse control
   var mouse = Mouse.create(render.canvas),
@@ -116,14 +110,20 @@ export default function World(reference, teleportationBalls) {
       let executed = false;
       return function () {
         if (!executed) {
+          executed = true;
           // World.clear(world);
-          Engine.clear(engine);
-          Render.stop(render);
-          Runner.stop(runner);
-          render.canvas.remove();
-          render.canvas = null;
-          render.context = null;
-          render.textures = {};
+          try {
+            Engine.clear(engine);
+            Render.stop(render);
+            Runner.stop(runner);
+            render.canvas.remove();
+            render.canvas = null;
+            render.context = null;
+            render.textures = {};
+          } catch (e) {
+            console.log(e);
+            console.log(executed);
+          }
         }
       };
     })(),

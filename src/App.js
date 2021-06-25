@@ -12,9 +12,9 @@ function App() {
     <Router>
       <BreakpointProvider>
         <div className="App  light-theme ">
-          <Breakpoint medium up>
+          {/* <Breakpoint medium up>
             <LandingPage id="LandingPage" />
-          </Breakpoint>
+          </Breakpoint> */}
           <HeaderBar />
           <Body />
         </div>

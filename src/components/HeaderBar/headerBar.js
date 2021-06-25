@@ -23,7 +23,7 @@ export function HeaderBar() {
   return (
     <div className={styles.headerBar}>
       <div className={styles.headerLinks}>
-        <div
+        {/* <div
           className={styles.iconContainer}
           onClick={(e) => document.querySelector(".App").scrollTo(0, 0)}
         >
@@ -31,7 +31,7 @@ export function HeaderBar() {
             className={`${styles.colorUIChangeIcon} ${styles.angleDoubleUp}`}
             icon={faAngleDoubleUp}
           />
-        </div>
+        </div> */}
 
         {headerLinks.map((elm) => (
           <Link className={styles.headerLink} to={elm.destination} key={elm.destination}>

@@ -2,6 +2,7 @@
 // import React, { useState } from 'react';
 import { useEffect, useState } from "react";
 import styles from "./Resume.module.css";
+import {LinkedInTile} from '../linkedIn/LinkedInTile';
 
 export function Resume() {
   const [resume, setResume] = useState("./Daniel_Neasmith_CV.pdf");
@@ -33,7 +34,9 @@ export function Resume() {
   return (
     <div style={{ height: "fit-content" }}>
       {console.log({ dimensions })}
-
+      <div>
+        <LinkedInTile />
+      </div>
       <div className={styles.radios}>
         <label for="input1" className={styles.label}></label>
         <input

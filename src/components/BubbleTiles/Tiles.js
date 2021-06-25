@@ -1,7 +1,7 @@
-import React from "react";
+import React, { cloneElement } from "react";
 import styles from "./BubbleTilesController.module.css";
 
-export function Tiles({ elm, name}) {
+export function Tiles({ elm, name, updateFatherDimensions}) {
   // For the colored part of the tile
   //The dynamic part of the style of the tile to be created
   const tileStyle = {
@@ -28,6 +28,7 @@ export function Tiles({ elm, name}) {
       
       className={`${styles.contentContainer} ${styles.contentContainer+name}`}
       style={style}
+      onChange={() => console.log("Changed")}
     >
       {/* Title */}
       <h2 id={"paddle-" + elm.index} style={titleLocation} className={styles.tileTitles}>
@@ -35,8 +36,8 @@ export function Tiles({ elm, name}) {
       </h2>
 
       {/* Colour tile */}
-      <div className={styles.content} style={tileStyle}>
-        {elm.element}
+      <div className={styles.content} style={tileStyle}  >
+        {cloneElement(elm.element, { updateFatherDimensions: updateFatherDimensions })}
       </div>
     </div>
   );

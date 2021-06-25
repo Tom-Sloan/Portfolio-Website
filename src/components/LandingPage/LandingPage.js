@@ -34,12 +34,12 @@ export function LandingPage() {
       startWorld();
     }
 
-    const deboucedUpdateWindowDimensions = debounce(
-      updateWindowDimensions,
+    const deboucedupdateFatherDimensions = debounce(
+      updateFatherDimensions,
       1000
     );
 
-    window.addEventListener("resize", deboucedUpdateWindowDimensions);
+    window.addEventListener("resize", deboucedupdateFatherDimensions);
 
     document.querySelector(".App").addEventListener("scroll", handleRestart,  {passive: true});
 
@@ -47,7 +47,7 @@ export function LandingPage() {
   }, []);
 
   //function that gets toggled on window resize
-  const updateWindowDimensions = () => {
+  const updateFatherDimensions = () => {
     console.log("-----");
     console.log("Parent here:", isRunning);
     if (isRunning) {

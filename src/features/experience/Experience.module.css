@@ -21,7 +21,7 @@
 
 .experienceContainer h1 {
     color: var(--light1);
-    padding: 5% 0;
+    /* padding: 5% 0; */
 }
 
 .experiences {

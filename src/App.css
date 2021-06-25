@@ -32,7 +32,9 @@
   --textShadingEnd: var(--textShadingEnd1);
   --backgroundShade: var(--backgroundShade1);
 }
-
+.rpv-core__inner-page{
+  --rpv-core__inner-page-background-color: green !important
+}
 :root {
   --darkest1: rgba(255, 255, 255, 0.1);
   --dark1: #161623;
@@ -64,6 +66,5 @@
   --mediumsSize: 768px;
   --largeSize: 992px;
   --xlargeSize: 1200px;
-
 
 }

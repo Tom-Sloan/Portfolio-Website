@@ -65,4 +65,16 @@ a:hover {
   color: var(--lightest);
 }
 
+.pdfContainer{
+  margin: 40px;
+  text-align:  center;
+  width:  60%;
+  position: relative;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  --rpv-core__inner-page-background-color: grey !important;
+}
 

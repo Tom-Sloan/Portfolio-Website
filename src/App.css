@@ -13,6 +13,7 @@
   --shadowStart: var(--shadowStart2);
   --shadowEnd: var(--shadowEnd2);
   --text: var(--text2);
+  --invertedText: var(--text1);
   --filter: var(--filter2);
   --textShadingEnd: var(--textShadingEnd2);
   --backgroundShade: var(--backgroundShade2);
@@ -26,14 +27,15 @@
   --shadowStart: var(--shadowStart1);
   --shadowEnd: var(--shadowEnd1);
   --text: var(--text1);
+  --invertedText: var(--text2);
   --filter: var(--filter1);
   --textShadingEnd: var(--textShadingEnd1);
   --backgroundShade: var(--backgroundShade1);
 }
 
 :root {
-  --darkest1: #222831;
-  --dark1: #393e46;
+  --darkest1: rgba(255, 255, 255, 0.1);
+  --dark1: #161623;
   --light1: #00adb5;
   --lightest1: #eeeeee;
   --shadowStart1: rgba(96, 97, 99, 0.4);
@@ -48,7 +50,7 @@
   --shadowEnd2: rgba(0, 0, 0, 0.1);
   --textShadingEnd2: rgba(128, 128, 128, 0.4); /*  */
 
-  --text1: white;
+  --text1: rgb(207, 207, 207);
   --text2: black;
 
   --filter1: invert(0%);

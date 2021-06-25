@@ -4,11 +4,6 @@
   scroll-behavior: smooth;
 }
 
-@media only screen and (max-width: 600px) {
-  #LandingPage {
-    display:none;
-  }
-}
 
 .light-theme {
   --darkest: var(--darkest2);
@@ -62,4 +57,11 @@
 
   --backgroundShade1: rgba(82, 85, 87, 0.8);
   --backgroundShade2: rgba(240, 245, 249, 0.8);
+
+  --smallSize: 576px;
+  --mediumsSize: 768px;
+  --largeSize: 992px;
+  --xlargeSize: 1200px;
+
+
 }

@@ -20,7 +20,7 @@ import { Bubbles } from "./Bubbles"; // contains the floating bubble code
 import { NextBack } from "./NextBack";
 
 //Used in case someone makes a verison with more than the number of hardcoded nice colors that I selected
-import { generateRandomColors } from "./helpFunctions";
+import { generateRandomColors, pixelToNum, getCSSGlobalVar } from "../../helpFunctions";
 
 export function BubbleTilesController({
   parentPosition,
@@ -48,9 +48,6 @@ export function BubbleTilesController({
 
   //Contains the heights of each tile
   const [tileHeights, setTileHeights] = useState([]);
-
-  //Convert a number string with 2 chars at the end to a number e.g. '153px' => 153
-  const pixelToNum = (i) => Number(i.slice(0, -2));
 
   //Used to update the Positions of the tiles
   useEffect(() => {

@@ -1,70 +1,67 @@
 .headerBar {
-    min-height: 10%;
-    max-height: 10%;
-    display: flex;
-    /* height: 10vh; */
-    /* position: fixed;
+  min-height: 10%;
+  max-height: 10%;
+  display: flex;
+  /* height: 10vh; */
+  /* position: fixed;
     top: 0;
     left: 0;
     right: 0;     */
-    background-color: var(--darkest);
-    padding: 0px 20px;
-    /* box-shadow: 10px 20px 200px #ccc; */
-    flex-flow: row nowrap;
-    /* flex-shrink: 0; */
-    z-index: 10;
-    flex-wrap: wrap;
-    justify-content: center;
-    border-bottom: 3px solid var(--dark);
+  background-color: var(--darkest);
+  padding: 0px 20px;
+  /* box-shadow: 10px 20px 200px #ccc; */
+  flex-flow: row nowrap;
+  /* flex-shrink: 0; */
+  z-index: 10;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-bottom: 3px solid var(--dark);
 }
 
 .headerLinks {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10%;
-    width: 100%;
-    max-width: 60%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  width: 100%;
+  max-width: 60%;
 }
 
 .headerLink {
-    color: var(--light);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.1s ease-in-out 0.1s;
+  color: var(--light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.1s ease-in-out 0.1s;
 }
 
 .headerLink:hover {
-    color: var(--lightest);
+  color: var(--lightest);
 }
-.headerScrollBar{
-    display: none;
-}
-
-@media only screen and (max-width: 850px) {
-    .headerLinks{
-        gap: 0;
-        max-width: 100%;
-    }
-    .headerLink{
-        display: none;
-    }
-    .headerScrollBar{
-        display: inline;
-        flex-shrink: 1;
-        overflow: hidden;
-    }
-
+.headerScrollBar {
+  display: none;
 }
 
-@media only screen and (max-width: 600px) {
-    .angleDoubleUp {
-      display:none;
-    }
+@media only screen and (max-width: 768px) {
+  .headerLinks {
+    gap: 0;
+    max-width: 100%;
   }
-.colorUIChangeIcon{
-    color: var(--light);
+  .headerLink {
+    display: none;
+  }
+  .headerScrollBar {
+    display: inline;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+  .angleDoubleUp {
+    display: none;
+  }
+}
+
+.colorUIChangeIcon {
+  color: var(--light);
 }
 
 /* .colorUIChangeIcon:hover {
@@ -72,10 +69,10 @@
 } */
 
 .iconContainer {
-    padding: 10px;
-    flex-shrink: 0;
+  padding: 10px;
+  flex-shrink: 0;
 }
 
-.iconContainer:hover>.colorUIChangeIcon {
-    color: var(--lightest);
+.iconContainer:hover > .colorUIChangeIcon {
+  color: var(--lightest);
 }

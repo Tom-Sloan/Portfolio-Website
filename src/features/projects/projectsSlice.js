@@ -43,6 +43,31 @@ export const projectsSlice = createSlice({
         link: "https://en.wikipedia.org/wiki/Field-programmable_gate_array",
       },
       {
+        title: "Smart Home Project",
+        subtitle: "Sensors, PCB, iOS, and Bluetooth",
+        description:
+          "A smart home system built complete with custom smart devices and custom smart controllers",
+        date: "November 2019",
+        enddate: "Ongoing",
+        category: [
+          {
+            tag: "Hardware",
+            color: "#66023C",
+          },
+          {
+            tag: "Programming",
+            color: "#149e5e",
+          },
+          {
+            tag: "IoT",
+            color: "#00ADCC",
+          },
+        ],
+        image:
+          "./smartHome.gif",
+        link: "https://github.com/Tom-Sloan/Smart-Home-Project",
+      },
+      {
         title: "Smart Pillbox",
         subtitle: "B. Eng Capstone Project: Tracking Pill Consumption",
         description:
@@ -60,7 +85,7 @@ export const projectsSlice = createSlice({
           },
         ],
         image:
-          "https://pluspng.com/img-png/pill-png-hd-pills-transparent-png-1600.png",
+          "./pillbox1.jpg",
         link: "https://en.wikipedia.org/wiki/Smart_device",
       },
       {

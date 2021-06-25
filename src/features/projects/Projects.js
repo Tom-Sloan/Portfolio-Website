@@ -1,5 +1,6 @@
 import styles from "./Projects.module.css";
 import bodyStyle from "../../components/BodyStyles.module.css";
+import footerStyle from "../../components/FooterBar/FooterStyles.module.css";
 import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { selectProjectsArray } from "./projectsSlice";
@@ -57,7 +58,7 @@ export function Projects() {
                 });
 
                 var winScroll = document.querySelector(`.${bodyStyle.parallaxParent}`).scrollTop;
-                var height = document.querySelector(`.${styles.page}`).offsetHeight - document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight + document.querySelector(`.${bodyStyle.footer}`).offsetHeight;
+                var height = document.querySelector(`.${styles.page}`).offsetHeight - document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight + document.querySelector(`.${footerStyle.footer}`).offsetHeight;
                 var scrolled = (winScroll / height) * 100;
                 document.getElementById('my_bars').style.height = scrolled + "%";
 
@@ -101,10 +102,10 @@ export function Projects() {
         // );
         var elemBottom = elemTop + elem.offsetHeight;
 
-        console.log(docViewTop);
-        console.log(docViewBottom);
-        console.log(elemTop);
-        console.log(elemBottom);
+        // console.log(docViewTop);
+        // console.log(docViewBottom);
+        // console.log(elemTop);
+        // console.log(elemBottom);
 
         return elemBottom <= docViewBottom && elemTop >= docViewTop;
     }

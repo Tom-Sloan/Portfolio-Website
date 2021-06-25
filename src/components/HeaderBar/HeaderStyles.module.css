@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     right: 0;     */
-  background-color: var(--darkest);
+  background-color: var(--dark);
   padding: 0px 20px;
   /* box-shadow: 10px 20px 200px #ccc; */
   flex-flow: row nowrap;
@@ -15,7 +15,7 @@
   z-index: 10;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 3px solid var(--dark);
+  border-bottom: 3px solid var(--darkest);
 }
 
 .headerLinks {

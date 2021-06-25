@@ -3,17 +3,18 @@ import styles from "./HeaderStyles.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCoffee,
-  faMugHot,
+  faMoon,
+  
   faAngleDoubleUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from '@fortawesome/free-regular-svg-icons'
 import { HeaderButtons } from "./headerButtons";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 
 export function HeaderBar() {
   const [mugSelector, setMugSelector] = useState(0);
   const [selected, setSelected] = useState(headerLinks[0]);
-  const mugs = [faMugHot, faCoffee];
+  const mugs = [faMoon, faSun];
   const menu = Menu(headerLinks, selected);
   const handleClick = (e) => {
     document.querySelector(".App").classList.toggle("dark-theme");

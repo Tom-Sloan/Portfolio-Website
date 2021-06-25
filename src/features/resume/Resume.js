@@ -2,6 +2,8 @@
 // import React, { useState } from 'react';
 import { useEffect, useState } from "react";
 import styles from "./Resume.module.css";
+import ToggleSwitch from "./LiquidSwitch/ToggleSwitch";
+import { LiquidRadioButton } from "./LiquidSwitch/liquidRadioButton";
 
 export function Resume() {
   const [resume, setResume] = useState("./Daniel_Neasmith_CV.pdf");
@@ -30,9 +32,20 @@ export function Resume() {
       setResume("./Tom_Sloan_CV_Dec_2019.pdf");
     }
   };
+  let [resumeToggle, setResumeToggle] = useState(false);
+
+  const onResumeChange = (checked) => {
+    setResumeToggle(checked);
+  };
   return (
     <div style={{ height: "fit-content" }}>
-      {console.log({ dimensions })}
+      <ToggleSwitch
+        id="resumeToggle"
+        checked={resumeToggle}
+        onChange={onResumeChange}
+        optionLabels={['Tom', 'Dan']}
+      />
+      <label htmlFor="resumeToggle" style={{visibility:'hidden'}}>Toggle 'tween resumes</label>
 
       <div className={styles.radios}>
         <label for="input1" className={styles.label}></label>

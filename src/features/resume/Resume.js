@@ -12,7 +12,7 @@ import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { Experience } from "../experience/Experience";
-
+import {setCSSGlobalVar} from '../../helpFunctions';
 export function Resume() {
   const [resume, setResume] = useState("./Daniel_Neasmith_CV.pdf");
   const [dimensions, setDimensions] = useState({
@@ -31,25 +31,23 @@ export function Resume() {
   useEffect(() => {
     window.addEventListener("resize", updateWindowDimensions);
     updateWindowDimensions();
-
+    setCSSGlobalVar('--rpv-core__inner-page-background-color', 'grey')
+    
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
-  const handleClick = (e, input) => {
-    if (input === "input1") {
-      setResume("./Daniel_Neasmith_CV.pdf");
-      // element = 'Daniel';
-      // console.log(resume)
-    } else {
-      setResume("./Tom_Sloan_CV_Dec_2019.pdf");
-      // element = 'Thomas';
-      // console.log(resume)
-    }
-  };
+
   let [resumeToggle, setResumeToggle] = useState(false);
 
   const onResumeChange = (checked) => {
     setResumeToggle(checked);
+    setResume(checked?"./Tom_Sloan_CV_Dec_2019.pdf":"./Daniel_Neasmith_CV.pdf")
+
   };
+  useEffect(()=>{
+    const documentPages=document.querySelectorAll('.rpv-core__inner-page')
+    console.log(documentPages)
+  }, [resume])
+
   return (
     <div style={{ height: "fit-content" }}>
       <ToggleSwitch
@@ -59,27 +57,9 @@ export function Resume() {
         optionLabels={['Tom', 'Dan']}
       />
       <label htmlFor="resumeToggle" style={{visibility:'hidden'}}>Toggle 'tween resumes</label>
-      <Experience />
-      <div className={styles.radios}>
-        <label for="input1" className={styles.label}></label>
-        <input
-          id="input1"
-          className={`${styles.radioInput} ${styles.input1}`}
-          name="radio"
-          type="radio"
-          onClick={(e) => handleClick(e, "input1")}
-        />
-        <label for="input2" className={styles.label}></label>
-        <input
-          id="input2"
-          className={`${styles.radioInput} ${styles.input2}`}
-          name="radio"
-          type="radio"
-          onClick={(e) => handleClick(e, "input2")}
-        />
-        <span className={styles.slider}></span>
-      </div>
-      <div style={{ textAlign: "center" }}>
+      <Experience human={resumeToggle?'tom':'dan'}/>
+      
+      <div className={styles.pdfContainer}>
         {/* <object
           data={resume + "#zoom=90"}
           type="application/pdf"

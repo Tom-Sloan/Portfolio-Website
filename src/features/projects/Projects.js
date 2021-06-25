@@ -162,22 +162,8 @@ export function Projects() {
     return (
         //https://www.freecodecamp.org/news/how-to-create-a-timeline-component-with-react-1b216f23d3d4/
         <div className={styles.page}>
-            {/* <div className={styles.parallax} ></div> */}
             <div className={styles.projectContainer}>
                 <div className={styles.projects}>
-                    {/* <h1>Projects</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                        ultricies, ex eu vestibulum consequat, lorem mauris viverra sem,
-                        eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit
-                        est, tristique at consequat sed, egestas eget turpis. Cras vel
-                        fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus.
-                        Quisque placerat leo id dui fermentum, at ornare nibh feugiat.
-                        Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non.
-                        Donec massa velit, viverra quis aliquam nec, ultricies ut tellus.
-                        Vivamus fringilla sagittis suscipit. Donec quis mattis enim,
-                        fermentum placerat orci.
-                    </p> */}
                     <div className={styles.timelineContainer}>
                         <div className={styles.progressContainer}>
                             <div className={styles.progressBar} id='my_bars' ></div>
@@ -199,56 +185,14 @@ export function Projects() {
                                         </a>
                                         <div className={styles.timelineBox}>
                                             <time>{data.monthstart}<br></br>{data.yearstart}</time>
-                                            {/* <div className={styles.timelineHalf} style={{ justifyContent: 'flex-end' }} >
-                                            {data.category.map(obj => {
-                                                console.log(obj);
-                                                return (
-                                                    <span className={styles.timelineTag} style={{ background: obj.color }}>
-                                                        {obj.tag}
-                                                    </span>
-                                                );
-                                            })}
-                                        </div>
-                                        <div className={styles.timelineHalf} style={{ justifyContent: 'flex-start' }} >
-                                            <time>{data.date}</time>
-                                            <p>{data.text}</p>
-                                            {data.link && (
-                                                <a
-                                                    href={data.link.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    {data.link.text}
-                                                </a>
-                                            )}
-                                        </div> */}
                                         </div>
                                     </div>
                                 </div>
                             ))}
-                        {/* <div className={styles.timelineItem}>
-                            <div className={styles.timelineContent}>
-                                <a
-                                    href={`#footer`}
-                                    className={styles.circleLink}
-                                    onMouseEnter={handleHover}
-                                    onMouseLeave={handleNoHover}
-                                >
-                                    <span
-                                        className={styles.timelineCircle}
-                                        id={`circle data ${projects.length}`}
-                                    />
-                                </a>
-                                <div className={styles.timelineBox}>
-                                    <time>Footer<br></br>End</time>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                     <div className={styles.projectList} onChange={updateWindowDimensions}>
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
-                                // <div className={styles.stickyContainer} >
                                     <div className={styles.project} id={`data ${idx}`}>
                                         <h2>
                                             {data.title}
@@ -288,12 +232,8 @@ export function Projects() {
                                         </time>
                                         <p>{data.description}</p>
                                     </div>
-                                // </div>
                             ))}
                     </div>
-
-
-
                 </div>
             </div>
         </div>

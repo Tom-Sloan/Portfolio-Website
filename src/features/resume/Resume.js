@@ -9,6 +9,7 @@ import { MobilePDFReader } from 'react-read-pdf';
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Experience } from "../experience/Experience";
 
 export function Resume() {
   const [resume, setResume] = useState("./Daniel_Neasmith_CV.pdf");
@@ -16,7 +17,7 @@ export function Resume() {
     height: window.innerHeight,
     width: window.innerWidth,
   });
-  const element = resume.slice(2,8);
+  const element = resume.slice(2, 8);
 
   const updateWindowDimensions = () => {
     setDimensions({
@@ -50,10 +51,7 @@ export function Resume() {
 
   return (
     <div style={{ height: "fit-content" }}>
-      {console.log({ dimensions })}
-      <div>
-        <LinkedInTile />
-      </div>
+      <Experience />
       <div className={styles.radios}>
         <label for="input1" className={styles.label}></label>
         <input

@@ -1,30 +1,16 @@
 import styles from "./Card.module.scss";
-import Tilt from "react-vanilla-tilt";
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
 export function Card({ elements, endRedirectLink = "#" }) {
-  const style = {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    boxShadow: "1px 3px 1px #9E9E9E",
-  };
   return (
     <div className={`${styles.portfolioContainer} portfolioContainer`}>
       <div className={styles.container}>
         {elements.map((elm, index) => {
           if (index < 7) {
             return (
-              <Tilt
-                className={`${styles.card} cardContent`}
-                style={style}
-                options={{
-                  max: 35,
-                  speed: 400,
-                  glare: true,
-                  "max-glare": 1,
-                }}
-              >
-                <div className={`${styles.content}`}>
+              <div className={`${styles.card} cardContent`}>
+                <div className={`${styles.content} testContent`}>
                   {(elm.image && (
                     <img
                       src={elm.image}
@@ -62,27 +48,18 @@ export function Card({ elements, endRedirectLink = "#" }) {
                         <a href={link.link}>{link.text || "Read More"}</a>
                       ))) || <a href={elm.link}>Read More</a>)}
                 </div>
-              </Tilt>
+              </div>
             );
           } else if (index === 7) {
             return (
-              <Tilt
-                className={`${styles.endCard} cardContent`}
-                style={style}
-                options={{
-                  max: 35,
-                  speed: 400,
-                  glare: true,
-                  "max-glare": 1,
-                }}
-              >
+              <div className={`${styles.endCard} cardContent`}>
                 <Link to={endRedirectLink} className={`${styles.endContent}`}>
                   More...
                 </Link>
-              </Tilt>
+              </div>
             );
           }
-          return null
+          return null;
         })}
       </div>
     </div>

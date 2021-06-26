@@ -33,7 +33,7 @@
   --backgroundShade: var(--backgroundShade1);
 }
 .rpv-core__inner-page{
-  --rpv-core__inner-page-background-color: green !important
+  --rpv-core__inner-page-background-color: none !important
 }
 :root {
   --darkest1: rgba(255, 255, 255, 0.1);

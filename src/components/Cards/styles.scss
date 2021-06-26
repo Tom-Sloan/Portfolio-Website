@@ -8,6 +8,7 @@
 }
 
 .popUpImage {
+  visibility:visible;
   max-width: 250px;
   max-height: 200px;
   height: auto;
@@ -23,4 +24,7 @@
 
 .cardContent:hover .popUpImage {
   opacity: 1;
+}
+.js-tilt-glare{
+  border-radius: inherit;
 }

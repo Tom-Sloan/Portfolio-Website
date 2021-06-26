@@ -24,7 +24,7 @@
     transform: translateZ(0);
     color: var(--text);
 
-    border-top: 3px solid var(--dark);
+    /* border-top: 3px solid var(--dark); */
 }
 
 

@@ -10,17 +10,25 @@ export function ProjectsContainer() {
   const [projectChange, setProjectChange] = useState();
 
   useEffect(() => {
-    world.current = Background(projectsBackgroundRef.current);
+    // world.current = Background(projectsBackgroundRef.current);
 
     return function cleanup() {
       world.current.stop();
     };
   }, []);
 
+  function background() {
+    world.current = Background(projectsBackgroundRef.current);
+  }
+
+  function cleanup() {
+    world.current.stop();
+  }
+
   return (
     <div className={styles.parallaxParent}>
       <div ref={projectsBackgroundRef} className={`${styles.parallax}`}></div>
-      <Projects />
+      <Projects background={background} cleanup={cleanup} />
       <Footer />
     </div>
   );

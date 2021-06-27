@@ -9,7 +9,9 @@ import { ResumeContainer } from "../features/resume/ResumeContainer";
 import { TestData } from "../features/About/AboutTestOption.js";
 import { Contact } from "../features/contact/Contact";
 import { Playlists } from "../features/Spotify/Playlists";
-
+import { useSelector } from "react-redux";
+import { selectSportsArray } from "../features/general/generalSlice";
+import { General } from "../features/general/General";
 
 export function Body() {
   
@@ -46,18 +48,18 @@ const bubbleTilesInitial = {
   name:'Body',
   displayData: [
     {
-      title: "Personal",
+      title: "Music",
       component: <Playlists />,
       color: "#66023C",
     },
     {
-      title: "Artist",
-      component: <TestData numberOfRepeat={3} />,
+      title: "Sports",
+      component: <General choice="sports" />,
       color: "#992B43",
     },
     {
-      title: "Music",
-      component: <TestData numberOfRepeat={3} />,
+      title: "Personal",
+      component: <General choice="personals" />,
       color: "#C45744",
     },
     {

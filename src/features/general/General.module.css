@@ -1,0 +1,39 @@
+.general {
+    margin-left: 0;
+}
+
+.generalItem:first-child {
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.generalItem {
+    margin: 50px 0;
+    min-height: 20vh;
+}
+
+.generalItem:last-child {
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+
+.generalItem img {
+    max-width: 20vw;
+    max-height: 20vh;
+}
+
+.generalItem:nth-child(odd) img {
+    float: right;
+}
+
+.generalItem:nth-child(even) img {
+    float: left;
+}
+
+.generalItem:nth-child(odd) {
+    text-align: left;
+}
+
+.generalItem:nth-child(even) {
+    text-align: right;
+}

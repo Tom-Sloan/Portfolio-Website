@@ -12,6 +12,7 @@ import { Playlists } from "../features/Spotify/Playlists";
 import { useSelector } from "react-redux";
 import { selectSportsArray } from "../features/general/generalSlice";
 import { General } from "../features/general/General";
+import { Photos } from "../features/About/photos/Photos";
 
 export function Body() {
   
@@ -64,7 +65,7 @@ const bubbleTilesInitial = {
     },
     {
       title: "Personal",
-      component: <TestData numberOfRepeat={3} />,
+      component: <Photos />,
       color: "#E38946",
     },
     {

@@ -61,6 +61,7 @@ export function Resume() {
         checked={resumeToggle}
         onChange={onResumeChange}
         optionLabels={['Tom', 'Dan']}
+        cvPage={true}
       />
       <label htmlFor="resumeToggle" style={{ visibility: 'hidden' }}>Toggle 'tween resumes</label>
       <Experience human={resumeToggle ? 'tom' : 'dan'} />

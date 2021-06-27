@@ -68,6 +68,7 @@
   padding: 40px;
   box-shadow: 0 0 5px var(--shadowStart), 8px 8px 5px var(--shadowEnd);
   border-radius: 8px;
+  color: var(--text1);
 }
 
 /* Title above tiles*/
@@ -75,6 +76,7 @@
   text-align: right;
   transition: width 0.4s ease-out;
   text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
+  color: var(--text);
 }
 
 /* Next Back Buttons */

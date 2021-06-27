@@ -300,7 +300,7 @@ a:link, a:visited, a:hover, a:active {
   /* background-color: var(--backgroundShade); */
   /* border: 3px solid var(--lightest); */
   /* border-radius: var(--popUpBorderRadius); */
-  /* padding: 10px; */
+  padding: 20px;
   display: inline-block;
   color: var(--text);
 }

@@ -7,11 +7,28 @@ import { selectProjectsArray } from "./projectsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import Tilt from "react-vanilla-tilt";
+import VanillaTilt from "vanilla-tilt";
 
-export function Projects() {
+export function Projects({ background, cleanup }) {
     const projects = useSelector(selectProjectsArray);
     // console.log(projects);
 
+    useEffect(() => {
+        const options = {
+            reverse: true,
+            glare: true,
+            'max-glare': 0.5,
+            max: 10,
+        }
+        const element = document.querySelectorAll(`.${styles.tiltCard}`);
+        VanillaTilt.init(element, options);
+
+        // element.addEventListener("tiltChange", callback);
+    }, []);
+    const makeBackground = () => {
+        cleanup();
+        background();
+    }
     const updateWindowDimensions = () => {
         document.querySelector(`.${bodyStyle.parallax}`).style.height =
             getComputedStyle(document.querySelector(`.${styles.projectList}`)).height;
@@ -23,6 +40,11 @@ export function Projects() {
         document.querySelector(`.${styles.page}`).style.width = getComputedStyle(
             document.querySelector(`.${bodyStyle.bodyArea}`)
         ).width;
+
+
+
+        // document.querySelector(`${bodyStyle.parallax}`).children[0].width = getComputedStyle(document.querySelector(`.${bodyStyle.parallax}`).style.width)
+        // document.querySelector(`${bodyStyle.parallax}`).children[0].height = getComputedStyle(document.querySelector(`.${bodyStyle.parallax}`).style.height)
 
         // document.document.querySelector(`.${styles.page}`).style.height
         // console.log(getComputedStyle(document.querySelector(`.${styles.projectList}`)).height);
@@ -102,10 +124,6 @@ export function Projects() {
             document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight;
 
         var elemTop = elem.offsetTop;
-        // var elemBottom = Math.max(
-        //     elemTop + elem.offsetHeight,
-        //     elemTop + window.screen.height / 2
-        // );
         var elemBottom = elemTop + elem.offsetHeight;
 
         console.log(docViewTop);
@@ -124,25 +142,39 @@ export function Projects() {
         e.target.style.backgroundColor = "#00adb5";
     };
 
-    // useEffect(() => {
-    //     window.addEventListener("resize", updateWindowDimensions);
-    //     updateWindowDimensions();
+    function debounce(fn, ms) {
+        let timer;
+        return (_) => {
+            clearTimeout(timer);
+            timer = setTimeout((_) => {
+                timer = null;
+                fn.apply(this, arguments);
+            }, ms);
+        };
+    }
 
-    //     return () => window.removeEventListener("resize", updateWindowDimensions);
-    // }, []);
+    const resizeFunction = () => {
+        updateWindowDimensions();
+        makeBackground()
+    }
+
+    const debounceResize = () => {
+        debounce(resizeFunction(), 1000)
+    }
 
     useEffect(() => {
-        window.addEventListener("resize", updateWindowDimensions);
+        window.addEventListener("resize", debounceResize);
 
         try {
             updateWindowDimensions();
+            background();
         } catch (e) {
             console.log(e);
         }
 
         // console.log(document.querySelector(`.${styles.projectList}`).children[3]);
 
-        return () => window.removeEventListener("resize", updateWindowDimensions);
+        return () => window.removeEventListener("resize", debounceResize);
     }, []);
 
     // function isScrolledIntoView(elem) {
@@ -204,15 +236,7 @@ export function Projects() {
                     <div className={styles.projectList} onChange={updateWindowDimensions}>
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
-                                <Tilt
-                                    className={styles.tiltCard}
-                                    options={{
-                                        max: 35,
-                                        speed: 400,
-                                        glare: true,
-                                        "max-glare": 1,
-                                    }}
-                                >
+                                <div className={styles.tiltCard} >
                                     <div className={styles.project} id={`data ${idx}`}>
                                         {data.category.map((item) => {
                                             return (
@@ -246,7 +270,7 @@ export function Projects() {
                                             <img
                                                 src={data.image}
                                                 alt=""
-                                                onLoad={updateWindowDimensions}
+                                                onLoad={resizeFunction}
                                             />
                                         )}
                                         <time>
@@ -255,7 +279,7 @@ export function Projects() {
                                         </time>
                                         <p>{data.description}</p>
                                     </div>
-                                </Tilt>
+                                </div>
                             ))}
                     </div>
                 </div>

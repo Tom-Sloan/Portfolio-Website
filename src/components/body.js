@@ -68,11 +68,11 @@ const bubbleTilesInitial = {
       component: <Photos />,
       color: "#E38946",
     },
-    {
-      title: "Artist",
-      component: <TestData numberOfRepeat={3} />,
-      color: "#F5BF51",
-    },
+    // {
+    //   title: "Artist",
+    //   component: <TestData numberOfRepeat={3} />,
+    //   color: "#F5BF51",
+    // },
   ],
 
   // colors: [

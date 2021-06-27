@@ -17,6 +17,7 @@ const ToggleSwitch = ({
   optionLabels,
   small,
   disabled,
+  cvPage,
 }) => {
   function handleKeyPress(e) {
     if (e.keyCode !== 32) return;
@@ -25,7 +26,7 @@ const ToggleSwitch = ({
     onChange(!checked);
   }
   return (
-    <div className={"toggle-switch" + (small ? " small-switch" : "")}>
+    <div className={"toggle-switch" + (small ? " small-switch" : "") + (cvPage ? " toggle-switch-margin" : "")}>
       <input
         type="checkbox"
         name={name}

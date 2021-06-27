@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import projectsSlice from '../projects/projectsSlice';
 import styles from './General.module.css';
 import { selectGeneralArray, selectPersonalsArray, selectSportsArray } from './generalSlice';
 import ToggleSwitch from '../resume/LiquidSwitch/ToggleSwitch';

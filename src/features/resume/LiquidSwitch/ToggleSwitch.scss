@@ -4,9 +4,13 @@ $toggle-colour: #2f855a;
 $white: #fff;
 $focus-color: #ff0;
 
+.toggle-switch-margin {
+  margin-left: 220px;
+}
+
 .toggle-switch {
   margin-top: 10px;
-  margin-left: 220px;
+  margin-bottom: 10px;
   position: relative;
   width: 75px;
   display: inline-block;
@@ -122,5 +126,17 @@ $focus-color: #ff0;
   }
   @media screen and (max-width: 575px) {
     transform: scale(0.75);
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .toggle-switch-margin {
+    margin-left: 170px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .toggle-switch-margin {
+    margin-left: 20px;
   }
 }

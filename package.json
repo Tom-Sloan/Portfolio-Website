@@ -10,6 +10,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@react-pdf-viewer/core": "^2.6.0",
+    "@react-pdf-viewer/default-layout": "^2.6.0",
+    "@react-pdf-viewer/zoom": "^2.6.0",
     "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

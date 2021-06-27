@@ -10,9 +10,13 @@ import { PDFReader } from 'react-read-pdf';
 import { MobilePDFReader } from 'react-read-pdf';
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Plugin, SpecialZoomLevel } from '@react-pdf-viewer/core';
 import { Experience } from "../experience/Experience";
-import {setCSSGlobalVar} from '../../helpFunctions';
+import { setCSSGlobalVar } from '../../helpFunctions';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+
 export function Resume() {
   const [resume, setResume] = useState("./Daniel_Neasmith_CV.pdf");
   const [dimensions, setDimensions] = useState({
@@ -20,6 +24,8 @@ export function Resume() {
     width: window.innerWidth,
   });
   const element = resume.slice(2, 8);
+
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   const updateWindowDimensions = () => {
     setDimensions({
@@ -32,7 +38,7 @@ export function Resume() {
     window.addEventListener("resize", updateWindowDimensions);
     updateWindowDimensions();
     setCSSGlobalVar('--rpv-core__inner-page-background-color', 'grey')
-    
+
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
 
@@ -40,11 +46,11 @@ export function Resume() {
 
   const onResumeChange = (checked) => {
     setResumeToggle(checked);
-    setResume(checked?"./Tom_Sloan_CV_Dec_2019.pdf":"./Daniel_Neasmith_CV.pdf")
+    setResume(checked ? "./Tom_Sloan_CV_Dec_2019.pdf" : "./Daniel_Neasmith_CV.pdf")
 
   };
-  useEffect(()=>{
-    const documentPages=document.querySelectorAll('.rpv-core__inner-page')
+  useEffect(() => {
+    const documentPages = document.querySelectorAll('.rpv-core__inner-page')
     console.log(documentPages)
   }, [resume])
 
@@ -55,10 +61,11 @@ export function Resume() {
         checked={resumeToggle}
         onChange={onResumeChange}
         optionLabels={['Tom', 'Dan']}
+        cvPage={true}
       />
-      <label htmlFor="resumeToggle" style={{visibility:'hidden'}}>Toggle 'tween resumes</label>
-      <Experience human={resumeToggle?'tom':'dan'}/>
-      
+      <label htmlFor="resumeToggle" style={{ visibility: 'hidden' }}>Toggle 'tween resumes</label>
+      <Experience human={resumeToggle ? 'tom' : 'dan'} />
+
       <div className={styles.pdfContainer}>
         {/* <object
           data={resume + "#zoom=90"}
@@ -81,9 +88,15 @@ export function Resume() {
           <br/>
           <PDFReader className={styles.tom} showAllPage='true' url="./Tom_Sloan_CV_Dec_2019.pdf" />
         </div> */}
-        <a href={resume} download>Click here to download resume</a>
+        {/* <a href={resume} download>Click here to download resume</a> */}
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js" >
-          <Viewer fileUrl={resume} />
+          <div
+            style={{
+              height: '100%',
+            }}
+          >
+            <Viewer fileUrl={resume} plugins={[defaultLayoutPluginInstance]} />
+          </div>
         </Worker>
       </div>
       {/* <h1>Resume</h1> */}

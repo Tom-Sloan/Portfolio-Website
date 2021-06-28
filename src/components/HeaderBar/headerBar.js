@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./HeaderStyles.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,9 +13,16 @@ import ScrollMenu from "react-horizontal-scrolling-menu";
 
 export function HeaderBar() {
   const [mugSelector, setMugSelector] = useState(0);
-  const [selected, setSelected] = useState(headerLinks[0]);
+  const [selected, setSelected] = useState(Array(headerLinks.length).fill(false));
   const mugs = [faMoon, faSun];
-  const menu = Menu(headerLinks, selected);
+
+  const handleSelection = (e, index) =>{
+    const temp = Array(headerLinks.length).fill(false);
+    temp[index]= true;
+    setSelected(temp)
+  }
+
+  const menu = Menu(headerLinks, selected, handleSelection);
   const handleClick = (e) => {
     document.querySelector(".App").classList.toggle("dark-theme");
     setMugSelector((prev) => (prev ? 0 : 1));
@@ -45,7 +52,7 @@ export function HeaderBar() {
             arrowLeft={<div></div>}
             arrowRight={<div></div>}
             selected={selected}
-            onSelect={setSelected}
+            setSelected={setSelected}
           />
         </div>
         <div className={styles.iconContainer} onClick={handleClick}>
@@ -57,16 +64,21 @@ export function HeaderBar() {
       </div>
     </div>
   );
+
 }
-export const Menu = (list, selected) =>
+
+export const Menu = (list, selected, handleSelection) =>
   list.map((el, index) => {
+    
     return (
       <Link to={el.destination} key={el.title + '-link-' + index}>
         <HeaderButtons
           name={el.title + '-' + index}
           text={el.title}
           key={el.title + '-' + index}
-          selected={selected}
+          selected={selected[index]}
+          handleSelection={handleSelection}
+          index={index}
         />
       </Link>
     );

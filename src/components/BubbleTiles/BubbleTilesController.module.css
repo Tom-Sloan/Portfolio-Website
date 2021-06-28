@@ -73,6 +73,7 @@
 
 /* Title above tiles*/
 .tileTitles {
+  color: var(--text);
   text-align: right;
   transition: width 0.4s ease-out;
   text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
@@ -105,6 +106,7 @@
   .nextBackButtons{
     display:block;
     position: absolute;
+    color: var(--text);
     right: 1vh;
     width: 100px;
     height: 100%;

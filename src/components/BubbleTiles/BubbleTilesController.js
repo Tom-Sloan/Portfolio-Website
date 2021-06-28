@@ -67,7 +67,7 @@ export function BubbleTilesController({
 
   const updateFatherDimensions = () => {
     let checkingOffset = offset;
-    if (window.innerWidth <= 850) checkingOffset = 40;
+    if (window.innerWidth <= getCSSGlobalVar('--mediumSize')) checkingOffset = 40;
     //Get bubbles height to offset the tile parent component
     const bubbles = getComputedStyle(
       document.querySelector(`.${styles.Bubbles + name}`)
@@ -97,7 +97,7 @@ export function BubbleTilesController({
     ).style.height =
       checkingOffset + cummulativeDivHeight + bubblesHeight + "px";
 
-    // fatherRef.current.style.top = bubblesHeight + "px"; // assigns the offset so the tiles are not on top of the bubbles
+    fatherRef.current.style.top = bubblesHeight/3 + "px"; // assigns the offset so the tiles are not on top of the bubbles
     fatherRef.current.style.height =
       checkingOffset + cummulativeDivHeight + "px"; // set the height of the parent component. Offset give an extra space at the bottom
   };

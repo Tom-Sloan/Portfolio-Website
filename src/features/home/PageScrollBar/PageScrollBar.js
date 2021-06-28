@@ -123,7 +123,7 @@ export function PageScrollBar() {
   };
 
   const action = (e) => {
-    const scrollContainer = document.querySelector(".BodyStyles_parent__21iD_");
+    const scrollContainer = document.getElementById('HomeParentContainer')
     percentPosition.current =
       scrollContainer.scrollTop /
       (scrollContainer.scrollHeight - scrollContainer.clientHeight);

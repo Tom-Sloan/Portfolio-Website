@@ -4,6 +4,9 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faGithubSquare } from "@fortawesome/free-brands-svg-icons";
 import { Card } from "../../components/Cards/Card";
+import { useEffect } from "react";
+import VanillaTilt from "vanilla-tilt";
+
 export function Contact() {
   const contactInformation = [
     {
@@ -52,11 +55,23 @@ export function Contact() {
       ],
     },
   ];
+  useEffect(() => {
+    const options = {
+      reverse: true,
+      glare: true,
+      "max-glare": 0.5,
+      max: 35,
+    };
+    const element = document.querySelectorAll(".cardContent");
+    VanillaTilt.init(element, options);
+
+    // element.addEventListener("tiltChange", callback);
+  }, []);
   return (
-    <div style={{ minHeight: "80vh", height: "100%", color: "var(--text)" }} >
+    <div style={{minHeight:'80vh', height: "fit-content", color: "var(--text)" }}>
       <Card elements={contactInformation} />
       {/* <h2 style={{ textAlign: 'center' }} >Get in Touch</h2>
             <hr /> */}
-      </div>
+    </div>
   );
 }

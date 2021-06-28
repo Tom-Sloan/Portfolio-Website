@@ -52,6 +52,9 @@
   --shadowEnd2: rgba(0, 0, 0, 0.1);
   --textShadingEnd2: rgba(128, 128, 128, 0.4); /*  */
 
+  --lightPurpleBackground:#DCCDF8;
+  --lightBlueBackground: #C6D3FD;
+
   --text1: rgb(207, 207, 207);
   --text2: black;
 

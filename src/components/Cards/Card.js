@@ -2,15 +2,19 @@ import styles from "./Card.module.scss";
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
-export function Card({ elements, endRedirectLink = "#" }) {
+export function Card({ elements, limit=-1, endRedirectLink = "#", title }) {
+  if (limit === -1)
+    limit=elements.length
+
   return (
     <div className={`${styles.portfolioContainer} portfolioContainer`}>
+      {title&&<h1 className={styles.sectionTitle}>{title}</h1>}
       <div className={styles.container}>
         {elements.map((elm, index) => {
-          if (index < 7) {
+          if (index < limit) {
             return (
               <div className={`${styles.card} cardContent`}>
-                <div className={`${styles.content} testContent`}>
+                <div className={`${styles.content}`}>
                   {(elm.image && (
                     <img
                       src={elm.image}
@@ -50,7 +54,7 @@ export function Card({ elements, endRedirectLink = "#" }) {
                 </div>
               </div>
             );
-          } else if (index === 7) {
+          } else if (index === limit) {
             return (
               <div className={`${styles.endCard} cardContent`}>
                 <Link to={endRedirectLink} className={`${styles.endContent}`}>

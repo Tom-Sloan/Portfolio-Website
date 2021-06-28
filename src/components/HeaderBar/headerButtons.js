@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styles from "./HeaderButtons.module.css";
 // import "./styles.css";
 
-export function HeaderButtons({ name, text, selected }) {
+export function HeaderButtons({ name, text, selected, handleSelection, index }) {
   const ref = useRef(null);
   const spanRef = useRef(null);
 
@@ -37,7 +37,6 @@ export function HeaderButtons({ name, text, selected }) {
     spanRef.current.style.width = "0";
 
   }
-
   return (
     <div key={name} className={styles.SubredditButtonContainer}>
       <button
@@ -47,6 +46,7 @@ export function HeaderButtons({ name, text, selected }) {
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleOut}
+        onClick={(e) => handleSelection(e, index)}
       >
         {text}
         <span className={styles.SubredditButtonSpan} ref={spanRef}></span>

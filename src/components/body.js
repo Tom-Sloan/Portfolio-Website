@@ -17,7 +17,7 @@ export function Body() {
     <div className={styles.bodyArea}>
       <Switch>
         <Route exact path="/">
-          <div className={styles.parent}>
+          <div id='HomeParentContainer' className={styles.parent}>
             <Home />
             <Footer />
           </div>

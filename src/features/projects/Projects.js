@@ -76,7 +76,7 @@ export function Projects() {
       }
     };
 
-    console.log(document.querySelector(`.${bodyStyle.parallaxParent}`));
+    // console.log(document.querySelector(`.${bodyStyle.parallaxParent}`));
 
     //THIS
 
@@ -108,10 +108,10 @@ export function Projects() {
     // );
     var elemBottom = elemTop + elem.offsetHeight;
 
-    console.log(docViewTop);
-    console.log(docViewBottom);
-    console.log(elemTop);
-    console.log(elemBottom);
+    // console.log(docViewTop);
+    // console.log(docViewBottom);
+    // console.log(elemTop);
+    // console.log(elemBottom);
 
     return elemBottom <= docViewBottom && elemTop >= docViewTop;
   }

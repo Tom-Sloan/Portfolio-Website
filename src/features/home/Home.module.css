@@ -1,15 +1,27 @@
 .home {
+  position: relative;
   min-width: 100%;
   max-width: 100%;
-  background-color: var(--light1);
+  display: flex;
+  flex-direction: column;
 }
 
 .top {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: column;
   min-height: 85vh;
   flex-basis: auto;
+  background-image: url("https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788_960_720.jpg");
+  background-size: cover;
+}
+
+.profileImageContainers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .profile {
@@ -26,6 +38,7 @@
 }
 
 .name {
+  text-align: center;
   align-content: center;
   color: var(--dark);
   text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
@@ -39,6 +52,17 @@
   margin-block-start: 0;
   margin-block-end: 0;
   line-height: 83%;
+}
+.quoteContainer {
+  min-height: 20vh;
+  border-radius: var(--popUpBorderRadius);
+  box-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--shadowEnd);
+  padding: 10px;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .divider {
@@ -55,4 +79,19 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.skillsContainer{
+  min-height: 80vh;
+  height: 80vh;
+  width: 100%;
+  background-color: var(--darkest);
+}
+.skills{
+  height: 60%;
+  width: 60%;
+  left:20%;
+  top: 20%;
+  position: relative;
+  background-color: var(--dark);
 }

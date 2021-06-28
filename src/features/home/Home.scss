@@ -1,0 +1,19 @@
+@media only screen and (min-width: 992px) {
+    .light-theme .topLevelHome::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-size: 200%;
+      // background-image: url("./splash.jpg");
+      background-position: center;
+      mix-blend-mode: screen;
+    }
+    .dark-theme .topLevelHome::before {
+        // background-image: url("./image.png");
+        filter: invert(1);
+        mix-blend-mode: darken;
+      }
+  }

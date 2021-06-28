@@ -1,0 +1,36 @@
+.canvas {
+  position: absolute;
+  //   bottom: 0;
+  // background-color: rgba(255, 255, 255, 0.329);
+  border-radius: 10px;
+  left: 5%;
+  opacity: 0;
+  transition: 0.5s;
+  // bottom: -20px;
+
+  border-radius: 40px;
+}
+.backgroundCanvas {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+}
+// .stickyContainer {
+//   width: 100vw;
+//   height: 10vh;
+
+//   //
+// }
+.canvasContainer {
+  position: absolute;
+  top: 100px;
+  // bottom: 0;
+  width: 100%;
+  // height: 100px;
+  z-index: 10;
+}
+.canvasContainer:hover .canvas {
+  opacity: 1;
+}

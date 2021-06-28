@@ -1,19 +1,23 @@
 .portfolioContainer {
-  display:flex;
-  
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+
+  // flex-grow: 1;
+  // justify-content: center;
+  // align-items: center;
 
   /* Set a specific height */
   // min-height: 80vh;
   height: 100%;
-
+  min-height:80vh;
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.sectionTitle{
+  color: var(--text);
+  text-align: center;
 }
 /* .backgroundContainer::before {
     content: "";
@@ -41,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   flex-wrap: wrap;
   z-index: 1;
   /* border: 2px dash orange; */
@@ -55,31 +59,32 @@
   box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
   border-radius: 40px;
   background-color: rgba(255, 255, 255, 0.1);
-  // overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
+  transform-style: preserve-3d;
+  perspective: 500px;
+  
 }
 
 .endCard {
   position: relative;
-  width: 280px;
-  height: 280px;
-  margin: 30px;
+  width: 200px;
+  height: 200px;
+  // margin: 30px;
   box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
-  /* overflow: hidden; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(5px);
-  overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 .container .card .content {
@@ -88,6 +93,8 @@
   transform: translateY(0);
   opacity: 1;
   transition: 0.5s;
+  transition: transform 0.25;
+  
 }
 
 .endContent {
@@ -136,6 +143,8 @@
 }
 .container .card .content a:hover {
   opacity: 0.8;
+  transform: scale(1.1) translateZ(50px);
+  transition: 0.5s;
 }
 .tags {
   display: inline;
@@ -151,3 +160,8 @@
   font-size: 100px;
   // text-align: left;
 }
+.card:hover .content .iconContainer {
+  transform: scale(1.75) translateZ(50px) translateY(-20px);
+  transition: 0.5s;
+}
+

@@ -8,7 +8,9 @@ export const getCSSGlobalVar = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(
     name
   );
-
+export function vhToPixels (vh) {
+    return Math.round(window.innerHeight / (100 / vh));
+  }
 export var generateRandomColors = function (number) {
   /*
     This generates colors using the following algorithm:

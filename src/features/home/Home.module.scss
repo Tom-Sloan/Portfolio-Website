@@ -1,9 +1,14 @@
+
+
 .home {
   position: relative;
+
   min-width: 100%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
+
+  /* background-size: cover;  */
 }
 
 .top {
@@ -14,9 +19,25 @@
   flex-flow: column;
   min-height: 85vh;
   flex-basis: auto;
-  background-image: url("https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788_960_720.jpg");
-  background-size: cover;
+  /* background-image: url("https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788_960_720.jpg");
+  background-size: cover; */
+  background-image: linear-gradient(
+    to right top,
+    #dccdf8,
+    #d8cef9,
+    #d3d0fb,
+    #cfd1fb,
+    #cbd2fc,
+    #c0d6ff,
+    #b5d9ff,
+    #abddff,
+    #95e5ff,
+    #7dedff,
+    #68f5fe,
+    #5ffbf1
+  );
 }
+
 
 .profileImageContainers {
   display: flex;
@@ -81,17 +102,68 @@
   padding: 0;
 }
 
-.skillsContainer{
+.skillsContainer {
   min-height: 80vh;
   height: 80vh;
   width: 100%;
-  background-color: var(--darkest);
+  background-color: transparent;
 }
-.skills{
+.skills {
   height: 60%;
   width: 60%;
-  left:20%;
+  left: 20%;
   top: 20%;
   position: relative;
+  display: flex;
+  flex-direction: column;
   background-color: var(--dark);
+  text-align: center;
+  color: var(--text);
+  gap: 20px;
+}
+.skillsLayout {
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.experienceImage {
+  max-height: 40%;
+  max-width: 60%;
+  object-fit: contain;
+}
+.iconContainer {
+  position: relative;
+  width: 20%;
+  height: 100%;
+}
+.iconContainer h4 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.imageContainer {
+  display: inline;
+  max-width: 20%;
+  width: 20%;
+}
+.experienceIcon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 60%;
+  /* min-width: 10%; */
+}
+@media only screen and (max-width: 768px) {
+  .imageContainer h4 {
+    display: none;
+  }
+  .iconContainer h4 {
+    display: none;
+  }
 }

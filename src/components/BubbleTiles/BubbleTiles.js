@@ -9,6 +9,7 @@ displayData (array of objects):
       title : the title to be used in both the bubbles and floating above the tile. Default is no tilte if not given
       componenet : The contents of the tiles, default is no content for tile, in such a case the tile will be padding tall
       color: Contains the color to be used in the bubble and tile backgrounds. There is a random color generator if this is not given, however, the color may (probably) be ugly
+      hasHorizontal: this controlls whether the bubbles go into a horizontal display or not
 
 */
 
@@ -29,7 +30,7 @@ export function BubbleTiles({visualData}) {
   const [clientHeight, setClientHeight] = useState(0);
 
   //Control variable to dictate when the bubbles are in vertical (true) or horizontal position (false)
-  const [toggleAnimation, setToggleAnimation] = useState(false)
+  const [toggleAnimation, setToggleAnimation] = useState(visualData.hasOwnProperty('hasHorizontal')?!visualData.hasHorizontal:false)
   
   //Used to reference the component we want to get the scroll position of
   const parentRef = useRef(null);
@@ -38,7 +39,8 @@ export function BubbleTiles({visualData}) {
   const handleScroll = (e) => {
     //Get current scroll position
     const currentScroll = parentRef.current.scrollTop;
-    const horizontalBoundary = 10;
+    const hasHorizontal = visualData.hasOwnProperty('hasHorizontal')?visualData.hasHorizontal:true;
+    const horizontalBoundary = hasHorizontal?10:-100;
     //If we are within an area of the top of the screen, bubbles are in horizontal position 
     if (currentScroll <= horizontalBoundary) {
       //Only change if we are currently in other state
@@ -58,7 +60,7 @@ export function BubbleTiles({visualData}) {
   
   return (
     <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
-      <BubbleTilesController parentPosition={lastScroll} parentHeight = {clientHeight} toggleAnimation={toggleAnimation} name={visualData.name} displayItems={visualData.displayData || {}} offset={visualData.offset || 100}/>
+      <BubbleTilesController parentPosition={lastScroll} parentHeight = {clientHeight} toggleAnimation={toggleAnimation} name={visualData.name} displayItems={visualData.displayData || {}} offset={visualData.offset || 100} hasHorizontal={visualData.hasOwnProperty('hasHorizontal')?!visualData.hasHorizontal:false}/>
       <Footer />
     </div>
   );

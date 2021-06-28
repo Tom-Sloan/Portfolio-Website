@@ -58,8 +58,7 @@ export default function Background(reference) {
   Runner.run(runner, engine);
 
   // add bodies
-  let timeoutId;
-  setTimeout(function creation(index = 1) {
+  const generateNewBody = ()=>{
     let body = Bodies.circle(
       Common.random(0, width),
       Common.random(0, height),
@@ -87,6 +86,13 @@ export default function Background(reference) {
     } catch (e) {
       console.log(e);
     }
+  }
+  for (let i = 0; i < 10; i++)
+    generateNewBody()
+    
+  let timeoutId;
+  setTimeout(function creation(index = 1) {
+    generateNewBody()
     index++
     if (index< 100){
       timeoutId = setTimeout(()=>creation(index), 1000)

@@ -1,7 +1,7 @@
 import React from "react";
 import { Breakpoint, BreakpointProvider } from "react-socks";
 
-import "./App.css";
+import "./App.scss";
 import { BrowserRouter as Router } from "react-router-dom";
 import { HeaderBar } from "./components/HeaderBar/headerBar";
 import { Body } from "./components/body";

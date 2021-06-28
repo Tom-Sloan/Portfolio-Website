@@ -244,7 +244,7 @@ export function PageScrollBar() {
 
     //Add window resize listener, this is so the user doesn't get stuck halfway between the standard site and the landingpage
     window.addEventListener("resize", deboucedUpdateWindowDimensions);
-    const scrollContainer = document.querySelector(".BodyStyles_parent__21iD_");
+    const scrollContainer = document.getElementById('HomeParentContainer')
 
     scrollContainer.addEventListener("scroll", action);
     action();

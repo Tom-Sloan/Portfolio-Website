@@ -4,10 +4,12 @@
   /* min-height: 100vh; */
   overflow-x: hidden;
   overflow-y: visible;
-  background-color: var(--dark);
+  /* background-color: var(--dark); */
+  background-image: linear-gradient(to bottom, #dccdf8, #d8cef9, #d3d0fb, #cfd1fb, #cbd2fc, #c0d6ff, #b5d9ff, #abddff, #95e5ff, #7dedff, #68f5fe, #5ffbf1);
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
+  background-attachment:scroll;
   position: relative;
 }
 
@@ -26,6 +28,9 @@
   margin-top: 1px;
   width: 100%;
   height: 100px;
+}
+.bubbleContainerNoHeight{
+  height:0;
 }
 
 /* Each unqiue bubble */

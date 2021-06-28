@@ -26,7 +26,7 @@ export function Body() {
           </div>
         </Route>
         <Route path="/about">
-          <BubbleTiles visualData={bubbleTilesInitial} />
+          <BubbleTiles  visualData={bubbleTilesInitial} />
         </Route>
         <Route path="/projects">
           <ProjectsContainer />
@@ -51,22 +51,22 @@ const bubbleTilesInitial = {
     {
       title: "Music",
       component: <Playlists />,
-      color: "#66023C",
+      color: "#006a4e",
     },
     {
       title: "Sports",
       component: <General choice="sports" />,
-      color: "#992B43",
+      color: "#2e856e",
     },
     {
       title: "Personal",
       component: <General choice="personals" />,
-      color: "#C45744",
+      color: "#5ca08e",
     },
     {
       title: "Personal",
       component: <Photos />,
-      color: "#E38946",
+      color: "#8abaae",
     },
     // {
     //   title: "Artist",
@@ -98,7 +98,7 @@ const bubbleTilesInitial = {
   //   "#6D787F",
   //   "#575A5E",
   // ],
-
+  hasHorizontal:false,
   offset: 20,
 
 }

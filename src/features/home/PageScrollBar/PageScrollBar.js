@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import styles from "./PageScrollBar.module.scss";
-import {pixelToNum} from '../../../helpFunctions'
+import {pixelToNum, vhToPixels} from '../../../helpFunctions'
 
 export function PageScrollBar() {
-  const height = window.innerHeight * 0.15;
-  const width = window.innerWidth * 0.9;
+  const heightPercent = 0.15;
+  const widthPercent = 0.9;
+  const [height, setHeight] = useState(window.innerHeight * heightPercent);
+  const [width, setWidth] = useState(window.innerWidth * widthPercent);
   const canvasHeight = height / 2;
   const minimum = 0.1;
   const limit = 0.9;
@@ -121,17 +123,25 @@ export function PageScrollBar() {
   };
 
   const action = (e) => {
-    console.log(e)
     const scrollContainer = document.querySelector(".BodyStyles_parent__21iD_");
     percentPosition.current =
       scrollContainer.scrollTop /
       (scrollContainer.scrollHeight - scrollContainer.clientHeight);
     const offset = Array.from(canvasContainerRef.current.children).reduce((prev, current) => pixelToNum(getComputedStyle(current)['height']) > prev ? pixelToNum(getComputedStyle(current)['height']): prev, 0)
-    canvasContainerRef.current.style.top =   (scrollContainer.scrollTop + scrollContainer.clientHeight -offset-10 ) + 'px';
+    const defaultOffset =  (scrollContainer.scrollTop + scrollContainer.clientHeight -offset-10 )
+    const limitOffset = (scrollContainer.scrollHeight - offset) - vhToPixels(10);
+    canvasContainerRef.current.style.top =  Math.min(defaultOffset, limitOffset)  + 'px';
     
   };
+  
 
   const initlizeCanvases = () => {
+    console.log('here')
+    const newWidth = window.innerWidth * widthPercent;
+    const newHeight = window.innerHeight * heightPercent;
+
+    setHeight(newHeight);
+    setWidth(newWidth)
     const canvas = document.getElementById("canvas");
     const backgroundCanvas = document.getElementById("backgroundCanvas");
 
@@ -139,10 +149,11 @@ export function PageScrollBar() {
       const ctx = canvas.getContext("2d");
       const backgroundCanvasContext = backgroundCanvas.getContext("2d");
 
-      ctx.canvas.width = width;
-      ctx.canvas.height = height;
-      backgroundCanvasContext.canvas.width = width;
-      backgroundCanvasContext.canvas.height = height;
+      ctx.canvas.width = newWidth;
+      ctx.canvas.height = newHeight;
+      backgroundCanvasContext.canvas.width = newWidth;
+      backgroundCanvasContext.canvas.height = newHeight;
+      
       backgroundCanvasContext.strokeStyle = "rgba(0, 0, 200, 0.7)";
       backgroundCanvasContext.fillStyle = "rgba(0, 0, 200, 0.7)";
       backgroundCanvasContext.lineWidth = 5;

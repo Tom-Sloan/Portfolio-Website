@@ -1,4 +1,4 @@
-import styles from "./Home.module.css";
+import styles from "./Home.module.scss";
 import { selectProjectsArray } from "../projects/projectsSlice";
 import { useSelector } from "react-redux";
 import { Card } from "../../components/Cards/Card";
@@ -6,8 +6,13 @@ import { useEffect } from "react";
 import VanillaTilt from "vanilla-tilt";
 import "./Home.scss";
 import { useState } from "react";
-import {PageScrollBar} from './PageScrollBar/PageScrollBar'
-export function Home({parentPercentPosition}) {
+import { PageScrollBar } from "./PageScrollBar/PageScrollBar";
+import { Icon, InlineIcon } from "@iconify/react";
+import reduxIcon from "@iconify-icons/cib/redux";
+import reactIcon from "@iconify-icons/cib/react";
+import netlifyIcon from "@iconify-icons/cib/netlify";
+
+export function Home({ parentPercentPosition }) {
   const projects = useSelector(selectProjectsArray);
   const [quoteNumber, setQuoteNumber] = useState(0);
 
@@ -27,7 +32,7 @@ export function Home({parentPercentPosition}) {
   }, []);
 
   return (
-    <div className={styles.home}>
+    <div className={`${styles.home} backgroundImage`}>
       <div className={`${styles.top} topLevelHome`}>
         <div className={styles.profile}>
           <div className={styles.profileImageContainers}>
@@ -48,10 +53,11 @@ export function Home({parentPercentPosition}) {
       <div className={styles.divider}>
         <h1>Challenge? That's just an appetizer.</h1>
       </div>
+      
       <Card
         elements={projects}
         title={"~Portfolilo Highlights~"}
-        limit={3}
+        addLinkAtEnd={true}
         endRedirectLink="/projects"
       />
       <div
@@ -72,10 +78,43 @@ export function Home({parentPercentPosition}) {
       </div>
 
       <div className={styles.skillsContainer}>
-        <div className={styles.skills}></div>
+        <div className={styles.skills}>
+          <h2>Experience With:</h2>
+          <div className={styles.skillsLayout}>
+            {/* <img src='./pcb.png' alt='pcb icon by surang'/> */}
+            <div className={styles.imageContainer}>
+              <img
+                className={styles.experienceImage}
+                src="./microcontroller.png"
+                alt="pcb icon by Eucalyp"
+              />
+              <h4>Microcontroller Programing</h4>
+            </div>
+            <div className={styles.imageContainer}>
+              <img
+                className={`${styles.experienceImage} invert`}
+                src="./circuit.png"
+                alt="pcb icon by Good Ware"
+              />
+              <h4>Circuit fabrication and design</h4>
+            </div>
+
+            <div className={styles.iconContainer}>
+              <Icon className={styles.experienceIcon} icon={reactIcon} />
+              <h4>React</h4>
+            </div>
+            <div className={styles.iconContainer}>
+              <Icon className={styles.experienceIcon} icon={reduxIcon} />
+              <h4>Redux</h4>
+            </div>
+            <div className={styles.iconContainer}>
+              <Icon className={styles.experienceIcon} icon={netlifyIcon} />
+              <h4>Netlify</h4>
+            </div>
+          </div>
+        </div>
       </div>
-      <PageScrollBar parentPercentPosition={parentPercentPosition}/>
-     
+      <PageScrollBar parentPercentPosition={parentPercentPosition} />
     </div>
   );
 }

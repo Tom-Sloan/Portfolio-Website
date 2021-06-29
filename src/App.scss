@@ -38,8 +38,16 @@
 
 
 :root {
-  --darkest1: rgba(255, 255, 255, 0.1);
-  --dark1: #161623;
+  // --darkest1: rgba(255, 255, 255, 0.1);
+  // --dark1: #161623;
+  // --light1: #00adb5;
+  // --lightest1: #eeeeee;
+  // --shadowStart1: rgba(96, 97, 99, 0.4);
+  // --shadowEnd1: rgba(96, 97, 99, 0.7);
+  // --textShadingEnd1: rgba(128, 128, 128, 0.4);
+
+  --darkest1: rgb(18, 18, 18);
+  --dark1: rgba(18, 18, 18, 0.95);
   --light1: #00adb5;
   --lightest1: #eeeeee;
   --shadowStart1: rgba(96, 97, 99, 0.4);

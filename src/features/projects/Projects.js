@@ -2,15 +2,15 @@ import styles from "./Projects.module.css";
 import bodyStyle from "../../components/BodyStyles.module.css";
 import footerStyle from "../../components/FooterBar/FooterStyles.module.css";
 import { useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { selectProjectsArray } from "./projectsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
-import Tilt from "react-vanilla-tilt";
 import VanillaTilt from "vanilla-tilt";
+import { NameContext } from "../../AllContexts";
 
 export function Projects({ background, cleanup }) {
-    const projects = useSelector(selectProjectsArray);
+    const projects = useSelector(selectProjectsArray)[useContext(NameContext).personName];
     // console.log(projects);
 
     useEffect(() => {

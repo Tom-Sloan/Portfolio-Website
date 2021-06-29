@@ -12,7 +12,6 @@ export function Card({
   if (limit === -1) {
     limit = elements.length;
     if (addLinkAtEnd) {
-      console.log(elements);
       elements = Object.assign([], elements);
       elements.push({});
     }

@@ -14,7 +14,7 @@ import { selectSportsArray } from "../features/general/generalSlice";
 import { General } from "../features/general/General";
 import { Photos } from "../features/About/photos/Photos";
 
-export function Body() {
+export function Body({personeName}) {
   
   return (
     <div className={styles.bodyArea}>

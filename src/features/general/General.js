@@ -1,39 +1,18 @@
 import { useSelector } from 'react-redux';
 import styles from './General.module.css';
-import { selectGeneralArray, selectPersonalsArray, selectSportsArray } from './generalSlice';
-import ToggleSwitch from '../resume/LiquidSwitch/ToggleSwitch';
-import { useState } from 'react';
+import { selectGeneralArray } from './generalSlice';
+import { useContext } from 'react';
+import { NameContext } from '../../AllContexts';
 
 export function General({ choice, updateFatherDimensions }) {
-    const [generalToggle, setGeneralToggle] = useState(false);
 
-    const onGeneralChange = (checked) => {
-        setGeneralToggle(checked);
-    }
+    const personName = useContext(NameContext).personName;
 
-    const items = useSelector(selectGeneralArray)[choice][generalToggle ? 'tom' : 'dan'];
-    // const personals = useSelector(selectPersonalsArray)[human];
-    // let items;
-
-    // console.log(sports)
-
-    // if (choice === "sports") {
-    //     items = sports;
-    // } else if (choice === "personals") {
-    //     items = personals;
-    // }
-
-    console.log(items)
+    const items = useSelector(selectGeneralArray)[choice][personName];
 
     return (
         <div className={styles.general} >
-            <ToggleSwitch
-                id={`generalToggle ${choice}`}
-                checked={generalToggle}
-                onChange={onGeneralChange}
-                optionLabels={['Tom', 'Dan']}
-            />
-            <label htmlFor="generalToggle" style={{ visibility: 'hidden' }}>Toggle 'tween general items</label>
+            
             {items.length > 0 && items.map((item) => (
                 <div className={styles.generalItem}>
                     <img src={item.image} alt="" onLoad={updateFatherDimensions} />

@@ -5,15 +5,18 @@ import { Card } from "../../components/Cards/Card";
 import { useEffect } from "react";
 import VanillaTilt from "vanilla-tilt";
 import "./Home.scss";
-import { useState } from "react";
-import { PageScrollBar } from "./PageScrollBar/PageScrollBar";
-import { Icon, InlineIcon } from "@iconify/react";
-import reduxIcon from "@iconify-icons/cib/redux";
-import reactIcon from "@iconify-icons/cib/react";
-import netlifyIcon from "@iconify-icons/cib/netlify";
+import { useState, useContext } from "react";
+import {selectPersonInformation} from './homeSlice'
+import { NameContext } from "../../AllContexts";
 
-export function Home({ parentPercentPosition }) {
-  const projects = useSelector(selectProjectsArray);
+
+
+export function Home() {
+  const personName = useContext(NameContext).personName;
+  const projects = useSelector(selectProjectsArray)[personName];
+  const person = useSelector(selectPersonInformation)[personName]
+  const quotes = person['quotes'];
+  const experiences = person.experiences;
   const [quoteNumber, setQuoteNumber] = useState(0);
 
   useEffect(() => {
@@ -35,13 +38,10 @@ export function Home({ parentPercentPosition }) {
     <div className={`${styles.home} backgroundImage`}>
       <div className={`${styles.top} topLevelHome`}>
         <div className={styles.profile}>
-          <div className={styles.profileImageContainers}>
+          <div className={styles.profileImageContainer}>
+            <img src="./profilePictures/tomsProfilePhoto.png" alt="Profile" />
             <img
-              src="https://i2.wp.com/news.microsoft.com/europe/wp-content/themes/microsoft-news-center-2016/assets/img/default-avatar.png?ssl=1"
-              alt="Profile"
-            />
-            <img
-              src="https://i2.wp.com/news.microsoft.com/europe/wp-content/themes/microsoft-news-center-2016/assets/img/default-avatar.png?ssl=1"
+              src="./profilePictures/dan.jpg"
               alt="Profile"
             />
           </div>
@@ -53,13 +53,26 @@ export function Home({ parentPercentPosition }) {
       <div className={styles.divider}>
         <h1>Challenge? That's just an appetizer.</h1>
       </div>
-      
-      <Card
-        elements={projects}
-        title={"~Portfolilo Highlights~"}
-        addLinkAtEnd={true}
-        endRedirectLink="/projects"
-      />
+      <div className={styles.skillsContainer}>
+        <div className={styles.skills}>
+          <h2>Experience With:</h2>
+          <div className={styles.skillsLayout}>
+            {experiences.map((elm) => (
+              <section className={styles.circleContainer}>
+                <div className={styles.circle}>
+                  <img
+                    className={`${styles.experienceImage} ${elm.addedClasses||''}`}
+                    src={elm.imageUrl}
+                    alt={elm.title}
+                  />
+                </div>
+                <p>{elm.title}</p>
+              </section>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div
         className={styles.divider}
         onClick={() => setQuoteNumber((prev) => prev + 1)}
@@ -76,12 +89,25 @@ export function Home({ parentPercentPosition }) {
           return null;
         })}
       </div>
+      <Card
+        elements={projects}
+        title={"~Portfolilo Highlights~"}
+        addLinkAtEnd={true}
+        endRedirectLink="/projects"
+      />
+      {/* <PageScrollBar parentPercentPosition={parentPercentPosition} /> */}
+    </div>
+  );
+}
 
-      <div className={styles.skillsContainer}>
-        <div className={styles.skills}>
-          <h2>Experience With:</h2>
-          <div className={styles.skillsLayout}>
-            {/* <img src='./pcb.png' alt='pcb icon by surang'/> */}
+
+
+/*
+// import { PageScrollBar } from "./PageScrollBar/PageScrollBar";
+// import { Icon, InlineIcon } from "@iconify/react";
+// import reduxIcon from "@iconify-icons/cib/redux";
+// import reactIcon from "@iconify-icons/cib/react";
+// import netlifyIcon from "@iconify-icons/cib/netlify";
             <div className={styles.imageContainer}>
               <img
                 className={styles.experienceImage}
@@ -112,39 +138,5 @@ export function Home({ parentPercentPosition }) {
               <h4>Netlify</h4>
             </div>
           </div>
-        </div>
-      </div>
-      <PageScrollBar parentPercentPosition={parentPercentPosition} />
-    </div>
-  );
-}
-
-const quotes = [
-  {
-    quote:
-      "A journey will have pain and failure. It is not only the steps forward that we must accept. It is the stumbles... But if we stop, if we accept the person we are when we fall, the journey ends. That failure becomes our destination.",
-    quoteAuthor: "Brandon Sanderson",
-  },
-  {
-    quote: "Would you have a great empire? Rule over yourself",
-    quoteAuthor: "Pubilius Syrus",
-  },
-  {
-    quote:
-      "I do not fear death. I had been dead for billions and billions of years before I was born, and had not suffered the slightest inconvenience from it.",
-    quoteAuthor: "Mark Twain",
-  },
-  {
-    quote: "We are dying every day.",
-    quoteAuthor: "Seneca the Younger",
-  },
-  {
-    quote: "Waste no more time arguing what a good man should be. Be One.",
-    quoteAuthor: "Marcus Aurelius",
-  },
-  {
-    quote:
-      "It never ceases to amaze me: we all love ourselves more than other people, but care more about their opinion than our own.",
-    quoteAuthor: "Marcus Aurelius",
-  },
-];
+        
+*/

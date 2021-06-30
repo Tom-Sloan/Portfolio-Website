@@ -5,6 +5,9 @@
 .SubredditButtonContainer {
   margin: 0 5px;
 }
+.minifiedButtonContainer{
+  margin: 0px;
+}
 button{
   border: none;
 }
@@ -28,6 +31,17 @@ button{
   /* below is for text / anhor tag if used */
   text-decoration: none;
   line-height: 40px;
+}
+.minifiedButton{
+  color: var(--text);
+  background-color: var(--dark);
+  width: 100%;
+  position: relative;
+  border-radius: 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 20px;
+  padding: 0px 2px;
 }
 
 .SubredditButton:hover {

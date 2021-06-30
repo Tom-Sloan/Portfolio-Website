@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styles from "./HeaderButtons.module.css";
 // import "./styles.css";
 
-export function HeaderButtons({ name, text, selected, handleSelection, index }) {
+export function HeaderButtons({ name, text, selected, handleSelection, index, minified=false }) {
   const ref = useRef(null);
   const spanRef = useRef(null);
 
@@ -38,10 +38,10 @@ export function HeaderButtons({ name, text, selected, handleSelection, index }) 
 
   }
   return (
-    <div key={name} className={styles.SubredditButtonContainer}>
+    <div key={name} className={minified?styles.minifiedButtonContainer:styles.SubredditButtonContainer}>
       <button
         ref={ref}
-        className={`${styles.SubredditButton} ${
+        className={`${minified?styles.minifiedButton:styles.SubredditButton} ${
           selected ? styles.activeBtn : ""
         }`}
         onMouseEnter={handleEnter}

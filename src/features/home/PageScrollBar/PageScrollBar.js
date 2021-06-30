@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import styles from "./PageScrollBar.module.scss";
-import {pixelToNum, vhToPixels} from '../../../helpFunctions'
+import {pixelToNum, vhToPixels, degrees_to_radians} from '../../../helpFunctions'
 
 export function PageScrollBar() {
   const heightPercent = 0.15;
@@ -52,7 +52,6 @@ export function PageScrollBar() {
     };
   };
 
-  const degrees_to_radians = (degrees) => degrees * (Math.PI / 180);
 
   const makeUpLine = (ctx, x, y, length, innerScale = scale) => {
     length = length * innerScale;

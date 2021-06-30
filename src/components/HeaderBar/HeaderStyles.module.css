@@ -6,21 +6,13 @@
   display: flex;
   width: 100%;
   right: 0;
-  /* height: 10vh; */
-  /* position: fixed;
-    top: 0;
-    left: 0;
-        */
-  /* background-color: var(--dark); */
   padding: 0px 20px;
-  /* box-shadow: 10px 20px 200px #ccc; */
   flex-flow: row nowrap;
-  /* flex-shrink: 0; */
   z-index: 10;
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
-  /* border-bottom: 3px solid var(--darkest); */
+
   gap: 1px;
 }
 
@@ -29,8 +21,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* gap: 10%; */
-  /* width: 100%; */
   max-width: 100%;
 }
 .optionsContainer {
@@ -59,6 +49,60 @@
   display: none;
 }
 
+
+
+.colorUIChangeIcon {
+  color: var(--text);
+}
+
+/* .colorUIChangeIcon:hover {
+    color: var(--lightest);
+} */
+
+.iconContainer {
+  position: relative;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.iconContainer:hover > .colorUIChangeIcon {
+  color: var(--lightest);
+}
+.popUpCircleContainer{
+  display: none;
+  position: relative;
+}
+.outerCircle {
+  /* background-color: beige; */
+  /* position: relative;
+  width: 500px;
+  height: 500px; */
+  position: absolute;
+  background-color: beige;
+  border-radius: 50%;
+  top: 0; 
+  left: -500px;
+  width: 500px;
+  height: 500px;
+  /* transform: rotate(20deg); */
+  
+}
+.innerCircle {
+  /* background-color: aqua;
+  border-radius: 50%; */
+  /* width: 150px;
+  height: 150px; */
+  position: absolute;
+  color: papayawhip;
+  text-align: center;
+  font-family: "Open Sans Condensed", sans-serif;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  /* width: " + wh + " px; */
+  /* height: " + wh + " px; */
+  /* line-height: " + wh + " px; */
+}
+
 @media only screen and (max-width: 768px) {
   .headerLinks {
     gap: 0;
@@ -75,21 +119,7 @@
   .angleDoubleUp {
     display: none;
   }
-}
-
-.colorUIChangeIcon {
-  color: var(--text);
-}
-
-/* .colorUIChangeIcon:hover {
-    color: var(--lightest);
-} */
-
-.iconContainer {
-  padding: 10px;
-  flex-shrink: 0;
-}
-
-.iconContainer:hover > .colorUIChangeIcon {
-  color: var(--lightest);
+  .popUpCircleContainer{
+    display: inline;
+  }
 }

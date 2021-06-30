@@ -5,12 +5,12 @@ export const setCSSGlobalVar = (name, value) =>
   document.documentElement.style.setProperty(name, value);
 
 export const getCSSGlobalVar = (name) =>
-  getComputedStyle(document.documentElement).getPropertyValue(
-    name
-  );
-export function vhToPixels (vh) {
-    return Math.round(window.innerHeight / (100 / vh));
-  }
+  getComputedStyle(document.documentElement).getPropertyValue(name);
+export function vhToPixels(vh) {
+  return Math.round(window.innerHeight / (100 / vh));
+}
+export const degrees_to_radians = (degrees) => degrees * (Math.PI / 180);
+
 export var generateRandomColors = function (number) {
   /*
     This generates colors using the following algorithm:

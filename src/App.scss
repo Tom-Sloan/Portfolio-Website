@@ -32,10 +32,13 @@
   --textShadingEnd: var(--textShadingEnd1);
   --backgroundShade: var(--backgroundShade1);
 }
+.dark-theme .hasBoxShadow {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
 .rpv-core__inner-page {
   --rpv-core__inner-page-background-color: none !important;
 }
-
 
 :root {
   // --darkest1: rgba(255, 255, 255, 0.1);
@@ -47,15 +50,15 @@
   // --textShadingEnd1: rgba(128, 128, 128, 0.4);
 
   --darkest1: rgb(18, 18, 18);
-  --dark1: rgba(18, 18, 18, 0.95);
-  --light1: #00adb5;
+  --dark1: #2b2b3b;
+  --light1: #35c8ec;
   --lightest1: #eeeeee;
   --shadowStart1: rgba(96, 97, 99, 0.4);
   --shadowEnd1: rgba(96, 97, 99, 0.7);
   --textShadingEnd1: rgba(128, 128, 128, 0.4);
 
   --darkest2: #f0f5f9;
-  --dark2: #c9d6df;
+  --dark2: #b0bbc4;
   --light2: #52616b;
   --lightest2: #1e2022;
   --shadowStart2: rgba(0, 0, 0, 0.05);

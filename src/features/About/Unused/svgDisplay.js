@@ -61,7 +61,7 @@ elms.map((elm, index) =>{
 
 
 import React, { useRef, useEffect } from "react";
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 
 export function PaddleTop({ elm, index, numberOfPaddles }) {
   const divRef = useRef(null);

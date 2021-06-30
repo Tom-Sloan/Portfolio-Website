@@ -8,12 +8,17 @@ import { Link } from "react-router-dom";
 export function Footer() {
   return (
     <div className={styles.footer}>
-      <Link className={styles.headerLink} to="/contact">
-        <FontAwesomeIcon className={styles.footerIcons} icon={faLinkedin} />
-      </Link>
-      <Link className={styles.headerLink} to="/contact">
-        <FontAwesomeIcon className={styles.footerIcons} icon={faGithubSquare} />
-      </Link>
+      <div>
+        <Link className={styles.headerLink} to="/contact">
+          <FontAwesomeIcon className={styles.footerIcons} icon={faLinkedin} />
+        </Link>
+        <Link className={styles.headerLink} to="/contact">
+          <FontAwesomeIcon
+            className={styles.footerIcons}
+            icon={faGithubSquare}
+          />
+        </Link>
+      </div>
       <p>2021 by Tom Sloan and Daniel Neasmith</p>
       {/* <div className={styles.headerLinks}>
                 <Link className={styles.headerLink} to="/">Home</Link>

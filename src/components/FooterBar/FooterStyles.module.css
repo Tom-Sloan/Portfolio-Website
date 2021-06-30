@@ -16,14 +16,15 @@
     text-align: center;
     min-height: 10vh;
     max-height: 10vh;
-    background-color: var(--darkest);
+    background-color: var(--dark);
     /* padding: 50px 0px; */
     height: 10vh;
 
     /* border-top: 3px solid white; */
     transform: translateZ(0);
     color: var(--text);
-
+    display:flex;
+    justify-content: space-evenly;
     /* border-top: 3px solid var(--dark); */
 }
 

@@ -9,6 +9,7 @@ a:link, a:visited, a:hover, a:active {
 .page {
   /* perspective: 1px; */
   min-height: 100vh;
+  
   /* overflow-x: hidden;
     overflow-y: visible; */
 }
@@ -17,6 +18,7 @@ a:link, a:visited, a:hover, a:active {
   color: var(--text);
   text-align: center;
   box-sizing: border-box;
+  padding-top: 10vh;
   /* background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg');
     background-repeat: repeat; */
   /* height: 100%;
@@ -317,7 +319,8 @@ a:link, a:visited, a:hover, a:active {
 
 .project p {
   padding: 0;
-  font-weight: lighter;
+  /* font-weight: lighter; */
+  font-weight: 400;
 }
 
 .project img {

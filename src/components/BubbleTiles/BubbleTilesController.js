@@ -12,8 +12,9 @@ Goal of component: BubbleTilesController-> this is the page itself. This is used
 
 //Libraries
 import React, { useRef, useEffect, useState } from "react";
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 import playlistStyles from "../../features/Spotify/Playlists.module.css";
+import './BubbleTilesController.scss'
 
 //The two parts of the design.
 import { Tiles } from "./Tiles"; // This contains the paddles/tiles code
@@ -71,6 +72,7 @@ export function BubbleTilesController({
   }, [selected]);
 
   const updateFatherDimensions = () => {
+    console.log(document.styleSheets)
     let checkingOffset = offset;
     if (window.innerWidth <= getCSSGlobalVar("--mediumSize"))
       checkingOffset = 40;
@@ -191,7 +193,7 @@ export function BubbleTilesController({
     <div
       className={`${styles.divisionsContainer} ${
         styles.divisionsContainer + name
-      }`}
+      } topLevelHome`}
     >
       {/* Make the floating toggle btns for modile and small screens */}
       <div style={nextBackStyle} className={styles.nextBackButtons}>
@@ -202,7 +204,6 @@ export function BubbleTilesController({
       </div>
 
       {/* Start of bubble section */}
-      {console.log(hasHorizontal)}
       <div className={`${styles.bubbleContainer} ${hasHorizontal&&styles.bubbleContainerNoHeight}`}>
         {/* Iterating over the provided components */}
         {displayItems.map((elm, index) => {
@@ -252,7 +253,7 @@ export function BubbleTilesController({
 
       {/* Start of TileSection */}
       {/* Paddle Parent, used to position tiles in the view */}
-      <div className={styles.father} ref={fatherRef}>
+      <div className={`${styles.father}`} ref={fatherRef}>
         {/* Generate Paddles */}
         {displayItems.map((elm, index) => {
           const position = lastChecked[index] || 0;

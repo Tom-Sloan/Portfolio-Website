@@ -13,20 +13,23 @@ import { useSelector } from "react-redux";
 import { selectSportsArray } from "../features/general/generalSlice";
 import { General } from "../features/general/General";
 import { Photos } from "../features/About/photos/Photos";
+import { UnderConstruction } from "./UnderConstruction/underconstruction";
 
-export function Body({personeName}) {
-  
+export function Body({ personeName }) {
+  const underconstruction = false;
   return (
     <div className={styles.bodyArea}>
       <Switch>
         <Route exact path="/">
-          <div id='HomeParentContainer' className={styles.parent}>
+          <div id="HomeParentContainer" className={styles.parent}>
             <Home />
             <Footer />
           </div>
         </Route>
         <Route path="/about">
-          <BubbleTiles  visualData={bubbleTilesInitial} />
+          {(underconstruction && <UnderConstruction />) || (
+            <BubbleTiles visualData={bubbleTilesInitial} />
+          )}
         </Route>
         <Route path="/projects">
           <ProjectsContainer />
@@ -46,7 +49,7 @@ export function Body({personeName}) {
 }
 
 const bubbleTilesInitial = {
-  name:'Body',
+  name: "Body",
   displayData: [
     {
       title: "Music",
@@ -83,13 +86,7 @@ const bubbleTilesInitial = {
   //   "#b8d5cd",
   // ],
 
-  colors: [
-    "#66023C",
-    "#992B43",
-    "#C45744",
-    "#E38946",
-    "#F5BF51",
-  ],
+  colors: ["#66023C", "#992B43", "#C45744", "#E38946", "#F5BF51"],
 
   // colors: [
   //   "#5F8277",
@@ -98,7 +95,6 @@ const bubbleTilesInitial = {
   //   "#6D787F",
   //   "#575A5E",
   // ],
-  hasHorizontal:false,
+  hasHorizontal: false,
   offset: 20,
-
-}
+};

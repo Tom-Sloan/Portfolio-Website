@@ -1,42 +1,47 @@
-@media only screen and (min-width: 992px) {
-  .light-theme .topLevelHome::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-size: 200%;
-    // background-image: url("./splash.jpg");
-    background-position: center;
-    mix-blend-mode: screen;
-  }
-  .dark-theme .topLevelHome::before {
-    // background-image: url("./image.png");
-    filter: invert(1);
-    mix-blend-mode: darken;
-  }
-}
+// @media only screen and (min-width: 992px) {
+//   //Causes blur in cards to not work
+//   // .light-theme .topLevelHome::before {
+//   //   content: "";
+//   //   position: absolute;
+//   //   top: 0;
+//   //   left: 0;
+//   //   height: 100%;
+//   //   width: 100%;
+//   //   background-size: 200%;
+//   //   // background-image: url("./splash.jpg");
+//   //   background-position: center;
+//   //   mix-blend-mode: screen;
+//   // }
+//   // .dark-theme .topLevelHome::before {
+//   //   // background-image: url("./image.png");
+//   //   filter: invert(1);
+//   //   mix-blend-mode: darken;
+//   // }
+// }
+$percent : 10%;
 .dark-theme .topLevelHome {
   background-image: linear-gradient(
     to right bottom,
-    #025b9f,
-    #534f9e,
-    #803c8e,
-    #9f2272,
-    #af004c,
-    #ba053b,
-    #c11b28,
-    #c3300c,
-    #d3470a,
-    #e35d07,
-    #f17203,
-    #ff8701
+    darken(#025b9f,$percent),
+    darken(#534f9e,$percent),
+    darken(#803c8e,$percent),
+    darken(#9f2272,$percent),
+    darken(#af004c,$percent),
+    darken(#ba053b,$percent),
+    darken(#c11b28,$percent),
+    darken(#c3300c,$percent),
+    darken(#d3470a,$percent),
+    darken(#e35d07,$percent),
+    darken(#f17203,$percent),
+    darken(#ff8701,$percent)
   );
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .dark-theme .invert{
   filter: invert(1)
 }
+
 
 .light-theme .backgroundImage {
   // https://unsplash.com/photos/_3SFFsWqCVg

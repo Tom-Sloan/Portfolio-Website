@@ -15,11 +15,7 @@ function App() {
       <BreakpointProvider>
         <NameContext.Provider value = {{personName, setPersonName}}>
           <div
-            className={`App  light-theme ${
-              window.matchMedia("(prefers-color-scheme: dark)")
-                ? "dark-theme"
-                : ""
-            }`}
+            className={`App  light-theme`}
           >
             {/* <Breakpoint medium up>
             <LandingPage id="LandingPage" />

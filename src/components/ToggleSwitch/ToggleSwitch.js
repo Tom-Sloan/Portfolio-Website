@@ -26,7 +26,7 @@ const ToggleSwitch = ({
     onChange(!checked);
   }
   return (
-    <div className={"toggle-switch" + (small ? " small-switch" : "") + (cvPage ? " toggle-switch-margin" : "")}>
+    <div className={"toggle-switch" + (small ? " small-switch" : "")}>
       <input
         type="checkbox"
         name={name}

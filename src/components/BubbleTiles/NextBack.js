@@ -3,7 +3,7 @@
 //Works similar to bubbles.
 // the tiles all have ids of paddle-(index) so we can se that to make easy links
 
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDoubleDown,

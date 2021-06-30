@@ -1,5 +1,5 @@
 import React, { cloneElement } from "react";
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 
 export function Tiles({ elm, name, updateFatherDimensions}) {
   // For the colored part of the tile
@@ -31,12 +31,12 @@ export function Tiles({ elm, name, updateFatherDimensions}) {
       onChange={() => console.log("Changed")}
     >
       {/* Title */}
-      <h2 id={"paddle-" + elm.index} style={titleLocation} className={styles.tileTitles}>
+      <h2 id={"paddle-" + elm.index} style={titleLocation} className={`${styles.tileTitles} hasBoxShadow`}>
         {elm.title}
       </h2>
 
       {/* Colour tile */}
-      <div className={styles.content} style={tileStyle}  >
+      <div className={`${styles.content} hasBoxShadow`} style={tileStyle}  >
         {cloneElement(elm.element, { updateFatherDimensions: updateFatherDimensions })}
       </div>
     </div>

@@ -6,7 +6,10 @@
   overflow-y: visible;
   background-color: var(--dark);
 }
-
+.resumeParent{
+  height: fit-content ;
+  padding-top: 10vh;
+}
 .radios{
   position:relative;
   width:50%;
@@ -67,7 +70,7 @@ a:hover {
 
 .pdfContainer{
   text-align:  center;
-  width: 80vw;
+  width: 60vw;
   position: relative;
   margin: 0 auto;
   height: auto;

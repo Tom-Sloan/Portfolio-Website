@@ -52,7 +52,7 @@ export function Resume() {
   }, [resume])
 
   return (
-    <div style={{ height: "fit-content" }}>
+    <div className={styles.resumeParent}>
       
       <Experience human={name ==='tom' ? 'tom' : 'dan'} />
 

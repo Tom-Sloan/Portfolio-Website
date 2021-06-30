@@ -29,7 +29,7 @@ export const experienceSlice = createSlice({
           date: "May 2018",
           enddate: "April 2021",
           image:
-            "./carletonUniversity.png",
+            "./workPlaces/Tom/carletonUniversity.png",
         },
         {
           workplace: "City of Ottawa",
@@ -42,7 +42,7 @@ export const experienceSlice = createSlice({
           date: "September 2015",
           enddate: "December 2017",
           image:
-            "./cityOfOttawa.jfif",
+            "./workPlaces/Tom/cityOfOttawa.jfif",
         },
       ],
       dan: [

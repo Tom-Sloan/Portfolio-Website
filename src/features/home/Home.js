@@ -6,16 +6,14 @@ import { useEffect } from "react";
 import VanillaTilt from "vanilla-tilt";
 import "./Home.scss";
 import { useState, useContext } from "react";
-import {selectPersonInformation} from './homeSlice'
+import { selectPersonInformation } from "./homeSlice";
 import { NameContext } from "../../AllContexts";
-
-
 
 export function Home() {
   const personName = useContext(NameContext).personName;
   const projects = useSelector(selectProjectsArray)[personName];
-  const person = useSelector(selectPersonInformation)[personName]
-  const quotes = person['quotes'];
+  const person = useSelector(selectPersonInformation)[personName];
+  const quotes = person["quotes"];
   const experiences = person.experiences;
   const [quoteNumber, setQuoteNumber] = useState(0);
 
@@ -35,44 +33,63 @@ export function Home() {
   }, []);
 
   return (
-    <div className={`${styles.home} backgroundImage`}>
-      <div className={`${styles.top} topLevelHome`}>
-        <div className={styles.profile}>
-          <div className={styles.profileImageContainer}>
-            <img src="./profilePictures/tomsProfilePhoto.png" alt="Profile" />
+    <div className={`${styles.home} `}>
+      <section className={styles.dividerAttachmentTop}>
+        <div className={`${styles.top} topLevelHome`}>
+          <div className={`${styles.personContainer} ${personName !== "tom" && styles.displayNone}`}>
             <img
+              className={personName === "tom" && styles.selectedName}
+              src="./profilePictures/tomsProfilePhoto.png"
+              alt="Profile"
+            />
+            <h1 className="hasBoxShadow">
+              <span className={personName === "tom" && styles.selectedName}>
+                Tom Sloan
+              </span>
+            </h1>
+          </div>
+          <div className={`${styles.personContainer} ${personName !== "dan" && styles.displayNone}`}>
+            <img
+              className={personName === "dan" && styles.selectedName}
               src="./profilePictures/dan.jpg"
               alt="Profile"
             />
+            <h1 className="hasBoxShadow">
+              {" "}
+              <span className={personName === "dan" && styles.selectedName}>
+                Dan 'Why are stairs hard' Neasmith
+              </span>
+            </h1>
           </div>
-          <div className={`${styles.name}`}>
-            <h1>Dan and Tom</h1>
-          </div>
+          {/* <div className={`${styles.name} `}></div> */}
         </div>
-      </div>
+      </section>
       <div className={styles.divider}>
         <h1>Challenge? That's just an appetizer.</h1>
       </div>
-      <div className={styles.skillsContainer}>
-        <div className={styles.skills}>
-          <h2>Experience With:</h2>
-          <div className={styles.skillsLayout}>
-            {experiences.map((elm) => (
-              <section className={styles.circleContainer}>
-                <div className={styles.circle}>
-                  <img
-                    className={`${styles.experienceImage} ${elm.addedClasses||''}`}
-                    src={elm.imageUrl}
-                    alt={elm.title}
-                  />
-                </div>
-                <p>{elm.title}</p>
-              </section>
-            ))}
+      <section className={styles.dividerAttachment}>
+        <div className={`${styles.skillsContainer} backgroundImage`}>
+          <div className={styles.skills}>
+            <h2>Experienced With:</h2>
+            <div className={styles.skillsLayout}>
+              {experiences.map((elm) => (
+                <section className={styles.circleContainer}>
+                  <div className={styles.circle}>
+                    <img
+                      className={`${styles.experienceImage} ${
+                        elm.addedClasses || ""
+                      }`}
+                      src={elm.imageUrl}
+                      alt={elm.title}
+                    />
+                  </div>
+                  <p>{elm.title}</p>
+                </section>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
+      </section>
       <div
         className={styles.divider}
         onClick={() => setQuoteNumber((prev) => prev + 1)}
@@ -80,7 +97,7 @@ export function Home() {
         {quotes.map((elm, index) => {
           if (quoteNumber % quotes.length === index) {
             return (
-              <div className={styles.quoteContainer}>
+              <div className={`${styles.quoteContainer}`}>
                 <h2 className={styles.quote}>{elm.quote}</h2>
                 <h3 className={styles.quoteAuthor}>{elm.quoteAuthor}</h3>
               </div>
@@ -89,18 +106,18 @@ export function Home() {
           return null;
         })}
       </div>
-      <Card
-        elements={projects}
-        title={"~Portfolilo Highlights~"}
-        addLinkAtEnd={true}
-        endRedirectLink="/projects"
-      />
+      <section className={styles.dividerAttachment}>
+        <Card
+          elements={projects}
+          title={"~Portfolilo Highlights~"}
+          addLinkAtEnd={true}
+          endRedirectLink="/projects"
+        />
+      </section>
       {/* <PageScrollBar parentPercentPosition={parentPercentPosition} /> */}
     </div>
   );
 }
-
-
 
 /*
 // import { PageScrollBar } from "./PageScrollBar/PageScrollBar";

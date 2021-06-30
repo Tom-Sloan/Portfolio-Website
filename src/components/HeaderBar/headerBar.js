@@ -2,39 +2,65 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./HeaderStyles.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { faSun } from "@fortawesome/free-regular-svg-icons";
 import { HeaderButtons } from "./headerButtons";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { NameContext } from "../../AllContexts";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+
 export function HeaderBar() {
+  //Mugselector is the icon state with the sun and the moon
   const [mugSelector, setMugSelector] = useState(0);
-  const [selected, setSelected] = useState(
-    Array(headerLinks.length).fill(false)
-  );
+
+  //selected is an array that contains whether or not a button at the top is clicked. It is filled initall
+  const [selected, setSelected] = useState([]);
+
+  //Used to toggle between dan and i
   const { _, setPersonName } = useContext(NameContext);
+
+  //The icons that are used for light dark toggle
   const mugs = [faMoon, faSun];
 
   useEffect(() => {
-    setMugSelector(
-      Array.from(document.querySelector(".App").classList).includes(
-        "dark-theme"
-      )
-        ? 1
-        : 0
-    );
+    //set home as selected
+    handleSelection(_, 0);
+    //check if the user has been here before and wanted dark theme
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark") {
+      //set the screen as darkScreen
+      toggleDarkMode(_);
+
+      //Make sure the user does not prefer the light theme
+    } else if (currentTheme !== "light") {
+      //check to see if the user prefers the light theme (in app.js I add the dark theme if the user's preferences say they like it)
+      if (window.matchMedia("(prefers-color-scheme: dark)") ? "dark-theme" : "")
+        toggleDarkMode(_);
+    }
   }, []);
   const handleSelection = (e, index) => {
     const temp = Array(headerLinks.length).fill(false);
     temp[index] = true;
     setSelected(temp);
   };
-  useEffect(() => console.log(mugSelector), [mugSelector]);
-  const menu = Menu(headerLinks, selected, handleSelection);
-  const handleClick = (e) => {
-    document.querySelector(".App").classList.toggle("dark-theme");
+
+  const menuSmall = Menu(headerLinks, selected, handleSelection);
+  const menuLarge = Menu(
+    headerLinks,
+    selected,
+    handleSelection,
+    styles.headerLink
+  );
+
+  const toggleDarkMode = (e) => {
+    const app = document.querySelector(".App").classList;
+    app.toggle("dark-theme");
     setMugSelector((prev) => (prev ? 0 : 1));
+    let theme = "light";
+    if (app.contains("dark-theme")) {
+      theme = "dark";
+    }
+    localStorage.setItem("theme", theme);
   };
   let [personToggle, setPersonToggle] = useState(false);
 
@@ -45,41 +71,29 @@ export function HeaderBar() {
   return (
     <div className={styles.headerBar}>
       <div className={styles.headerLinks}>
-        {/* <div
-          className={styles.iconContainer}
-          onClick={(e) => document.querySelector(".App").scrollTo(0, 0)}
-        >
-          <FontAwesomeIcon
-            className={`${styles.colorUIChangeIcon} ${styles.angleDoubleUp}`}
-            icon={faAngleDoubleUp}
-          />
-        </div> */}
-
-        {headerLinks.map((elm) => (
-          <Link
-            className={styles.headerLink}
-            to={elm.destination}
-            key={elm.destination}
-          >
-            {elm.title}
-          </Link>
-        ))}
+        {menuLarge}
         <div className={styles.headerScrollBar}>
           <ScrollMenu
-            data={menu}
+            data={menuSmall}
             arrowLeft={<div></div>}
             arrowRight={<div></div>}
             selected={selected}
             setSelected={setSelected}
           />
         </div>
-        <div className={styles.iconContainer} onClick={handleClick}>
+
+        {/* <label htmlFor="personToggle" style={{ visibility: "collapse" }}>
+            Toggle 'tween resumes
+          </label> */}
+      </div>
+      <div className={styles.optionsContainer}>
+        <div className={`${styles.iconContainer} ${styles.extraContainer}`} onClick={toggleDarkMode}>
           <FontAwesomeIcon
             className={styles.colorUIChangeIcon}
             icon={mugs[mugSelector]}
           />
         </div>
-        <div>
+        <div className={`${styles.headerLink} `}>
           <ToggleSwitch
             id="personToggle"
             checked={personToggle}
@@ -87,19 +101,20 @@ export function HeaderBar() {
             optionLabels={["Dan", "Tom"]}
             cvPage={true}
           />
-          <label htmlFor="personToggle" style={{ visibility: "hidden" }}>
-            Toggle 'tween resumes
-          </label>
         </div>
       </div>
     </div>
   );
 }
 
-export const Menu = (list, selected, handleSelection) =>
+export const Menu = (list, selected, handleSelection, extraClasses = "") =>
   list.map((el, index) => {
     return (
-      <Link to={el.destination} key={el.title + "-link-" + index}>
+      <Link
+        to={el.destination}
+        key={el.title + "-link-" + index}
+        className={extraClasses}
+      >
         <HeaderButtons
           name={el.title + "-" + index}
           text={el.title}

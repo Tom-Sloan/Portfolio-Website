@@ -5,82 +5,94 @@
   max-width: 100%;
   display: flex;
   flex-direction: column;
-
+  background-color: var(--dark);
   /* background-size: cover;  */
 }
 
+$percent: 10%;
 .top {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // flex-flow: column;
   // min-height: 60vh;
   // height: vh;
-  flex-basis: auto;
+  // flex-basis: auto;
   /* background-image: url("https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788_960_720.jpg");
   background-size: cover; */
   background-image: linear-gradient(
     to right top,
-    #dccdf8,
-    #d8cef9,
-    #d3d0fb,
-    #cfd1fb,
-    #cbd2fc,
-    #c0d6ff,
-    #b5d9ff,
-    #abddff,
-    #95e5ff,
-    #7dedff,
-    #68f5fe,
-    #5ffbf1
+    darken(#dccdf8, $percent),
+    darken(#d8cef9, $percent),
+    darken(#d3d0fb, $percent),
+    darken(#cfd1fb, $percent),
+    darken(#cbd2fc, $percent),
+    darken(#c0d6ff, $percent),
+    darken(#b5d9ff, $percent),
+    darken(#abddff, $percent),
+    darken(#95e5ff, $percent),
+    darken(#7dedff, $percent),
+    darken(#68f5fe, $percent),
+    darken(#5ffbf1, $percent)
   );
-}
-
-.profile {
-  width: 100%;
-  height: 100%;
-  // flex-grow: 1;
-  // border-radius: 50%;
-  // padding: 10%;
-}
-
-.profileImageContainer {
+  padding-top: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
+.personContainer{
+  padding-top: 10vh;
+  flex: 1 1 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.displayNone{
+  display: none;
+}
 .top img {
   flex-grow: 1;
   flex-shrink: 1;
   border-radius: 50%;
   // padding: 10%;
   margin: 5%;
-  max-width: 30%;
+  max-width: 300px;
   // max-height: 100%;
 }
 
 .name {
   text-align: center;
   align-content: center;
-  color: var(--text);
+  color: var(--darkest);
   text-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--textShadingEnd);
 }
 
 .top h1 {
-  font-size: 70px;
+  display: block;
+  font-size: 60px;
   font-weight: bold;
   padding-bottom: 0;
   margin-bottom: 0;
   margin-block-start: 0;
   margin-block-end: 0;
   line-height: 83%;
+  padding-bottom: 10px;
+}
+
+.selectedName {
+  display: inline-block;
+  // position: relative;
+  font-size: 100px;
+  // top:-10px;
+  color: var(--text);
+  transform: translateY(-100px);
 }
 .quoteContainer {
   min-height: 20vh;
   border-radius: var(--popUpBorderRadius);
-  box-shadow: 0 0 5px var(--shadowStart), 4px 4px 5px var(--shadowEnd);
   padding: 10px;
   min-width: 100%;
   display: flex;
@@ -98,8 +110,29 @@
   justify-content: center;
   align-items: center;
   padding: 5% 10%;
-  border-bottom: 3px solid var(--darkest);
-  border-top: 3px solid var(--darkest);
+}
+.dividerAttachment {
+  border-radius: 100px;
+  overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+  .divider {
+    visibility: hidden;
+    height: 20px;
+  }
+  .dividerAttachment {
+    border-radius: 0;
+  }
+}
+.dividerAttachmentTop {
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+  .dividerAttachmentTop {
+    border-radius: 0;
+  }
 }
 
 .skillsContainer {
@@ -108,6 +141,7 @@
   width: 100%;
   background-color: transparent;
   padding: 30px;
+  overflow: hidden;
 }
 .skills {
   min-height: 60%;
@@ -120,8 +154,9 @@
   background-color: var(--dark);
   text-align: center;
   color: var(--text);
-  gap: 20px; 
+  gap: 20px;
   overflow: auto;
+  border-radius: var(--popUpBorderRadius);
 }
 .skillsLayout {
   display: flex;
@@ -182,40 +217,39 @@
   }
   to {
     -webkit-transform: translate(-50%, -50%);
-    transform:translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
 // IGNORE
-.iconContainer {
-  position: relative;
-  width: 20%;
-  height: 100%;
-}
-.iconContainer h4 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-.imageContainer {
-  display: inline;
-  max-width: 20%;
-  width: 20%;
-}
-.experienceIcon {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 60%;
-
-}
-@media only screen and (max-width: 768px) {
-  .imageContainer h4 {
-    display: none;
-  }
-  .iconContainer h4 {
-    display: none;
-  }
-}
+// .iconContainer {
+//   position: relative;
+//   width: 20%;
+//   height: 100%;
+// }
+// .iconContainer h4 {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   width: 100%;
+// }
+// .imageContainer {
+//   display: inline;
+//   max-width: 20%;
+//   width: 20%;
+// }
+// .experienceIcon {
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 60%;
+// }
+// @media only screen and (max-width: 768px) {
+//   .imageContainer h4 {
+//     display: none;
+//   }
+//   .iconContainer h4 {
+//     display: none;
+//   }
+// }

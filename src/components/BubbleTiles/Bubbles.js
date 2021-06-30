@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 
 export function Bubbles({
   elm,
@@ -67,7 +67,7 @@ export function Bubbles({
       then for each bubble, its top calculated by adding all the diameters of the bubbles that preceded it plus a gap of 2 between each of those bubbles
     */
     top: toggleAnimation
-      ? `calc(40px + ${90 * elm.position}px + ${2 * elm.position}vh)`
+      ? `calc(10vh + ${90 * elm.position}px + ${2 * elm.position}vh)`
       : "15%",
     //Pass in the calculated transform
     transform: transform,
@@ -90,7 +90,7 @@ export function Bubbles({
       onMouseEnter={(e) => handleEnter(e, elm.index)}
     >
       {/* the bubbles */}
-      <div style={style} className={`${styles.Bubbles} ${styles.Bubbles+name}`}>
+      <div style={style} className={`${styles.Bubbles} ${styles.Bubbles+name} hasBoxShadow`}>
         {/* title with default value */}
         <p>{elm.title || ""}</p>
       </div>

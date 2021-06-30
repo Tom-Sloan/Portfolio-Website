@@ -16,7 +16,7 @@ displayData (array of objects):
 import React, { useState, useRef } from "react";
 import { BubbleTilesController } from "./BubbleTilesController";
 import { Footer } from "../FooterBar/footerBar";
-import styles from "./BubbleTilesController.module.css";
+import styles from "./BubbleTilesController.module.scss";
 
 export function BubbleTiles({visualData}) {
   
@@ -59,7 +59,7 @@ export function BubbleTiles({visualData}) {
   };
   
   return (
-    <div ref={parentRef} className={styles.parent} onScroll={handleScroll}>
+    <div ref={parentRef} className={`${styles.parent}`} onScroll={handleScroll}>
       <BubbleTilesController parentPosition={lastScroll} parentHeight = {clientHeight} toggleAnimation={toggleAnimation} name={visualData.name} displayItems={visualData.displayData || {}} offset={visualData.offset || 100} hasHorizontal={visualData.hasOwnProperty('hasHorizontal')?!visualData.hasHorizontal:false}/>
       <Footer />
     </div>

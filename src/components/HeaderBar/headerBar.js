@@ -8,7 +8,7 @@ import { HeaderButtons } from "./headerButtons";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { NameContext } from "../../AllContexts";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import {pixelToNum} from '../../helpFunctions'
+import { pixelToNum } from "../../helpFunctions";
 
 export function HeaderBar() {
   //Mugselector is the icon state with the sun and the moon
@@ -223,12 +223,11 @@ export const CircleMenu = (list, selected, handleSelection) => {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [lastTouchMove, setLastTouchMove] = useState(null);
   const handleTouchMove = (e) => {
-    // console.log(e);
     if (lastTouchMove === null) {
       setLastTouchMove(e.touches);
       return;
     }
-    console.log(lastTouchMove[0] )
+    console.log(lastTouchMove[0]);
     const currentTouch = e.touches;
     // console.log(currentTouch[0].pageY);
     // return
@@ -242,21 +241,58 @@ export const CircleMenu = (list, selected, handleSelection) => {
 
     // Take into account vendor prefixes, which I haven't done.
     const circleCoords = circleRef.current.getBoundingClientRect();
-    const center = {x:circleCoords.top + pixelToNum(outerCircleStyle.width)/2, y: circleCoords.left + pixelToNum(outerCircleStyle.height)/2}
-    console.log('center: ', center)
+    const center = {
+      x: circleCoords.top ,
+      y: circleCoords.left ,
+    };
     
-    const centerToLast = distance(center.x, center.y, lastTouchMove[0].pageX, lastTouchMove[0].pageY)
-    const centerToCurrent = distance(center.x, center.y, currentTouch[0].pageX, currentTouch[0].pageY)
+    console.log("center: ", center.x, center.y);
+    setToPosition(ref1, center.x, center.y);
+    setToPosition(ref2, lastTouchMove[0].pageX, lastTouchMove[0].pageY);
+    setToPosition(ref3, currentTouch[0].pageX, currentTouch[0].pageY);
+    const centerToLast = distance(
+      center.x,
+      center.y,
+      lastTouchMove[0].pageX,
+      lastTouchMove[0].pageY
+    );
+    const centerToCurrent = distance(
+      center.x,
+      center.y,
+      currentTouch[0].pageX,
+      currentTouch[0].pageY
+    );
+    const lastToCurrent = distance(
+      lastTouchMove[0].pageX,
+      lastTouchMove[0].pageY,
+      currentTouch[0].pageX,
+      currentTouch[0].pageY
+    );
 
-    const rotation = Math.acos()
+    const theta =
+      (Math.pow(centerToCurrent, 2) +
+        Math.pow(centerToLast, 2) -
+        Math.pow(lastToCurrent, 2)) /
+      (2 * centerToCurrent * centerToLast);
+    console.log(theta);
+    // const rotation = Math.acos()
     // const rotation = Math.atan2(lastTouchMove[0].pageY - currentTouch[0].pageY,
     //   lastTouchMove[0].pageX - currentTouch[0].pageX) * 180 / Math.PI;
-    circleRef.current.style.transform = "rotate(" + rotation + "deg)";
-    console.log(rotation)
-    setLastTouchMove(currentTouch)
-    setCurrentPosition(rotation)
+    circleRef.current.style.transform = "rotate(" + 10 + "deg)";
+    // console.log(rotation)
+    setLastTouchMove(currentTouch);
+    // setCurrentPosition(rotation)
   };
-  const distance = (x1, y1, x2, y2) => Math.sqrt( Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2) );
+  const setToPosition = (reference, x, y) => {
+    console.log(reference.current, x, y);
+    reference.current.style.top = x + "px";
+    reference.current.style.left = y + "px";
+  };
+  const distance = (x1, y1, x2, y2) =>
+    Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+  const ref3 = useRef(null);
   return (
     <div
       ref={circleRef}
@@ -265,6 +301,22 @@ export const CircleMenu = (list, selected, handleSelection) => {
       style={outerCircleStyle}
       onClick={(e) => e.stopPropagation()}
     >
+      <div
+        ref={ref1}
+        className={styles.pointMarker}
+        style={{ background: "blue" }}
+      ></div>
+      <div
+        ref={ref2}
+        className={styles.pointMarker}
+        style={{ background: "tomato" }}
+      ></div>
+      <div
+        ref={ref3}
+        className={styles.pointMarker}
+        style={{ background: "green" }}
+      ></div>
+
       {circleTemp.map((_, index) => {
         const el = list[index % list.length];
         const style = getTopLeftLocation(

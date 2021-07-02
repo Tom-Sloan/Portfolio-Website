@@ -8,14 +8,15 @@ import "./Home.scss";
 import { useState, useContext } from "react";
 import { selectPersonInformation } from "./homeSlice";
 import { NameContext } from "../../AllContexts";
+import { selectExperienceArray } from "../experience/experienceSlice";
 
 export function Home() {
   const personName = useContext(NameContext).personName;
   const projects = useSelector(selectProjectsArray)[personName];
   const person = useSelector(selectPersonInformation)[personName];
-  const quotes = person["quotes"];
   const experiences = person.experiences;
-  const [quoteNumber, setQuoteNumber] = useState(0);
+
+  const workplaces = useSelector(selectExperienceArray)[personName];
 
   useEffect(() => {
     const options = {
@@ -26,17 +27,18 @@ export function Home() {
     };
     const element = document.querySelectorAll(".cardContent");
     VanillaTilt.init(element, options);
-    const intervalId = setInterval(() => {
-      setQuoteNumber((prev) => prev + 1);
-    }, 5000);
-    return () => clearInterval(intervalId);
+    
   }, []);
 
   return (
     <div className={`${styles.home} `}>
       <section className={styles.dividerAttachmentTop}>
         <div className={`${styles.top} topLevelHome`}>
-          <div className={`${styles.personContainer} ${personName !== "tom" && styles.displayNone}`}>
+          <div
+            className={`${styles.personContainer} ${
+              personName !== "tom" && styles.displayNone
+            }`}
+          >
             <img
               className={personName === "tom" && styles.selectedName}
               src="./profilePictures/tomsProfilePhoto.png"
@@ -48,7 +50,11 @@ export function Home() {
               </span>
             </h1>
           </div>
-          <div className={`${styles.personContainer} ${personName !== "dan" && styles.displayNone}`}>
+          <div
+            className={`${styles.personContainer} ${
+              personName !== "dan" && styles.displayNone
+            }`}
+          >
             <img
               className={personName === "dan" && styles.selectedName}
               src="./profilePictures/dan.jpg"
@@ -90,21 +96,15 @@ export function Home() {
           </div>
         </div>
       </section>
-      <div
-        className={styles.divider}
-        onClick={() => setQuoteNumber((prev) => prev + 1)}
-      >
-        {quotes.map((elm, index) => {
-          if (quoteNumber % quotes.length === index) {
-            return (
-              <div className={`${styles.quoteContainer}`}>
-                <h2 className={styles.quote}>{elm.quote}</h2>
-                <h3 className={styles.quoteAuthor}>{elm.quoteAuthor}</h3>
-              </div>
-            );
-          }
-          return null;
-        })}
+      <div className={styles.divider}>
+        <div className={styles.workplaceContainer}>
+          {workplaces.map((elm, index) => (
+            <a className={styles.workplace}>
+              <img className = {styles.workplaceImages} src={elm.image}/>
+              <h3>{elm.workplace}</h3>
+            </a>
+          ))}
+        </div>
       </div>
       <section className={styles.dividerAttachment}>
         <Card
@@ -120,6 +120,42 @@ export function Home() {
 }
 
 /*
+
+<div
+        className={styles.divider}
+        onClick={() => setQuoteNumber((prev) => prev + 1)}
+      >
+        {quotes.map((elm, index) => {
+          if (quoteNumber % quotes.length === index) {
+            return (
+              <div className={`${styles.quoteContainer}`}>
+                <h2 className={styles.quote}>{elm.quote}</h2>
+                <h3 className={styles.quoteAuthor}>{elm.quoteAuthor}</h3>
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+
+
+        const quotes = person["quotes"];
+        const [quoteNumber, setQuoteNumber] = useState(0);
+
+const intervalId = setInterval(() => {
+      setQuoteNumber((prev) => prev + 1);
+    }, 5000);
+    return () => clearInterval(intervalId);
+
+
+
+
+
+
+
+
+
+
 // import { PageScrollBar } from "./PageScrollBar/PageScrollBar";
 // import { Icon, InlineIcon } from "@iconify/react";
 // import reduxIcon from "@iconify-icons/cib/redux";

@@ -16,7 +16,7 @@ import { Photos } from "../features/About/photos/Photos";
 import { UnderConstruction } from "./UnderConstruction/underconstruction";
 
 export function Body({ personeName }) {
-  const underconstruction = false;
+  const underconstruction = true;
   return (
     <div className={styles.bodyArea}>
       <Switch>

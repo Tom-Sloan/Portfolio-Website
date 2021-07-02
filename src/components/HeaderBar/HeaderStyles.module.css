@@ -71,6 +71,7 @@
 .popUpCircleContainer{
   display: none;
   position: relative;
+
 }
 .outerCircle {
   /* background-color: beige; */
@@ -122,4 +123,12 @@
   .popUpCircleContainer{
     display: inline;
   }
+}
+
+.pointMarker{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 100px;
+  left:100px;
 }

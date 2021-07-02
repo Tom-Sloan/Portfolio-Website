@@ -15,8 +15,7 @@ export const experienceSlice = createSlice({
           ],
           date: "May 2020",
           enddate: "December 2020",
-          image:
-            "https://media-exp1.licdn.com/dms/image/C4D0BAQEmShEVT95NkA/company-logo_100_100/0/1620856752076?e=1632355200&v=beta&t=8i3YrA2o_G31QALzAW09KF1EOgDKQ7O3xj_deG_LTrM",
+          image:"./workPlaces/Tom/telesat.jpg",
         },
         {
           workplace: "Carleton University",

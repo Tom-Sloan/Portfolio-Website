@@ -1,7 +1,18 @@
 .UnderConstruction {
   padding-top: 10vh;
   background-color: var(--dark);
+  overflow-y: scroll;
 }
+.UnderConstruction::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.UnderConstruction {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .parent {
   background-image: url("https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80");
   min-height: 80vh;

@@ -1,18 +1,14 @@
 .contactParent {
-    text-align: center;
-    height: 100%;
-    color: var(--text);
-    display: flex;
-    flex-flow: column;
-    justify-content: space-evenly;
-    margin: 0;
+    padding-top: 10vh;
+    min-height: 80vh;
+    height: fit-content;
+    color: var(--text) ;
 }
 
 .contactParent hr {
     margin: 0;
     width: 100vw;
     line-height: 0%;
-    /* flex-basis: 100%; */
 }
 
 .contactParent h3 {

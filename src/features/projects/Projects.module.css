@@ -18,7 +18,7 @@ a:link, a:visited, a:hover, a:active {
   color: var(--text);
   text-align: center;
   box-sizing: border-box;
-  padding-top: 10vh;
+  
   /* background-image: url('https://wallpapercave.com/wp/pEeUsp1.jpg');
     background-repeat: repeat; */
   /* height: 100%;
@@ -32,6 +32,9 @@ a:link, a:visited, a:hover, a:active {
   bottom: 0;
   left: 0;
   transform: translateZ(0);
+  /* transform-style: preserve-3d; */
+  -moz-transform:unset;
+  /* -webkit-transform: unset; */
 }
 
 /* .parallax {
@@ -63,6 +66,7 @@ a:link, a:visited, a:hover, a:active {
 .projects {
   display: flex;
   position: relative;
+  
 }
 
 .timelineContainer {
@@ -269,6 +273,8 @@ a:link, a:visited, a:hover, a:active {
   width: 100%;
   flex-wrap: wrap;
   z-index: 1;
+  padding-top: 10vh;
+  
 }
 
 .tiltCard {
@@ -416,6 +422,7 @@ a:link, a:visited, a:hover, a:active {
   .projectList {
     /* margin: 0 5%; */
     /* border: 3px solid greenyellow; */
+    
   }
   .project img {
     float: none;

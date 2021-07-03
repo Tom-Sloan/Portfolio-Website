@@ -255,6 +255,8 @@ $percent: 10%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
+  color: var(--text);
 }
 .workplaceImages {
   max-width: 100%;

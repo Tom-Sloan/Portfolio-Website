@@ -17,6 +17,7 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { NameContext } from "../../AllContexts";
+import './backgroundStyles.scss';
 
 export function Resume() {
   const name = useContext(NameContext).personName;
@@ -52,7 +53,7 @@ export function Resume() {
   }, [resume])
 
   return (
-    <div className={styles.resumeParent}>
+    <div className={`${styles.resumeParent} resumeParent`}>
       
       <Experience human={name ==='tom' ? 'tom' : 'dan'} />
 

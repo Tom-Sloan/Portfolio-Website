@@ -54,94 +54,83 @@ export function Projects({ background, cleanup }) {
         // console.log(document.querySelector(`.${styles.projectList}`).children)
     };
 
-    useEffect(() => {
-        const updateTimeline = () => {
-            try {
-                Array.from(
-                    document.querySelector(`.${styles.projectList}`).children
-                ).forEach((elem) => {
-                    // console.log(elem);
-                    // console.log(isScrolledIntoView(elem));
-                    // console.log(elem);
-                    if (isScrolledIntoView(elem)) {
-                        // console.log(elem.children[0]);
-                        if (document.getElementById(`circle ${elem.id}`)) {
-                            document.getElementById(
-                                `circle ${elem.id}`
-                            ).style.backgroundColor = "#00dae6";
-                            // return true;
-                            // console.log('hello');
-                        }
-                    } else {
-                        if (document.getElementById(`circle ${elem.id}`)) {
-                            document.getElementById(
-                                `circle ${elem.id}`
-                            ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
-                        }
-                    }
-                });
+    // useEffect(() => {
+    //     const updateTimeline = () => {
+    //         try {
+    //             Array.from(
+    //                 document.querySelector(`.${styles.projectList}`).children
+    //             ).forEach((elem) => {
+    //                 if (isScrolledIntoView(elem)) {
+    //                     if (document.getElementById(`circle ${elem.id}`)) {
+    //                         document.getElementById(
+    //                             `circle ${elem.id}`
+    //                         ).style.backgroundColor = "#00dae6";
+    //                     }
+    //                 } else {
+    //                     if (document.getElementById(`circle ${elem.id}`)) {
+    //                         document.getElementById(
+    //                             `circle ${elem.id}`
+    //                         ).style.backgroundColor = "#00adb5"; //"#2fc1f2"
+    //                     }
+    //                 }
+    //             });
 
-                var winScroll = document.querySelector(
-                    `.${bodyStyle.parallaxParent}`
-                ).scrollTop;
-                var height =
-                    document.querySelector(`.${styles.page}`).offsetHeight -
-                    document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight +
-                    document.querySelector(`.${bodyStyle.footer}`).offsetHeight;
-                var scrolled = (winScroll / height) * 100;
-                document.getElementById("my_bars").style.height = scrolled + "%";
+    //             var winScroll = document.querySelector(
+    //                 `.${bodyStyle.parallaxParent}`
+    //             ).scrollTop;
+    //             var height =
+    //                 document.querySelector(`.${styles.page}`).offsetHeight -
+    //                 document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight +
+    //                 document.querySelector(`.${bodyStyle.footer}`).offsetHeight;
+    //             var scrolled = (winScroll / height) * 100;
+    //             document.getElementById("my_bars").style.height = scrolled + "%";
+    //             console.log(e);
+    //         }
+    //     };
 
-                // console.log(winScroll);
-                // console.log(height);
-                // console.log(scrolled);
-            } catch (e) {
-                console.log(e);
-            }
-        };
+    //     console.log(document.querySelector(`.${bodyStyle.parallaxParent}`));
 
-        console.log(document.querySelector(`.${bodyStyle.parallaxParent}`));
+    //     //THIS
 
-        //THIS
+    //     document
+    //         .querySelector(`.${bodyStyle.parallaxParent}`)
+    //         .addEventListener("scroll", updateTimeline);
 
-        document
-            .querySelector(`.${bodyStyle.parallaxParent}`)
-            .addEventListener("scroll", updateTimeline);
+    //     try {
+    //         updateTimeline();
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
 
-        try {
-            updateTimeline();
-        } catch (e) {
-            console.log(e);
-        }
+    //     // return () => document.querySelector(`.${bodyStyle.parallaxParent}`).removeEventListener('scroll', updateTimeline);
+    // }, []);
 
-        // return () => document.querySelector(`.${bodyStyle.parallaxParent}`).removeEventListener('scroll', updateTimeline);
-    }, []);
+    // function isScrolledIntoView(elem) {
+    //     var docViewTop = document.querySelector(
+    //         `.${bodyStyle.parallaxParent}`
+    //     ).scrollTop;
+    //     var docViewBottom =
+    //         docViewTop +
+    //         document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight;
 
-    function isScrolledIntoView(elem) {
-        var docViewTop = document.querySelector(
-            `.${bodyStyle.parallaxParent}`
-        ).scrollTop;
-        var docViewBottom =
-            docViewTop +
-            document.querySelector(`.${bodyStyle.parallaxParent}`).offsetHeight;
+    //     var elemTop = elem.offsetTop;
+    //     var elemBottom = elemTop + elem.offsetHeight;
 
-        var elemTop = elem.offsetTop;
-        var elemBottom = elemTop + elem.offsetHeight;
+    //     console.log(docViewTop);
+    //     console.log(docViewBottom);
+    //     console.log(elemTop);
+    //     console.log(elemBottom);
 
-        // console.log(docViewTop);
-        // console.log(docViewBottom);
-        // console.log(elemTop);
-        // console.log(elemBottom);
+    //     return elemBottom <= docViewBottom && elemTop >= docViewTop;
+    // }
 
-        return elemBottom <= docViewBottom && elemTop >= docViewTop;
-    }
+    // const handleHover = (e) => {
+    //     e.target.style.backgroundColor = "#00dae6";
+    // };
 
-    const handleHover = (e) => {
-        e.target.style.backgroundColor = "#00dae6";
-    };
-
-    const handleNoHover = (e) => {
-        e.target.style.backgroundColor = "#00adb5";
-    };
+    // const handleNoHover = (e) => {
+    //     e.target.style.backgroundColor = "#00adb5";
+    // };
 
     function debounce(fn, ms) {
         let timer;

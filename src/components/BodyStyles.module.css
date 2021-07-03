@@ -124,7 +124,7 @@
     bottom: 0;
     left: 0;
     transform: translateZ(-1px) scale(2);
-
+    -moz-transform: unset;
     
     /* scroll-behavior: smooth; */
     background-color: var(--dark);

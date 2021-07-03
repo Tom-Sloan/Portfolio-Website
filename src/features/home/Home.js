@@ -27,7 +27,6 @@ export function Home() {
     };
     const element = document.querySelectorAll(".cardContent");
     VanillaTilt.init(element, options);
-    
   }, []);
 
   return (
@@ -97,23 +96,29 @@ export function Home() {
         </div>
       </section>
       <div className={styles.divider}>
+        <h2>Has Worked With:</h2>
         <div className={styles.workplaceContainer}>
           {workplaces.map((elm, index) => (
-            <a className={styles.workplace}>
-              <img className = {styles.workplaceImages} src={elm.image}/>
+            <a className={styles.workplace} href={"/resume#data " + index}>
+              <img
+                className={styles.workplaceImages}
+                src={elm.image}
+                alt={elm.workplace + " logo image"}
+              />
               <h3>{elm.workplace}</h3>
+              <h5>{elm.title}</h5>
             </a>
           ))}
         </div>
       </div>
-      <section className={styles.dividerAttachment}>
-        <Card
-          elements={projects}
-          title={"~Portfolilo Highlights~"}
-          addLinkAtEnd={true}
-          endRedirectLink="/projects"
-        />
-      </section>
+
+      <Card
+        elements={projects}
+        title={"~Portfolilo Highlights~"}
+        addLinkAtEnd={true}
+        endRedirectLink="/projects"
+      />
+
       {/* <PageScrollBar parentPercentPosition={parentPercentPosition} /> */}
     </div>
   );

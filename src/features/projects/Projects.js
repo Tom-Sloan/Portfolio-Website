@@ -7,10 +7,11 @@ import { selectProjectsArray } from "./projectsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import VanillaTilt from "vanilla-tilt";
-import { NameContext } from "../../AllContexts";
+import { IsDarkThemeContext, NameContext } from "../../AllContexts";
 
 export function Projects({ background, cleanup }) {
     const projects = useSelector(selectProjectsArray)[useContext(NameContext).personName];
+    const {isDarkTheme, setDarkTheme}  = useContext(IsDarkThemeContext);
     // console.log(projects);
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export function Projects({ background, cleanup }) {
             document.querySelector(`.${bodyStyle.bodyArea}`)
         ).width;
 
-
+        
 
         // document.querySelector(`${bodyStyle.parallax}`).children[0].width = getComputedStyle(document.querySelector(`.${bodyStyle.parallax}`).style.width)
         // document.querySelector(`${bodyStyle.parallax}`).children[0].height = getComputedStyle(document.querySelector(`.${bodyStyle.parallax}`).style.height)
@@ -126,10 +127,10 @@ export function Projects({ background, cleanup }) {
         var elemTop = elem.offsetTop;
         var elemBottom = elemTop + elem.offsetHeight;
 
-        console.log(docViewTop);
-        console.log(docViewBottom);
-        console.log(elemTop);
-        console.log(elemBottom);
+        // console.log(docViewTop);
+        // console.log(docViewBottom);
+        // console.log(elemTop);
+        // console.log(elemBottom);
 
         return elemBottom <= docViewBottom && elemTop >= docViewTop;
     }

@@ -42,7 +42,7 @@ $percent: 10%;
   justify-content: center;
 }
 
-.personContainer{
+.personContainer {
   padding-top: 10vh;
   flex: 1 1 20%;
   display: flex;
@@ -50,7 +50,7 @@ $percent: 10%;
   flex-direction: column;
   align-items: center;
 }
-.displayNone{
+.displayNone {
   display: none;
 }
 .top img {
@@ -109,12 +109,27 @@ $percent: 10%;
   color: var(--lightest);
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 5% 10%;
 }
 .dividerAttachment {
   border-radius: 100px;
   overflow: hidden;
 }
+.clearfix:before,
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+
 @media only screen and (max-width: 768px) {
   .divider {
     visibility: hidden;
@@ -164,6 +179,7 @@ $percent: 10%;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  overflow-x: hidden;
   // gap: 20px;
 }
 
@@ -221,7 +237,7 @@ $percent: 10%;
   }
 }
 
-.workplaceContainer{
+.workplaceContainer {
   height: 100%;
   width: 80%;
   margin: 0 auto;
@@ -229,20 +245,20 @@ $percent: 10%;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  gap:100px;
+  gap: 100px;
   text-align: center;
 }
 
-.worplace{
-flex: 1 1;
-display: flex;
-flex-direction:column ;
-justify-content: center;
-align-items: center;
+.worplace {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.workplaceImages{
-max-width: 100%;
-border-radius: 50%;
+.workplaceImages {
+  max-width: 100%;
+  border-radius: 50%;
 }
 
 // IGNORE

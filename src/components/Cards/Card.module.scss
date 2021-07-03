@@ -11,6 +11,7 @@
   min-height:80vh;
   max-height: 100%;
   
+  border-radius: 100px;
   
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
@@ -111,7 +112,7 @@
 
 .container .card h2 {
   position: absolute;
-  top: 0px;
+  top: -150px;
   right: 30px;
   font-size: 8em;
   color: var(--invertedText);

@@ -46,7 +46,6 @@ export function HeaderButtons({ name, text, selected, handleSelection, index, mi
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleOut}
-        onClick={(e) => handleSelection(e, index)}
       >
         {text}
         <span className={styles.SubredditButtonSpan} ref={spanRef}></span>

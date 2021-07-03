@@ -20,21 +20,22 @@
 // }
 $percent : 10%;
 .dark-theme .topLevelHome {
-  background-image: linear-gradient(
-    to right bottom,
-    darken(#025b9f,$percent),
-    darken(#534f9e,$percent),
-    darken(#803c8e,$percent),
-    darken(#9f2272,$percent),
-    darken(#af004c,$percent),
-    darken(#ba053b,$percent),
-    darken(#c11b28,$percent),
-    darken(#c3300c,$percent),
-    darken(#d3470a,$percent),
-    darken(#e35d07,$percent),
-    darken(#f17203,$percent),
-    darken(#ff8701,$percent)
-  );
+  // background-image: linear-gradient(
+  //   to right bottom,
+  //   darken(#025b9f,$percent),
+  //   darken(#534f9e,$percent),
+  //   darken(#803c8e,$percent),
+  //   darken(#9f2272,$percent),
+  //   darken(#af004c,$percent),
+  //   darken(#ba053b,$percent),
+  //   darken(#c11b28,$percent),
+  //   darken(#c3300c,$percent),
+  //   darken(#d3470a,$percent),
+  //   darken(#e35d07,$percent),
+  //   darken(#f17203,$percent),
+  //   darken(#ff8701,$percent)
+  // );
+  background-image: linear-gradient(to right bottom, #013e6d, #413e7c, #602d6a, #751954, #7c0036, #88042b, #94151f, #932409, #a23708, #b24905, #bf5a02, #cd6c00);
   background-size: cover;
   background-repeat: no-repeat;
 }

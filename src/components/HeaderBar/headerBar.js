@@ -8,8 +8,6 @@ import { HeaderButtons } from "./headerButtons";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { IsDarkThemeContext, NameContext } from "../../AllContexts";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import { pixelToNum } from "../../helpFunctions";
-import { CircleMenu } from "./circleMenu";
 
 export function HeaderBar() {
   //Mugselector is the icon state with the sun and the moon
@@ -55,7 +53,6 @@ export function HeaderBar() {
   // }, [popUpCircle]);
 
   const handleSelection = (e, index) => {
-    console.log(e)
     const temp = Array(headerLinks.length).fill(false);
     temp[index] = true;
     setSelected(temp);

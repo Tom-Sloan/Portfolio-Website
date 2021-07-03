@@ -9,13 +9,14 @@ import { useState, useContext } from "react";
 import { selectPersonInformation } from "./homeSlice";
 import { NameContext } from "../../AllContexts";
 import { selectExperienceArray } from "../experience/experienceSlice";
+import { useHistory } from "react-router-dom";
 
 export function Home() {
   const personName = useContext(NameContext).personName;
   const projects = useSelector(selectProjectsArray)[personName];
   const person = useSelector(selectPersonInformation)[personName];
   const experiences = person.experiences;
-
+  const history = useHistory();
   const workplaces = useSelector(selectExperienceArray)[personName];
 
   useEffect(() => {
@@ -99,7 +100,11 @@ export function Home() {
         <h2>Has Worked With:</h2>
         <div className={styles.workplaceContainer}>
           {workplaces.map((elm, index) => (
-            <a className={styles.workplace} href={"/resume#data " + index}>
+            <a
+              type="type-workplace"
+              onClick={() => history.push("/resume")}
+              href={"#data " + index}
+            >
               <img
                 className={styles.workplaceImages}
                 src={elm.image}

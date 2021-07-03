@@ -16,8 +16,8 @@ export function Projects({ background, cleanup }) {
     useEffect(() => {
         const options = {
             reverse: true,
-            glare: true,
-            'max-glare': 0.5,
+            // glare: true,
+            // 'max-glare': 0.5,
             max: 10,
         }
         const element = document.querySelectorAll(`.${styles.tiltCard}`);

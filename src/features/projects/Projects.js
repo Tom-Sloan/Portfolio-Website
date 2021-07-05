@@ -227,7 +227,8 @@ export function Projects({ background, cleanup }) {
                         {projects.length > 0 &&
                             projects.map((data, idx) => (
                                 <div className={styles.tiltCard} >
-                                    <div className={styles.project} id={`data ${idx}`}>
+                                    <div className={styles.project} id={`${data.title.replaceAll(' ', '-')}`}>
+                                        {console.log(`project-${data.title.replaceAll(' ', '-')}`)}
                                         {data.category.map((item) => {
                                             return (
                                                 <span

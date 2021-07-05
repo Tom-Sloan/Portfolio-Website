@@ -11,7 +11,7 @@ import { NameContext, IsDarkThemeContext } from "./AllContexts";
 function App() {
   const [personName, setPersonName] = useState("tom");
   const [isDarkTheme, setDarkTheme] = useState(false);
-  useEffect(()=>console.log('darkTheme: ',isDarkTheme), [isDarkTheme])
+
   return (
     <Router>
       <BreakpointProvider>

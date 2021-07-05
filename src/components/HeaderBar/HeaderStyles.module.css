@@ -49,15 +49,9 @@
   display: none;
 }
 
-
-
 .colorUIChangeIcon {
   color: var(--text);
 }
-
-/* .colorUIChangeIcon:hover {
-    color: var(--lightest);
-} */
 
 .iconContainer {
   position: relative;
@@ -78,15 +72,61 @@
     display: none;
   }
   .headerScrollBar {
-    display: inline;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     flex-shrink: 1;
-    overflow: hidden;
   }
   .angleDoubleUp {
     display: none;
   }
-  .popUpCircleContainer{
+  .popUpCircleContainer {
     display: inline;
   }
 }
 
+.dropDownContainer{
+  position: relative;
+  
+  top: 0px;
+  
+}
+.dropDownMenuContainer{
+  position: absolute;
+  top:1000%;
+  left: 0;
+  
+}
+.invisibility{
+  display: none;
+}
+.modal {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  padding: 20px;
+  box-sizing: border-box;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .modal_content {
+  background-color: white;
+  padding: 2px;
+  overflow-x: hidden;
+  border-radius: var(--postBorderRadius);
+  border: 2px solid black;
+} */
+.modal_container {
+  position: absolute;
+  top: 5%;
+  left: 25%;
+  width: 50%;
+  margin-bottom: 20px;
+}

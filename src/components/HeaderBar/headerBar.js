@@ -40,8 +40,7 @@ export function HeaderBar() {
       //Make sure the user does not prefer the light theme
     } else if (currentTheme !== "light") {
       //check to see if the user prefers the light theme (in app.js I add the dark theme if the user's preferences say they like it)
-      if (window.matchMedia("(prefers-color-scheme: dark)"))
-        toggleDarkMode(_);
+      if (window.matchMedia("(prefers-color-scheme: dark)")) toggleDarkMode(_);
     }
   }, []);
 
@@ -75,7 +74,7 @@ export function HeaderBar() {
       setDarkTheme(true);
       theme = "dark";
     } else {
-      console.log('here')
+      console.log("here");
       setDarkTheme(true);
     }
     localStorage.setItem("theme", theme);
@@ -87,18 +86,34 @@ export function HeaderBar() {
     setPersonName(checked ? "dan" : "tom");
   };
 
+  const handleDropDownIconClick = (e) => {
+    document
+      .querySelector(`.${styles.modal}`)
+      .classList.toggle(styles.invisibility);
+  };
+
   return (
     <div className={styles.headerBar}>
       <div className={styles.headerLinks}>
         {menuLarge}
         <div className={styles.headerScrollBar}>
-          <ScrollMenu
-            data={menuSmall}
-            arrowLeft={<div></div>}
-            arrowRight={<div></div>}
-            selected={selected}
-            setSelected={setSelected}
-          />
+          {menuSmall[0]}
+          {menuSmall[2]}
+
+          <div
+            className={`${styles.iconContainer} ${styles.extraContainer} ${styles.dropDownContainer}`}
+            onClick={handleDropDownIconClick}
+          >
+            <FontAwesomeIcon
+              className={styles.colorUIChangeIcon}
+              icon={faShapes}
+            />
+            <div className={`${styles.modal} portfolioContainer`}>
+              <div className={styles.modal_container}>
+                {Menu(headerLinks, selected, handleSelection)}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className={styles.optionsContainer}>
@@ -141,7 +156,8 @@ export const Menu = (
   selected,
   handleSelection,
   extraClasses = "",
-  style
+  style,
+  minified = false
 ) =>
   list.map((el, index) => {
     return (
@@ -150,7 +166,7 @@ export const Menu = (
         key={el.title + "-link-" + index}
         className={extraClasses}
         style={style}
-        onClick={(e)=>handleSelection(e, index)}
+        onClick={(e) => handleSelection(e, index)}
       >
         <HeaderButtons
           name={el.title + "-" + index}
@@ -158,6 +174,7 @@ export const Menu = (
           key={el.title + "-" + index}
           selected={selected[index]}
           index={index}
+          minified={minified}
         />
       </Link>
     );

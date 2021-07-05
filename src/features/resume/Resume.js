@@ -65,7 +65,7 @@ export function Resume() {
               height: '100%',
             }}
           >
-            <Viewer fileUrl={name==='tom'? "./resumes/Daniel_Neasmith_CV.pdf" : "./resumes/Daniel_Neasmith_CV.pdf"} plugins={[defaultLayoutPluginInstance]} />
+            <Viewer fileUrl={name==='tom'? "./resumes/Tom Sloan CV July 2021.pdf" : "./resumes/Daniel_Neasmith_CV.pdf"} plugins={[defaultLayoutPluginInstance]} />
           </div>
         </Worker>
       </div>

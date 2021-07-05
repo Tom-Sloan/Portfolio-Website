@@ -35,26 +35,28 @@ export function Experience({human}) {
 
     const updateTimeline = () => {
       try {
-        const children = document.querySelector(
+        const children = Array.from(document.querySelector(
           `.${styles.experienceList}`
-        ).children;
+        ).children)
+
+
         // console.log(getComputedStyle(document.querySelector(`.${styles.experienceList}`)).marginTop);
 
-        Array.from(children).forEach((elem) => {
-          if (isScrolledIntoView(elem)) {
-            if (document.getElementById(`circle ${elem.id}`)) {
-              document.getElementById(
-                `circle ${elem.id}`
-              ).style.backgroundColor = "#00dae6";
-            }
-          } else {
-            if (document.getElementById(`circle ${elem.id}`)) {
-              document.getElementById(
-                `circle ${elem.id}`
-              ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
-            }
-          }
-        });
+        // children.forEach((elem, index) => {
+        //   if (isScrolledIntoView(elem)) {
+        //     if (document.getElementById(`circle ${elem.id}`)) {
+        //       document.getElementById(
+        //         `circle ${elem.id}`
+        //       ).style.backgroundColor = "#8bf9ff"; //#00dae6
+        //     }
+        //   } else {
+        //     if (document.getElementById(`circle ${elem.id}`)) {
+        //       document.getElementById(
+        //         `circle ${elem.id}`
+        //       ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
+        //     }
+        //   }
+        // });
 
         var winScroll = document.querySelector(
           `.${resumeStyle.parent}`
@@ -68,6 +70,22 @@ export function Experience({human}) {
         // console.log(window.innerHeight);
         // console.log(height);
         var scrolled = (winScroll / height) * 100;
+
+        children.forEach((elem, index) => {
+          if (scrolled > ((100/(children.length - 1))*index)) {
+            if (document.getElementById(`circle ${elem.id}`)) {
+              document.getElementById(
+                `circle ${elem.id}`
+              ).style.backgroundColor = "#8bf9ff"; //#00dae6
+            }
+          } else {
+            if (document.getElementById(`circle ${elem.id}`)) {
+              document.getElementById(
+                `circle ${elem.id}`
+              ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
+            }
+          }
+        });
 
         if (scrolled >= 100) {
           document.getElementById("timeline_bar").style.height = "100%";

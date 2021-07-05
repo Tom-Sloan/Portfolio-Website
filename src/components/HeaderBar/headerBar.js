@@ -108,7 +108,7 @@ export function HeaderBar() {
               className={styles.colorUIChangeIcon}
               icon={faShapes}
             />
-            <div className={`${styles.modal} portfolioContainer`}>
+            <div className={`${styles.modal} ${styles.invisibility} portfolioContainer`}>
               <div className={styles.modal_container}>
                 {Menu(headerLinks, selected, handleSelection)}
               </div>

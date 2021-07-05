@@ -84,8 +84,10 @@ $percent: 10%;
 
 .selectedName {
   display: inline-block;
+  text-align: center;
   // position: relative;
   font-size: 100px;
+  line-height: 100px;
   // top:-10px;
   color: var(--text);
   transform: translateY(-100px);
@@ -182,7 +184,16 @@ $percent: 10%;
   overflow-x: hidden;
   // gap: 20px;
 }
-
+@media only screen and (max-width: 768px) {
+  .skills {
+    width: 95%;
+    left: 2.5%;
+    top: 5%;
+  }
+  .skillsContainer{
+    padding: 30px 0px;
+  }
+}
 .circleContainer {
   display: flex;
   flex-direction: column;

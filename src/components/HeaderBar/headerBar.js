@@ -126,7 +126,7 @@ export function HeaderBar() {
             icon={mugs[mugSelector]}
           />
         </div>
-        <div className={`${styles.headerLink} `}>
+        {/* <div className={`${styles.headerLink} `}> */}
           <ToggleSwitch
             id="personToggle"
             checked={personToggle}
@@ -134,7 +134,7 @@ export function HeaderBar() {
             optionLabels={["Dan", "Tom"]}
             cvPage={true}
           />
-        </div>
+        {/* </div> */}
         {/* <div
           ref={circleRef}
           className={`${styles.iconContainer} ${styles.popUpCircleContainer} ${styles.extraContainer}`}

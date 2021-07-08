@@ -265,8 +265,7 @@ export function Projects({ background, cleanup }) {
                                             />
                                         )}
                                         <time>
-                                            {data.monthstart} {data.yearstart} - {data.monthend}{" "}
-                                            {data.yearend}
+                                            {data.date} - {data.enddate}
                                         </time>
                                         <p>{data.description}</p>
                                     </div>

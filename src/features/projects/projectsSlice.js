@@ -127,53 +127,53 @@ export const projectsSlice = createSlice({
             "https://www.credibll.com/build/images/campaign/full-stack-icons/junior-icon.png",
           link: "https://www.codecademy.com/learn/paths/front-end-engineer-career-path",
         },
-        {
-          title: "Boat Refurbrishment",
-          subtitle: "New Hardware Implementation and Restoration",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
-          date: "July 2021",
-          enddate: "May 2022",
-          category: [
-            {
-              tag: "Hardware",
-              color: "#66023C",
-            },
-            {
-              tag: "IoT",
-              color: "#00ADCC",
-            },
-          ],
-          image:
-            "https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png",
-        },
-        {
-          title: "Automated Hydroponics System",
-          subtitle: "Sensors, Pumps, and Free Food",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
-          date: "July 2021",
-          enddate: "August 2021",
-          category: [
-            {
-              tag: "Hardware",
-              color: "#66023C",
-            },
-            {
-              tag: "Embedded",
-              color: "#042A2B",
-            },
-          ],
-          image: "https://clipground.com/images/hydroponic-png-9.png",
-          link: "https://en.wikipedia.org/wiki/Hydroponics",
-        },
+        // {
+        //   title: "Boat Refurbrishment",
+        //   subtitle: "New Hardware Implementation and Restoration",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+        //   date: "July 2021",
+        //   enddate: "May 2022",
+        //   category: [
+        //     {
+        //       tag: "Hardware",
+        //       color: "#66023C",
+        //     },
+        //     {
+        //       tag: "IoT",
+        //       color: "#00ADCC",
+        //     },
+        //   ],
+        //   image:
+        //     "https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png",
+        // },
+        // {
+        //   title: "Automated Hydroponics System",
+        //   subtitle: "Sensors, Pumps, and Free Food",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+        //   date: "July 2021",
+        //   enddate: "August 2021",
+        //   category: [
+        //     {
+        //       tag: "Hardware",
+        //       color: "#66023C",
+        //     },
+        //     {
+        //       tag: "Embedded",
+        //       color: "#042A2B",
+        //     },
+        //   ],
+        //   image: "https://clipground.com/images/hydroponic-png-9.png",
+        //   link: "https://en.wikipedia.org/wiki/Hydroponics",
+        // },
       ],
       dan: [
         {
           title: "Reddit Client",
           subtitle: "Codecademy Full Stack Web Developer Porfolio Project",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+          "While completing the Codecademy Full stack developer course, Dan and I decided to test our skills by completing a desktop Reddit Client. Based off Pinterest, we decided to implement a version of reddit where new posts are displayed in columns, to allow quicker and more engaging viewing. There is a black diamond toggle button in the corner to change the number of columns, as well as some preloaded subreddits. The search bar provides the user a method to display whatever reddit content they wish. The number of posts loaded is intentionally limited to a maximum 100 per subreddit.",
           date: "June 2020",
           enddate: "June 2020",
           category: [
@@ -206,12 +206,11 @@ export const projectsSlice = createSlice({
             "https://www.einfochips.com/wp-content/uploads/2018/06/fpga-offerings.png",
           link: "https://en.wikipedia.org/wiki/Field-programmable_gate_array",
         },
-
         {
           title: "Smart Pillbox",
           subtitle: "B. Eng Capstone Project: Tracking Pill Consumption",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+            "The smart pillbox was the capstone project of my university degree. The goal of The Smart Pillbox project was to design and construct a medication storage device that will allow medical practitioners the ability to monitor consumption of medications, set reminders and alarms, and enable a locking mechanism, if required, for that given patient. This device was designed to help improve the lifestyles of patients and their caregivers who have memory loss illnesses. ",
           date: "August 2020",
           enddate: "April 2021",
           category: [
@@ -231,7 +230,7 @@ export const projectsSlice = createSlice({
           title: "Full stack development course",
           subtitle: "Front End and Back End, including React and Redux",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+            "The Full Stack Development course by Codecademy was very useful at transitioning my development interests to more web-based projects. This course was completed over the course of summer 2021. In total, I spent hundreds of hours improving my web development skills. Throughout doing this course I took breaks to build extensive projects (such as this website!). This was done to engrain the proper coding patterns into me.",
           date: "May 2021",
           enddate: "Ongoing",
           category: [
@@ -244,70 +243,70 @@ export const projectsSlice = createSlice({
             "https://www.credibll.com/build/images/campaign/full-stack-icons/junior-icon.png",
           link: "https://www.codecademy.com/learn/paths/front-end-engineer-career-path",
         },
-        {
-          title: "Boat Refurbrishment",
-          subtitle: "New Hardware Implementation and Restoration",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
-          date: "July 2021",
-          enddate: "May 2022",
-          category: [
-            {
-              tag: "Hardware",
-              color: "#66023C",
-            },
-            {
-              tag: "IoT",
-              color: "#00ADCC",
-            },
-          ],
-          image:
-            "https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png",
-        },
-        {
-          title: "Automated Hydroponics System",
-          subtitle: "Sensors, Pumps, and Free Food",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
-          date: "July 2021",
-          enddate: "August 2021",
-          category: [
-            {
-              tag: "Hardware",
-              color: "#66023C",
-            },
-            {
-              tag: "Embedded",
-              color: "#042A2B",
-            },
-          ],
-          image: "https://clipground.com/images/hydroponic-png-9.png",
-          link: "https://en.wikipedia.org/wiki/Hydroponics",
-        },
-        {
-          title: "Mimicing Robotic Arm",
-          subtitle: "Computer Vision and Tracking",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
-          date: "August 2021",
-          enddate: "Ongoing",
-          category: [
-            {
-              tag: "Hardware",
-              color: "#66023C",
-            },
-            {
-              tag: "Embedded",
-              color: "#042A2B",
-            },
-            {
-              tag: "Programming",
-              color: "#149e5e",
-            },
-          ],
-          image:
-            "https://i.pinimg.com/originals/92/86/b3/9286b3892a1f1c21e004c9d3156b780e.png",
-        },
+        // {
+        //   title: "Boat Refurbrishment",
+        //   subtitle: "New Hardware Implementation and Restoration",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+        //   date: "July 2021",
+        //   enddate: "May 2022",
+        //   category: [
+        //     {
+        //       tag: "Hardware",
+        //       color: "#66023C",
+        //     },
+        //     {
+        //       tag: "IoT",
+        //       color: "#00ADCC",
+        //     },
+        //   ],
+        //   image:
+        //     "https://pluspng.com/img-png/row-boat-png-hd-small-fishing-boat-1754.png",
+        // },
+        // {
+        //   title: "Automated Hydroponics System",
+        //   subtitle: "Sensors, Pumps, and Free Food",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+        //   date: "July 2021",
+        //   enddate: "August 2021",
+        //   category: [
+        //     {
+        //       tag: "Hardware",
+        //       color: "#66023C",
+        //     },
+        //     {
+        //       tag: "Embedded",
+        //       color: "#042A2B",
+        //     },
+        //   ],
+        //   image: "https://clipground.com/images/hydroponic-png-9.png",
+        //   link: "https://en.wikipedia.org/wiki/Hydroponics",
+        // },
+        // {
+        //   title: "Mimicing Robotic Arm",
+        //   subtitle: "Computer Vision and Tracking",
+        //   description:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, ex eu vestibulum consequat, lorem mauris viverra sem, eget maximus urna ipsum ac ipsum. Suspendisse potenti. Donec velit est, tristique at consequat sed, egestas eget turpis. Cras vel fringilla mi, bibendum rhoncus mi. Nam ultricies aliquam finibus. Quisque placerat leo id dui fermentum, at ornare nibh feugiat. Vestibulum fringilla fringilla sem, ac finibus nunc tincidunt non. Donec massa velit, viverra quis aliquam nec, ultricies ut tellus. Vivamus fringilla sagittis suscipit. Donec quis mattis enim, fermentum placerat orci.",
+        //   date: "August 2021",
+        //   enddate: "Ongoing",
+        //   category: [
+        //     {
+        //       tag: "Hardware",
+        //       color: "#66023C",
+        //     },
+        //     {
+        //       tag: "Embedded",
+        //       color: "#042A2B",
+        //     },
+        //     {
+        //       tag: "Programming",
+        //       color: "#149e5e",
+        //     },
+        //   ],
+        //   image:
+        //     "https://i.pinimg.com/originals/92/86/b3/9286b3892a1f1c21e004c9d3156b780e.png",
+        // },
       ],
     },
   },

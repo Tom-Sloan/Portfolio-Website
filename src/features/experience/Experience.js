@@ -4,10 +4,10 @@ import resumeStyle from "../resume/Resume.module.css";
 import { selectExperienceArray } from "./experienceSlice";
 import { useEffect } from "react";
 
-export function Experience({human}) {
+export function Experience({ human }) {
   const experiences = useSelector(selectExperienceArray)[human];
 
-  const updateWindowDimensions = () => {};
+  const updateWindowDimensions = () => { };
 
   function isScrolledIntoView(elem) {
     var docViewTop = document.querySelector(`.${resumeStyle.parent}`).scrollTop;
@@ -35,26 +35,28 @@ export function Experience({human}) {
 
     const updateTimeline = () => {
       try {
-        const children = document.querySelector(
+        const children = Array.from(document.querySelector(
           `.${styles.experienceList}`
-        ).children;
+        ).children)
+
+
         // console.log(getComputedStyle(document.querySelector(`.${styles.experienceList}`)).marginTop);
 
-        Array.from(children).forEach((elem) => {
-          if (isScrolledIntoView(elem)) {
-            if (document.getElementById(`circle ${elem.id}`)) {
-              document.getElementById(
-                `circle ${elem.id}`
-              ).style.backgroundColor = "#00dae6";
-            }
-          } else {
-            if (document.getElementById(`circle ${elem.id}`)) {
-              document.getElementById(
-                `circle ${elem.id}`
-              ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
-            }
-          }
-        });
+        // children.forEach((elem, index) => {
+        //   if (isScrolledIntoView(elem)) {
+        //     if (document.getElementById(`circle ${elem.id}`)) {
+        //       document.getElementById(
+        //         `circle ${elem.id}`
+        //       ).style.backgroundColor = "#8bf9ff"; //#00dae6
+        //     }
+        //   } else {
+        //     if (document.getElementById(`circle ${elem.id}`)) {
+        //       document.getElementById(
+        //         `circle ${elem.id}`
+        //       ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
+        //     }
+        //   }
+        // });
 
         var winScroll = document.querySelector(
           `.${resumeStyle.parent}`
@@ -68,6 +70,22 @@ export function Experience({human}) {
         // console.log(window.innerHeight);
         // console.log(height);
         var scrolled = (winScroll / height) * 100;
+
+        children.forEach((elem, index) => {
+          if (scrolled > ((100 / (children.length - 1)) * index)) {
+            if (document.getElementById(`circle ${elem.id}`)) {
+              document.getElementById(
+                `circle ${elem.id}`
+              ).style.backgroundColor = "#8bf9ff"; //#00dae6
+            }
+          } else {
+            if (document.getElementById(`circle ${elem.id}`)) {
+              document.getElementById(
+                `circle ${elem.id}`
+              ).style.backgroundColor = "#00adb5" /*"#2fc1f2"*/;
+            }
+          }
+        });
 
         if (scrolled >= 100) {
           document.getElementById("timeline_bar").style.height = "100%";
@@ -112,6 +130,18 @@ export function Experience({human}) {
     e.target.style.backgroundColor = "#00adb5";
   };
 
+  const makeBold = (item, keywordList) => {
+    keywordList.forEach(keyword => {
+      console.log(keyword)
+      let re = new RegExp(keyword, 'ig')
+      console.log(re)
+      item = item.replaceAll(re, '<strong>' + keyword + '</strong>')
+      console.log(item)
+    })
+
+    return item;
+  }
+
   return (
     <div className={styles.experienceContainer}>
       <div className={styles.experiences}>
@@ -151,10 +181,16 @@ export function Experience({human}) {
                 <time>
                   {data.date} - {data.enddate}
                 </time>
-                <ul>
-                  {data.tasks.length > 0 &&
-                    data.tasks.map((item) => <li>{item}</li>)}
-                </ul>
+                {data.tasks &&
+                  <ul>
+                    {data.tasks.length > 0 &&
+                      data.tasks.map((item) => (
+                        data.keywords && (
+                          <li dangerouslySetInnerHTML={{ __html: makeBold(item, data.keywords) }} ></li>
+                        ) || <li>{item}</li>
+                      ))}
+                  </ul>
+                }
               </div>
             ))}
         </div>

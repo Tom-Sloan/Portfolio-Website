@@ -147,7 +147,7 @@
     margin: 30px 0 30px 0;
     top: 20vh;
     bottom: 10vh;
-    width: 100%;
+    width: 80%;
     height: auto;
     background-color: var(--dark);
     /* border: 3px solid var(--lightest); */
@@ -158,16 +158,20 @@
 
 .experience h1 {
     color: var(--light);
+    margin: 0;
 }
 
 .experience h2 {
-    font-size: larger;
+    font-size:x-large;
     padding: 10px 0;
+    margin: 0;
 }
 
 .experience ul {
-    padding: 20px 50px;
+    padding: 20px 0px 20px 20px;
     clear: both;
+    margin: 0;
+    float: left;
 }
 
 .experience li {
@@ -179,8 +183,8 @@
     float: right;
     height: 20vh;
     object-fit: scale-down;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
@@ -191,6 +195,15 @@
     font-size: initial;
     font-weight: normal;
     padding: 10px 0;
+}
+
+.experience strong {
+    color: var(--light);
+}
+
+.experience .important {
+    color: var(--light);
+    font-weight: bolder;
 }
 
 .progressContainer {
@@ -204,7 +217,7 @@
 
 .progressBar {
     height: 0%;
-    background: #00dae6;
+    background: #8bf9ff;
     width: 100%;
 }
 

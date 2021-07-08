@@ -98,26 +98,46 @@ export const homeSlice = createSlice({
       dan: {
         experiences: [
           {
-            imageUrl: "./experienceImages/react.png",
-            title: "React",
-          },
-          {
-            imageUrl: "./experienceImages/circuit.png",
-            title: "PCB Design",
+            imageUrl: "./experienceImages/schematic.png",
+            title: "Schematic Design",
             addedClasses: "invert",
           },
           {
-            imageUrl: "./experienceImages/redux.png",
-            title: "Redux",
+            imageUrl: "./experienceImages/pcb_img.png",
+            title: "PCB Design",
+          },
+          {
+            imageUrl: "./experienceImages/fpga.png",
+            title: "Verilog & FPGAs",
+          },
+          {
+            imageUrl: "./experienceImages/circuit.png",
+            title: "Embedded Software",
+            addedClasses: "invert",
           },
           {
             imageUrl: "./experienceImages/microcontroller.png",
-            title: "Microcontroller",
+            title: "Microcontrollers",
           },
-
+          {
+            imageUrl: "./experienceImages/p2.png",
+            title: "Python",
+          },
+          {
+            imageUrl: "./experienceImages/mysql.png",
+            title: "MySQL",
+          },
+          {
+            imageUrl: "./experienceImages/Matlab_Logo.png",
+            title: "MATLAB",
+          },
           {
             imageUrl: "./experienceImages/c2.png",
             title: "C",
+          },
+          {
+            imageUrl: "./experienceImages/c-logo-png-transparent.png",
+            title: "C++",
           },
           {
             imageUrl: "./experienceImages/css.png",
@@ -128,6 +148,14 @@ export const homeSlice = createSlice({
             title: "JavaScript",
           },
           {
+            imageUrl: "./experienceImages/react.png",
+            title: "React",
+          },
+          {
+            imageUrl: "./experienceImages/redux.png",
+            title: "Redux",
+          },
+          {
             imageUrl: "./experienceImages/node.png",
             title: "Node JS",
           },
@@ -135,19 +163,6 @@ export const homeSlice = createSlice({
             imageUrl: "./experienceImages/github.png",
             title: "Github",
             addedClasses: "invert",
-          },
-          {
-            imageUrl: "./experienceImages/sass.png",
-            title: "Sass",
-          },
-
-          {
-            imageUrl: "./experienceImages/postgres.png",
-            title: "Postgress SQL",
-          },
-          {
-            imageUrl: "./experienceImages/p2.png",
-            title: "Python",
           },
           {
             imageUrl: "./experienceImages/arduino.png",

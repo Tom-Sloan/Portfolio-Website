@@ -57,13 +57,13 @@ export function Home() {
           >
             <img
               className={personName === "dan" && styles.selectedName}
-              src="./profilePictures/dan.jpg"
+              src="./profilePictures/IMG_1601.jpg"
               alt="Profile"
             />
             <h1 className="hasBoxShadow">
               {" "}
               <span className={personName === "dan" && styles.selectedName}>
-                Dan 'Why are stairs hard' Neasmith
+                Daniel Neasmith
               </span>
             </h1>
           </div>

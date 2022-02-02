@@ -3,47 +3,38 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
 import * as CANNON from "cannon-es";
-import Matter, { World } from "matter-js";
 
 /**
  * Debug
  */
 const gui = new dat.GUI();
-const debugObject = {};
+const parameters = {
+  createSphere: () =>
+    createSphere(Math.random() * 0.5, {
+      x: (Math.random() - 0.5) * 3,
+      y: 0,
+      z: (Math.random() - 0.5) * 3,
+    }),
+  createBox: () =>
+    createBox(Math.random(), Math.random(), Math.random(), {
+      x: (Math.random() - 0.5) * 3,
+      y: 3,
+      z: (Math.random() - 0.5) * 3,
+    }),
+  reset: () => {
+    for (const object of objectsToUpdate) {
+      // Remove body
+      object.body.removeEventListener("collide", playHitSound);
+      world.removeBody(object.body);
 
-debugObject.createSphere = () => {
-  const radius = Math.random() * 0.5;
-  createSphere(radius, {
-    x: (Math.random() - 0.5) * 3,
-    y: radius,
-    z: (Math.random() - 0.5) * 3,
-  });
+      // Remove mesh
+      scene.remove(object.mesh);
+    }
+  },
 };
-
-gui.add(debugObject, "createSphere");
-
-debugObject.createBox = () => {
-  const height = Math.random();
-  createBox(Math.random(), height, Math.random(), {
-    x: (Math.random() - 0.5) * 3,
-    y: height / 2,
-    z: (Math.random() - 0.5) * 3,
-  });
-};
-gui.add(debugObject, "createBox");
-
-// Reset
-debugObject.reset = () => {
-  for (const object of objectsToUpdate) {
-    // Remove body
-    // object.body.removeEventListener("collide", playHitSound);
-    world_cannon.removeBody(object.body);
-
-    // Remove mesh
-    scene.remove(object.mesh);
-  }
-};
-gui.add(debugObject, "reset");
+gui.add(parameters, "createSphere");
+gui.add(parameters, "createBox");
+gui.add(parameters, "reset");
 
 /**
  * Base
@@ -60,15 +51,13 @@ const scene = new THREE.Scene();
 const hitSound = new Audio("/sounds/hit.mp3");
 
 const playHitSound = (collision) => {
-  console.log("Contact: ", collision);
+  const impactStrength = collision.contact.getImpactVelocityAlongNormal();
 
-  //   const impactStrength = collision.contact.getImpactVelocityAlongNormal();
-
-  //   if (impactStrength > 1.5) {
-  //     hitSound.volume = Math.random();
-  //     hitSound.currentTime = 0;
-  //     hitSound.play();
-  //   }
+  if (impactStrength > 1.5) {
+    hitSound.volume = Math.random();
+    hitSound.currentTime = 0;
+    hitSound.play();
+  }
 };
 
 /**
@@ -89,113 +78,23 @@ const environmentMapTexture = cubeTextureLoader.load([
 /**
  * Physics
  */
+const world = new CANNON.World();
+// world.gravity.set(0, -9.82, 0);
 
-//Create module aliases
-const Engine = Matter.Engine,
-  Runner = Matter.Runner,
-  Body = Matter.Body,
-  Composites = Matter.Composites,
-  MouseConstraint = Matter.MouseConstraint,
-  Mouse = Matter.Mouse,
-  Composite = Matter.Composite,
-  Bodies = Matter.Bodies,
-  Events = Matter.Events,
-  Query = Matter.Query,
-  Common = Matter.Common;
+const defaultMaterial = new CANNON.Material("default");
 
-// create engine
-let engine = Engine.create({
-    gravity: {
-      y: 0,
-      x: 0,
-    },
-    enableSleeping: true,
-  }),
-  world = engine.world;
-
-// create runner
-let runner = Runner.create();
-Runner.run(runner, engine);
-
-/**
- * Utils
- */
-const objectsToUpdate = [];
-
-// Create sphere
-const sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
-const sphereMaterial = new THREE.MeshStandardMaterial({
-  metalness: 0.3,
-  roughness: 0.4,
-  envMap: environmentMapTexture,
-  envMapIntensity: 0.5,
-});
-
-const createSphere = (radius, position) => {
-  // Three.js mesh
-  const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  mesh.castShadow = true;
-  mesh.scale.set(radius, radius, radius);
-  mesh.position.copy(position);
-  scene.add(mesh);
-
-  let body = Bodies.circle(position.x, position.z, radius, {
+const defaultContactMaterial = new CANNON.ContactMaterial(
+  defaultMaterial,
+  defaultMaterial,
+  {
     friction: 0,
-    frictionAir: 0,
     restitution: 1,
-    density: 0.001,
-  });
-  Composite.add(world, body);
-  //   Events.on(engine, "collisionStart", playHitSound);
-
-  // Save in objects
-  objectsToUpdate.push({ mesh, body });
-};
-
-// Create box
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-const boxMaterial = new THREE.MeshStandardMaterial({
-  metalness: 0.3,
-  roughness: 0.4,
-  envMap: environmentMapTexture,
-  envMapIntensity: 0.5,
-});
-//createBox(1, 1.5, 2, { x: 0, y: 3, z: 0 });
-const createBox = (width, height, depth, position) => {
-  // Three.js mesh
-  const mesh = new THREE.Mesh(boxGeometry, boxMaterial);
-  mesh.scale.set(width, height, depth);
-  mesh.castShadow = true;
-  mesh.position.copy(position);
-  scene.add(mesh);
-
-  // Matter.js body
-
-  let body = Bodies.rectangle(position.x, position.z, width, depth, {
-    friction: 0,
-    frictionAir: 0,
-    restitution: 1,
-    density: 0.001,
-  });
-  Composite.add(world, body);
-  //   Events.on(engine, "collisionStart", playHitSound);
-
-  //   const shape = new CANNON.Box(
-  //     new CANNON.Vec3(width * 0.5, height * 0.5, depth * 0.5)
-  //   );
-  //   const body = new CANNON.Body({
-  //     mass: 1,
-  //     position: new CANNON.Vec3(0, 3, 0),
-  //     shape: shape,
-  //     material: defaultMaterial,
-  //   });
-  //   body.position.copy(position);
-  //   body.addEventListener("collide", playHitSound);
-  //   world_cannon.addBody(body);
-
-  // Save in objects
-  objectsToUpdate.push({ mesh, body });
-};
+  }
+);
+world.addContactMaterial(defaultContactMaterial);
+world.defaultContactMaterial = defaultContactMaterial;
+world.broadphase = new CANNON.SAPBroadphase(world);
+world.allowSleep = true;
 
 /**
  * Floor
@@ -208,11 +107,23 @@ const floor = new THREE.Mesh(
     roughness: 0.4,
     envMap: environmentMapTexture,
     envMapIntensity: 0.5,
+    transparent: true,
+    opacity: 0.5,
   })
 );
 floor.receiveShadow = true;
 floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
+
+// Floor physics
+// const floorShape = new CANNON.Plane();
+// const floorBody = new CANNON.Body({
+//   //  material: defaultMaterial
+// });
+// floorBody.mass = 0;
+// floorBody.addShape(floorShape);
+// floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI * 0.5);
+// world.addBody(floorBody);
 
 /**
  * Lights
@@ -254,6 +165,120 @@ window.addEventListener("resize", () => {
 });
 
 /**
+ * Utils
+ */
+const objectsToUpdate = [];
+const sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
+const sphereMaterial = new THREE.MeshStandardMaterial({
+  metalness: 0.3,
+  roughness: 0.4,
+  envMap: environmentMapTexture,
+  envMapIntensity: 0.5,
+});
+const createSphere = (radius, position) => {
+  position.y = radius;
+  // Three.js mesh
+  const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  mesh.castShadow = true;
+  mesh.scale.set(radius, radius, radius);
+  mesh.position.copy(position);
+  scene.add(mesh);
+
+  // Cannon.js body
+  const shape = new CANNON.Sphere(radius);
+
+  const body = new CANNON.Body({
+    mass: 1,
+    position: new CANNON.Vec3(0, 3, 0),
+    shape: shape,
+    material: defaultMaterial,
+  });
+  body.position.copy(position);
+  body.addEventListener("collide", playHitSound);
+  world.addBody(body);
+  // body.applyLocalForce(new CANNON.Vec3(0, 15, 0), new CANNON.Vec3(0, 0, 0));
+  objectsToUpdate.push({
+    mesh: mesh,
+    body: body,
+  });
+};
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+const createBox = (height, width, depth, position) => {
+  console.log(position);
+  const mesh = new THREE.Mesh(boxGeometry, sphereMaterial);
+  mesh.castShadow = true;
+  mesh.scale.set(height, width, depth);
+  mesh.position.copy(position);
+  scene.add(mesh);
+
+  // Cannon.js body
+  const shape = new CANNON.Box(
+    new CANNON.Vec3(height / 2, width / 2, depth / 2)
+  );
+
+  const body = new CANNON.Body({
+    mass: 1,
+    shape: shape,
+    material: defaultMaterial,
+    linearDamping: 0.1,
+    angularDamping: 0.5,
+  });
+  body.position.copy(position);
+
+  body.addEventListener("collide", playHitSound);
+  world.addBody(body);
+  objectsToUpdate.push({
+    mesh: mesh,
+    body: body,
+  });
+};
+
+const humanMaterial = new THREE.MeshStandardMaterial({
+  metalness: 0.3,
+  roughness: 0.4,
+  envMap: environmentMapTexture,
+  envMapIntensity: 0.5,
+  color: "orange",
+  asdf: true,
+});
+const humanGeometru = new THREE.BoxGeometry(1, 1, 1);
+const createHuman = (height, width, depth, position) => {
+  const mesh = new THREE.Mesh(humanGeometru, humanMaterial);
+  mesh.castShadow = true;
+  mesh.scale.set(height, width, depth);
+  mesh.position.copy(position);
+  scene.add(mesh);
+
+  // Cannon.js body
+  const shape = new CANNON.Box(
+    new CANNON.Vec3(height / 2, width / 2, depth / 2)
+  );
+
+  const body = new CANNON.Body({
+    mass: 1,
+    position: new CANNON.Vec3(0, 3, 0),
+    shape: shape,
+    material: defaultMaterial,
+    linearDamping: 0.1,
+    angularDamping: 0.5,
+    type: CANNON.Body.KINEMATIC,
+  });
+  body.position.copy(position);
+  // body.applyLocalForce(new CANNON.Vec3(100, 150, 0), new CANNON.Vec3(0, 0, 0));
+  body.addEventListener("collide", playHitSound);
+  world.addBody(body);
+  objectsToUpdate.push({
+    mesh: mesh,
+    body: body,
+  });
+  human = {
+    mesh: mesh,
+    body: body,
+  };
+};
+let human = null;
+
+/**
  * Camera
  */
 // Base camera
@@ -263,12 +288,27 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.set(-3, 3, 3);
+camera.position.set(8, 11, 10);
+camera.rotateX(-Math.PI / 12);
+camera.rotateY(Math.PI / 8);
+
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+// // How far you can orbit vertically, upper and lower limits.
+// // Range is 0 to Math.PI radians.
+// controls.minPolarAngle = Math.PI / 6; // radians
+// controls.maxPolarAngle = Math.PI / 3; // radians
+
+// // How far you can orbit horizontally, upper and lower limits.
+// // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+// controls.minAzimuthAngle = Math.PI / 8; // radians
+// controls.maxAzimuthAngle = Math.PI / 3; // radians
+
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
 
 /**
  * Renderer
@@ -282,46 +322,167 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 /**
- * Animate
+ * Initilzation
  */
-const clock = new THREE.Clock();
-let oldElapsedTime = 0;
-/**
- *  Helpers
- */
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
-
-/**
- * Object Creation
- */
-
-const push_asteroids = () => {};
 
 const init = () => {
-  createSphere(0.2, {
-    x: (Math.random() - 0.5) * 3,
-    y: 0.2,
-    z: (Math.random() - 0.5) * 3,
-  });
-
-  push_asteroids();
+  createHuman(1, 2, 0.5, { x: 0, y: 3, z: 0 });
 };
 
 init();
 
+const mouse = new THREE.Vector2({ x: 0, y: 0 });
+
+window.addEventListener("click", (event) => {
+  mouse.x = (event.clientX / sizes.width) * 2 - 1;
+  mouse.y = -(event.clientY / sizes.height) * 2 + 1;
+  mouse.clicked = true;
+  console.log(
+    "position: ",
+    human.body.position,
+    "Velocity: ",
+    human.body.velocity
+  );
+});
+
+/**
+ * Animatation Variables
+ */
+const clock = new THREE.Clock();
+let oldElapsedTime = 0;
+
+// For Mouse Interations
+const raycaster = new THREE.Raycaster();
+
+//Handling Movement
+let direction = new CANNON.Vec3();
+let speed = 2;
+let movingItems = [];
+
+/**
+ * Animation Functions
+ */
+
+const updatePositions = () => {
+  for (const object of objectsToUpdate) {
+    object.mesh.position.copy(object.body.position);
+    object.mesh.quaternion.copy(object.body.quaternion);
+    // - 1 raises the ground by 1
+    object.body.velocity.y = object.body.position.y * -1;
+  }
+};
+
+const moveBodyTowardsPosition = (id, body, destination, speed) => {
+  // console.log(body, destination, speed);
+  const destinationCannon = new CANNON.Vec3(
+    destination.x,
+    destination.y,
+    destination.z
+  );
+  destinationCannon.vsub(body.position, direction);
+  const totalLength = direction.length();
+  direction.normalize();
+
+  // body.velocity.x = direction.x * speed;
+  // body.velocity.y = direction.y * speed;
+  // body.velocity.z = direction.z * speed;
+  // body.applyForce(new CANNON.Vec3(10, 0, 0), direction);
+
+  direction.scale(speed, body.velocity);
+  console.log("Setting velocity to: ", body.velocity);
+
+  //distance = speed  * time
+  // distance / speed = time
+  const timeToRun = totalLength / speed + clock.getElapsedTime();
+
+  let index = 0;
+
+  for (let i = 0; i < movingItems.length; i++) {
+    if (movingItems[i].time > timeToRun) {
+      index = i;
+      break;
+    }
+  }
+  movingItems = movingItems.filter((n) => n.id !== id);
+  movingItems.splice(index, 0, {
+    id,
+    body,
+    timeToRun,
+    destination,
+  });
+};
+
+const stopMovingBodies = () => {
+  movingItems = movingItems.filter((n) => {
+    if (n.timeToRun < clock.getElapsedTime()) {
+      console.log("Stopping: ", n.body);
+      // n.body.velocity.set(0, 0, 0);
+      n.body.velocity.x = 0;
+      n.body.velocity.y = 0;
+      n.body.velocity.z = 0;
+      // n.body.velocity = new CANNON.Vec3(0, 0, 0);
+      // n.body.velocity.setZero();
+      n.body.updateInertiaWorld();
+      n.body.position.copy(n.destination);
+      console.log("done");
+      return false;
+    }
+    return true;
+  });
+};
+
+let delay = 5;
+let first = true;
+let second = true;
+let third = true;
+/**
+ * Animation Running
+ */
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
   const deltaTime = elapsedTime - oldElapsedTime;
   oldElapsedTime = elapsedTime;
 
-  for (const object of objectsToUpdate) {
-    // if (elapsedTime < 30) console.log(object.body.position);
-    // object.mesh.position.copy(object.body.position);
-    object.mesh.position.x = object.body.position.x;
-    object.mesh.position.z = object.body.position.y;
-    // object.mesh.quaternion.copy(object.body.quaternion);
+  //Update physics Worls
+  world.step(1 / 60, deltaTime, 3);
+
+  // Update positions
+  updatePositions();
+
+  //Mouse Click
+  if (mouse.clicked) {
+    //Updating Raycaster (mouse)
+    raycaster.setFromCamera(mouse, camera);
+    const intersect = raycaster.intersectObject(floor);
+    if (intersect.length) {
+      const point = intersect[0].point;
+      // console.log(human);
+      moveBodyTowardsPosition(human.mesh.uuid, human.body, point, speed);
+      // human.body.applyLocalForce(
+      //   new CANNON.Vec3(10, 0, 0),
+      //   new CANNON.Vec3(0, 0, 0)
+      // );
+    }
+
+    mouse.clicked = false;
   }
+  if (first && elapsedTime < 5) {
+    human.body.velocity.set(1, 0, 1);
+    first = false;
+  }
+
+  if (second && elapsedTime > 5 && elapsedTime < 7) {
+    human.body.velocity.set(0, 0, 0);
+    second = false;
+  }
+
+  if (third && elapsedTime > 7) {
+    human.body.velocity.set(1, 0, 1);
+    third = false;
+  }
+
+  //Stop Moving Items
+  stopMovingBodies();
 
   // Update controls
   controls.update();
@@ -334,3 +495,77 @@ const tick = () => {
 };
 
 tick();
+
+/*
+
+  if (objectsToUpdate.length && mouse.clicked) {
+    console.log("here");
+    const human = objectsToUpdate[0];
+
+    //Updating Raycaster (mouse)
+    raycaster.setFromCamera(mouse, camera);
+
+    //Objects in sceen
+    const objectsToTest = objectsToUpdate.map((n) => n.mesh);
+    const intersects = raycaster.intersectObjects(objectsToTest);
+
+    for (const intersect of intersects) {
+      intersect.object.material.color.set("#0000ff");
+    }
+
+    for (const object of objectsToTest) {
+      if (!intersects.find((intersect) => intersect.object === object)) {
+        object.material.color.set("#ff0000");
+      }
+    }
+
+    //Floor
+    if (raycaster.intersectObject(floor).length) {
+      // console.log("here");
+      const point = raycaster.intersectObject(floor)[0].point;
+      // console.log(point);
+      clickLocation = new CANNON.Vec3(point.x, point.y, point.z);
+      clickLocation.vsub(human.body.position, direction);
+      totalLength = direction.length();
+      direction.normalize();
+
+      // console.log("Speed: ", speed, human.body.velocity);
+      console.log(
+        direction,
+        speed,
+        human.body.velocity,
+        totalLength,
+        clickLocation
+      );
+      direction.scale(speed, human.body.velocity);
+      console.log(
+        "dir: ",
+        direction,
+        "\nspeed: ",
+        speed,
+        "\nhuman: ",
+        human.body.velocity,
+        "\ntotalLen: ",
+        totalLength,
+        "\nclicked: ",
+        clickLocation
+      );
+      startTime = world.time;
+    }
+    mouse.clicked = false;
+  }
+  
+  if (clickLocation) {
+    console.log(objectsToUpdate[0].body);
+  }
+
+  if (world.time - startTime > totalLength / speed && clickLocation) {
+    objectsToUpdate[0].body.velocity.set(0, 0, 0);
+    objectsToUpdate[0].body.position.copy(clickLocation);
+    clickLocation = null;
+    mouse.x = 1;
+    mouse.y = -1;
+    console.log("done");
+  }
+
+*/

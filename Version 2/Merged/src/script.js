@@ -32,13 +32,20 @@ const parameters = {
     }
   },
 };
-gui.add(parameters, "createSphere");
-gui.add(parameters, "createBox");
-gui.add(parameters, "reset");
+
+const addDebug = () => {
+  gui.add(parameters, "createSphere");
+  gui.add(parameters, "createBox");
+  gui.add(parameters, "reset");
+
+  const axesHelper = new THREE.AxesHelper(5);
+  scene.add(axesHelper);
+};
 
 /**
  * Base
  */
+
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
 
@@ -99,75 +106,80 @@ world.allowSleep = true;
 /**
  * Floor
  */
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(10, 10),
-  new THREE.MeshStandardMaterial({
-    color: "#777777",
-    metalness: 0.3,
-    roughness: 0.4,
-    envMap: environmentMapTexture,
-    envMapIntensity: 0.5,
-    transparent: true,
-    opacity: 0.5,
-  })
-);
-floor.receiveShadow = true;
-floor.rotation.x = -Math.PI * 0.5;
-scene.add(floor);
-
-// Floor physics
-// const floorShape = new CANNON.Plane();
-// const floorBody = new CANNON.Body({
-//   //  material: defaultMaterial
-// });
-// floorBody.mass = 0;
-// floorBody.addShape(floorShape);
-// floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI * 0.5);
-// world.addBody(floorBody);
+const getFloor = () => {
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(100, 100),
+    new THREE.MeshStandardMaterial({
+      color: "#777777",
+      metalness: 0.3,
+      roughness: 0.4,
+      envMap: environmentMapTexture,
+      envMapIntensity: 0.5,
+      transparent: true,
+      opacity: 0.5,
+    })
+  );
+  floor.receiveShadow = true;
+  floor.rotation.x = -Math.PI * 0.5;
+  scene.add(floor);
+  return floor;
+};
 
 /**
  * Lights
  */
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
-directionalLight.castShadow = true;
-directionalLight.shadow.mapSize.set(1024, 1024);
-directionalLight.shadow.camera.far = 15;
-directionalLight.shadow.camera.left = -7;
-directionalLight.shadow.camera.top = 7;
-directionalLight.shadow.camera.right = 7;
-directionalLight.shadow.camera.bottom = -7;
-directionalLight.position.set(5, 5, 5);
-scene.add(directionalLight);
+const getLights = () => {
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  scene.add(ambientLight);
 
-/**
- * Sizes
- */
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
+  directionalLight.castShadow = true;
+  directionalLight.shadow.mapSize.set(1024, 1024);
+  directionalLight.shadow.camera.far = 15;
+  directionalLight.shadow.camera.left = -7;
+  directionalLight.shadow.camera.top = 7;
+  directionalLight.shadow.camera.right = 7;
+  directionalLight.shadow.camera.bottom = -7;
+  directionalLight.position.set(5, 5, 5);
+  scene.add(directionalLight);
 };
+/**
+ * Listeners
+ */
 
-window.addEventListener("resize", () => {
-  // Update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
+const addEventListeners = () => {
+  window.addEventListener("resize", () => {
+    // Update sizes
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
 
-  // Update camera
-  camera.aspect = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
+    // Update camera
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
 
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
+
+  window.addEventListener("click", (event) => {
+    mouse.x = (event.clientX / sizes.width) * 2 - 1;
+    mouse.y = -(event.clientY / sizes.height) * 2 + 1;
+    mouse.clicked = true;
+    console.log(
+      "position: ",
+      human.body.position,
+      "Velocity: ",
+      human.body.velocity
+    );
+  });
+};
 
 /**
  * Utils
  */
-const objectsToUpdate = [];
+
 const sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
 const sphereMaterial = new THREE.MeshStandardMaterial({
   metalness: 0.3,
@@ -239,7 +251,6 @@ const humanMaterial = new THREE.MeshStandardMaterial({
   envMap: environmentMapTexture,
   envMapIntensity: 0.5,
   color: "orange",
-  asdf: true,
 });
 const humanGeometru = new THREE.BoxGeometry(1, 1, 1);
 const createHuman = (height, width, depth, position) => {
@@ -276,94 +287,67 @@ const createHuman = (height, width, depth, position) => {
     body: body,
   };
 };
-let human = null;
 
-/**
- * Camera
- */
 // Base camera
-const camera = new THREE.PerspectiveCamera(
-  75,
-  sizes.width / sizes.height,
-  0.1,
-  100
-);
-camera.position.set(8, 11, 10);
-camera.rotateX(-Math.PI / 12);
-camera.rotateY(Math.PI / 8);
+const getCamera = () => {
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    sizes.width / sizes.height,
+    0.1,
+    100
+  );
+  camera.position.set(8, 11, 10);
+  // camera.rotateX(-Math.PI / 12);
+  // camera.rotateY(Math.PI / 8);
 
-scene.add(camera);
-
-// Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-// // How far you can orbit vertically, upper and lower limits.
-// // Range is 0 to Math.PI radians.
-// controls.minPolarAngle = Math.PI / 6; // radians
-// controls.maxPolarAngle = Math.PI / 3; // radians
-
-// // How far you can orbit horizontally, upper and lower limits.
-// // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
-// controls.minAzimuthAngle = Math.PI / 8; // radians
-// controls.maxAzimuthAngle = Math.PI / 3; // radians
-
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
-
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-});
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-/**
- * Initilzation
- */
-
-const init = () => {
-  createHuman(1, 2, 0.5, { x: 0, y: 3, z: 0 });
+  scene.add(camera);
+  camera.initPosition = new CANNON.Vec3();
+  camera.initPosition.copy(camera.position);
+  console.log(camera);
+  return camera;
 };
 
-init();
+// Controls
+const getControls = () => {
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
 
-const mouse = new THREE.Vector2({ x: 0, y: 0 });
+  // // How far you can orbit vertically, upper and lower limits.
+  // // Range is 0 to Math.PI radians.
+  // controls.minPolarAngle = Math.PI / 6; // radians
+  // controls.maxPolarAngle = Math.PI / 3; // radians
 
-window.addEventListener("click", (event) => {
-  mouse.x = (event.clientX / sizes.width) * 2 - 1;
-  mouse.y = -(event.clientY / sizes.height) * 2 + 1;
-  mouse.clicked = true;
-  console.log(
-    "position: ",
-    human.body.position,
-    "Velocity: ",
-    human.body.velocity
-  );
-});
+  // // How far you can orbit horizontally, upper and lower limits.
+  // // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+  // controls.minAzimuthAngle = Math.PI / 8; // radians
+  // controls.maxAzimuthAngle = Math.PI / 3; // radians
 
-/**
- * Animatation Variables
- */
-const clock = new THREE.Clock();
-let oldElapsedTime = 0;
+  return controls;
+};
 
-// For Mouse Interations
-const raycaster = new THREE.Raycaster();
-
-//Handling Movement
-let direction = new CANNON.Vec3();
-let speed = 2;
-let movingItems = [];
+//Renderer
+const getRenderer = () => {
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+  });
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  return renderer;
+};
 
 /**
  * Animation Functions
  */
 
-const updatePositions = () => {
+const updatePhysics = () => {
+  const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - oldElapsedTime;
+  oldElapsedTime = elapsedTime;
+
+  //Update physics Worls
+  world.step(1 / 60, deltaTime, 3);
   for (const object of objectsToUpdate) {
     object.mesh.position.copy(object.body.position);
     object.mesh.quaternion.copy(object.body.quaternion);
@@ -416,13 +400,13 @@ const stopMovingBodies = () => {
   movingItems = movingItems.filter((n) => {
     if (n.timeToRun < clock.getElapsedTime()) {
       console.log("Stopping: ", n.body);
-      // n.body.velocity.set(0, 0, 0);
-      n.body.velocity.x = 0;
-      n.body.velocity.y = 0;
-      n.body.velocity.z = 0;
+      n.body.velocity.set(0, 0, 0);
+      // n.body.velocity.x = 0;
+      // n.body.velocity.y = 0;
+      // n.body.velocity.z = 0;
       // n.body.velocity = new CANNON.Vec3(0, 0, 0);
       // n.body.velocity.setZero();
-      n.body.updateInertiaWorld();
+
       n.body.position.copy(n.destination);
       console.log("done");
       return false;
@@ -431,29 +415,32 @@ const stopMovingBodies = () => {
   });
 };
 
-let delay = 5;
-let first = true;
-let second = true;
-let third = true;
+const updateCamera = () => {
+  // console.log(human.body.position);
+  const postitionDelta = new CANNON.Vec3();
+  human.body.initPosition.vsub(human.body.position, postitionDelta);
+  console.log(postitionDelta, camera.initPosition);
+
+  const cameraDelta = new CANNON.Vec3();
+  camera.initPosition.vsub(postitionDelta, cameraDelta);
+  camera.lookAt(human.mesh.position);
+  console.log(cameraDelta);
+};
+
 /**
  * Animation Running
  */
 const tick = () => {
-  const elapsedTime = clock.getElapsedTime();
-  const deltaTime = elapsedTime - oldElapsedTime;
-  oldElapsedTime = elapsedTime;
-
-  //Update physics Worls
-  world.step(1 / 60, deltaTime, 3);
-
   // Update positions
-  updatePositions();
+  updatePhysics();
 
   //Mouse Click
   if (mouse.clicked) {
+    console.log(floor);
     //Updating Raycaster (mouse)
     raycaster.setFromCamera(mouse, camera);
     const intersect = raycaster.intersectObject(floor);
+
     if (intersect.length) {
       const point = intersect[0].point;
       // console.log(human);
@@ -462,30 +449,25 @@ const tick = () => {
       //   new CANNON.Vec3(10, 0, 0),
       //   new CANNON.Vec3(0, 0, 0)
       // );
+      // console.log(human.mesh.geometry);
+      human.mesh.geometry.attributes.position.needsUpdate = true;
     }
 
     mouse.clicked = false;
   }
-  if (first && elapsedTime < 5) {
-    human.body.velocity.set(1, 0, 1);
-    first = false;
-  }
 
-  if (second && elapsedTime > 5 && elapsedTime < 7) {
-    human.body.velocity.set(0, 0, 0);
-    second = false;
-  }
-
-  if (third && elapsedTime > 7) {
-    human.body.velocity.set(1, 0, 1);
-    third = false;
-  }
+  // Update Camera
+  // updateCamera();
+  camera.lookAt(human.mesh.position);
+  // camera.position.x = Math.sin(clock.getElapsedTime() * Math.PI * 2) * 2;
+  // camera.position.z = Math.cos(clock.getElapsedTime() * Math.PI * 2) * 2;
+  // camera.position.y = cursor.y * 3;
 
   //Stop Moving Items
   stopMovingBodies();
 
   // Update controls
-  controls.update();
+  if (typeof controls !== "undefined") controls.update();
 
   // Render
   renderer.render(scene, camera);
@@ -494,78 +476,42 @@ const tick = () => {
   window.requestAnimationFrame(tick);
 };
 
+/**
+ *  Global Varialbles
+ */
+const clock = new THREE.Clock();
+let oldElapsedTime = 0;
+
+// For Mouse Interations
+const raycaster = new THREE.Raycaster();
+
+//Handling Movement
+let direction = new CANNON.Vec3();
+let speed = 10;
+let movingItems = [];
+
+const mouse = new THREE.Vector2({ x: 0, y: 0 });
+
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+let human = null;
+const objectsToUpdate = [];
+
+/**
+ * Initilzation
+ */
+
+createHuman(1, 2, 0.5, { x: 0, y: 3, z: 0 });
+getLights();
+addEventListeners();
+const floor = getFloor();
+const camera = getCamera();
+const renderer = getRenderer();
+const controls = getControls();
+addDebug();
+
+// Animation Loop
 tick();
-
-/*
-
-  if (objectsToUpdate.length && mouse.clicked) {
-    console.log("here");
-    const human = objectsToUpdate[0];
-
-    //Updating Raycaster (mouse)
-    raycaster.setFromCamera(mouse, camera);
-
-    //Objects in sceen
-    const objectsToTest = objectsToUpdate.map((n) => n.mesh);
-    const intersects = raycaster.intersectObjects(objectsToTest);
-
-    for (const intersect of intersects) {
-      intersect.object.material.color.set("#0000ff");
-    }
-
-    for (const object of objectsToTest) {
-      if (!intersects.find((intersect) => intersect.object === object)) {
-        object.material.color.set("#ff0000");
-      }
-    }
-
-    //Floor
-    if (raycaster.intersectObject(floor).length) {
-      // console.log("here");
-      const point = raycaster.intersectObject(floor)[0].point;
-      // console.log(point);
-      clickLocation = new CANNON.Vec3(point.x, point.y, point.z);
-      clickLocation.vsub(human.body.position, direction);
-      totalLength = direction.length();
-      direction.normalize();
-
-      // console.log("Speed: ", speed, human.body.velocity);
-      console.log(
-        direction,
-        speed,
-        human.body.velocity,
-        totalLength,
-        clickLocation
-      );
-      direction.scale(speed, human.body.velocity);
-      console.log(
-        "dir: ",
-        direction,
-        "\nspeed: ",
-        speed,
-        "\nhuman: ",
-        human.body.velocity,
-        "\ntotalLen: ",
-        totalLength,
-        "\nclicked: ",
-        clickLocation
-      );
-      startTime = world.time;
-    }
-    mouse.clicked = false;
-  }
-  
-  if (clickLocation) {
-    console.log(objectsToUpdate[0].body);
-  }
-
-  if (world.time - startTime > totalLength / speed && clickLocation) {
-    objectsToUpdate[0].body.velocity.set(0, 0, 0);
-    objectsToUpdate[0].body.position.copy(clickLocation);
-    clickLocation = null;
-    mouse.x = 1;
-    mouse.y = -1;
-    console.log("done");
-  }
-
-*/

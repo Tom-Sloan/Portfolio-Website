@@ -1,0 +1,28 @@
+.titleHeader {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  padding-top: 20px;
+}
+
+.label {
+  text-align: center;
+  padding: 10px 30px;
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+}
+.label:hover {
+  background-color: rgba(240, 248, 255, 0.055);
+  border-radius: 5px;
+}
+.centerLabel {
+  border-left: 1px white solid;
+  border-right: 1px white solid;
+}
+.centerLabel:hover {
+  border-radius: 0px;
+}

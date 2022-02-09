@@ -1,5 +1,10 @@
 import "./style.css";
 import * as THREE from "three";
+import {
+  computeBoundsTree,
+  disposeBoundsTree,
+  acceleratedRaycast,
+} from "three-mesh-bvh";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
 import gridVertexShader from "./shaders/grid/vertex.glsl";
@@ -7,6 +12,13 @@ import gridFragmentShader from "./shaders/grid/fragment.glsl";
 import galaxyVertexShader from "./shaders/galaxy/vertex.glsl";
 import galaxyFragmentShader from "./shaders/galaxy/fragment.glsl";
 
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
+
+/** 
+ * Links
+More Efficient Raycaster: https://discourse.threejs.org/t/raycaster-intersectobject-on-big-terrain-work-very-slow-heavy-load-on-the-processor/24398/11
 /**
  * Base
  */
@@ -79,6 +91,7 @@ const generateGrid = () => {
 
   // Geometry
   gridGeometry = new THREE.PlaneGeometry(10, 10, 1024, 1024);
+  gridGeometry.computeBoundsTree({ lazyGeneration: false });
 
   // Material
   gridMaterial = new THREE.ShaderMaterial({
@@ -87,16 +100,17 @@ const generateGrid = () => {
     side: THREE.DoubleSide,
     transparent: true,
     uniforms: {
-      uDistance: { value: 0.5 },
-      uDropAmount: { value: 2 },
+      uDistance: { value: 1 },
+      uDropAmount: { value: 1 },
       uDropCurveSteepness: { value: 20 },
-      uNumberOfDrops: { value: 1 },
+      uNumberOfDrops: { value: 0 },
+      //uv coord, drop amount, k value
       uDropLocation: {
         value: [
-          new THREE.Vector2(0.5, 0.5),
-          new THREE.Vector2(0.1, 0.1),
-          new THREE.Vector2(0.9, 0.9),
-          new THREE.Vector2(0.1, 0.1),
+          new THREE.Vector4(0.5, 0.5, 0.5, 30.0),
+          new THREE.Vector4(0.1, 0.1, 0.5, 30.0),
+          new THREE.Vector4(0.9, 0.9, 0.5, 30.0),
+          new THREE.Vector4(0.1, 0.1, 0.5, 30.0),
         ],
       },
       uGridDensity: { value: 30.0 },
@@ -269,20 +283,39 @@ const asteroids = [];
 
 const generateSphere = () => {
   //Creating asteroid
-  const radius = Math.random();
-  const geometry = new THREE.SphereGeometry(radius, 512, 512);
+  const radius = Math.max(Math.random(), 0.25);
+  const geometry = new THREE.SphereGeometry(1, 512, 512);
   const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
   const asteroid = new THREE.Mesh(geometry, material);
+  asteroid.scale.x = radius;
+  asteroid.scale.y = radius;
+  asteroid.scale.z = radius;
+
   //Asteroid Params
   asteroid.castShadow = true;
   asteroid.receiveShadow = true;
-  asteroid.position.set(1, 0.5, 0);
+  asteroid.position.set(10 * (Math.random() - 0.5), 0.5 + radius, 0);
   asteroidTextures.forEach((n) => (asteroid.material[n.key] = n.value));
+
+  //Update shader variables
+  // Drop amount
+  gridMaterial.uniforms.uDropLocation.value[
+    gridMaterial.uniforms.uNumberOfDrops.value
+  ].z = 0.2 + radius;
+
+  //Drop k value
+  gridMaterial.uniforms.uDropLocation.value[
+    gridMaterial.uniforms.uNumberOfDrops.value
+  ].w = 10 * (1 - radius);
+
+  gridMaterial.uniforms.uNumberOfDrops.value++;
+
   //Adding Asteroid
   scene.add(asteroid);
 
   // Creating Raycaster
   const raycaster = new THREE.Raycaster();
+
   const rayOrigin = new THREE.Vector3(
     asteroid.position.x,
     asteroid.position.y + 10,
@@ -290,16 +323,24 @@ const generateSphere = () => {
   );
   const rayDirection = new THREE.Vector3(0, -1, 0);
   rayDirection.normalize();
-  scene.add(new THREE.ArrowHelper(rayDirection, rayOrigin, 20, "orange"));
+
   raycaster.set(rayOrigin, rayDirection);
   raycaster.far = 20;
+  raycaster.firstHitOnly = true;
+
   // Helper
-  scene.add(new THREE.ArrowHelper(rayDirection, rayOrigin, 20, "orange"));
+  const helperRay = new THREE.ArrowHelper(
+    rayDirection,
+    rayOrigin,
+    20,
+    "orange"
+  );
+  scene.add(helperRay);
 
   // Saving for later
-  asteroids.push({ body: asteroid, raycaster });
+  asteroids.push({ body: asteroid, raycaster, helperRay });
 
-  console.log(asteroid);
+  console.log(asteroid.position);
 };
 //Adding to debug variable to use as button
 parameters.generateSphere = generateSphere;
@@ -325,7 +366,7 @@ const addDebugConsole = () => {
   gui
     .add(gridMaterial.uniforms.uDropAmount, "value")
     .min(0)
-    .max(1.5)
+    .max(10)
     .step(0.01)
     .name("uDropAmount");
 
@@ -515,15 +556,22 @@ const updatePositions = (elapsedTime) => {
   asteroids.forEach((n, i) => {
     //Asteroid
     const asteroid = n.body;
-    asteroid.position.z = Math.sin(elapsedTime * 0.3) * 1.5;
+    asteroid.position.z =
+      Math.sin(elapsedTime * n.body.scale.x + n.body.scale.x * 5) *
+      5 *
+      n.body.scale.x;
+    asteroid.position.x =
+      Math.cos(elapsedTime * n.body.scale.x + n.body.scale.x * 5) *
+      5 *
+      n.body.scale.x;
 
     //Raycaster
     const raycaster = n.raycaster;
     // console.log(raycaster);
-    // console.log(n.body.position);
+    // console.log(n.body);
     raycaster.ray.origin.set(
       n.body.position.x,
-      n.body.position.y,
+      n.body.position.y + 10,
       n.body.position.z
     );
 
@@ -531,13 +579,33 @@ const updatePositions = (elapsedTime) => {
 
     intersection.forEach((n, intersectionIndex) => {
       if (intersectionIndex === 0) {
-        gridMaterial.uniforms.uIntersectionPoints.value[intersectionIndex] =
-          n.uv;
-        gridMaterial.uniforms.uDropLocation.value[i] = n.uv;
+        //        gridMaterial.uniforms.uIntersectionPoints.value[intersectionIndex] =n.uv;
+        gridMaterial.uniforms.uDropLocation.value[i].x = n.uv.x;
+        gridMaterial.uniforms.uDropLocation.value[i].y = n.uv.y;
       }
     });
+
+    // Update Helper Ray
+
+    n.helperRay.position.set(
+      n.body.position.x,
+      n.body.position.y + 10,
+      n.body.position.z
+    );
   });
 };
+
+/**
+ * Test Function
+ */
+const timeToRun = (functionToTest) => {
+  const t0 = performance.now();
+  functionToTest();
+  const t1 = performance.now();
+  console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+};
+
+Math.minmax = (value, min, max) => Math.min(Math.max(value, min), max);
 /**
  * Animate
  */
@@ -547,6 +615,7 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   //Check Raycaster collisions
+  // updatePositions(elapsedTime);
   updatePositions(elapsedTime);
 
   // Update controls
@@ -556,6 +625,7 @@ const tick = () => {
   // Render
   renderer.render(scene, camera);
 
+  // timeToRun(() => tick);
   // Call tick again on the next frame
   window.requestAnimationFrame(tick);
 };

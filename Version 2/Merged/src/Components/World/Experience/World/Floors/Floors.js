@@ -1,11 +1,14 @@
 import Experience from "../../Experience";
 import * as THREE from "three";
 import Floor from "./Floor";
+import EventEmitter from "../../Utils/EventEmitter";
 
-export default class Floors {
+export default class Floors extends EventEmitter {
   constructor(size = 5, boundary = 2) {
+    super();
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.mouse = this.experience.mouse;
 
     this.planesArray = [];
     this.planeInfo = {};
@@ -19,23 +22,31 @@ export default class Floors {
       this.planeInfo.size / 2,
       this.planeInfo.size / 2
     );
+
+    this.createPlane();
   }
 
   createPlane(location) {
-    if (this.checkForPreviousPlane(location)) {
-      console.log("Cancelling!");
-      return;
+    if (!location) {
+      location = { x: 0, y: 0, z: 0 };
     }
 
-    const floor = new Floor(location);
+    if (this.checkForPreviousPlane(location)) {
+      //   console.log("Cancelling!");
+      return;
+    }
+    console.log("creating", location);
+    const floor = new Floor(location, this.planeInfo.size, "New Floor");
     floor.setName("floor-" + this.planesArray.length);
 
-    this.this.planesArray.push(floor);
-    this.scene.add(floor);
+    this.planesArray.push(floor);
+
+    this.trigger("createdNewMesh");
   }
   checkForPreviousPlane(location) {
     return (
-      this.planesArray.filter((n) => n.position.equals(location)).length > 0
+      this.getFloorsArrayMeshs().filter((n) => n.position.equals(location))
+        .length > 0
     );
   }
 
@@ -59,12 +70,12 @@ export default class Floors {
       });
       xToggle = true;
     }
-    console.log(
-      xToggle,
-      point.z,
-      planePosition.z,
-      this.planeInfo.size / 2 - this.creationBoundary
-    );
+    // console.log(
+    //   xToggle,
+    //   point.z,
+    //   planePosition.z,
+    //   this.planeInfo.size / 2 - this.creationBoundary
+    // );
     if (
       Math.abs(point.z - planePosition.z) >
       this.planeInfo.size / 2 - this.creationBoundary
@@ -93,14 +104,16 @@ export default class Floors {
     // Remove this
     // Iterate over all this, if the distance from the sphere
 
-    this.planesArray = this.planesArray.filter((n) => {
+    this.getFloorsArrayMeshs().forEach((n, i) => {
       let distanceFromSphere = point.clone();
+
       distanceFromSphere.y = n.position.y;
       const distance = distanceFromSphere.distanceTo(n.position);
 
       if (distance > this.boundingLength + this.planeDiagonal) {
         console.log("Too far from " + n.name);
         this.scene.remove(n);
+        this.planesArray.splice(i, 1);
         return false;
       }
       return true;
@@ -112,5 +125,16 @@ export default class Floors {
 
   pythagorean(sideA, sideB) {
     return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+  }
+
+  getFloorsArrayMeshs() {
+    return this.planesArray.map((n) => n.mesh);
+  }
+
+  updateClick() {
+    this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());
+    if (this.intersect.length) {
+      this.point = this.intersect[0].point;
+    }
   }
 }

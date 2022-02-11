@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../../Experience.js";
 import gsap from "gsap";
+import ModelRaycaster from "./ModelRaycaster.js";
 
 export default class Fox {
   constructor() {
@@ -9,6 +10,10 @@ export default class Fox {
     this.resources = this.experience.resources;
     this.time = this.experience.time;
     this.debug = this.experience.debug;
+    this.planes = this.experience.world.floors;
+    this.camera = this.experience.camera;
+
+    this.speed = 3;
 
     // Debug
     if (this.debug.active) {
@@ -20,6 +25,8 @@ export default class Fox {
 
     this.setModel();
     this.setAnimation();
+
+    this.camera.instance.lookAt(this.model.position);
   }
 
   setModel() {
@@ -32,21 +39,83 @@ export default class Fox {
         child.castShadow = true;
       }
     });
+
+    this.raycaster = new ModelRaycaster(this.model.position);
   }
-  move(point, speed) {
+  move(destination) {
     let direction = destination.clone();
-    direction.sub(body.position);
+    direction.sub(this.model.position);
+
+    // const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    // const cube = new THREE.Mesh(geometry, material);
+    // cube.position.set(this.model.x, this.model.y, this.model.z);
+    // cube.visible = false;
+    // this.scene.add(cube);
+    // // console.log(cube);
+    // // cube.lookAt(destination);
+    // // console.log(cube.rotation);
+    // // cube.dispose();
+
+    // console.log(destination, this.);
+    // console.log(
+    //   this.model.position.x,
+    //   this.model.position.z,
+    //   destination.x,
+    //   destination.z
+    // );
+    // const dotPro =
+    //   this.model.position.x * destination.x +
+    //   this.model.position.z * destination.z;
+    // console.log(dotPro);
+    // const magSRT = (a, b) => Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+    // const dot =
+    //   dotPro /
+    //   (magSRT(this.model.position.x, this.model.position.z) *
+    //     magSRT(destination.x, destination.z));
+    // console.log((Math.acos(dot) * 180) / Math.PI);
     const totalLength = direction.length();
 
-    const timeToRun = totalLength / speed;
-    gsap.to(body.position, {
+    const timeToRun = totalLength / this.speed;
+    this.model.lookAt(direction);
+    gsap.to(this.model.position, {
       duration: timeToRun,
       overwrite: "auto",
       x: destination.x,
       z: destination.z,
-      onUpdate: updateSphere,
+      onStart: this.startMovement,
+      onStartParams: [this],
+      onUpdate: this.updateMovement,
+      onUpdateParams: [this],
     });
   }
+  startMovement(instance) {
+    instance.camera.savePostition(instance.model.position);
+  }
+  updateMovement(instance) {
+    let elem = this.targets()[0];
+
+    const xVal = gsap.getProperty(elem, "x");
+    const zVal = gsap.getProperty(elem, "z");
+    //Update Camera
+    instance.camera.movePosition({ x: xVal, z: zVal });
+
+    instance.camera.instance.lookAt(instance.model.position);
+
+    //Update Planes
+    instance.raycaster.update({ x: xVal, z: zVal });
+
+    const intersect = instance.raycaster.intersect(
+      instance.planes.getFloorsArrayMeshs()
+    );
+
+    if (intersect.length) {
+      const planePosition = intersect[0].object.position;
+      instance.planes.updatePlanes(instance.model.position, planePosition);
+    }
+  }
+
   setAnimation() {
     this.animation = {};
 

@@ -42,6 +42,10 @@ export default class Experience {
     this.mouse.on("mousemove", () => {
       this.mouseMove();
     });
+
+    //Mouse Click Events
+    this.mouse.on("mouseclick", () => this.mouseClick());
+
     // Resize event
     this.sizes.on("resize", () => {
       this.resize();
@@ -53,9 +57,14 @@ export default class Experience {
     });
   }
 
+  mouseClick() {
+    this.world.updateClick();
+  }
+
   mouseMove() {
     this.camera.updatePosition();
   }
+
   resize() {
     this.camera.resize();
     this.renderer.resize();

@@ -8,8 +8,14 @@ export default class Renderer {
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
+    this.debug = this.experience.debug;
 
     this.setInstance();
+
+    if (this.debug.active) {
+      this.axesHelper = new THREE.AxesHelper(2.5);
+      this.scene.add(this.axesHelper);
+    }
   }
 
   setInstance() {

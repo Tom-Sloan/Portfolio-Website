@@ -1,6 +1,6 @@
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
-import Floor from "./Floors/Floor.js";
+import Floors from "./Floors/Floors.js";
 import Fox from "./Models/Fox.js";
 
 export default class World {
@@ -12,10 +12,22 @@ export default class World {
     // Wait for resources
     this.resources.on("ready", () => {
       // Setup
-      this.floor = new Floor();
+      this.floors = new Floors(10, 2);
       this.fox = new Fox();
       this.environment = new Environment();
+
+      this.floors.on("createdNewMesh", () => this.newMeshCreated());
     });
+  }
+
+  newMeshCreated() {
+    this.environment.updateEnviromentMap();
+  }
+  updateClick() {
+    this.floors.updateClick();
+    if (this.floors.intersect.length) {
+      this.fox.move(this.floors.point);
+    }
   }
 
   update() {

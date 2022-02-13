@@ -1,9 +1,9 @@
 
-uniform float uDistance;
 uniform float uDropAmount;
 uniform float uDropCurveSteepness;
 uniform int uNumberOfDrops;
-uniform vec4 uDropLocation[4];
+uniform vec3 uDropLocation[4];
+uniform vec3 uDropInformation[4];
 
 varying vec2 vUv;
 varying float vElevation;
@@ -16,17 +16,20 @@ void main()
     //Iterate over all the drop spots
     for(int i = 0; i < uNumberOfDrops; i++){
         //Get the drop coords
-        vec2 drop = uDropLocation[i].xy;
+        vec3 drop = uDropLocation[i].xyz;
+
         //get drop amount
-        float dropDistance = uDropLocation[i].z * uDropAmount;
+        float dropDistance = uDropInformation[i].x * uDropAmount;
 
         //get drop k value
-        float kValue = uDropLocation[i].w * uDropCurveSteepness;
+        float kValue = uDropInformation[i].y * uDropCurveSteepness;
 
         //How far away should be impacted
-        float range = (dropDistance - 0.2)/2.0 * uDistance;
+        float range = uDropInformation[i].z;
 
-        float distToPoint = distance(uv, drop);
+        float distToPoint = distance(drop.xz, modelPosition.xz );
+
+        // modelPosition.y = distToPoint;
         float f = dropDistance/(1.0 + exp(-1.0*kValue*(distToPoint - range/2.0)))-dropDistance;
         modelPosition.y = modelPosition.y + (1.0-step(range, distToPoint)) * f;
     }

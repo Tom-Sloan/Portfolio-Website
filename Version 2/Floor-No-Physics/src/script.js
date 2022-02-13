@@ -101,16 +101,24 @@ const generateGrid = () => {
     transparent: true,
     uniforms: {
       uDistance: { value: 1 },
-      uDropAmount: { value: 1 },
+      uDropAmount: { value: 3 },
       uDropCurveSteepness: { value: 20 },
       uNumberOfDrops: { value: 0 },
       //uv coord, drop amount, k value
       uDropLocation: {
         value: [
-          new THREE.Vector4(0.5, 0.5, 0.5, 30.0),
-          new THREE.Vector4(0.1, 0.1, 0.5, 30.0),
-          new THREE.Vector4(0.9, 0.9, 0.5, 30.0),
-          new THREE.Vector4(0.1, 0.1, 0.5, 30.0),
+          new THREE.Vector3(0.5, 0.5, 0.5),
+          new THREE.Vector3(0.1, 0.1, 0.5),
+          new THREE.Vector3(0.9, 0.9, 0.5),
+          new THREE.Vector3(0.1, 0.1, 0.5),
+        ],
+      },
+      uDropInformation: {
+        value: [
+          new THREE.Vector3(0.5, 0.5, 15.0),
+          new THREE.Vector3(0.1, 0.1, 15.0),
+          new THREE.Vector3(0.9, 0.9, 15.0),
+          new THREE.Vector3(0.1, 0.1, 15.0),
         ],
       },
       uGridDensity: { value: 30.0 },
@@ -299,14 +307,19 @@ const generateSphere = () => {
 
   //Update shader variables
   // Drop amount
-  gridMaterial.uniforms.uDropLocation.value[
+  gridMaterial.uniforms.uDropInformation.value[
     gridMaterial.uniforms.uNumberOfDrops.value
-  ].z = 0.2 + radius;
+  ].x = 0.2 + radius;
 
   //Drop k value
-  gridMaterial.uniforms.uDropLocation.value[
+  gridMaterial.uniforms.uDropInformation.value[
     gridMaterial.uniforms.uNumberOfDrops.value
-  ].w = 10 * (1 - radius);
+  ].y = 10 * (1 - radius);
+
+  //Range of drop
+  gridMaterial.uniforms.uDropInformation.value[
+    gridMaterial.uniforms.uNumberOfDrops.value
+  ].z = radius * 10;
 
   gridMaterial.uniforms.uNumberOfDrops.value++;
 
@@ -340,14 +353,26 @@ const generateSphere = () => {
   // Saving for later
   asteroids.push({ body: asteroid, raycaster, helperRay });
 
-  console.log(asteroid.position);
+  // console.log(asteroid.position);
 };
 //Adding to debug variable to use as button
 parameters.generateSphere = generateSphere;
 
 //Add debug console
 const addDebugConsole = () => {
+  // gui.close();
   gui.add(parameters, "generateSphere");
+  parameters.currentLocation = () =>
+    console.log(
+      "Dropvalue:",
+      gridMaterial.uniforms.uDropLocation.value[0],
+      "modelPosition: ",
+      asteroids[0].body.position,
+      "drop distance: ",
+      gridMaterial.uniforms.uDropInformation.value[0].x *
+        gridMaterial.uniforms.uDropAmount.value
+    );
+  gui.add(parameters, "currentLocation");
 
   gui
     .add(gridMaterial.uniforms.uGridDensity, "value")
@@ -357,11 +382,11 @@ const addDebugConsole = () => {
     .name("uGridDensity");
 
   gui
-    .add(gridMaterial.uniforms.uDistance, "value")
+    .add(gridMaterial.uniforms.uDropInformation.value[0], "z")
     .min(0)
-    .max(1.5)
+    .max(20)
     .step(0.01)
-    .name("Distance");
+    .name("grid range");
 
   gui
     .add(gridMaterial.uniforms.uDropAmount, "value")
@@ -556,6 +581,7 @@ const updatePositions = (elapsedTime) => {
   asteroids.forEach((n, i) => {
     //Asteroid
     const asteroid = n.body;
+    const direction = i % 2 === 0 ? 1 : -1;
     asteroid.position.z =
       Math.sin(elapsedTime * n.body.scale.x + n.body.scale.x * 5) *
       5 *
@@ -579,9 +605,11 @@ const updatePositions = (elapsedTime) => {
 
     intersection.forEach((n, intersectionIndex) => {
       if (intersectionIndex === 0) {
+        // console.log(n);
         //        gridMaterial.uniforms.uIntersectionPoints.value[intersectionIndex] =n.uv;
-        gridMaterial.uniforms.uDropLocation.value[i].x = n.uv.x;
-        gridMaterial.uniforms.uDropLocation.value[i].y = n.uv.y;
+        gridMaterial.uniforms.uDropLocation.value[i].x = n.point.x;
+        gridMaterial.uniforms.uDropLocation.value[i].y = n.point.y;
+        gridMaterial.uniforms.uDropLocation.value[i].z = n.point.z;
       }
     });
 

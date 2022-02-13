@@ -159,7 +159,7 @@ void main()
         uDistance: { value: 1 },
         uDropAmount: { value: 1 },
         uDropCurveSteepness: { value: 20 },
-        uNumberOfDrops: { value: 0 },
+        uNumberOfDrops: { value: 1 },
         //uv coord, drop amount, k value
         uDropLocation: {
           value: [

@@ -79,7 +79,19 @@ export default class Environment {
       });
     };
     this.environmentMap.updateMaterials();
+    const params = {
+      toggleEnviromentMap: () => {
+        const current = this.environmentMap.intensity;
 
+        if (current === 0.0) {
+          this.environmentMap.intensity = this.previousIntensity;
+        } else {
+          this.environmentMap.intensity = 0.0;
+        }
+        this.previousIntensity = current;
+        this.environmentMap.updateMaterials();
+      },
+    };
     // Debug
     if (this.debug.active) {
       this.debugFolder
@@ -89,6 +101,10 @@ export default class Environment {
         .max(4)
         .step(0.001)
         .onChange(this.environmentMap.updateMaterials);
+
+      this.debugFolder
+        .add(params, "toggleEnviromentMap")
+        .name("Toggle Enviroment Map");
     }
   }
 

@@ -12,7 +12,7 @@ export default class World {
     // Wait for resources
     this.resources.on("ready", () => {
       // Setup
-      this.floors = new Floors(10, 2);
+      this.floors = new Floors(100, 20);
       this.fox = new Fox();
       this.environment = new Environment();
 

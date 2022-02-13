@@ -6,7 +6,7 @@ export default class Debug {
 
     if (this.active) {
       this.ui = new dat.GUI();
-      this.ui.close();
+      // this.ui.close();
 
       // Get the dom element of the lil gui gui
       this.element = this.ui.domElement;

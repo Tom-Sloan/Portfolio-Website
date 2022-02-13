@@ -2,8 +2,8 @@
 uniform float uDropAmount;
 uniform float uDropCurveSteepness;
 uniform int uNumberOfDrops;
-uniform vec3 uDropLocation[4];
-uniform vec3 uDropInformation[4];
+uniform vec3 uDropLocation[6];
+uniform vec3 uDropInformation[6];
 
 varying vec2 vUv;
 varying float vElevation;
@@ -19,7 +19,7 @@ void main()
         vec3 drop = uDropLocation[i].xyz;
 
         //get drop amount
-        float dropDistance = uDropInformation[i].x * uDropAmount;
+        float dropDistance = uDropInformation[i].x;
 
         //get drop k value
         float kValue = uDropInformation[i].y * uDropCurveSteepness;
@@ -29,7 +29,6 @@ void main()
 
         float distToPoint = distance(drop.xz, modelPosition.xz );
 
-        // modelPosition.y = distToPoint;
         float f = dropDistance/(1.0 + exp(-1.0*kValue*(distToPoint - range/2.0)))-dropDistance;
         modelPosition.y = modelPosition.y + (1.0-step(range, distToPoint)) * f;
     }
@@ -41,5 +40,5 @@ void main()
     gl_Position = projectedPosition;
 
     vUv = uv;
-    vElevation = modelPosition.y/uDropAmount;
+    vElevation = modelPosition.y;
 }

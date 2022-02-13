@@ -57,4 +57,9 @@ export default [
     type: "texture",
     path: "/textures/gradients/5.jpg",
   },
+  {
+    name: "particleTexture",
+    type: "texture",
+    path: "/textures/particles/4.png",
+  },
 ];

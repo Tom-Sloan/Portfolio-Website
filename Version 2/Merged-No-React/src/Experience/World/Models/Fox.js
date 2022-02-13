@@ -13,12 +13,13 @@ export default class Fox {
     this.planes = this.experience.world.floors;
     this.camera = this.experience.camera;
 
-    this.speed = 3;
+    this.speed = 12;
 
     // Debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("fox");
       this.debugFolder.close();
+      this.setDebug();
     }
 
     // Resource
@@ -29,8 +30,17 @@ export default class Fox {
 
     this.camera.instance.lookAt(this.model.position);
   }
-
+  setDebug() {
+    this.debugFolder.add(this, "speed").min(1).max(20).step(0.1);
+  }
   setModel() {
+    //Add to floors so shaders can access
+    this.index = this.planes.increaseNumberOfDrops();
+
+    if (this.index === -1) {
+      console.log("exceeded max objects, cant add");
+      return;
+    }
     this.model = this.resource.scene;
     this.model.scale.set(0.02, 0.02, 0.02);
     this.scene.add(this.model);
@@ -42,6 +52,13 @@ export default class Fox {
     });
 
     this.raycaster = new ModelRaycaster(this.model.position);
+
+    //Add inital drop
+    this.planes.updatePlanes(this.index, this.model.position, {
+      x: 0,
+      y: 0,
+      z: 0,
+    });
   }
   move(destination) {
     let direction = destination.clone();
@@ -102,25 +119,32 @@ export default class Fox {
     instance.animation.play("idle");
   }
   updateMovement(instance) {
+    // get the important values
     let elem = this.targets()[0];
-
     const xVal = gsap.getProperty(elem, "x");
     const zVal = gsap.getProperty(elem, "z");
+
     //Update Camera
     instance.camera.movePosition({ x: xVal, z: zVal });
-
     instance.camera.instance.lookAt(instance.model.position);
 
     //Update Raycaster
     instance.raycaster.update({ x: xVal, z: zVal });
 
+    // check for intersection with the planes
     const intersect = instance.raycaster.intersect(
       instance.planes.getFloorsArrayMeshs()
     );
 
+    // I don't think I acctually need a ray caster for this, because I am really just sending the xz coords of the model.
+    // I can probably just calculate which plane the fox is on and do the math using that. This is easier tho
     if (intersect.length) {
       const planePosition = intersect[0].object.position;
-      instance.planes.updatePlanes(instance.model.position, planePosition);
+      instance.planes.updatePlanes(
+        instance.index,
+        instance.model.position,
+        planePosition
+      );
     }
   }
 

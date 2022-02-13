@@ -23,8 +23,8 @@ export default class Galaxy {
     this.parameters.insideColor = "#ff6030"; // center color
     this.parameters.outsideColor = "#1b3984"; // edge color
 
-    this.galaxyGeometry = null; // used so we don't keep recreating points, geometries and materials
-    this.galaxyMaterial = null;
+    this.geometry = null; // used so we don't keep recreating points, geometries and materials
+    this.material = null;
     this.points = null;
 
     if (this.debug.active) {
@@ -40,16 +40,15 @@ export default class Galaxy {
     //removes points if there are alreay there
     if (this.points !== null) {
       console.log(this);
-      this.galaxyGeometry.dispose();
-      this.galaxyMaterial.dispose();
+      this.geometry.dispose();
+      this.material.dispose();
       this.scene.remove(this.points);
     }
-    console.log("here");
 
     /**
      * Geometry
      */
-    this.galaxyGeometry = new THREE.BufferGeometry();
+    this.geometry = new THREE.BufferGeometry();
 
     // Positions of stars
     const positions = new Float32Array(this.parameters.count * 3);
@@ -120,27 +119,21 @@ export default class Galaxy {
     }
 
     // record the attribute of the points
-    this.galaxyGeometry.setAttribute(
+    this.geometry.setAttribute(
       "position",
       new THREE.BufferAttribute(positions, 3)
     );
-    this.galaxyGeometry.setAttribute(
+    this.geometry.setAttribute(
       "aRandomness",
       new THREE.BufferAttribute(randomness, 3)
     );
-    this.galaxyGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colors, 3)
-    );
-    this.galaxyGeometry.setAttribute(
-      "aScale",
-      new THREE.BufferAttribute(scales, 1)
-    );
+    this.geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    this.geometry.setAttribute("aScale", new THREE.BufferAttribute(scales, 1));
 
     /**
-     * this.galaxyMaterial
+     * this.material
      */
-    this.galaxyMaterial = new THREE.ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       vertexColors: true,
@@ -155,7 +148,7 @@ export default class Galaxy {
     /**
      * Points
      */
-    this.points = new THREE.Points(this.galaxyGeometry, this.galaxyMaterial);
+    this.points = new THREE.Points(this.geometry, this.material);
     this.scene.add(this.points);
   }
 
@@ -199,6 +192,6 @@ export default class Galaxy {
   }
 
   update() {
-    this.galaxyMaterial.uniforms.uTime.value = this.time.elapsed / 1000;
+    this.material.uniforms.uTime.value = this.time.elapsed / 1000;
   }
 }

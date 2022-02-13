@@ -20,7 +20,7 @@ export default class Camera {
 
     this.params = {};
     // Used to make the parallax effect bigger or smaller
-    this.params.parallaxMultiplier = 2;
+    this.params.parallaxMultiplier = 15;
     this.params.fov = 35; //fov
 
     // Creates group first, then instance
@@ -42,7 +42,7 @@ export default class Camera {
         .add(this.params, "parallaxMultiplier")
         .name("parallaxMultiplier")
         .min(0)
-        .max(10)
+        .max(100)
         .step(0.001);
 
       this.debugFolder

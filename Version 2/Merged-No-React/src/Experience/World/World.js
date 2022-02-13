@@ -16,7 +16,7 @@ export default class World {
       this.floors = new Floors();
       this.fox = new Fox();
       this.environment = new Environment();
-      this.asteroids = new Asteroids(5);
+      this.asteroids = new Asteroids(0);
       this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());

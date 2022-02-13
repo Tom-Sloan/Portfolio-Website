@@ -25,6 +25,23 @@ export default class Floor {
     this.depthColor = param.depthColor || "#0373b0";
     this.surfaceColor = param.surfaceColor || "#057dc7";
     this.gridDensity = param.gridDensity || 30.0;
+    this.numberOfDrops = param.numberOfDrops || 0.0;
+    this.dropLocation = param.dropLocation || [
+      new THREE.Vector3(0.5, 0.5, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+    ];
+    this.dropInformation = param.dropInformation || [
+      new THREE.Vector3(3, 0.5, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+    ];
 
     this.setGeometry();
     this.setMaterial();
@@ -33,7 +50,7 @@ export default class Floor {
 
   setGeometry() {
     //make the geometry
-    this.geometry = new THREE.PlaneGeometry(1, 1);
+    this.geometry = new THREE.PlaneGeometry(1, 1, 512, 512);
     //For fast ray tracing
     this.geometry.computeBoundsTree({ lazyGeneration: false });
   }
@@ -49,36 +66,20 @@ export default class Floor {
       transparent: true,
 
       uniforms: {
-        uDistance: { value: 1 }, // the distance away that the drop will impact
-        uDropAmount: { value: 30 }, // the amout the drop will impact
+        uDropAmount: { value: 3 }, // the amout the drop will impact
         uDropCurveSteepness: { value: 1 }, // the k value
-        uNumberOfDrops: { value: 0 }, // number of drops there will be
-        
+        uNumberOfDrops: { value: this.numberOfDrops }, // number of drops there will be
+
         //Point of the drop
         uDropLocation: {
-          value: [
-            new THREE.Vector3(0.5, 0.5, 0.5),
-            new THREE.Vector3(0.1, 0.1, 0.5),
-            new THREE.Vector3(0.9, 0.9, 0.5),
-            new THREE.Vector3(0.1, 0.1, 0.5),
-          ],
+          value: [...this.dropLocation],
         },
         // drop amount, k value, the range
         uDropInformation: {
-          value: [
-            new THREE.Vector3(0.5, 0.5, 15.0),
-            new THREE.Vector3(0.1, 0.1, 15.0),
-            new THREE.Vector3(0.9, 0.9, 15.0),
-            new THREE.Vector3(0.1, 0.1, 15.0),
-          ],
+          value: [...this.dropInformation],
         },
         //how many lines there will be
         uGridDensity: { value: this.gridDensity },
-
-        //where the intersection points are (helper tools)
-        uIntersectionPoints: {
-          value: [new THREE.Vector2(0.5, 0.5), new THREE.Vector2(0.5, 0.5)],
-        },
 
         //Color Controls
         uDepthColor: { value: new THREE.Color(this.depthColor) },
@@ -89,6 +90,9 @@ export default class Floor {
     });
   }
 
+  getNumberOfDrops() {
+    return this.material.uniforms.uNumberOfDrops.value;
+  }
   increaseNumberOfDrops() {
     this.material.uniforms.uNumberOfDrops.value++;
   }
@@ -97,9 +101,23 @@ export default class Floor {
     this.material.uniforms.uNumberOfDrops.value--;
   }
 
-  //lets you change any of the uv coords, the drop amount and the k value of a location
-  setDropLocation(index, xyzw, value) {
-    this.material.uniforms.uDropLocation[index][xyzw] = value;
+  //lets you change any of the xyz coord to set a specific location
+  setUniqueDropLocation(index, xyz, value) {
+    this.material.uniforms.uDropLocation[index][xyz] = value;
+  }
+
+  // lets you set the drop location of an index
+  setDropLocation(index, location) {
+    this.material.uniforms.uDropLocation.value[index].x = location.x;
+    this.material.uniforms.uDropLocation.value[index].y = location.y;
+    this.material.uniforms.uDropLocation.value[index].z = location.z;
+  }
+
+  // lets you set the drop information of an index
+  setDropInformation(index, info) {
+    this.material.uniforms.uDropInformation.value[index].x = info.x;
+    this.material.uniforms.uDropInformation.value[index].y = info.y;
+    this.material.uniforms.uDropInformation.value[index].z = info.z;
   }
 
   // to set the grid density

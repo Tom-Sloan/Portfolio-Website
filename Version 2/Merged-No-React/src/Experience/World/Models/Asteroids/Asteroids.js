@@ -25,20 +25,7 @@ export default class Asteroids {
 
   generateAsteroid() {
     const asteroid = new Asteroid();
-
-    //Update shader variables
-    // Drop amount
-    //updateGrid
-    // gridMaterial.uniforms.uDropLocation.value[
-    //   gridMaterial.uniforms.uNumberOfDrops.value
-    // ].z = 0.2 + radius;
-
-    // //Drop k value
-    // gridMaterial.uniforms.uDropLocation.value[
-    //   gridMaterial.uniforms.uNumberOfDrops.value
-    // ].w = 10 * (1 - radius);
-
-    // gridMaterial.uniforms.uNumberOfDrops.value++;
+    if (!asteroid.generated) return;
 
     // Saving for later
     this.asteroids.push(asteroid);
@@ -74,6 +61,17 @@ export default class Asteroids {
       this.generateAsteroid();
       this.numberOfAsteroids++;
     };
+
+    params.deleteAsteroid = () => {
+      if (this.asteroids.length === 0) return;
+      this.asteroids[this.asteroids.length - 1].destroy();
+      this.asteroids.pop();
+    };
+
+    params.printAsteroids = () => console.log(this.asteroids);
+
     this.debugFolder.add(params, "generateAsteroid");
+    this.debugFolder.add(params, "printAsteroids");
+    this.debugFolder.add(params, "deleteAsteroid");
   }
 }

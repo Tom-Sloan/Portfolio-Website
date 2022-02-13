@@ -9,13 +9,11 @@ export default class Asteroid {
     this.resources = this.experience.resources;
     this.time = this.experience.time;
     this.debug = this.experience.debug;
-
+    this.planes = this.experience.world.floors;
     this.asteroidTextures = [];
 
-    // Debug
-
     this.addTextures();
-    this.generate();
+    this.generated = this.generate();
   }
 
   addTextures() {
@@ -58,6 +56,14 @@ export default class Asteroid {
   }
 
   generate() {
+    //Add to floors so shaders can access
+    this.index = this.planes.increaseNumberOfDrops();
+
+    //Check that it can be added
+    if (this.index === -1) {
+      console.log("exceeded max objects, cant add");
+      return false;
+    }
     //Creating asteroid
     this.radius = Math.max(Math.random(), 0.25) * 5;
     this.geometry = new THREE.SphereGeometry(1, 512, 512);
@@ -79,33 +85,30 @@ export default class Asteroid {
       (n) => (this.instance.material[n.key] = n.value)
     );
 
-    //Update shader variables
-    // Drop amount
-    //updateGrid
-    // gridMaterial.uniforms.uDropLocation.value[
-    //   gridMaterial.uniforms.uNumberOfDrops.value
-    // ].z = 0.2 + this.radius;
-
-    // //Drop k value
-    // gridMaterial.uniforms.uDropLocation.value[
-    //   gridMaterial.uniforms.uNumberOfDrops.value
-    // ].w = 10 * (1 - this.radius);
-
-    // gridMaterial.uniforms.uNumberOfDrops.value++;
-
     //Adding Asteroid
     this.scene.add(this.instance);
 
-    // Creating Raycaster
-
-    // Saving for later
-    // asteroids.push({ body: asteroid, raycaster, helperRay });
-
-    this.raycaster = new ModelRaycaster(this.instance.position);
+    //update shader
+    // drop amount, k value, the range
+    this.info = {
+      x: 0.2 + this.radius * 2,
+      y: 1,
+      z: this.radius * 5,
+    };
+    this.planes.updateDropsInfo(this.index, this.info);
+    this.planes.updateDrops(this.index, this.instance.position);
+    return true;
   }
 
   updatePosition(location) {
     this.instance.position.set(location.x, location.y, location.z);
-    this.raycaster.update(this.instance.position);
+    this.planes.updateDrops(this.index, this.instance.position);
+  }
+
+  destroy() {
+    this.geometry.dispose();
+    this.material.dispose();
+    this.scene.remove(this.instance);
+    this.planes.removeIndex(this.index);
   }
 }

@@ -2,9 +2,9 @@
 varying vec2 vUv;
 uniform float uGridDensity;
 
-// For point display
-uniform vec2 uIntersectionPoints[2];
-uniform int uNumberOfDrops;
+// // For point display
+// uniform vec2 uIntersectionPoints[2];
+// uniform int uNumberOfDrops;
 
 //Grid Color Controls
 uniform vec3 uDepthColor;
@@ -34,14 +34,15 @@ void main()
 
 
     // Create IntersectionPoints
-    for(int i = 0; i < uNumberOfDrops; i++){
-        vec2 drop = uIntersectionPoints[i];
-        float distToPoint = distance(vUv, drop);
-        if(distToPoint < 0.02){
-            color = color = vec3(0.8*strength, 0.2*strength, 0.2*strength);
-        }
-    }
+    // for(int i = 0; i < uNumberOfDrops; i++){
+    //     vec2 drop = uIntersectionPoints[i];
+    //     float distToPoint = distance(vUv, drop);
+    //     if(distToPoint < 0.02){
+    //         color = color = vec3(0.8*strength, 0.2*strength, 0.2*strength);
+    //     }
+    // }
     
 
+    // gl_FragColor =  vec4(vec3(0.6), 1.0 ) ;
     gl_FragColor =  vec4(color, strength ) ;
 }

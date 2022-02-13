@@ -140,7 +140,10 @@ sphereRaycaster.firstHitOnly = true;
 const helperRay = new THREE.ArrowHelper(rayDirection, rayOrigin, 20, "orange");
 scene.add(helperRay);
 
+<<<<<<< HEAD
 console.log(sphereRaycaster);
+=======
+>>>>>>> c97ecc4be6787576411253325e6e520b4ba00bbc
 /**
  * Sizes
  */

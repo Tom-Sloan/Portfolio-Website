@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Experience from "../../Experience.js";
 import gsap from "gsap";
 import ModelRaycaster from "./ModelRaycaster.js";
+import { Vector2 } from "three";
 
 export default class Fox {
   constructor() {
@@ -59,6 +60,8 @@ export default class Fox {
       y: 0,
       z: 0,
     });
+
+    if (this.debug.active) this.createHelper();
   }
   move(destination) {
     let direction = destination.clone();
@@ -76,27 +79,34 @@ export default class Fox {
     // // cube.dispose();
 
     // console.log(destination, this.);
-    // console.log(
-    //   this.model.position.x,
-    //   this.model.position.z,
-    //   destination.x,
-    //   destination.z
-    // );
-    // const dotPro =
-    //   this.model.position.x * destination.x +
-    //   this.model.position.z * destination.z;
-    // console.log(dotPro);
-    // const magSRT = (a, b) => Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+    console.log(
+      this.model.position.x,
+      this.model.position.z,
+      destination.x,
+      destination.z
+    );
 
-    // const dot =
-    //   dotPro /
-    //   (magSRT(this.model.position.x, this.model.position.z) *
-    //     magSRT(destination.x, destination.z));
-    // console.log((Math.acos(dot) * 180) / Math.PI);
+    const point2 = new Vector2(this.model.position.x, this.model.position.z);
+    const point1 = new Vector2(0, 0);
+    const point4 = new Vector2(this.destination.x, this.destination.z);
+    const point3 = new Vector2(0, 0);
+
+    const angle = Math.acos(
+      ((point2.x - point1.x) * (point4.x - point3.x) +
+        (point2.y - point1.y) * (point4.y - point3.y)) /
+        (Math.sqrt(
+          Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2)
+        ) *
+          Math.pow(
+            Math.sqrt(point4.x - point3.x, 2) + Math.pow(point4.y - point3.y, 2)
+          ))
+    );
+    console.log(angle);
+
     const totalLength = direction.length();
 
     const timeToRun = totalLength / this.speed;
-    this.model.lookAt(direction);
+    // this.model.lookAt(direction);
     gsap.to(this.model.position, {
       duration: timeToRun,
       ease: "linear",
@@ -104,16 +114,19 @@ export default class Fox {
       x: destination.x,
       z: destination.z,
       onStart: this.startMovement,
-      onStartParams: [this],
+      onStartParams: [this, destination],
       onUpdate: this.updateMovement,
       onUpdateParams: [this],
       onComplete: this.completeMovement,
       onCompleteParams: [this],
     });
   }
-  startMovement(instance) {
+  startMovement(instance, destination) {
     instance.camera.savePostition(instance.model.position);
     instance.animation.play("running");
+    if (instance.helperRay) {
+      instance.updateHelper(instance.model.position, destination);
+    }
   }
   completeMovement(instance) {
     instance.animation.play("idle");
@@ -146,6 +159,21 @@ export default class Fox {
         planePosition
       );
     }
+  }
+
+  createHelper() {
+    this.helperRay = new THREE.ArrowHelper(
+      this.rayDirection,
+      this.rayOrigin,
+      5,
+      "purple"
+    );
+    this.scene.add(this.helperRay);
+  }
+  updateHelper(position, destination) {
+    this.helperRay.position.set(position.x, position.y, position.z);
+    this.helperRay.rotateZ(Math.PI / 2);
+    this.model.rotateY(Math.PI / 2);
   }
 
   setAnimation() {

@@ -18,6 +18,7 @@ export default class Floors extends EventEmitter {
     this.planeInfo.size = 40; // the width
     this.planeInfo.creationBoundary = 3; // how farfrom the edge you must be before a new grid is created
     this.planeInfo.gridDensity = 30.0; // percent of the grid with lines
+    this.planeInfo.gridType = 0;
     this.planeInfo.depthColor = "#0373b0";
     this.planeInfo.surfaceColor = "#057dc7";
     this.planeInfo.numberOfDrops = 0.0;
@@ -38,8 +39,11 @@ export default class Floors extends EventEmitter {
       new THREE.Vector3(0.9, 0.9, 15.0),
       new THREE.Vector3(0.1, 0.1, 15.0),
     ];
-    this.planeInfo.maxDrops = this.planeInfo.dropLocation.length;
+    this.planeInfo.colorOffset = 0.08;
+    this.planeInfo.colorMultiplier = 5;
+    this.planeInfo.opacityMultiplier = 0.5;
 
+    this.planeInfo.maxDrops = this.planeInfo.dropLocation.length;
     this.planeInfo.releasedIndexes = [];
 
     this.setLengths();
@@ -47,7 +51,7 @@ export default class Floors extends EventEmitter {
     // Debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Floors");
-      this.debugFolder.close();
+      // this.debugFolder.close();
       this.setDebug();
     }
 
@@ -186,6 +190,12 @@ export default class Floors extends EventEmitter {
     this.planesArray.forEach((n) => n.setDropInformation(index, info));
   }
 
+  //general update property
+  updatePropery(property, value) {
+    this.planesArray.forEach(
+      (n) => (n.material.uniforms[property].value = value)
+    );
+  }
   // compares two points and returns 1 if the object point is greater than the plane positions and -1 otherwise
   isPositive(num, relative) {
     return num - relative > 0 ? 1 : -1;
@@ -234,11 +244,6 @@ export default class Floors extends EventEmitter {
       console.log(this.planeInfo);
     };
 
-    params.changeGridDensity = () =>
-      this.planesArray.forEach((n) =>
-        n.setGridDensity(this.planeInfo.gridDensity)
-      );
-
     params.printShaderUniforms = () =>
       console.log(this.planesArray[0].material.uniforms);
 
@@ -252,22 +257,77 @@ export default class Floors extends EventEmitter {
         this.planesArray[0].material.uniforms.uDropInformation.value[0].x *
           this.planesArray[0].material.uniforms.uDropAmount.value
       );
-    this.debugFolder.add(params, "currentLocation");
 
+    this.debugFolder.addColor(this.planeInfo, "depthColor").onChange(() => {
+      this.updatePropery(
+        "uDepthColor",
+        new THREE.Color(this.planeInfo.depthColor)
+      );
+    });
+
+    this.debugFolder.addColor(this.planeInfo, "surfaceColor").onChange(() => {
+      this.updatePropery(
+        "uSurfaceColor",
+        new THREE.Color(this.planeInfo.surfaceColor)
+      );
+    });
     this.debugFolder
       .add(this.planeInfo, "size")
       .min(1)
       .max(150)
       .step(1)
-      .onFinishChange(params.changeSize);
+      .onFinishChange(params.changeSize)
+      .name("Size of Plane");
 
     this.debugFolder
       .add(this.planeInfo, "gridDensity")
       .min(1.0)
       .max(100.0)
       .step(0.05)
-      .onChange(params.changeGridDensity);
+      .onChange(() =>
+        this.updatePropery("uGridDensity", this.planeInfo.gridDensity)
+      )
+      .name("Grid Density");
 
+    this.debugFolder
+      .add(this.planeInfo, "colorOffset")
+      .min(0)
+      .max(1)
+      .step(0.001)
+      .name("Color Offset")
+      .onChange(() =>
+        this.updatePropery("uColorOffset", this.planeInfo.colorOffset)
+      );
+
+    this.debugFolder
+      .add(this.planeInfo, "colorMultiplier")
+      .min(0)
+      .max(20)
+      .step(0.1)
+      .name("Color Multiplier")
+      .onChange(() =>
+        this.updatePropery("uColorMultiplier", this.planeInfo.colorMultiplier)
+      );
+    this.debugFolder
+      .add(this.planeInfo, "opacityMultiplier")
+      .min(0)
+      .max(1)
+      .step(0.001)
+      .name("Opacity Multiplier")
+      .onChange(() =>
+        this.updatePropery(
+          "uOpacityMultiplier",
+          this.planeInfo.opacityMultiplier
+        )
+      );
+    this.debugFolder
+      .add(this.planeInfo, "gridType", {
+        Pattern1: 0,
+        Pattern2: 1,
+      })
+      .name("Grid Layout")
+      .onChange(() => this.updatePropery("uGridType", this.planeInfo.gridType));
     this.debugFolder.add(params, "printShaderUniforms");
+    this.debugFolder.add(params, "currentLocation");
   }
 }

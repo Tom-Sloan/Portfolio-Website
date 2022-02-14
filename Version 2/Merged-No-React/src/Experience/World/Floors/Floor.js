@@ -42,6 +42,10 @@ export default class Floor {
       new THREE.Vector3(0.9, 0.9, 15.0),
       new THREE.Vector3(0.1, 0.1, 15.0),
     ];
+    this.colorMultiplier = param.colorMultiplier || 5;
+    this.colorOffset = param.colorOffset || 0.08;
+    this.opacityMultiplier = param.opacityMultiplier || 1;
+    this.gridType = param.gridType || 0;
 
     this.setGeometry();
     this.setMaterial();
@@ -80,12 +84,14 @@ export default class Floor {
         },
         //how many lines there will be
         uGridDensity: { value: this.gridDensity },
+        uGridType: { value: this.gridType },
 
         //Color Controls
         uDepthColor: { value: new THREE.Color(this.depthColor) },
         uSurfaceColor: { value: new THREE.Color(this.surfaceColor) },
-        uColorOffset: { value: 0.08 },
-        uColorMultiplier: { value: 5 },
+        uColorOffset: { value: this.colorOffset },
+        uColorMultiplier: { value: this.colorMultiplier },
+        uOpacityMultiplier: { value: this.opacityMultiplier },
       },
     });
   }

@@ -14,7 +14,7 @@ import Mouse from "./Utils/Mouse.js";
 let instance = null;
 
 export default class Experience {
-  constructor(_canvas) {
+  constructor(_canvas, _matterjs) {
     // Singleton
     if (instance) {
       return instance;
@@ -26,6 +26,7 @@ export default class Experience {
 
     // Options
     this.canvas = _canvas;
+    this.matterjsCanvas = _matterjs;
 
     // Setup
     this.debug = new Debug();
@@ -68,6 +69,7 @@ export default class Experience {
   resize() {
     this.camera.resize();
     this.renderer.resize();
+    this.world.resize();
   }
 
   update() {

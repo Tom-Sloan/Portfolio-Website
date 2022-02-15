@@ -10,6 +10,9 @@ export default class Asteroids {
 
     this.numberOfAsteroids = numberOfAsteroids;
     this.asteroids = [];
+    this.speed = 0.001;
+    this.lineVisibility = false;
+    this.asteroidTotalCreated = 0;
 
     for (let i = 0; i < this.numberOfAsteroids; i++) {
       this.generateAsteroid();
@@ -24,35 +27,24 @@ export default class Asteroids {
   }
 
   generateAsteroid() {
-    const asteroid = new Asteroid();
+    const asteroid = new Asteroid(
+      this.speed,
+      this.lineVisibility,
+      this.asteroidTotalCreated
+    );
     if (!asteroid.generated) return;
 
     // Saving for later
     this.asteroids.push(asteroid);
+    this.asteroidTotalCreated++;
+  }
+
+  getAsteroidArrayMeshs() {
+    return this.asteroids.map((n) => n.instance);
   }
 
   update() {
-    this.asteroids.forEach((n, i) => {
-      const asteroid = n.instance;
-      const direction = i % 2 === 0 ? 1 : -1;
-
-      //Asteroid
-      n.updatePosition({
-        x:
-          direction *
-          Math.cos(this.time.elapsed / 1000 / asteroid.scale.x) *
-          5 *
-          asteroid.scale.x *
-          n.radius,
-        y: asteroid.position.y,
-        z:
-          direction *
-          Math.sin(this.time.elapsed / 1000 / asteroid.scale.z) *
-          5 *
-          asteroid.scale.z *
-          n.radius,
-      });
-    });
+    this.asteroids.forEach((n) => n.update());
   }
 
   setDebug() {
@@ -61,6 +53,12 @@ export default class Asteroids {
       this.generateAsteroid();
       this.numberOfAsteroids++;
     };
+
+    params.setSpeed = () =>
+      this.asteroids.forEach((n) => (n.speed = this.speed));
+
+    params.setLineVisibility = () =>
+      this.asteroids.forEach((n) => (n.line.visible = this.lineVisibility));
 
     params.deleteAsteroid = () => {
       if (this.asteroids.length === 0) return;
@@ -73,5 +71,14 @@ export default class Asteroids {
     this.debugFolder.add(params, "generateAsteroid");
     this.debugFolder.add(params, "printAsteroids");
     this.debugFolder.add(params, "deleteAsteroid");
+    this.debugFolder
+      .add(this, "speed")
+      .min(0.0005)
+      .max(0.01)
+      .step(0.001)
+      .onChange(params.setSpeed);
+    this.debugFolder
+      .add(this, "lineVisibility")
+      .onChange(params.setLineVisibility);
   }
 }

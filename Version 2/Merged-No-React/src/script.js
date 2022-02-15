@@ -3,6 +3,7 @@ import Experience from "./Experience/Experience.js";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
+const reference = document.querySelector("canvas.matterjs");
 
 const labels = [
   { classes: ["label"], label: "Projects" },
@@ -29,4 +30,4 @@ const loadTitleBar = () => {
 };
 document.body.onload = loadTitleBar;
 
-const experience = new Experience(canvas);
+const experience = new Experience(canvas, reference);

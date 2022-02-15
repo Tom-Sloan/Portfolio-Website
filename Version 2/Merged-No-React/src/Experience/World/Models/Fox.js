@@ -13,6 +13,8 @@ export default class Fox {
     this.debug = this.experience.debug;
     this.planes = this.experience.world.floors;
     this.camera = this.experience.camera;
+    this.physics = this.experience.world.physics;
+    this.name = "model";
 
     this.speed = 12;
 
@@ -27,6 +29,7 @@ export default class Fox {
     this.resource = this.resources.items.foxModel;
 
     this.setModel();
+    this.setPhysics();
     this.setAnimation();
 
     this.camera.instance.lookAt(this.model.position);
@@ -34,6 +37,37 @@ export default class Fox {
   setDebug() {
     this.debugFolder.add(this, "speed").min(1).max(20).step(0.1);
   }
+
+  setCube() {
+    this.geometry = new THREE.BoxGeometry(3, 3, 3);
+    this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    this.cube = new THREE.Mesh(this.geometry, this.material);
+    this.scene.add(this.cube);
+  }
+
+  setPhysics() {
+    // this.model.traverse((child) => {
+    //   if (child instanceof THREE.Mesh) {
+    //     const box = new THREE.Box3().setFromBufferAttribute(
+    //       child.geometry.attributes.position
+    //     );
+    //     const temp = new THREE.Vector3(0, 0, 0);
+    //     console.log(box.min, box.max, box.getSize(temp));
+    //     // console.log(); https://stackoverflow.com/questions/23859512/how-to-get-the-width-height-length-of-a-mesh-in-three-js
+    //   }
+    // });
+
+    this.physics.generateNewBody(
+      this.name,
+      "user",
+      {
+        x: this.model.position.x,
+        y: this.model.position.z,
+      },
+      1
+    );
+  }
+
   setModel() {
     //Add to floors so shaders can access
     this.index = this.planes.increaseNumberOfDrops();
@@ -61,7 +95,7 @@ export default class Fox {
       z: 0,
     });
 
-    if (this.debug.active) this.createHelper();
+    // if (this.debug.active) this.createHelper();
   }
   move(destination) {
     let direction = destination.clone();
@@ -79,29 +113,25 @@ export default class Fox {
     // // cube.dispose();
 
     // console.log(destination, this.);
-    console.log(
-      this.model.position.x,
-      this.model.position.z,
-      destination.x,
-      destination.z
-    );
 
     const point2 = new Vector2(this.model.position.x, this.model.position.z);
+    if (this.model.position.x === 0 && this.model.position.z === 0) {
+      point2.y = 10;
+    }
     const point1 = new Vector2(0, 0);
-    const point4 = new Vector2(this.destination.x, this.destination.z);
+    const point4 = new Vector2(destination.x, destination.z);
     const point3 = new Vector2(0, 0);
-
+    const p12x = point2.x - point1.x;
+    const p12y = point2.y - point1.y;
+    const p34x = point4.x - point3.x;
+    const p34y = point4.y - point3.y;
+    // console.log(p12x, p12y, p34x, p34y);
     const angle = Math.acos(
-      ((point2.x - point1.x) * (point4.x - point3.x) +
-        (point2.y - point1.y) * (point4.y - point3.y)) /
-        (Math.sqrt(
-          Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2)
-        ) *
-          Math.pow(
-            Math.sqrt(point4.x - point3.x, 2) + Math.pow(point4.y - point3.y, 2)
-          ))
+      (p12x * p34x + p12y * p34y) /
+        (Math.sqrt(Math.pow(p12x, 2) + Math.pow(p12y, 2)) *
+          Math.sqrt(Math.pow(p34x, 2) + Math.pow(p34y, 2)))
     );
-    console.log(angle);
+    // console.log((angle * 180) / Math.PI);
 
     const totalLength = direction.length();
 
@@ -114,18 +144,18 @@ export default class Fox {
       x: destination.x,
       z: destination.z,
       onStart: this.startMovement,
-      onStartParams: [this, destination],
+      onStartParams: [this, angle],
       onUpdate: this.updateMovement,
       onUpdateParams: [this],
       onComplete: this.completeMovement,
       onCompleteParams: [this],
     });
   }
-  startMovement(instance, destination) {
+  startMovement(instance, angle) {
     instance.camera.savePostition(instance.model.position);
     instance.animation.play("running");
     if (instance.helperRay) {
-      instance.updateHelper(instance.model.position, destination);
+      instance.updateHelper(instance.model.position, angle);
     }
   }
   completeMovement(instance) {
@@ -143,6 +173,10 @@ export default class Fox {
 
     //Update Raycaster
     instance.raycaster.update({ x: xVal, z: zVal });
+
+    // instance.cube.position.copy(instance.model.position);
+    //update Physics
+    instance.physics.updatePosition(instance.name, instance.model.position);
 
     // check for intersection with the planes
     const intersect = instance.raycaster.intersect(
@@ -170,10 +204,11 @@ export default class Fox {
     );
     this.scene.add(this.helperRay);
   }
-  updateHelper(position, destination) {
+  updateHelper(position, angle) {
     this.helperRay.position.set(position.x, position.y, position.z);
-    this.helperRay.rotateZ(Math.PI / 2);
-    this.model.rotateY(Math.PI / 2);
+    this.helperRay.rotateZ(angle);
+    // console.log(this.model.rotation.y);
+    this.model.rotateY(angle - this.model.rotation.y);
   }
 
   setAnimation() {
@@ -228,6 +263,7 @@ export default class Fox {
       this.debugFolder.add(debugObject, "playRunning");
     }
   }
+
   update() {
     this.animation.mixer.update(this.time.delta * 0.001);
   }

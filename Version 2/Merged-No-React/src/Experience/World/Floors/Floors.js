@@ -15,9 +15,9 @@ export default class Floors extends EventEmitter {
     this.planeInfo = {}; // contains the information of the planes
 
     //the defaults
-    this.planeInfo.size = 40; // the width
-    this.planeInfo.creationBoundary = 3; // how farfrom the edge you must be before a new grid is created
-    this.planeInfo.gridDensity = 30.0; // percent of the grid with lines
+    this.planeInfo.size = 80; // the width
+    this.planeInfo.creationBoundary = 30; // how farfrom the edge you must be before a new grid is created
+    this.planeInfo.gridDensity = 40.0; // percent of the grid with lines
     this.planeInfo.gridType = 0;
     this.planeInfo.depthColor = "#0373b0";
     this.planeInfo.surfaceColor = "#057dc7";
@@ -51,7 +51,7 @@ export default class Floors extends EventEmitter {
     // Debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Floors");
-      // this.debugFolder.close();
+      this.debugFolder.close();
       this.setDebug();
     }
 
@@ -75,7 +75,7 @@ export default class Floors extends EventEmitter {
     }
 
     if (this.checkForPreviousPlane(location)) {
-      console.log("Cancelling!");
+      // console.log("Cancelling!");
       return;
     }
 
@@ -244,6 +244,13 @@ export default class Floors extends EventEmitter {
       console.log(this.planeInfo);
     };
 
+    params.changeCreationBoundary = () => {
+      if (this.planeInfo.creationBoundary > this.planeInfo.size / 2) {
+        this.planeInfo.creationBoundary = 0.2 * this.planeInfo.size;
+      }
+      this.setLengths();
+    };
+
     params.printShaderUniforms = () =>
       console.log(this.planesArray[0].material.uniforms);
 
@@ -278,6 +285,14 @@ export default class Floors extends EventEmitter {
       .step(1)
       .onFinishChange(params.changeSize)
       .name("Size of Plane");
+
+    this.debugFolder
+      .add(this.planeInfo, "creationBoundary")
+      .min(1)
+      .max(this.planeInfo.size / 2)
+      .step(1)
+      .onFinishChange(params.changeSize)
+      .name("Creation Boundary");
 
     this.debugFolder
       .add(this.planeInfo, "gridDensity")

@@ -7,6 +7,7 @@ import {
 } from "three-mesh-bvh";
 import gridVertexShader from "../shaders/grid/vertex.glsl";
 import gridFragmentShader from "../shaders/grid/fragment.glsl";
+import Destinations from "../Models/Destinations/Destinations.js";
 
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
@@ -17,8 +18,15 @@ export default class Floor {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
+    this.time = this.experience.time;
 
     // set values
+    if (param.geometry) {
+      this.geometry = param.geometry;
+    } else {
+      this.setGeometry();
+    }
+
     this.location = param.location || { x: 0, y: 0, z: 0 };
     this.size = param.size || 5;
     this.name = param.name || "Floor";
@@ -47,16 +55,18 @@ export default class Floor {
     this.opacityMultiplier = param.opacityMultiplier || 1;
     this.gridType = param.gridType || 0;
 
-    this.setGeometry();
     this.setMaterial();
     this.setMesh();
+    this.createDestinations();
   }
-
   setGeometry() {
-    //make the geometry
-    this.geometry = new THREE.PlaneGeometry(1, 1, 512, 512);
-    //For fast ray tracing
-    this.geometry.computeBoundsTree({ lazyGeneration: false });
+    const tests = () => {
+      //make the geometry
+      this.geometry = new THREE.PlaneGeometry(1, 1, 512, 512);
+      //For fast ray tracing
+      this.geometry.computeBoundsTree({ lazyGeneration: false });
+    };
+    this.time.timeToRun(tests, "unique geometry");
   }
 
   setMaterial() {
@@ -96,6 +106,22 @@ export default class Floor {
     });
   }
 
+  // create the mesh at a specific location
+  setMesh() {
+    this.mesh = new THREE.Mesh(this.geometry, this.material);
+    this.mesh.rotation.x = -Math.PI * 0.5;
+    // this.mesh.receiveShadow = true;
+    this.setName(this.name);
+    this.setPosition(this.location);
+    //scale the geometry since this allows dynamic size changing
+    this.mesh.scale.set(this.size, this.size, this.size);
+    this.scene.add(this.mesh);
+  }
+
+  createDestinations() {
+    this.destinations = new Destinations(this.mesh, this.name, this.size);
+  }
+
   getNumberOfDrops() {
     return this.material.uniforms.uNumberOfDrops.value;
   }
@@ -131,18 +157,6 @@ export default class Floor {
     this.material.uniforms.uGridDensity.value = value;
   }
 
-  // create the mesh at a specific location
-  setMesh() {
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.mesh.rotation.x = -Math.PI * 0.5;
-    // this.mesh.receiveShadow = true;
-    this.setName(this.name);
-    this.setPosition(this.location);
-    //scale the geometry since this allows dynamic size changing
-    this.mesh.scale.set(this.size, this.size, this.size);
-    this.scene.add(this.mesh);
-  }
-
   // change the location
   setPosition(location) {
     this.mesh.position.set(location.x, location.y, location.z);
@@ -158,5 +172,13 @@ export default class Floor {
   //change the name
   setName(name) {
     this.mesh.name = name;
+  }
+
+  update() {
+    this.destinations.update();
+  }
+
+  destroy() {
+    if (this.destinations) this.destinations.destroy();
   }
 }

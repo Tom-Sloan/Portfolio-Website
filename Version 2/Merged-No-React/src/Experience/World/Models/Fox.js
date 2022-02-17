@@ -17,6 +17,7 @@ export default class Fox {
     this.name = "model";
 
     this.speed = 12;
+    this.collisionDistance = 2;
 
     // Debug
     if (this.debug.active) {
@@ -64,7 +65,9 @@ export default class Fox {
         x: this.model.position.x,
         y: this.model.position.z,
       },
-      1
+      1.25,
+      this.model,
+      (collidedWith) => this.onCollision(collidedWith)
     );
   }
 
@@ -80,15 +83,23 @@ export default class Fox {
     this.model.scale.set(0.02, 0.02, 0.02);
     this.scene.add(this.model);
 
-    this.model.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-      }
-    });
+    // this.model.traverse((child) => {
+    //   if (child instanceof THREE.Mesh) {
+    //     child.castShadow = true;
+    //   }
+    // });
 
     this.raycaster = new ModelRaycaster(this.model.position);
 
     //Add inital drop
+    //update shader
+    // drop amount, k value, the range
+    this.info = {
+      x: 0.2 + 1.25 * 2,
+      y: 1,
+      z: 1.25 * 5,
+    };
+    this.planes.updateDropsInfo(this.index, this.info);
     this.planes.updatePlanes(this.index, this.model.position, {
       x: 0,
       y: 0,
@@ -262,6 +273,41 @@ export default class Fox {
       this.debugFolder.add(debugObject, "playWalking");
       this.debugFolder.add(debugObject, "playRunning");
     }
+  }
+
+  onCollision(collidedWith) {
+    // console.log(this.model, collidedWith);
+    // console.log(this.name + " exploded");
+    let direction = collidedWith.mesh.position.clone();
+    //get the vector to the model we are colliding with
+    direction.sub(this.model.position);
+    // get opposite direction to collision
+    direction.normalize();
+    direction.multiplyScalar(-1.0 * this.collisionDistance);
+
+    gsap.to(this.model.position, {
+      overwrite: "auto",
+      duration: 2.6,
+      ease: "power2",
+      x: this.model.position.x + direction.x,
+      z: this.model.position.z + direction.z,
+      onUpdate: this.updateMovement,
+      onUpdateParams: [this],
+      onComplete: this.completeMovement,
+      onCompleteParams: [this],
+    });
+    gsap.to(this.model.position, {
+      overwrite: "auto",
+      duration: 0.1,
+      ease: "linear",
+      y: 8,
+    });
+    gsap.to(this.model.position, {
+      overwrite: "auto",
+      duration: 2.5,
+      ease: "elastic.out(5, 0.2)",
+      y: 0,
+    });
   }
 
   update() {

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import Stats from "stats.js";
 
 import Debug from "./Utils/Debug.js";
 import Sizes from "./Utils/Sizes.js";
@@ -14,7 +15,7 @@ import Mouse from "./Utils/Mouse.js";
 let instance = null;
 
 export default class Experience {
-  constructor(_canvas) {
+  constructor(_canvas, _matterjs, callback) {
     // Singleton
     if (instance) {
       return instance;
@@ -26,6 +27,8 @@ export default class Experience {
 
     // Options
     this.canvas = _canvas;
+    this.matterjsCanvas = _matterjs;
+    this.callback = callback;
 
     // Setup
     this.debug = new Debug();
@@ -37,6 +40,11 @@ export default class Experience {
     this.mouse = new Mouse();
     this.renderer = new Renderer();
     this.world = new World();
+
+    //For Stats
+    var stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(stats.dom);
 
     // Mouse move event
     this.mouse.on("mousemove", () => {
@@ -53,7 +61,9 @@ export default class Experience {
 
     // Time tick event
     this.time.on("tick", () => {
+      stats.begin();
       this.update();
+      stats.end();
     });
   }
 
@@ -68,6 +78,7 @@ export default class Experience {
   resize() {
     this.camera.resize();
     this.renderer.resize();
+    this.world.resize();
   }
 
   update() {

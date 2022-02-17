@@ -2,6 +2,7 @@ import Experience from "../../Experience";
 import Floor from "./Floor";
 import EventEmitter from "../../Utils/EventEmitter";
 import * as THREE from "three";
+import Destinations from "../Models/Destinations/Destinations";
 
 export default class Floors extends EventEmitter {
   constructor() {
@@ -10,16 +11,18 @@ export default class Floors extends EventEmitter {
     this.scene = this.experience.scene; // used so i can delete the floors
     this.mouse = this.experience.mouse; // used to set up a mouse listener
     this.debug = this.experience.debug;
+    this.time = this.experience.time;
 
     this.planesArray = []; // contains all the planes
     this.planeInfo = {}; // contains the information of the planes
 
     //the defaults
     this.planeInfo.size = 80; // the width
+    this.planeInfo.geometry = this.setGeometry();
     this.planeInfo.creationBoundary = 30; // how farfrom the edge you must be before a new grid is created
     this.planeInfo.gridDensity = 40.0; // percent of the grid with lines
     this.planeInfo.gridType = 0;
-    this.planeInfo.depthColor = "#0373b0";
+    this.planeInfo.depthColor = "#2b36f7";
     this.planeInfo.surfaceColor = "#057dc7";
     this.planeInfo.numberOfDrops = 0.0;
     this.planeInfo.dropLocation = [
@@ -29,9 +32,57 @@ export default class Floors extends EventEmitter {
       new THREE.Vector3(0.1, 0.1, 0.5),
       new THREE.Vector3(0.9, 0.9, 0.5),
       new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.5, 0.5, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.5, 0.5, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.5, 0.5, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.5, 0.5, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
+      new THREE.Vector3(0.9, 0.9, 0.5),
+      new THREE.Vector3(0.1, 0.1, 0.5),
     ];
     // drop amount, k value, the range
     this.planeInfo.dropInformation = [
+      new THREE.Vector3(3, 0.5, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(3, 0.5, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(3, 0.5, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(3, 0.5, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
+      new THREE.Vector3(0.9, 0.9, 15.0),
+      new THREE.Vector3(0.1, 0.1, 15.0),
       new THREE.Vector3(3, 0.5, 15.0),
       new THREE.Vector3(0.1, 0.1, 15.0),
       new THREE.Vector3(0.9, 0.9, 15.0),
@@ -54,19 +105,16 @@ export default class Floors extends EventEmitter {
       this.debugFolder.close();
       this.setDebug();
     }
-
-    this.createPlane();
   }
+  setGeometry() {
+    let geometry = null;
 
-  setLengths() {
-    this.planeInfo.boundingLength = this.pythagorean(
-      this.planeInfo.creationBoundary,
-      this.planeInfo.creationBoundary
-    );
-    this.planeInfo.planeDiagonal = this.pythagorean(
-      this.planeInfo.size / 2,
-      this.planeInfo.size / 2
-    );
+    //make the geometry
+    geometry = new THREE.PlaneGeometry(1, 1, 512, 512);
+    //For fast ray tracing
+    geometry.computeBoundsTree({ lazyGeneration: false });
+
+    return geometry;
   }
 
   createPlane(location) {
@@ -78,12 +126,15 @@ export default class Floors extends EventEmitter {
       // console.log("Cancelling!");
       return;
     }
+    console.log("creating");
 
     const floor = new Floor({
       ...this.planeInfo,
-      name: "floor-" + this.planesArray.lengt,
+      name: "floor-" + this.planesArray.length,
       location: location,
     });
+
+    floor.material.uniforms.uNumberOfDrops.value = this.planeInfo.numberOfDrops;
     floor.setName("floor-" + this.planesArray.length);
 
     this.planesArray.push(floor);
@@ -96,6 +147,67 @@ export default class Floors extends EventEmitter {
       this.getFloorsArrayMeshs().filter((n) => n.position.equals(location))
         .length > 0
     );
+  }
+
+  // compares two points and returns 1 if the object point is greater than the plane positions and -1 otherwise
+  isPositive(num, relative) {
+    return num - relative > 0 ? 1 : -1;
+  }
+
+  // given a and b gets c
+  pythagorean(sideA, sideB) {
+    return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+  }
+
+  getFloorsArrayMeshs() {
+    return this.planesArray.map((n) => n.mesh);
+  }
+  getFloorByName(name) {
+    return this.planesArray.filter((n) => n.name === name);
+  }
+  setLengths() {
+    this.planeInfo.boundingLength = this.pythagorean(
+      this.planeInfo.creationBoundary,
+      this.planeInfo.creationBoundary
+    );
+    this.planeInfo.planeDiagonal = this.pythagorean(
+      this.planeInfo.size / 2,
+      this.planeInfo.size / 2
+    );
+  }
+
+  increaseNumberOfDrops() {
+    if (this.planeInfo.releasedIndexes.length)
+      return this.planeInfo.releasedIndexes.pop();
+    if (this.planeInfo.numberOfDrops === this.planeInfo.maxDrops) return -1;
+
+    const index = this.planeInfo.numberOfDrops;
+    this.planeInfo.numberOfDrops++;
+    this.planesArray.forEach((n) => n.increaseNumberOfDrops());
+
+    return index;
+  }
+
+  removeIndex(index) {
+    this.updateDropsInfo(index, { x: 0, y: 0, z: 0 });
+    this.planeInfo.releasedIndexes.push(index);
+  }
+
+  updateClick() {
+    this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());
+    if (this.intersect.length) {
+      this.point = this.intersect[0].point;
+      const floor = this.getFloorByName(this.intersect[0].object.name);
+      if (floor.length) {
+        console.log(floor[0].destinations.getMeshes());
+        const dest = this.mouse.intersect(floor[0].destinations.getMeshes());
+        console.log(dest);
+        if (dest.length) {
+          floor[0].destinations.activateByName(dest[0].object.name);
+          this.intersect = [];
+        }
+      }
+    }
   }
 
   //Point: location of user in xyz coord
@@ -164,6 +276,7 @@ export default class Floors extends EventEmitter {
         this.planeInfo.boundingLength + this.planeInfo.planeDiagonal
       ) {
         console.log("Too far from " + n.name);
+        this.planesArray[i].destroy();
         this.scene.remove(n);
         this.planesArray.splice(i, 1);
         return false;
@@ -196,40 +309,9 @@ export default class Floors extends EventEmitter {
       (n) => (n.material.uniforms[property].value = value)
     );
   }
-  // compares two points and returns 1 if the object point is greater than the plane positions and -1 otherwise
-  isPositive(num, relative) {
-    return num - relative > 0 ? 1 : -1;
-  }
 
-  // given a and b gets c
-  pythagorean(sideA, sideB) {
-    return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
-  }
-
-  getFloorsArrayMeshs() {
-    return this.planesArray.map((n) => n.mesh);
-  }
-
-  updateClick() {
-    this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());
-    if (this.intersect.length) {
-      this.point = this.intersect[0].point;
-    }
-  }
-
-  increaseNumberOfDrops() {
-    if (this.planeInfo.releasedIndexes.length)
-      return this.planeInfo.releasedIndexes.pop();
-    if (this.planeInfo.numberOfDrops === this.planeInfo.maxDrops) return -1;
-    const index = this.planesArray[0].getNumberOfDrops();
-    this.planeInfo.numberOfDrops++;
-    this.planesArray.forEach((n) => n.increaseNumberOfDrops());
-    return index;
-  }
-
-  removeIndex(index) {
-    this.updateDropsInfo(index, { x: 0, y: 0, z: 0 });
-    this.planeInfo.releasedIndexes.push(index);
+  update() {
+    this.planesArray.forEach((n) => n.update());
   }
 
   setDebug() {

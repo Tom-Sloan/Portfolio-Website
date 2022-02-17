@@ -16,8 +16,16 @@ export default class Time extends EventEmitter {
       this.tick();
     });
   }
+  timeToRun(functionToTest, label) {
+    label = label || "doSomething";
+    const t0 = performance.now();
+    functionToTest();
+    const t1 = performance.now();
+    console.log(`Call to ${label} took ${t1 - t0} milliseconds.`);
+  }
 
   tick() {
+    
     const currentTime = Date.now();
     this.delta = currentTime - this.current;
     this.deltaMS = this.delta / 1000;

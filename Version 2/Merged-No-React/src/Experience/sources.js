@@ -62,4 +62,9 @@ export default [
     type: "texture",
     path: "/textures/particles/4.png",
   },
+  {
+    name: "asteroidExplosionTexture",
+    type: "texture",
+    path: "/textures/asteroid1/explosion.png",
+  },
 ];

@@ -2,8 +2,8 @@
 uniform float uDropAmount;
 uniform float uDropCurveSteepness;
 uniform int uNumberOfDrops;
-uniform vec3 uDropLocation[6];
-uniform vec3 uDropInformation[6];
+uniform vec3 uDropLocation[30];
+uniform vec3 uDropInformation[30];
 
 varying vec2 vUv;
 varying float vElevation;
@@ -40,5 +40,5 @@ void main()
     gl_Position = projectedPosition;
 
     vUv = uv;
-    vElevation = modelPosition.y;
+    vElevation = modelPosition.y/2.0;
 }

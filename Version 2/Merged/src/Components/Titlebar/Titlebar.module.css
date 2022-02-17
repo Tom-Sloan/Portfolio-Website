@@ -1,5 +1,5 @@
 .titleHeader {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -14,14 +14,16 @@
   height: 40px;
   font-size: 20px;
   line-height: 40px;
+  background-color: rgba(240, 248, 255, 0.05);
+  border-radius: 8px;
 }
 .label:hover {
-  background-color: rgba(240, 248, 255, 0.055);
-  border-radius: 5px;
+  background-color: rgba(240, 248, 255, 0.085);
 }
 .centerLabel {
   border-left: 1px white solid;
   border-right: 1px white solid;
+  border-radius: 0px;
 }
 .centerLabel:hover {
   border-radius: 0px;

@@ -10,17 +10,25 @@ export default class Camera {
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
     this.time = this.experience.time;
-
-    this.xLocation = 8;
-    this.yLocation = 15;
-    this.zLocation = 8;
     this.debug = this.experience.debug;
 
-    this.parallaxMultiplier = 1;
+    // Parameters of camera
+    //Location of the camera at any given time. This is not a dict intentionally
+    this.xLocation = 21;
+    this.yLocation = 30;
+    this.zLocation = 21;
 
+    this.raycaster = new THREE.Raycaster();
+    this.params = {};
+    // Used to make the parallax effect bigger or smaller
+    this.params.parallaxMultiplier = 15;
+    this.params.fov = 35; //fov
+
+    // Creates group first, then instance
     this.setGroup();
     this.setInstance();
 
+    // used to control whether orbit controls are used or not
     if (orbit == null) orbit = true;
     this.orbit = orbit;
     if (orbit) this.setControls();
@@ -30,21 +38,38 @@ export default class Camera {
     // Debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Camera");
+      this.debugFolder.close();
       this.debugFolder
-        .add(this, "parallaxMultiplier")
+        .add(this.params, "parallaxMultiplier")
         .name("parallaxMultiplier")
         .min(0)
-        .max(10)
+        .max(100)
         .step(0.001);
+
+      this.debugFolder
+        .add(this.params, "fov")
+        .name("fov")
+        .min(25)
+        .max(75)
+        .step(0.1)
+        .onFinishChange(() => {
+          this.instance.fov = this.params.fov;
+          this.instance.updateProjectionMatrix();
+          console.log(this);
+        });
+
+      this.params.getCameraPosition = () => console.log(this.instance.position);
+      this.debugFolder.add(this.params, "getCameraPosition");
     }
   }
 
+  // Create the instance
   setInstance() {
     this.instance = new THREE.PerspectiveCamera(
-      35,
+      this.params.fov,
       this.sizes.width / this.sizes.height,
       0.1,
-      100
+      300
     );
     this.instance.position.set(this.xLocation, this.yLocation, this.zLocation);
     this.cameraGroup.add(this.instance);
@@ -55,7 +80,7 @@ export default class Camera {
   }
 
   setControls() {
-    this.controls = new OrbitControls(this.instance, this.canvas.current);
+    this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
   }
 
@@ -71,11 +96,11 @@ export default class Camera {
 
     this.cameraGroup.position.x +=
       (parallaxX - this.cameraGroup.position.x) *
-      this.parallaxMultiplier *
+      this.params.parallaxMultiplier *
       this.time.deltaMS;
     this.cameraGroup.position.y +=
       (parallaxY - this.cameraGroup.position.y) *
-      this.parallaxMultiplier *
+      this.params.parallaxMultiplier *
       this.time.deltaMS;
   }
 
@@ -94,7 +119,7 @@ export default class Camera {
 
     if (this.orbit) {
       gsap.to(this.controls.target, {
-        duration: 0.8,
+        duration: 0,
         overwrite: "auto",
         x: location.x,
         z: location.z,
@@ -106,6 +131,17 @@ export default class Camera {
 
   updateControlsAnimation(instance) {
     instance.controls.update();
+  }
+
+  intersect(object) {
+    return this.raycaster.intersectObjects(object);
+  }
+
+  updateRaycaster(location) {
+    this.raycaster.setFromCamera(
+      { x: location.x, y: location.y },
+      this.instance
+    );
   }
 
   update() {

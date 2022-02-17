@@ -5,6 +5,7 @@ import Asteroids from "./Models/Asteroids/Asteroids.js";
 import Background from "./Models/Background/Background.js";
 import Fox from "./Models/Fox.js";
 import Physics from "./Physics.js";
+import * as THREE from "three";
 
 export default class World {
   constructor() {
@@ -14,17 +15,20 @@ export default class World {
     // Wait for resources
     this.resources.on("ready", () => {
       // Setup
-      //Floors first since everything is dependant on floor size for scaling
-      this.floors = new Floors();
-      //This is second since everything else will be added to it
+      this.testGeo = new THREE.BoxGeometry(3, 3, 3, 512, 512);
+      //This is first since everything else will be added to it
       this.physics = new Physics();
+
+      //Floors second since everything else is dependant on floor size for scaling
+      this.floors = new Floors();
+      this.floors.createPlane();
 
       //Third since asteroids use the position to determine how far away to spawn
       this.fox = new Fox();
 
       // the exact placement is optional, however these must be after the above
       this.environment = new Environment();
-      this.asteroids = new Asteroids(5);
+      this.asteroids = new Asteroids(6);
       this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());
@@ -35,6 +39,7 @@ export default class World {
     this.environment.updateEnviromentMap();
   }
   updateClick() {
+   //check if it intercets with a floor
     this.floors.updateClick();
     if (this.floors.intersect.length) {
       this.fox.move(this.floors.point);
@@ -42,6 +47,7 @@ export default class World {
   }
 
   update() {
+    if (this.floors) this.floors.update();
     if (this.fox) this.fox.update();
     if (this.asteroids) this.asteroids.update();
     if (this.background) this.background.update();

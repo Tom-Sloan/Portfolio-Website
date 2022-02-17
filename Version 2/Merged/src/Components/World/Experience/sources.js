@@ -27,4 +27,14 @@ export default [
     type: "gltfModel",
     path: "/static/models/Fox/glTF/Fox.gltf",
   },
+  {
+    name: "particleTexture",
+    type: "texture",
+    path: "/static/textures/particles/4.png",
+  },
+  {
+    name: "asteroidExplosionTexture",
+    type: "texture",
+    path: "/static/textures/asteroid1/explosion.png",
+  },
 ];

@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 import Experience from "../Experience";
-
+console.log(Matter);
 export default class Physics {
   constructor() {
     // project variables
@@ -13,7 +13,7 @@ export default class Physics {
     this.width = window.innerWidth / 2;
     this.height = window.innerHeight;
     this.reference = this.experience.matterjsCanvas;
-    this.visibleRenderer = true;
+    this.visibleRenderer = false;
     this.render = null;
 
     // Scale, this is used because the threejs world uses much smaller numbers,
@@ -36,7 +36,7 @@ export default class Physics {
     this.Common = Matter.Common;
     this.Render = Matter.Render;
     this.Detector = Matter.Detector;
-
+    console.log(this.Detector);
     this.createEngine();
     if (this.visibleRenderer) this.createRenderer();
     this.startEngine();
@@ -44,7 +44,7 @@ export default class Physics {
 
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Physics");
-      //   this.debugFolder.close();
+      this.debugFolder.close();
       this.setDebug();
     }
   }
@@ -118,23 +118,41 @@ export default class Physics {
     }
   }
 
-  generateNewBody(name, type, position, radius) {
+  generateNewBody(name, type, position, radius, mesh, callback) {
     // get color
     const color = this.getColor(type);
 
+    let body = 0;
     // create body
-    const body = this.Bodies.circle(
-      position.x * this.scale,
-      position.y * this.scale,
-      1,
-      {
-        render: {
-          fillStyle: color,
-        },
-      }
-    );
+    if (type === "destination") {
+      body = this.Bodies.rectangle(
+        position.x * this.scale,
+        position.y * this.scale,
+        1,
+        1,
+        {
+          render: {
+            fillStyle: color,
+          },
+          label: name,
+        }
+      );
+    } else {
+      body = this.Bodies.circle(
+        position.x * this.scale,
+        position.y * this.scale,
+        1,
+        {
+          render: {
+            fillStyle: color,
+          },
+          label: name,
+        }
+      );
+    }
     // Scale to size
     this.Body.scale(body, radius * this.scale, radius * this.scale);
+
     // Add to world
     this.Composite.add(this.world, body);
     // Add to detector
@@ -155,6 +173,8 @@ export default class Physics {
       color,
       radius,
       type,
+      mesh,
+      callback,
     });
   }
 
@@ -164,10 +184,19 @@ export default class Physics {
     this.bodies = [];
   }
 
+  getBodiesFromLabel(label) {
+    return this.bodies.filter((n) => n.name === label)[0] || false;
+  }
+
   checkForCollisions() {
     const collisions = this.Detector.collisions(this.detector);
     if (collisions.length) {
-      console.log(collisions);
+      collisions.forEach((n) => {
+        const bodyA = this.getBodiesFromLabel(n.bodyA.label);
+        const bodyB = this.getBodiesFromLabel(n.bodyB.label);
+        bodyA.callback(bodyB);
+        bodyB.callback(bodyA);
+      });
     }
   }
 
@@ -212,28 +241,8 @@ export default class Physics {
 
   setDebug() {
     const params = {};
-    params.generateTwoBodies = () => {
-      this.deleteBodies();
-
-      this.generateNewBody(
-        "My Model",
-        "user",
-        {
-          x: this.Common.random(0, this.width),
-          y: this.Common.random(0, this.height),
-        },
-        0.1
-      );
-      this.generateNewBody(
-        "Asteroid1",
-        "asteroid",
-        {
-          x: this.Common.random(0, this.width),
-          y: this.Common.random(0, this.height),
-        },
-        0.1
-      );
-      this.checkForCollisions();
+    params.printBodies = () => {
+      console.log(this.bodies);
     };
 
     params.moveBody = () => this.updatePosition("My Model", { x: 30, y: 30 });
@@ -247,7 +256,7 @@ export default class Physics {
       );
     };
 
-    this.debugFolder.add(params, "generateTwoBodies");
+    this.debugFolder.add(params, "printBodies");
     this.debugFolder.add(params, "moveAllBodies");
     this.debugFolder.add(params, "moveBody");
     this.debugFolder

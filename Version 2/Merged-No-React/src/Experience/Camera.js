@@ -15,9 +15,10 @@ export default class Camera {
     // Parameters of camera
     //Location of the camera at any given time. This is not a dict intentionally
     this.xLocation = 21;
-    this.yLocation = 40;
+    this.yLocation = 30;
     this.zLocation = 21;
 
+    this.raycaster = new THREE.Raycaster();
     this.params = {};
     // Used to make the parallax effect bigger or smaller
     this.params.parallaxMultiplier = 15;
@@ -68,7 +69,7 @@ export default class Camera {
       this.params.fov,
       this.sizes.width / this.sizes.height,
       0.1,
-      150
+      300
     );
     this.instance.position.set(this.xLocation, this.yLocation, this.zLocation);
     this.cameraGroup.add(this.instance);
@@ -130,6 +131,17 @@ export default class Camera {
 
   updateControlsAnimation(instance) {
     instance.controls.update();
+  }
+
+  intersect(object) {
+    return this.raycaster.intersectObjects(object);
+  }
+
+  updateRaycaster(location) {
+    this.raycaster.setFromCamera(
+      { x: location.x, y: location.y },
+      this.instance
+    );
   }
 
   update() {

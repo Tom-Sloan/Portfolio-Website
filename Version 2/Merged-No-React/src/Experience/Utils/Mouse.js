@@ -7,7 +7,7 @@ export default class Mouse extends EventEmitter {
     super();
     this.experience = new Experience();
     this.sizes = this.experience.sizes;
-    this.camera = this.experience.camera.instance;
+    this.camera = this.experience.camera;
     this.instance = {};
 
     this.instance.clicked = false;
@@ -19,8 +19,6 @@ export default class Mouse extends EventEmitter {
     //Range from -1 to 1
     this.instance.xTO1 = 0;
     this.instance.yTO1 = 0;
-
-    this.raycaster = new THREE.Raycaster();
 
     window.addEventListener("mousemove", (event) => {
       this.instance.x = event.clientX / this.sizes.width - 0.5;
@@ -39,13 +37,13 @@ export default class Mouse extends EventEmitter {
   //Array
   intersect(object) {
     this.updateRaycaster();
-    return this.raycaster.intersectObjects(object);
+    return this.camera.intersect(object);
   }
 
   updateRaycaster() {
-    this.raycaster.setFromCamera(
-      { x: this.instance.xTO1, y: this.instance.yTO1 },
-      this.camera
-    );
+    this.camera.updateRaycaster({
+      x: this.instance.xTO1,
+      y: this.instance.yTO1,
+    });
   }
 }

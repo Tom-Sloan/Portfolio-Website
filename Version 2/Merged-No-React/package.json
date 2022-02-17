@@ -22,6 +22,7 @@
     "mini-css-extract-plugin": "^2.5.3",
     "portfinder-sync": "0.0.2",
     "raw-loader": "^4.0.2",
+    "stats.js": "^0.17.0",
     "style-loader": "^3.3.1",
     "three": "^0.137.5",
     "three-mesh-bvh": "^0.5.5",

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import Stats from "stats.js";
 
 import Debug from "./Utils/Debug.js";
 import Sizes from "./Utils/Sizes.js";
@@ -39,6 +40,11 @@ export default class Experience {
     this.renderer = new Renderer();
     this.world = new World();
 
+    //For Stats
+    var stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(stats.dom);
+
     // Mouse move event
     this.mouse.on("mousemove", () => {
       this.mouseMove();
@@ -54,7 +60,9 @@ export default class Experience {
 
     // Time tick event
     this.time.on("tick", () => {
+      stats.begin();
       this.update();
+      stats.end();
     });
   }
 

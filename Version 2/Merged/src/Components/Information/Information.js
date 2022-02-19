@@ -6,11 +6,11 @@ export function Information({ current }) {
   let element = <div></div>;
   console.log(current);
   if (current === "0") {
-    element = <Resume />;
+    element = <Projects />;
   } else if (current === "1") {
     element = <Resume />;
   } else if (current === "2") {
-    element = <Resume />;
+    element = <Contact />;
   }
   return (
     <div className={styles.modal}>

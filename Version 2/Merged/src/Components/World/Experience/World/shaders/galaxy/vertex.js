@@ -1,4 +1,4 @@
-uniform float uTime;
+export default `uniform float uTime;
 uniform float uSize;
 
 attribute vec3 aRandomness;
@@ -38,4 +38,4 @@ void main()
      * Color
      */
     vColor = color;
-}
+}`;

@@ -2,7 +2,6 @@ import Experience from "../../Experience";
 import Floor from "./Floor";
 import EventEmitter from "../../Utils/EventEmitter";
 import * as THREE from "three";
-import Destinations from "../Models/Destinations/Destinations";
 
 export default class Floors extends EventEmitter {
   constructor() {
@@ -19,7 +18,7 @@ export default class Floors extends EventEmitter {
     //the defaults
     this.planeInfo.size = 90; // the width
     this.planeInfo.geometry = this.setGeometry();
-    this.planeInfo.creationBoundary = 40; // how farfrom the edge you must be before a new grid is created
+    this.planeInfo.creationBoundary = 30; // how farfrom the edge you must be before a new grid is created
     this.planeInfo.gridDensity = 40.0; // percent of the grid with lines
     this.planeInfo.gridType = 0;
     this.planeInfo.depthColor = "#2b36f7";
@@ -90,6 +89,7 @@ export default class Floors extends EventEmitter {
       new THREE.Vector3(0.9, 0.9, 15.0),
       new THREE.Vector3(0.1, 0.1, 15.0),
     ];
+    this.planeInfo.count = 0;
     this.planeInfo.colorOffset = 0.08;
     this.planeInfo.colorMultiplier = 5;
     this.planeInfo.opacityMultiplier = 0.5;
@@ -126,11 +126,11 @@ export default class Floors extends EventEmitter {
       // console.log("Cancelling!");
       return;
     }
-    console.log("creating");
+    console.log("creating: " + "floor-" + this.planeInfo.count);
 
     const floor = new Floor({
       ...this.planeInfo,
-      name: "floor-" + this.planesArray.length,
+      name: "floor-" + this.planeInfo.count,
       location: location,
     });
 
@@ -140,6 +140,7 @@ export default class Floors extends EventEmitter {
     this.planesArray.push(floor);
 
     this.trigger("createdNewMesh");
+    this.planeInfo.count++;
   }
 
   checkForPreviousPlane(location) {
@@ -192,15 +193,34 @@ export default class Floors extends EventEmitter {
     this.updateDropsInfo(index, { x: 0, y: 0, z: 0 });
     this.planeInfo.releasedIndexes.push(index);
   }
+  movePlayerToLocation() {
+    if (!this.player) this.player = this.experience.world.fox;
+    console.log(this.player.getCurrentFloor());
+    const floor = this.player.getCurrentFloor();
+    if (floor) {
+      const dest =
+        this.getFloorByName(floor.name)[0].destinations.destinations[
+          window.tomsloanTeleportation
+        ] || false;
+      if (dest) {
+        const location = dest.position.clone();
+        location.x = location.x + 7;
+        location.z = location.z + 7;
+        this.player.updatePosition(location);
+      }
+    }
+  }
 
   updateClick() {
     this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());
+    // console.log(this.intersect);
     if (this.intersect.length) {
       this.point = this.intersect[0].point;
       const floor = this.getFloorByName(this.intersect[0].object.name);
+      // console.log(floor);
       if (floor.length) {
         const dest = this.mouse.intersect(floor[0].destinations.getMeshes());
-
+        // console.log(dest);
         if (dest.length) {
           floor[0].destinations.activateByName(dest[0].object.name);
           this.intersect = [];
@@ -274,7 +294,7 @@ export default class Floors extends EventEmitter {
         distance >
         this.planeInfo.boundingLength + this.planeInfo.planeDiagonal
       ) {
-        console.log("Too far from " + n.name);
+        // console.log("Too far from " + n.name);
         this.planesArray[i].destroy();
         this.scene.remove(n);
         this.planesArray.splice(i, 1);
@@ -311,6 +331,11 @@ export default class Floors extends EventEmitter {
 
   update() {
     this.planesArray.forEach((n) => n.update());
+    if (window.tomsloanTeleportation !== -1) {
+      console.log("Val: ", window.tomsloanTeleportation);
+      this.movePlayerToLocation();
+      window.tomsloanTeleportation = -1;
+    }
   }
 
   setDebug() {

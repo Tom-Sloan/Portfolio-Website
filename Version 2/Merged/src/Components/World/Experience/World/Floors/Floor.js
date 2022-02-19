@@ -8,6 +8,7 @@ import {
 import gridVertexShader from "../shaders/grid/vertex.js";
 import gridFragmentShader from "../shaders/grid/fragment.js";
 import Destinations from "../Models/Destinations/Destinations.js";
+import Particles from "../Models/Background/Particles.js";
 
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
@@ -58,6 +59,7 @@ export default class Floor {
     this.setMaterial();
     this.setMesh();
     this.createDestinations();
+    this.createParticles();
   }
   setGeometry() {
     const tests = () => {
@@ -102,6 +104,10 @@ export default class Floor {
         uColorOffset: { value: this.colorOffset },
         uColorMultiplier: { value: this.colorMultiplier },
         uOpacityMultiplier: { value: this.opacityMultiplier },
+        middleColor: {
+          //orange/yellow
+          value: new THREE.Color("orange"),
+        },
       },
     });
   }
@@ -120,6 +126,9 @@ export default class Floor {
 
   createDestinations() {
     this.destinations = new Destinations(this.mesh, this.name, this.size);
+  }
+  createParticles() {
+    this.particles = new Particles(this.location, this.size);
   }
 
   getNumberOfDrops() {
@@ -180,5 +189,6 @@ export default class Floor {
 
   destroy() {
     if (this.destinations) this.destinations.destroy();
+    if (this.particles) this.particles.destroy();
   }
 }

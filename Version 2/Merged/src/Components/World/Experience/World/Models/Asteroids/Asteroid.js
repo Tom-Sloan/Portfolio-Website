@@ -176,8 +176,10 @@ export default class Asteroid {
     }
     //Creating asteroid
     this.radius = Math.max(Math.random(), 0.25) * 5;
-    this.geometry = new THREE.IcosahedronGeometry(1, 4);
+    this.geometry = new THREE.IcosahedronGeometry(1, 20);
     this.material = new THREE.ShaderMaterial({
+      side: THREE.DoubleSide,
+      transparent: true,
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       uniforms: {
@@ -189,6 +191,18 @@ export default class Asteroid {
         },
         uResolution: {
           value: new THREE.Vector2(this.size.width, this.size.height),
+        },
+        uAsteroidColor1: {
+          //blue
+          value: new THREE.Color("#2b36f7"),
+        },
+        uAsteroidColor2: {
+          //purple
+          value: new THREE.Color("rgb(195, 80, 248)"),
+        },
+        uAsteroidColor3: {
+          //orange/yellow
+          value: new THREE.Color("orange"),
         },
       },
     });
@@ -305,6 +319,7 @@ export default class Asteroid {
   }
 
   update() {
+    //Move along path
     if (!this.collidedWith) {
       this.percentageOnCurve += this.speed;
       if (this.percentageOnCurve > 1) {
@@ -315,7 +330,12 @@ export default class Asteroid {
       const location = new THREE.Vector3(point.x, 0, point.y);
       this.updatePosition(location);
     }
+    //update for shader, not used currently
     this.material.uniforms.uTime.value = (this.time.elapsed / 1000) * 0.025;
+
+    //rotate
+    this.instance.rotateX(this.time.deltaMS / 2);
+    this.instance.rotateZ(this.time.deltaMS / 2);
     // console.log(this.material.uniforms);
   }
 

@@ -1,10 +1,8 @@
 import * as THREE from "three";
 import Experience from "../../../Experience.js";
-import galaxyVertexShader from "../../shaders/galaxy/vertex.glsl";
-import galaxyFragmentShader from "../../shaders/galaxy/fragment.glsl";
 
 export default class Particles {
-  constructor() {
+  constructor(location, range) {
     //getting experience and required variables
     this.experience = new Experience();
     this.scene = this.experience.scene; // to add to scene
@@ -13,25 +11,32 @@ export default class Particles {
     this.renderer = this.experience.renderer; // to get pixel ratio
     this.resources = this.experience.resources;
 
+    this.location = location;
     this.particlesCount = 20000;
     this.positions = new Float32Array(this.particlesCount * 3);
     this.scales = new Float32Array(this.particlesCount * 1); // used to apply randomness to point size
-    this.depth = 75;
+    this.depth = 3;
+    this.height = 65;
     this.colors = new Float32Array(this.particlesCount * 3);
     this.size = 0.35;
-    this.range = 100;
-    this.color = new THREE.Color("orange");
+    this.range = range;
 
+    this.colorList = [
+      new THREE.Color("rgb(255, 163, 110)"),
+      new THREE.Color("rgb(195, 80, 248)"),
+      new THREE.Color("rgb(77, 86, 247)"),
+    ];
+    // console.log(this.color);
     this.geometry = null; // used so we don't keep recreating points, geometries and materials
     this.material = null;
     this.points = null;
 
     // Debug
-    if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("Stars");
-      this.debugFolder.close();
-      this.setDebug();
-    }
+    // if (this.debug.active) {
+    //   this.debugFolder = this.debug.ui.addFolder("Stars");
+    //   this.debugFolder.close();
+    //   this.setDebug();
+    // }
 
     this.generate();
   }
@@ -48,17 +53,20 @@ export default class Particles {
     }
 
     for (let i = 0; i < this.particlesCount; i++) {
-      this.positions[i * 3 + 0] = (Math.random() - 0.5) * this.range;
-      this.positions[i * 3 + 1] = this.depth * 0.5 - Math.random() * this.depth;
-      this.positions[i * 3 + 2] = (Math.random() - 0.5) * this.range;
+      this.positions[i * 3 + 0] =
+        (Math.random() - 0.5) * this.range + this.location.x;
+      this.positions[i * 3 + 1] = this.depth + Math.random() * this.height;
+      this.positions[i * 3 + 2] =
+        (Math.random() - 0.5) * this.range + this.location.z;
 
       // record the scale of the point to apply to the size
       this.scales[i] = Math.random();
 
       // GEt the colors
-      this.colors[i * 3 + 0] = this.color.r;
-      this.colors[i * 3 + 1] = this.color.g;
-      this.colors[i * 3 + 2] = this.color.b;
+      const selector = Math.floor(Math.random() * this.colorList.length);
+      this.colors[i * 3 + 0] = this.colorList[selector].r;
+      this.colors[i * 3 + 1] = this.colorList[selector].g;
+      this.colors[i * 3 + 2] = this.colorList[selector].b;
     }
 
     this.generateGeometry();
@@ -90,37 +98,22 @@ export default class Particles {
 
   generateMaterial() {
     this.material = new THREE.PointsMaterial({
-      color: this.color,
       sizeAttenuation: true,
       size: this.size,
+      vertexColors: true,
       map: this.resources.items.particleTexture,
       transparent: true,
-      alphaMap: this.resources.items.particleTexture,
-      // alphaTest: 0.001,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     });
-    // this.material = new THREE.ShaderMaterial({
-    //   depthWrite: false,
-    //   blending: THREE.AdditiveBlending,
-    //   vertexColors: true,
-    //   uniforms: {
-    //     uTime: { value: 0 },
-    //     uSize: {
-    //       value: this.size * 1000 * this.renderer.instance.getPixelRatio(),
-    //     },
-    //   },
-    //   vertexShader: galaxyVertexShader,
-    //   fragmentShader: galaxyFragmentShader,
-    // });
+  }
+  destroy() {
+    this.geometry.dispose();
+    this.material.dispose();
+    this.scene.remove(this.points);
   }
 
   setDebug() {
-    // this.particlesCount = 20000;
-    // this.positions = new Float32Array(this.particlesCount * 3);
-    // this.depth = 300;
-    // this.colors = "#ffeded";
-    // this.size = 0.03;
     const params = {};
     params.printThis = () => console.log(this);
     this.debugFolder
@@ -147,7 +140,7 @@ export default class Particles {
     this.debugFolder
       .add(this, "size")
       .min(0.001)
-      .max(0.4)
+      .max(1)
       .step(0.001)
       .onFinishChange(() => this.generate());
     this.debugFolder.add(params, "printThis");

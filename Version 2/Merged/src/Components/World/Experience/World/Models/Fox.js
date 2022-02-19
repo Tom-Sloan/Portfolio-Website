@@ -16,7 +16,7 @@ export default class Fox {
     this.physics = this.experience.world.physics;
     this.name = "model";
 
-    this.speed = 12;
+    this.speed = 30;
     this.collisionDistance = 2;
 
     // Debug
@@ -47,17 +47,6 @@ export default class Fox {
   }
 
   setPhysics() {
-    // this.model.traverse((child) => {
-    //   if (child instanceof THREE.Mesh) {
-    //     const box = new THREE.Box3().setFromBufferAttribute(
-    //       child.geometry.attributes.position
-    //     );
-    //     const temp = new THREE.Vector3(0, 0, 0);
-    //     console.log(box.min, box.max, box.getSize(temp));
-    //     // console.log(); https://stackoverflow.com/questions/23859512/how-to-get-the-width-height-length-of-a-mesh-in-three-js
-    //   }
-    // });
-
     this.physics.generateNewBody(
       this.name,
       "user",
@@ -112,19 +101,6 @@ export default class Fox {
     let direction = destination.clone();
     direction.sub(this.model.position);
 
-    // const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    // const cube = new THREE.Mesh(geometry, material);
-    // cube.position.set(this.model.x, this.model.y, this.model.z);
-    // cube.visible = false;
-    // this.scene.add(cube);
-    // // console.log(cube);
-    // // cube.lookAt(destination);
-    // // console.log(cube.rotation);
-    // // cube.dispose();
-
-    // console.log(destination, this.);
-
     const point2 = new Vector2(this.model.position.x, this.model.position.z);
     if (this.model.position.x === 0 && this.model.position.z === 0) {
       point2.y = 10;
@@ -172,6 +148,13 @@ export default class Fox {
   completeMovement(instance) {
     instance.animation.play("idle");
   }
+
+  getCurrentFloor() {
+    const floors = this.planes.getFloorsArrayMeshs();
+    const floor = this.raycaster.intersect(floors);
+
+    return floor[0].object;
+  }
   updateMovement(instance) {
     // get the important values
     let elem = this.targets()[0];
@@ -180,7 +163,7 @@ export default class Fox {
 
     //Update Camera
     instance.camera.movePosition({ x: xVal, z: zVal });
-    instance.camera.instance.lookAt(instance.model.position);
+    // instance.camera.instance.lookAt(instance.model.position);
 
     //Update Raycaster
     instance.raycaster.update({ x: xVal, z: zVal });
@@ -296,20 +279,52 @@ export default class Fox {
       onComplete: this.completeMovement,
       onCompleteParams: [this],
     });
-    gsap.to(this.model.position, {
-      overwrite: "auto",
-      duration: 0.1,
-      ease: "linear",
-      y: 8,
-    });
-    gsap.to(this.model.position, {
-      overwrite: "auto",
-      duration: 2.5,
-      ease: "elastic.out(5, 0.2)",
-      y: 0,
-    });
+    // gsap.to(this.model.position, {
+    //   overwrite: "auto",
+    //   duration: 0.1,
+    //   ease: "linear",
+    //   y: 8,
+    // });
+    // gsap.to(this.model.position, {
+    //   overwrite: "auto",
+    //   duration: 2.5,
+    //   ease: "elastic.out(5, 0.2)",
+    //   y: 0,
+    // });
   }
+  updatePosition(location) {
+    this.model.position.setX(location.x);
+    this.model.position.setZ(location.z);
 
+    //Update Camera
+    this.camera.movePosition({
+      x: this.model.position.x,
+      z: this.model.position.z,
+    });
+    this.camera.instance.lookAt(this.model.position);
+
+    //Update Raycaster
+    this.raycaster.update({
+      x: this.model.position.x,
+      z: this.model.position.z,
+    });
+
+    // this.cube.position.copy(this.model.position);
+    //update Physics
+    this.physics.updatePosition(this.name, this.model.position);
+
+    // check for intersection with the planes
+    const intersect = this.raycaster.intersect(
+      this.planes.getFloorsArrayMeshs()
+    );
+
+    // I don't think I acctually need a ray caster for this, because I am really just sending the xz coords of the model.
+    // I can probably just calculate which plane the fox is on and do the math using that. This is easier tho
+    if (intersect.length) {
+      const planePosition = intersect[0].object.position;
+      this.planes.updatePlanes(this.index, this.model.position, planePosition);
+    }
+  }
   update() {
     this.animation.mixer.update(this.time.delta * 0.001);
   }

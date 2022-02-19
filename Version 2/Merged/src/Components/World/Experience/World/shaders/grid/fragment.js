@@ -12,6 +12,7 @@ uniform int uGridType;
 //Grid Color Controls
 uniform vec3 uDepthColor;
 uniform vec3 uSurfaceColor;
+uniform vec3 middleColor;
 uniform float uColorOffset;
 uniform float uColorMultiplier;
 uniform float uOpacityMultiplier;
@@ -38,13 +39,20 @@ void main()
         float barX = step(0.4, mod(vUv.x * uGridDensity*0.5 - 0.2, 1.0)) * step(0.8, mod(vUv.y * uGridDensity*0.5, 1.0));
         float barY = step(0.8, mod(vUv.x * uGridDensity*0.5, 1.0)) * step(0.4, mod(vUv.y * uGridDensity*0.5 - 0.2, 1.0));
         strength = barX + barY;
-    }    
+    }
+       
     
     strength = clamp(strength, 0.0, 1.0);
 
     //Get Color
     float mixStrength = (vElevation + uColorOffset) * uColorMultiplier;
     vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
+    if(vUv.x < 0.01 || vUv.x > 0.99 ||vUv.y<0.01||vUv.y>0.99){
+        strength=1.0;
+        color = vec3(1.0, 0.0, 0.0);
+    } 
+    // vec3 color = mix(uSurfaceColor, middleColor, smoothstep(0.0, 0.5, mixStrength));
+    // color = mix(color, uDepthColor, smoothstep(0.5, 1.0, mixStrength));
 
     // vec3 blackColor = vec3(0.0);
     // vec3 uvColor = vec3(vUv, 1.0);

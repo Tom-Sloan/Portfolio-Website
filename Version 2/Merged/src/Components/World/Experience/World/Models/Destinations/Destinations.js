@@ -12,6 +12,8 @@ export default class Destinations {
 
     this.floorName = floorName;
     this.size = size;
+    this.distFromEdge = 8;
+    this.distanceBetweenDestinations = 30;
 
     this.labels = [
       { label: "Projectasdfasdfsadf", description: "asdfasdfasdfsadf" },
@@ -32,52 +34,43 @@ export default class Destinations {
     for (let i = 0; i < this.labels.length; i++) {
       //get position of the new element
       const position = this.getPosition();
-      console.log(position);
+
       const name = this.floorName + "-destination-" + i;
       // create the three.js element
       const destination = new Destination(this.parent, name, position);
 
       // check for destination generated in three.js
       if (destination.generated) {
-        //create the dom element
-        const labelDiv = document.createElement("div");
-        labelDiv.classList.add("hoverlabel");
-
-        const labelText = document.createTextNode(this.labels[i].label);
-        labelDiv.appendChild(labelText);
-
-        const contentDiv = document.createElement("div");
-        contentDiv.classList.add("text");
-
-        const contentText = document.createTextNode(this.labels[i].description);
-        contentDiv.appendChild(contentText);
-
-        const element = document.createElement("div");
-        element.classList.add("point");
-        element.classList.add("visible");
-        element.appendChild(labelDiv);
-        element.appendChild(contentDiv);
-
-        document.body.appendChild(element);
-        this.destinations.push({ destination, element, position, name });
+        this.destinations.push({ destination, position, name });
       }
     }
+  }
+  randomInt(max, min) {
+    return Math.round(Math.random() * (max - min)) + min;
+  }
+  oneOrMinueOne() {
+    return Math.round(Math.random()) === 0 ? 1 : -1;
   }
   getPosition() {
     let position = null;
     let generating = true;
+
     while (generating) {
       position = new THREE.Vector3(
-        Math.random() * this.size - this.size / 2 + this.offset.x,
+        this.randomInt(this.size / 2 - this.distFromEdge, 8) *
+          this.oneOrMinueOne() +
+          this.offset.x,
         0,
-        Math.random() * this.size - this.size / 2 + this.offset.z
+        this.randomInt(this.size / 2 - this.distFromEdge, 8) *
+          this.oneOrMinueOne() +
+          this.offset.z
       );
       const tooClose = this.destinations.filter(
         (n) =>
-          this.distanceTo(position, n.position) < 30 &&
-          this.distanceTo(position, new THREE.Vector3(0, 0, 0)) < 5
+          this.distanceTo(position, n.position) <
+          this.distanceBetweenDestinations
       );
-      console.log(tooClose);
+
       if (!tooClose.length) {
         generating = false;
       }
@@ -100,25 +93,14 @@ export default class Destinations {
     const destination = this.getDestinationByName(name);
     destination[0].destination.activate();
   }
+  p;
 
-  update() {
-    for (const point of this.destinations) {
-      const screenPosition = point.position.clone();
-      screenPosition.project(this.camera.instance);
-
-      this.camera.updateRaycaster(screenPosition);
-
-      const translateX = screenPosition.x * this.sizes.width * 0.5;
-      const translateY = -screenPosition.y * this.sizes.height * 0.5;
-      if (point.element)
-        point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
-    }
-  }
+  //was used for the dom elements
+  update() {}
 
   destroy() {
     this.destinations.forEach((n) => {
       n.destination.destroy();
-      n.element.remove();
     });
 
     this.destinations = [];

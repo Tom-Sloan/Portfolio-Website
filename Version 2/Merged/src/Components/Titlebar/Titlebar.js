@@ -2,7 +2,8 @@ import styles from "./Titlebar.module.css";
 
 export function Titlebar() {
   const handleClick = (e, value) => {
-    e.preventDefault();
+    e.stopPropagation();
+    window.tomsloanTeleportation = value;
     console.log(value);
   };
   return (

@@ -40,23 +40,21 @@ export function Resume() {
   // }, [resume]);
 
   return (
-    <div className={styles.resumeParent}>
+    <div onClick={(e) => e.stopPropagation()}>
       {/* <Experience human={name === "tom" ? "tom" : "dan"} /> */}
 
-      <div className={styles.pdfContainer}>
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-          <div
-            style={{
-              height: "100%",
-            }}
-          >
-            <Viewer
-              fileUrl={"./resumes/Tom_Sloan_CV_Dec_2019.pdf"}
-              plugins={[defaultLayoutPluginInstance]}
-            />
-          </div>
-        </Worker>
-      </div>
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
+        <div
+          style={{
+            height: "100%",
+          }}
+        >
+          <Viewer
+            fileUrl={"./resumes/Tom_Sloan_CV_Jan_2022.pdf"}
+            plugins={[defaultLayoutPluginInstance]}
+          />
+        </div>
+      </Worker>
     </div>
   );
 }

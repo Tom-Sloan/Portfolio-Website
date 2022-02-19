@@ -118,6 +118,23 @@ export default class Physics {
     }
   }
 
+  removeBody(name) {
+    this.bodies = this.bodies.filter((n) => {
+      if (n.name === name) {
+        this.Composite.remove(this.world, n.body, false);
+        return false;
+      }
+      return true;
+    });
+    this.detector.bodies = this.detector.bodies.filter((n) => {
+      if (n.label === name) {
+        return false;
+      }
+      return true;
+    });
+    // console.log(name, this.bodies, this.detector.bodies);
+  }
+
   generateNewBody(name, type, position, radius, mesh, callback) {
     // get color
     const color = this.getColor(type);

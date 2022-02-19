@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Experience from "../../../Experience.js";
-import galaxyVertexShader from "../../shaders/galaxy/vertex.glsl";
-import galaxyFragmentShader from "../../shaders/galaxy/fragment.glsl";
+import galaxyVertexShader from "../../shaders/galaxy/vertex.js";
+import galaxyFragmentShader from "../../shaders/galaxy/fragment.js";
 
 export default class Galaxy {
   constructor() {

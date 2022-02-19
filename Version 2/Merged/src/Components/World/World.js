@@ -8,6 +8,7 @@ export function World() {
   const [popUpState, setPopUpState] = useState(false);
   const [current, setCurrent] = useState(0);
   useEffect(() => {
+    window.tomsloanTeleportation = -1;
     const experience = new Experience(
       domReference.current,
       matterReference.current,
@@ -23,7 +24,7 @@ export function World() {
   };
 
   const callback = (event) => {
-    console.log("React: ", event.charAt(event.length - 1), event);
+    // console.log("React: ", event.charAt(event.length - 1), event);
     setCurrent(event.charAt(event.length - 1));
     setPopUpState(true);
   };
@@ -32,7 +33,7 @@ export function World() {
     <div onClick={onClickHandler}>
       {popUpState && <Information current={current} />}
       <canvas className="worldContainer" ref={domReference} />
-      <canvas ref={matterReference} />
+      <canvas className = 'matterContainer'ref={matterReference} />
     </div>
   );
 }

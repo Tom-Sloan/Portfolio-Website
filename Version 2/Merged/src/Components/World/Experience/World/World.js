@@ -29,7 +29,7 @@ export default class World {
       // the exact placement is optional, however these must be after the above
       this.environment = new Environment();
       this.asteroids = new Asteroids(0);
-      this.background = new Background();
+      // this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());
     });

@@ -114,7 +114,7 @@ void main() {
 vUv = uv;
 
   // add uTime to the noise parameters so it's animated
-  noise = 12.0 *  -.10 * turbulence( .5 * normal );
+  noise = 0.0*  -.10 * turbulence( .5 * normal );
 //   float b =100.0* pnoise( 0.05 * position + vec3( 2.0 * uTime ), vec3( 100.0 ) );
   float displacement = - noise;
 

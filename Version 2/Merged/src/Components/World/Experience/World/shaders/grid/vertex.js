@@ -14,6 +14,7 @@ void main()
     
     // vec2 drop = uDropLocation[0];
     //Iterate over all the drop spots
+    float dropEffect = 1.0;
     for(int i = 0; i < uNumberOfDrops; i++){
         //Get the drop coords
         vec3 drop = uDropLocation[i].xyz;
@@ -30,7 +31,9 @@ void main()
         float distToPoint = distance(drop.xz, modelPosition.xz );
 
         float f = dropDistance/(1.0 + exp(-1.0*kValue*(distToPoint - range/2.0)))-dropDistance;
+        //sets the model height to be decrease by the amount in f based on distance
         modelPosition.y = modelPosition.y + (1.0-step(range, distToPoint)) * f;
+        dropEffect += (1.0-step(range, distToPoint)) * dropDistance;
     }
     
     
@@ -40,5 +43,5 @@ void main()
     gl_Position = projectedPosition;
 
     vUv = uv;
-    vElevation = modelPosition.y/2.0;
+    vElevation = modelPosition.y/dropEffect;
 }`;

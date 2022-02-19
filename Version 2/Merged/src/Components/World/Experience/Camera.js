@@ -69,7 +69,7 @@ export default class Camera {
       this.params.fov,
       this.sizes.width / this.sizes.height,
       0.1,
-      300
+      3000
     );
     this.instance.position.set(this.xLocation, this.yLocation, this.zLocation);
     this.cameraGroup.add(this.instance);
@@ -82,6 +82,15 @@ export default class Camera {
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
+    // How far you can orbit vertically, upper and lower limits.
+    // Range is 0 to Math.PI radians.
+    this.controls.minPolarAngle = Math.PI / 6; // radians
+    this.controls.maxPolarAngle = Math.PI / 3; // radians
+
+    // How far you can orbit horizontally, upper and lower limits.
+    // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
+    this.controls.minAzimuthAngle = Math.PI / 8; // radians
+    this.controls.maxAzimuthAngle = Math.PI / 3; // radians
   }
 
   resize() {

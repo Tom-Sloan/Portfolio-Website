@@ -42,14 +42,19 @@ export default class Destination {
       "green",
     ];
     this.material = new THREE.MeshStandardMaterial({
-      color: colors[this.parent.name.charAt(this.parent.name.length - 1)],
+      color:
+        colors[
+          this.parent.name.charAt(this.parent.name.length - 1) % colors.length
+        ],
     });
     this.instance = new THREE.Mesh(this.geometry, this.material);
     this.instance.position.copy(this.position);
     this.instance.name = this.name;
 
     //Adding Asteroid
+    // this.parent.add(this.instance);
     this.scene.add(this.instance);
+    // console.log(this.parent);
 
     //update shader
     // drop amount, k value, the range
@@ -83,7 +88,11 @@ export default class Destination {
   }
 
   activate() {
-    this.callback(this.name);
+    const message = {
+      type: "pageView",
+      index: this.name.charAt(this.name.length - 1),
+    };
+    this.callback(message);
   }
 
   destroy() {

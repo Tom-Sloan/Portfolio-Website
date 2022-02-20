@@ -104,10 +104,7 @@ export default class Floor {
         uColorOffset: { value: this.colorOffset },
         uColorMultiplier: { value: this.colorMultiplier },
         uOpacityMultiplier: { value: this.opacityMultiplier },
-        middleColor: {
-          //orange/yellow
-          value: new THREE.Color("orange"),
-        },
+
       },
     });
   }

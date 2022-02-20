@@ -9,39 +9,41 @@ export default class Destinations {
     this.time = this.experience.time;
     this.camera = this.experience.camera;
     this.sizes = this.experience.sizes;
+    this.destinations = this.experience.destinations;
 
     this.floorName = floorName;
     this.size = size;
     this.distFromEdge = 8;
     this.distanceBetweenDestinations = 30;
 
-    this.labels = [
-      { label: "Projectasdfasdfsadf", description: "asdfasdfasdfsadf" },
-      { label: "Project", description: "asdfasdfasdfsadf" },
-      { label: "Project", description: "asdfasdfasdfsadf" },
-    ];
-    this.destinations = [];
+    this.destinationsArray = [];
     this.parent = parent;
     this.offset = parent.position;
 
     this.time.timeToRun(
       () => this.createDestinations(),
-      "to create destinations "
+      "to create destinationsArray "
     );
   }
 
   createDestinations() {
-    for (let i = 0; i < this.labels.length; i++) {
+    for (let i = 0; i < this.destinations.length; i++) {
       //get position of the new element
       const position = this.getPosition();
 
-      const name = this.floorName + "-destination-" + i;
+      const name =
+        this.floorName + "-destination-" + this.destinations[i].index;
       // create the three.js element
       const destination = new Destination(this.parent, name, position);
 
       // check for destination generated in three.js
       if (destination.generated) {
-        this.destinations.push({ destination, position, name });
+        this.destinationsArray.push({
+          destination,
+          position,
+          name,
+          type: this.destinations[i].index,
+        });
       }
     }
   }
@@ -65,7 +67,7 @@ export default class Destinations {
           this.oneOrMinueOne() +
           this.offset.z
       );
-      const tooClose = this.destinations.filter(
+      const tooClose = this.destinationsArray.filter(
         (n) =>
           this.distanceTo(position, n.position) <
           this.distanceBetweenDestinations
@@ -84,10 +86,10 @@ export default class Destinations {
   }
 
   getMeshes() {
-    return this.destinations.map((n) => n.destination.instance);
+    return this.destinationsArray.map((n) => n.destination.instance);
   }
   getDestinationByName(name) {
-    return this.destinations.filter((n) => n.name === name);
+    return this.destinationsArray.filter((n) => n.name === name);
   }
   activateByName(name) {
     const destination = this.getDestinationByName(name);
@@ -99,10 +101,10 @@ export default class Destinations {
   update() {}
 
   destroy() {
-    this.destinations.forEach((n) => {
+    this.destinationsArray.forEach((n) => {
       n.destination.destroy();
     });
 
-    this.destinations = [];
+    this.destinationsArray = [];
   }
 }

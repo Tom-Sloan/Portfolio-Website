@@ -14,6 +14,7 @@ export default class Fox {
     this.planes = this.experience.world.floors;
     this.camera = this.experience.camera;
     this.physics = this.experience.world.physics;
+    this.destinations = this.experience.destinations;
     this.name = "model";
 
     this.speed = 30;
@@ -292,6 +293,62 @@ export default class Fox {
     //   y: 0,
     // });
   }
+
+  //Teleportation function of the player
+  movePlayerToLocation(destinationType) {
+    //Gets all the floors, the merges all the destinations
+    let destination = [];
+
+    this.planes.planesArray.forEach(
+      (n) =>
+        (destination = destination.concat(n.destinations.destinationsArray))
+    );
+
+    const nearest = this.getNearestOfType(destination);
+
+    const dest = nearest.filter((n) => n.type === destinationType);
+
+    if (dest.length) {
+      const location = dest[0].position.clone();
+      location.x = location.x + 7;
+      location.z = location.z + 7;
+      this.updatePosition(location);
+    } else {
+      console.log("Invalid Teleport location");
+    }
+  }
+
+  //to get the nearest of each destination type
+  getNearestOfType(destinations) {
+    // works by iterating over the length of the destinations array, ince this has all the types.
+    // Then using the reduce function it will check the type then the distance and pass on the shortest distance
+    const closest = [];
+
+    for (let i = 0; i < this.destinations.length; i++) {
+      const type = this.destinations[i].index;
+      const output = destinations.reduce((prev, curr) => {
+        if (prev !== null && curr.type === type) {
+          if (
+            this.getDistanceToPlayer(prev.position) >
+            this.getDistanceToPlayer(curr.position)
+          )
+            return curr;
+          return prev;
+        } else if (curr.type === type) {
+          return curr;
+        }
+        return prev;
+      }, null);
+      closest.push(output);
+    }
+    return closest;
+  }
+  getDistanceToPlayer(point) {
+    return Math.sqrt(
+      Math.pow(this.model.position.x - point.x, 2) +
+        Math.pow(this.model.position.z - point.z, 2)
+    );
+  }
   updatePosition(location) {
     this.model.position.setX(location.x);
     this.model.position.setZ(location.z);
@@ -327,5 +384,11 @@ export default class Fox {
   }
   update() {
     this.animation.mixer.update(this.time.delta * 0.001);
+
+    if (window.tomsloanTeleportation !== -1) {
+      console.log("Val: ", window.tomsloanTeleportation);
+      this.movePlayerToLocation(window.tomsloanTeleportation);
+      window.tomsloanTeleportation = -1;
+    }
   }
 }

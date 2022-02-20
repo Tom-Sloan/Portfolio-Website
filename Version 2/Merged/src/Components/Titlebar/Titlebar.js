@@ -1,6 +1,6 @@
 import styles from "./Titlebar.module.css";
 
-export function Titlebar() {
+export function Titlebar({ destinations }) {
   const handleClick = (e, value) => {
     e.stopPropagation();
     window.tomsloanTeleportation = value;
@@ -8,18 +8,29 @@ export function Titlebar() {
   };
   return (
     <div id="titleHeader" className={styles.titleHeader}>
-      <div className={`${styles.label}`} onClick={(e) => handleClick(e, 0)}>
-        Projects
-      </div>
-      <div
-        className={`${styles.label} ${styles.centerLabel}`}
-        onClick={(e) => handleClick(e, 1)}
-      >
-        Resume
-      </div>
-      <div className={`${styles.label}`} onClick={(e) => handleClick(e, 2)}>
-        Contact Me
-      </div>
+      {destinations.map((n, i) => {
+        if (i === 0 || i === destinations.length - 1) {
+          return (
+            <div
+              key={n.name + "titlebar-label"}
+              className={`${styles.label}`}
+              onClick={(e) => handleClick(e, n.index)}
+            >
+              {n.name}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              key={n.name + "titlebar-label"}
+              className={`${styles.label} ${styles.centerLabel}`}
+              onClick={(e) => handleClick(e, n.index)}
+            >
+              {n.name}
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

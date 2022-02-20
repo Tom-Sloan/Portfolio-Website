@@ -6,6 +6,7 @@ import Background from "./Models/Background/Background.js";
 import Fox from "./Models/Fox.js";
 import Physics from "./Physics.js";
 import * as THREE from "three";
+import RotationPractise from "./Models/RotationPractise.js";
 
 export default class World {
   constructor() {
@@ -29,6 +30,7 @@ export default class World {
       // the exact placement is optional, however these must be after the above
       this.environment = new Environment();
       this.asteroids = new Asteroids(0);
+      this.rotationPractise = new RotationPractise();
       // this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());
@@ -39,11 +41,12 @@ export default class World {
     this.environment.updateEnviromentMap();
   }
   updateClick() {
-    //check if it intercets with a floor
+    // check if it intercets with a floor
     this.floors.updateClick();
     if (this.floors.intersect.length) {
       this.fox.move(this.floors.point);
     }
+    this.rotationPractise.update();
   }
 
   update() {

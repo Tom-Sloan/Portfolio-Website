@@ -12,7 +12,6 @@ uniform int uGridType;
 //Grid Color Controls
 uniform vec3 uDepthColor;
 uniform vec3 uSurfaceColor;
-uniform vec3 middleColor;
 uniform float uColorOffset;
 uniform float uColorMultiplier;
 uniform float uOpacityMultiplier;
@@ -47,6 +46,7 @@ void main()
     //Get Color
     float mixStrength = (vElevation + uColorOffset) * uColorMultiplier;
     vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
+    // vec3 color = vec3(1.0);
     if(vUv.x < 0.01 || vUv.x > 0.99 ||vUv.y<0.01||vUv.y>0.99){
         strength=1.0;
         color = vec3(1.0, 0.0, 0.0);
@@ -68,5 +68,5 @@ void main()
     
 
     // gl_FragColor =  vec4(vec3(0.6), 1.0 ) ;
-    gl_FragColor =  vec4(color, strength * uOpacityMultiplier) ;
+    gl_FragColor =  vec4(color, strength) ;
 }`;

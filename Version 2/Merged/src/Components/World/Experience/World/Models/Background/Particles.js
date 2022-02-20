@@ -12,11 +12,11 @@ export default class Particles {
     this.resources = this.experience.resources;
 
     this.location = location;
-    this.particlesCount = 20000;
+    this.particlesCount = 10000;
     this.positions = new Float32Array(this.particlesCount * 3);
     this.scales = new Float32Array(this.particlesCount * 1); // used to apply randomness to point size
-    this.depth = 3;
-    this.height = 65;
+    this.depth = 10;
+    this.height = 35;
     this.colors = new Float32Array(this.particlesCount * 3);
     this.size = 0.35;
     this.range = range;
@@ -55,7 +55,7 @@ export default class Particles {
     for (let i = 0; i < this.particlesCount; i++) {
       this.positions[i * 3 + 0] =
         (Math.random() - 0.5) * this.range + this.location.x;
-      this.positions[i * 3 + 1] = this.depth + Math.random() * this.height;
+      this.positions[i * 3 + 1] = -this.depth + Math.random() * this.height;
       this.positions[i * 3 + 2] =
         (Math.random() - 0.5) * this.range + this.location.z;
 
@@ -102,7 +102,7 @@ export default class Particles {
       size: this.size,
       vertexColors: true,
       map: this.resources.items.particleTexture,
-      transparent: true,
+      // transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     });

@@ -15,7 +15,7 @@ import Mouse from "./Utils/Mouse.js";
 let instance = null;
 
 export default class Experience {
-  constructor(_canvas, _matterjs, callback) {
+  constructor(_canvas, _matterjs, callback, destinations) {
     // Singleton
     if (instance) {
       return instance;
@@ -29,6 +29,7 @@ export default class Experience {
     this.canvas = _canvas;
     this.matterjsCanvas = _matterjs;
     this.callback = callback;
+    this.destinations = destinations;
 
     // Setup
     this.debug = new Debug();

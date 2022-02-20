@@ -193,23 +193,6 @@ export default class Floors extends EventEmitter {
     this.updateDropsInfo(index, { x: 0, y: 0, z: 0 });
     this.planeInfo.releasedIndexes.push(index);
   }
-  movePlayerToLocation() {
-    if (!this.player) this.player = this.experience.world.fox;
-    console.log(this.player.getCurrentFloor());
-    const floor = this.player.getCurrentFloor();
-    if (floor) {
-      const dest =
-        this.getFloorByName(floor.name)[0].destinations.destinations[
-          window.tomsloanTeleportation
-        ] || false;
-      if (dest) {
-        const location = dest.position.clone();
-        location.x = location.x + 7;
-        location.z = location.z + 7;
-        this.player.updatePosition(location);
-      }
-    }
-  }
 
   updateClick() {
     this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());
@@ -220,7 +203,7 @@ export default class Floors extends EventEmitter {
       // console.log(floor);
       if (floor.length) {
         const dest = this.mouse.intersect(floor[0].destinations.getMeshes());
-        // console.log(dest);
+        console.log(dest);
         if (dest.length) {
           floor[0].destinations.activateByName(dest[0].object.name);
           this.intersect = [];
@@ -331,11 +314,6 @@ export default class Floors extends EventEmitter {
 
   update() {
     this.planesArray.forEach((n) => n.update());
-    if (window.tomsloanTeleportation !== -1) {
-      console.log("Val: ", window.tomsloanTeleportation);
-      this.movePlayerToLocation();
-      window.tomsloanTeleportation = -1;
-    }
   }
 
   setDebug() {

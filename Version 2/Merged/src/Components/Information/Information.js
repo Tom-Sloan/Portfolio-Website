@@ -4,7 +4,7 @@ import { Contact } from "./Contact";
 import { Resume } from "./Resume/Resume";
 export function Information({ current }) {
   let element = <div></div>;
-  console.log(current);
+  // console.log(current);
   if (current === "0") {
     element = <Projects />;
   } else if (current === "1") {

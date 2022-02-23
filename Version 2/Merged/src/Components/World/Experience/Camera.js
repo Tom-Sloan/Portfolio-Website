@@ -143,7 +143,7 @@ export default class Camera {
   }
 
   intersect(object) {
-    return this.raycaster.intersectObjects(object);
+    return this.raycaster.intersectObjects(object, true);
   }
 
   updateRaycaster(location) {

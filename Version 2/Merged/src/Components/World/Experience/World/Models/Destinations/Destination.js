@@ -17,6 +17,9 @@ export default class Destination {
     this.size = 6;
     this.parent = parent;
 
+    this.model = this.resources.items.hoverPlatformModel.scene.clone();
+    console.log(this.model);
+    this.model.scale.set(0.5, 0.5, 0.5);
     this.generated = this.generate();
   }
 
@@ -31,30 +34,14 @@ export default class Destination {
     }
     //https://discourse.threejs.org/t/how-to-clone-a-model-thats-loaded-with-gltfloader/23723/6
     //Creating Destination
-    this.geometry = this.experience.world.testGeo;
-    const colors = [
-      "blue",
-      "orange",
-      "brown",
-      "purple",
-      "red",
-      "black",
-      "green",
-    ];
-    this.material = new THREE.MeshStandardMaterial({
-      color:
-        colors[
-          this.parent.name.charAt(this.parent.name.length - 1) % colors.length
-        ],
-    });
-    this.instance = new THREE.Mesh(this.geometry, this.material);
+    this.instance = this.model;
     this.instance.position.copy(this.position);
     this.instance.name = this.name;
 
     //Adding Asteroid
     // this.parent.add(this.instance);
     this.scene.add(this.instance);
-    // console.log(this.parent);
+    console.log(this.instance);
 
     //update shader
     // drop amount, k value, the range
@@ -97,8 +84,6 @@ export default class Destination {
 
   destroy() {
     this.physics.removeBody(this.name);
-    this.geometry.dispose();
-    this.material.dispose();
     this.scene.remove(this.instance);
     this.planes.removeIndex(this.index);
   }

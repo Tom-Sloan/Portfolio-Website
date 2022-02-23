@@ -68,7 +68,9 @@ export function Contact() {
     // element.addEventListener("tiltChange", callback);
   }, []);
   return (
-    <div style={{minHeight:'80vh', height: "fit-content", color: "var(--text)" }}>
+    <div
+      style={{ minHeight: "80vh", height: "fit-content", color: "var(--text)" }}
+    >
       <Card elements={contactInformation} />
       {/* <h2 style={{ textAlign: 'center' }} >Get in Touch</h2>
             <hr /> */}

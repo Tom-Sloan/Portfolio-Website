@@ -79,7 +79,7 @@ function Card({
       {elements.map((elm, index) => {
         if (index < limit) {
           return (
-            <div className={`${styles.card} cardContent`}>
+            <div key={"card-" + index} className={`${styles.card} cardContent`}>
               {(elm.hasOwnProperty("removeNumbers") && !elm.removeNumbers) ||
               !elm.hasOwnProperty("removeNumbers") ? (
                 <h2>{"0" + (index + 1)}</h2>
@@ -101,9 +101,10 @@ function Card({
                 <p>{elm.subtitle}</p>
                 <div>
                   {elm.category &&
-                    elm.category.map((item) => {
+                    elm.category.map((item, tagIndex) => {
                       return (
                         <span
+                          key={"card-tag-" + tagIndex}
                           className={styles.tags}
                           style={{ background: item.color }}
                         >
@@ -114,8 +115,10 @@ function Card({
                 </div>
                 {elm.link &&
                   ((Array.isArray(elm.link) &&
-                    elm.link.map((link) => (
-                      <a href={link.link}>{link.text || "Read More"}</a>
+                    elm.link.map((link, linkIndex) => (
+                      <a key={"card-link-" + linkIndex} href={link.link}>
+                        {link.text || "Read More"}
+                      </a>
                     ))) || <a href={elm.link}>Read More</a>)}
               </div>
             </div>

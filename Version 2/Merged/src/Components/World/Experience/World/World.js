@@ -30,7 +30,7 @@ export default class World {
       // the exact placement is optional, however these must be after the above
       this.environment = new Environment();
       this.asteroids = new Asteroids(0);
-      this.rotationPractise = new RotationPractise();
+      // this.rotationPractise = new RotationPractise();
       // this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());
@@ -43,10 +43,11 @@ export default class World {
   updateClick() {
     // check if it intercets with a floor
     this.floors.updateClick();
-    if (this.floors.intersect.length) {
+    if (this.floors.floorClick) {
       this.fox.move(this.floors.point);
+      this.floors.floorClick = false;
     }
-    this.rotationPractise.update();
+    // this.rotationPractise.update();
   }
 
   update() {

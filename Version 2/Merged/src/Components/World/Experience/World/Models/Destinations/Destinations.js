@@ -88,14 +88,14 @@ export default class Destinations {
   getMeshes() {
     return this.destinationsArray.map((n) => n.destination.instance);
   }
-  getDestinationByName(name) {
-    return this.destinationsArray.filter((n) => n.name === name);
+  getDestinationByType(type) {
+    return this.destinationsArray.filter((n) => n.type === type);
   }
   activateByName(name) {
-    const destination = this.getDestinationByName(name);
+    const type = parseInt(name.charAt(name.length - 1));
+    const destination = this.getDestinationByType(type);
     destination[0].destination.activate();
   }
-  p;
 
   //was used for the dom elements
   update() {}

@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import Experience from "./Experience/Experience.js";
 import { Information } from "../Information/Information.js";
 import { Compass } from "../Compass/Compass";
+import { HelpDisplay } from "../Help/HelpDisplay.js";
 
 export function World({ destinations }) {
   const domReference = useRef();
   const matterReference = useRef();
   const [popUpState, setPopUpState] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [compassValues, setCompassValues] = useState(destinations);
 
   useEffect(() => {
     window.tomsloanTeleportation = -1;
@@ -28,6 +30,12 @@ export function World({ destinations }) {
 
   const callback = (event) => {
     if (event.type === "compassUpdate") {
+      let temp = compassValues.map((n) => ({
+        ...n,
+        angle: event.data[n.index].angle,
+      }));
+
+      setCompassValues(temp);
     } else if (event.type === "pageView") {
       setCurrent(event.index);
       setPopUpState(true);
@@ -39,7 +47,8 @@ export function World({ destinations }) {
       {popUpState && <Information current={current} />}
       <canvas className="worldContainer" ref={domReference} />
       <canvas className="matterContainer" ref={matterReference} />
-      <Compass />
+      <Compass compassValues={compassValues} />
+      <HelpDisplay />
     </div>
   );
 }

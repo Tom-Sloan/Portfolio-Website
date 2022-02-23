@@ -20,7 +20,7 @@ export function Projects() {
   }, []);
   return (
     <div className={styles.projectList}>
-      {/*onChange={updateWindowDimensions}*/}
+      
       {projects.length > 0 &&
         projects.map((data, idx) => (
           <div

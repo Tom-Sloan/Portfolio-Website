@@ -1,0 +1,17 @@
+.helpContainer {
+  width: 300px;
+  height: 300px;
+  position: fixed;
+  top: 5%;
+  right: 5%;
+
+  text-align: right;
+  display: none;
+}
+.instructions {
+  background-color: white;
+  width: 100%;
+  position: relative;
+  top: 5%;
+  right: 0%;
+}

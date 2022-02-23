@@ -18,6 +18,7 @@
 }
 html {
   overflow: hidden;
+  outline: none;
 }
 .js-tilt-glare {
   border-radius: inherit;

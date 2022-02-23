@@ -37,4 +37,9 @@ export default [
     type: "texture",
     path: "/static/textures/asteroid1/explosion.png",
   },
+  {
+    name: "hoverPlatformModel",
+    type: "gltfModel",
+    path: "/static/models/hoverPlatform/hoverPlatform.glb",
+  },
 ];

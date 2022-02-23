@@ -13,7 +13,7 @@ export function Information({ current }) {
     element = <Contact />;
   }
   return (
-    <div className={styles.modal}>
+    <div className={styles.modal} onMouseMove={(e) => e.stopPropagation()}>
       <div className={styles.modal_container}>
         <div className={styles.modal_content}>{element}</div>
       </div>

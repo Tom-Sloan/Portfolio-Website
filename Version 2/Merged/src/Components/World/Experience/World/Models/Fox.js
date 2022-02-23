@@ -3,6 +3,7 @@ import Experience from "../../Experience.js";
 import gsap from "gsap";
 import ModelRaycaster from "./ModelRaycaster.js";
 import { Vector2 } from "three";
+import RotationPractise from "./RotationPractise.js";
 
 export default class Fox {
   constructor() {
@@ -15,10 +16,15 @@ export default class Fox {
     this.camera = this.experience.camera;
     this.physics = this.experience.world.physics;
     this.destinations = this.experience.destinations;
-    this.name = "model";
+    this.callback = this.experience.callback;
 
+    this.name = "model";
+    this.yRot = 0;
     this.speed = 30;
     this.collisionDistance = 2;
+    this.sphericals = new Array(this.destinations.length).fill(
+      new THREE.Spherical()
+    );
 
     // Debug
     if (this.debug.active) {
@@ -35,16 +41,13 @@ export default class Fox {
     this.setAnimation();
 
     this.camera.instance.lookAt(this.model.position);
+
+    this.rotationController = new RotationPractise(this.model.position);
+    //get angles of nearest destinations
+    this.updateCompass();
   }
   setDebug() {
     this.debugFolder.add(this, "speed").min(1).max(20).step(0.1);
-  }
-
-  setCube() {
-    this.geometry = new THREE.BoxGeometry(3, 3, 3);
-    this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    this.cube = new THREE.Mesh(this.geometry, this.material);
-    this.scene.add(this.cube);
   }
 
   setPhysics() {
@@ -73,12 +76,6 @@ export default class Fox {
     this.model.scale.set(0.02, 0.02, 0.02);
     this.scene.add(this.model);
 
-    // this.model.traverse((child) => {
-    //   if (child instanceof THREE.Mesh) {
-    //     child.castShadow = true;
-    //   }
-    // });
-
     this.raycaster = new ModelRaycaster(this.model.position);
 
     //Add inital drop
@@ -98,33 +95,36 @@ export default class Fox {
 
     // if (this.debug.active) this.createHelper();
   }
+  //Move controls two animations
+  // 1. the rotation animation
+  // 2. the location animation
   move(destination) {
+    //
+    // const point2 = new Vector2(this.model.position.x, this.model.position.z);
+    // if (this.model.position.x === 0 && this.model.position.z === 0) {
+    //   point2.y = 10;
+    // }
+    // const point1 = new Vector2(0, 0);
+    // const point4 = new Vector2(destination.x, destination.z);
+    // const point3 = new Vector2(0, 0);
+    // const p12x = point2.x - point1.x;
+    // const p12y = point2.y - point1.y;
+    // const p34x = point4.x - point3.x;
+    // const p34y = point4.y - point3.y;
+    // // console.log(p12x, p12y, p34x, p34y);
+    // const angle = Math.acos(
+    //   (p12x * p34x + p12y * p34y) /
+    //     (Math.sqrt(Math.pow(p12x, 2) + Math.pow(p12y, 2)) *
+    //       Math.sqrt(Math.pow(p34x, 2) + Math.pow(p34y, 2)))
+    // );
+    // console.log((angle * 180) / Math.PI);
     let direction = destination.clone();
     direction.sub(this.model.position);
-
-    const point2 = new Vector2(this.model.position.x, this.model.position.z);
-    if (this.model.position.x === 0 && this.model.position.z === 0) {
-      point2.y = 10;
-    }
-    const point1 = new Vector2(0, 0);
-    const point4 = new Vector2(destination.x, destination.z);
-    const point3 = new Vector2(0, 0);
-    const p12x = point2.x - point1.x;
-    const p12y = point2.y - point1.y;
-    const p34x = point4.x - point3.x;
-    const p34y = point4.y - point3.y;
-    // console.log(p12x, p12y, p34x, p34y);
-    const angle = Math.acos(
-      (p12x * p34x + p12y * p34y) /
-        (Math.sqrt(Math.pow(p12x, 2) + Math.pow(p12y, 2)) *
-          Math.sqrt(Math.pow(p34x, 2) + Math.pow(p34y, 2)))
-    );
-    // console.log((angle * 180) / Math.PI);
-
+    //Location animation
     const totalLength = direction.length();
 
     const timeToRun = totalLength / this.speed;
-    // this.model.lookAt(direction);
+
     gsap.to(this.model.position, {
       duration: timeToRun,
       ease: "linear",
@@ -132,19 +132,43 @@ export default class Fox {
       x: destination.x,
       z: destination.z,
       onStart: this.startMovement,
-      onStartParams: [this, angle],
+      onStartParams: [this],
       onUpdate: this.updateMovement,
       onUpdateParams: [this],
       onComplete: this.completeMovement,
       onCompleteParams: [this],
     });
+    //rotation animation
+    //Get amount to rotate
+    this.rotationStartMovement(destination);
+    const rotationTime = 0.5;
+    //rotate
+    gsap.to(this.model.rotation, {
+      duration: rotationTime,
+      ease: "linear",
+      overwrite: "auto",
+      y: this.yRot,
+      onUpdate: this.rotationUpdateMovement,
+      onUpdateParams: [this],
+    });
   }
-  startMovement(instance, angle) {
+
+  rotationStartMovement(destination) {
+    this.rotationController.offset = 0;
+    this.yRot = this.rotationController.getYRot(destination);
+    this.rotationController.offset = this.yRot;
+  }
+  rotationUpdateMovement(instance) {
+    let elem = this.targets()[0];
+    const yVal = gsap.getProperty(elem, "y");
+
+    instance.rotationController.offset = yVal;
+    instance.updateCompass();
+  }
+
+  startMovement(instance) {
     instance.camera.savePostition(instance.model.position);
     instance.animation.play("running");
-    if (instance.helperRay) {
-      instance.updateHelper(instance.model.position, angle);
-    }
   }
   completeMovement(instance) {
     instance.animation.play("idle");
@@ -164,12 +188,10 @@ export default class Fox {
 
     //Update Camera
     instance.camera.movePosition({ x: xVal, z: zVal });
-    // instance.camera.instance.lookAt(instance.model.position);
 
     //Update Raycaster
     instance.raycaster.update({ x: xVal, z: zVal });
 
-    // instance.cube.position.copy(instance.model.position);
     //update Physics
     instance.physics.updatePosition(instance.name, instance.model.position);
 
@@ -188,6 +210,9 @@ export default class Fox {
         planePosition
       );
     }
+
+    //update Rotation mechanism
+    instance.rotationController.setPosition(instance.model.position);
   }
 
   createHelper() {
@@ -294,17 +319,14 @@ export default class Fox {
     // });
   }
 
-  //Teleportation function of the player
+  // Teleportation function of the player
   movePlayerToLocation(destinationType) {
-    //Gets all the floors, the merges all the destinations
-    let destination = [];
+    const destination = this.planes.getAllDestinations();
 
-    this.planes.planesArray.forEach(
-      (n) =>
-        (destination = destination.concat(n.destinations.destinationsArray))
+    const nearest = this.planes.getNearestOfType(
+      destination,
+      this.model.position
     );
-
-    const nearest = this.getNearestOfType(destination);
 
     const dest = nearest.filter((n) => n.type === destinationType);
 
@@ -316,33 +338,37 @@ export default class Fox {
     } else {
       console.log("Invalid Teleport location");
     }
+    //For the compass updating
+    //update Rotation mechanism
+    this.rotationController.setPosition(this.model.position);
+
+    //get angles of nearest destinations
+    this.updateCompass();
   }
 
-  //to get the nearest of each destination type
-  getNearestOfType(destinations) {
-    // works by iterating over the length of the destinations array, ince this has all the types.
-    // Then using the reduce function it will check the type then the distance and pass on the shortest distance
-    const closest = [];
+  //Update Compass
+  // this works by getting the closest destinations of each type
+  // setting their location to the array of sphericals (so we have access to their attributes)
+  // setting the callback to have the proper type and return the array with the values
+  // the percent parameter gives the percent of the way from the starting position to the final position the value should be
+  updateCompass() {
+    const destination = this.planes.getAllDestinations();
 
-    for (let i = 0; i < this.destinations.length; i++) {
-      const type = this.destinations[i].index;
-      const output = destinations.reduce((prev, curr) => {
-        if (prev !== null && curr.type === type) {
-          if (
-            this.getDistanceToPlayer(prev.position) >
-            this.getDistanceToPlayer(curr.position)
-          )
-            return curr;
-          return prev;
-        } else if (curr.type === type) {
-          return curr;
-        }
-        return prev;
-      }, null);
-      closest.push(output);
-    }
-    return closest;
+    const nearest = this.planes.getNearestOfType(
+      destination,
+      this.model.position
+    );
+
+    const message = {
+      type: "compassUpdate",
+      data: nearest.map((n) => ({
+        index: n.type,
+        angle: this.rotationController.getYRot(n.position),
+      })),
+    };
+    this.callback(message);
   }
+
   getDistanceToPlayer(point) {
     return Math.sqrt(
       Math.pow(this.model.position.x - point.x, 2) +
@@ -350,6 +376,7 @@ export default class Fox {
     );
   }
   updatePosition(location) {
+    //move model
     this.model.position.setX(location.x);
     this.model.position.setZ(location.z);
 
@@ -366,7 +393,6 @@ export default class Fox {
       z: this.model.position.z,
     });
 
-    // this.cube.position.copy(this.model.position);
     //update Physics
     this.physics.updatePosition(this.name, this.model.position);
 
@@ -382,9 +408,16 @@ export default class Fox {
       this.planes.updatePlanes(this.index, this.model.position, planePosition);
     }
   }
+  //Parts of Update:
+  // 1. update animation
+  // 2. update compass
+  // 3. check for teleport
   update() {
+    //1.
     this.animation.mixer.update(this.time.delta * 0.001);
-
+    //2.
+    // this.updateCompass();
+    //3.
     if (window.tomsloanTeleportation !== -1) {
       console.log("Val: ", window.tomsloanTeleportation);
       this.movePlayerToLocation(window.tomsloanTeleportation);

@@ -66,6 +66,11 @@ export default class Experience {
       this.update();
       stats.end();
     });
+
+    // On W press
+    this.mouse.on("cameraChange", () => {
+      this.wPress();
+    });
   }
 
   mouseClick() {
@@ -80,6 +85,10 @@ export default class Experience {
     this.camera.resize();
     this.renderer.resize();
     this.world.resize();
+  }
+
+  wPress() {
+    this.camera.changeView();
   }
 
   update() {

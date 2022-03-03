@@ -13,8 +13,8 @@ export default class Destinations {
 
     this.floorName = floorName;
     this.size = size;
-    this.distFromEdge = 8;
-    this.distanceBetweenDestinations = 30;
+    this.distFromEdge = 50;
+    this.distanceBetweenDestinations = 20;
 
     this.destinationsArray = [];
     this.parent = parent;

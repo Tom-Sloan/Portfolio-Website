@@ -25,6 +25,7 @@ export default class RotationPractise {
     this.setCube();
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Cube");
+      this.debugFolder.close();
       this.setDebug();
     }
   }
@@ -112,6 +113,50 @@ export default class RotationPractise {
         ? initalAngle + 2 * Math.PI
         : initalAngle - 2 * Math.PI;
     return initalAngle;
+  }
+
+  getYRotRaw(location, previous, count) {
+    location.y = this.cube.position.y;
+
+    this.cube.lookAt(location);
+    let initalAngle =
+      (Math.abs(this.cube.rotation.x) === 0
+        ? this.cube.rotation.y
+        : this.cube.rotation.y < 0
+        ? -Math.PI - this.cube.rotation.y
+        : Math.PI - this.cube.rotation.y) - this.offset;
+
+    if (previous < 0 && initalAngle >= Math.PI + previous) {
+      console.log(
+        "subbing: ",
+        previous < 0 && initalAngle >= Math.PI + previous,
+        previous < 0,
+        initalAngle >= Math.PI + previous
+      );
+      count--;
+    } else if (previous > 0 && initalAngle <= -Math.PI + previous) {
+      console.log(
+        "adding: ",
+        previous > 0 && initalAngle <= Math.PI + previous,
+        previous > 0,
+        initalAngle <= Math.PI + previous
+      );
+      count++;
+    }
+
+    console.log(initalAngle, count);
+    // initalAngle =
+    //   initalAngle <= Math.PI && initalAngle >= -Math.PI
+    //     ? initalAngle
+    //     : initalAngle < -Math.PI
+    //     ? initalAngle + 2 * Math.PI
+    //     : initalAngle - 2 * Math.PI;
+
+    return {
+      yRot: count * 2 * Math.PI + initalAngle,
+      previous: initalAngle,
+      rotationCount: count,
+    };
   }
   setPosition(location) {
     this.cube.position.set(location.x, location.y, location.z);

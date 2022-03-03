@@ -9,7 +9,7 @@ export function World({ destinations }) {
   const matterReference = useRef();
   const [popUpState, setPopUpState] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [compassValues, setCompassValues] = useState(destinations);
+  const [compassValues, setCompassValues] = useState([]);
 
   useEffect(() => {
     window.tomsloanTeleportation = -1;
@@ -30,9 +30,9 @@ export function World({ destinations }) {
 
   const callback = (event) => {
     if (event.type === "compassUpdate") {
-      let temp = compassValues.map((n) => ({
-        ...n,
-        angle: event.data[n.index].angle,
+      let temp = event.data.map((n) => ({
+        ...destinations[n.index],
+        angle: n.angle,
       }));
 
       setCompassValues(temp);

@@ -7,6 +7,9 @@ import { Viewer } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { Experience } from "./Experience";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 export function Resume() {
   // const [resume, setResume] = useState();
@@ -40,20 +43,19 @@ export function Resume() {
   // }, [resume]);
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
-      {/* <Experience human={name === "tom" ? "tom" : "dan"} /> */}
+    <div className={styles.parent} onClick={(e) => e.stopPropagation()}>
+      {/* <Experience /> */}
+      <a target="_blank" download="./resumes/Tom_Sloan_CV_Jan_2022.pdf" href="">
+        <button className={styles.btnDownload}>
+          <FontAwesomeIcon icon={faDownload} className={styles.helpIcon} />
+        </button>
+      </a>
 
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
-        <div
-          style={{
-            height: "100%",
-          }}
-        >
-          <Viewer
-            fileUrl={"./resumes/Tom_Sloan_CV_Jan_2022.pdf"}
-            plugins={[defaultLayoutPluginInstance]}
-          />
-        </div>
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
+        <Viewer
+          fileUrl={"./resumes/Tom_Sloan_CV_Jan_2022.pdf"}
+          // plugins={[defaultLayoutPluginInstance]}
+        />
       </Worker>
     </div>
   );

@@ -17,6 +17,7 @@ export default class Camera {
     this.xLocation = 21;
     this.yLocation = 30;
     this.zLocation = 21;
+    this.thirdPerson = true;
 
     this.raycaster = new THREE.Raycaster();
     this.params = {};
@@ -58,6 +59,8 @@ export default class Camera {
           console.log(this);
         });
 
+      this.thirdPersonCamera.setDebug(this.debugFolder);
+
       this.params.getCameraPosition = () => console.log(this.instance.position);
       this.debugFolder.add(this.params, "getCameraPosition");
     }
@@ -73,6 +76,11 @@ export default class Camera {
     );
     this.instance.position.set(this.xLocation, this.yLocation, this.zLocation);
     this.cameraGroup.add(this.instance);
+
+    this.thirdPersonCamera = new ThirdPersonCamera(
+      this.instance,
+      this.debug.active ? this.debugFolder : false
+    );
   }
   setGroup() {
     this.cameraGroup = new THREE.Group();
@@ -98,6 +106,12 @@ export default class Camera {
     this.instance.updateProjectionMatrix();
   }
 
+  changeView() {
+    console.log("changing view");
+    // this.thirdPerson != this.thirdPerson;
+    console.log(this.thirdPerson);
+  }
+
   updatePosition() {
     const mouse = this.experience.mouse.instance;
     const parallaxX = mouse.x;
@@ -120,21 +134,30 @@ export default class Camera {
   }
 
   movePosition(location) {
-    let xVal = this.xLocation + location.x;
-    let zVal = this.zLocation + location.z;
+    if (!this.thirdPerson) {
+      let xVal = this.xLocation + location.x;
+      let zVal = this.zLocation + location.z;
 
-    this.instance.position.setX(xVal);
-    this.instance.position.setZ(zVal);
+      this.instance.position.setX(xVal);
+      this.instance.position.setZ(zVal);
+      if (this.orbit) {
+        gsap.to(this.controls.target, {
+          duration: 0,
+          overwrite: "auto",
+          x: location.x,
+          z: location.z,
+          onUpdate: this.updateControlsAnimation,
+          onUpdateParams: [this],
+        });
+      }
+    }
+  }
 
-    if (this.orbit) {
-      gsap.to(this.controls.target, {
-        duration: 0,
-        overwrite: "auto",
-        x: location.x,
-        z: location.z,
-        onUpdate: this.updateControlsAnimation,
-        onUpdateParams: [this],
-      });
+  setThirdPerson(mesh) {
+    this.thirdPersonCamera.setTarget(mesh);
+
+    if (this.thirdPerson) {
+      this.thirdPersonCamera.update(this.time.elapsed);
     }
   }
 
@@ -155,5 +178,68 @@ export default class Camera {
 
   update() {
     if (this.orbit) this.controls.update();
+    if (this.thirdPerson) this.thirdPersonCamera.update(this.time.elapsed);
+  }
+}
+
+class ThirdPersonCamera {
+  constructor(camera) {
+    this._camera = camera;
+
+    this._currentPosition = new THREE.Vector3();
+    this._currentLookat = new THREE.Vector3();
+
+    this.idealOffsetValues = {
+      x: 0,
+      y: 14.5,
+      z: -19,
+    };
+    this.idealLookAtValues = {
+      x: 0,
+      y: 0,
+      z: 8.5,
+    };
+  }
+  setTarget(target) {
+    this._target = target;
+  }
+
+  _CalculateIdealOffset() {
+    const idealOffset = new THREE.Vector3().copy(this.idealOffsetValues);
+    idealOffset.applyQuaternion(this._target.quaternion);
+    idealOffset.add(this._target.position);
+    return idealOffset;
+  }
+
+  _CalculateIdealLookat() {
+    const idealLookat = new THREE.Vector3().copy(this.idealLookAtValues);
+    idealLookat.applyQuaternion(this._target.quaternion);
+    idealLookat.add(this._target.position);
+    return idealLookat;
+  }
+  setDebug(debug) {
+    debug.add(this.idealOffsetValues, "x").max(30).min(-30).step(0.5);
+    debug.add(this.idealOffsetValues, "y").max(30).min(-30).step(0.5);
+    debug.add(this.idealOffsetValues, "z").max(30).min(-30).step(0.5);
+    debug.add(this.idealLookAtValues, "x").max(30).min(-30).step(0.5);
+    debug.add(this.idealLookAtValues, "y").max(30).min(-30).step(0.5);
+    debug.add(this.idealLookAtValues, "z").max(30).min(-30).step(0.5);
+  }
+
+  update(timeElapsed) {
+    if (!this._target) return;
+
+    const idealOffset = this._CalculateIdealOffset();
+    const idealLookat = this._CalculateIdealLookat();
+
+    // const t = 0.05;
+    // const t = 4.0 * timeElapsed;
+    const t = 1.0 - Math.pow(0.001, timeElapsed);
+
+    this._currentPosition.lerp(idealOffset, t);
+    this._currentLookat.lerp(idealLookat, t);
+
+    this._camera.position.copy(this._currentPosition);
+    this._camera.lookAt(this._currentLookat);
   }
 }

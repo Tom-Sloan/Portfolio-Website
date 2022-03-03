@@ -47,10 +47,10 @@ void main()
     float mixStrength = (vElevation + uColorOffset) * uColorMultiplier;
     vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
     // vec3 color = vec3(1.0);
-    if(vUv.x < 0.01 || vUv.x > 0.99 ||vUv.y<0.01||vUv.y>0.99){
-        strength=1.0;
-        color = vec3(1.0, 0.0, 0.0);
-    } 
+    // if(vUv.x < 0.01 || vUv.x > 0.99 ||vUv.y<0.01||vUv.y>0.99){
+    //     strength=1.0;
+    //     color = vec3(1.0, 0.0, 0.0);
+    // } 
     // vec3 color = mix(uSurfaceColor, middleColor, smoothstep(0.0, 0.5, mixStrength));
     // color = mix(color, uDepthColor, smoothstep(0.5, 1.0, mixStrength));
 

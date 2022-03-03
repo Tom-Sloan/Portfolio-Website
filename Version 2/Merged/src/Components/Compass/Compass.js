@@ -1,5 +1,4 @@
 import styles from "./Compass.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function Compass({ compassValues }) {
   const getLocation = (angle) => {
@@ -10,7 +9,7 @@ export function Compass({ compassValues }) {
       };
     }
     angle /= Math.PI;
-    const positionPercent = angle * 95;
+    const positionPercent = (1 - angle) * 95;
     return {
       left: `${positionPercent}%`,
     };
@@ -22,6 +21,7 @@ export function Compass({ compassValues }) {
       onClick={(e) => e.stopPropagation()}
     >
       <div className={styles.emoteLeft}>🚀</div>
+
       {compassValues.map((n, compassElementIndex) => (
         <div
           key={"compassElement-" + compassElementIndex}

@@ -19,7 +19,12 @@ export default class Fox {
     this.callback = this.experience.callback;
 
     this.name = "model";
-    this.yRot = 0;
+    this.rotationData = {
+      yRot: 0,
+      rotationCount: 0,
+      previous: 0,
+    };
+
     this.speed = 30;
     this.collisionDistance = 2;
     this.sphericals = new Array(this.destinations.length).fill(
@@ -93,6 +98,8 @@ export default class Fox {
       z: 0,
     });
 
+    this.camera.setThirdPerson(this.model);
+
     // if (this.debug.active) this.createHelper();
   }
   //Move controls two animations
@@ -147,7 +154,7 @@ export default class Fox {
       duration: rotationTime,
       ease: "linear",
       overwrite: "auto",
-      y: this.yRot,
+      y: this.rotationData.yRot,
       onUpdate: this.rotationUpdateMovement,
       onUpdateParams: [this],
     });
@@ -155,8 +162,13 @@ export default class Fox {
 
   rotationStartMovement(destination) {
     this.rotationController.offset = 0;
-    this.yRot = this.rotationController.getYRot(destination);
-    this.rotationController.offset = this.yRot;
+    this.rotationData = this.rotationController.getYRotRaw(
+      destination,
+      this.rotationData.previous,
+      this.rotationData.rotationCount
+    );
+    console.log(this.rotationData.yRot);
+    this.rotationController.offset = this.rotationData.previous;
   }
   rotationUpdateMovement(instance) {
     let elem = this.targets()[0];
@@ -332,9 +344,10 @@ export default class Fox {
 
     if (dest.length) {
       const location = dest[0].position.clone();
-      location.x = location.x + 7;
-      location.z = location.z + 7;
+      location.x = location.x - 7;
+      location.z = location.z - 7;
       this.updatePosition(location);
+      this.model.lookAt(dest[0].position);
     } else {
       console.log("Invalid Teleport location");
     }
@@ -361,11 +374,12 @@ export default class Fox {
 
     const message = {
       type: "compassUpdate",
-      data: nearest.map((n) => ({
+      data: destination.map((n) => ({
         index: n.type,
         angle: this.rotationController.getYRot(n.position),
       })),
     };
+
     this.callback(message);
   }
 

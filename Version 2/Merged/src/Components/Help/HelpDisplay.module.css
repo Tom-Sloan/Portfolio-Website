@@ -1,17 +1,45 @@
 .helpContainer {
-  width: 300px;
-  height: 300px;
+  width: 30px;
+  height: 30px;
   position: fixed;
   top: 5%;
   right: 5%;
-
   text-align: right;
-  display: none;
+}
+.helpIcon {
+  color: rgb(250, 249, 249);
+}
+.helpContainer:hover .instructions {
+  opacity: 1;
 }
 .instructions {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.87);
   width: 100%;
-  position: relative;
-  top: 5%;
-  right: 0%;
+  position: fixed;
+  top: 30%;
+  right: 30%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  height: 30%;
+  width: 40%;
+  border-radius: 8px;
+  border: 4px solid black;
+
+  /*Children*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.instructionElementContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 0px 20px;
+}
+.instructionIcon {
+}
+.instructionText {
+  text-align: center;
 }

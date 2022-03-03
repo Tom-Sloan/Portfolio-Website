@@ -20,9 +20,9 @@ export default class Floors extends EventEmitter {
     this.planeInfo = {}; // contains the information of the planes
     this.floorClick = false;
     //the defaults
-    this.planeInfo.size = 90; // the width
+    this.planeInfo.size = 175; // the width
     this.planeInfo.geometry = this.setGeometry();
-    this.planeInfo.creationBoundary = 30; // how farfrom the edge you must be before a new grid is created
+    this.planeInfo.creationBoundary = 60; // how farfrom the edge you must be before a new grid is created
     this.planeInfo.gridDensity = 40.0; // percent of the grid with lines
     this.planeInfo.gridType = 0;
     this.planeInfo.depthColor = "#2b36f7";
@@ -106,7 +106,7 @@ export default class Floors extends EventEmitter {
     // Debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Floors");
-      // this.debugFolder.close();
+      this.debugFolder.close();
       this.setDebug();
     }
 
@@ -288,7 +288,7 @@ export default class Floors extends EventEmitter {
     destination = destination.map((n) => n.destination.instance);
     const dest = this.mouse.intersect(destination);
     if (dest.length) {
-      console.log(dest)
+      console.log(dest);
       this.planesArray[0].destinations.activateByName(dest[0].object.name);
       // floor[0].destinations.activateByName(dest[0].object.name);
     } else {

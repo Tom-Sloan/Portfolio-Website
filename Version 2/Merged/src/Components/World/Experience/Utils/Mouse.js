@@ -32,6 +32,11 @@ export default class Mouse extends EventEmitter {
       this.instance.clicked = true;
       this.trigger("mouseclick");
     });
+    window.addEventListener("keypress", (event) => {
+      if (event.key === "w") {
+        this.trigger("cameraChange");
+      }
+    });
   }
 
   //Array

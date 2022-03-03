@@ -1,5 +1,5 @@
 import styles from "./Information.module.css";
-import projects from "./data";
+import { projects } from "./data";
 import { useEffect } from "react";
 import VanillaTilt from "vanilla-tilt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,7 @@ export function Projects() {
       reverse: true,
       // glare: true,
       // 'max-glare': 0.5,
-      max: 3,
+      max: 1,
     };
     const element = document.querySelectorAll(`.${styles.tiltCard}`);
     VanillaTilt.init(element, options);
@@ -20,7 +20,6 @@ export function Projects() {
   }, []);
   return (
     <div className={styles.projectList}>
-      
       {projects.length > 0 &&
         projects.map((data, idx) => (
           <div

@@ -11,7 +11,7 @@ uniform vec3 uAsteroidColor2;
 uniform vec3 uAsteroidColor3;
 
 void main() {
-  float uGridDensity = 20.0;
+  float uGridDensity = 10.0;
 
   float strength = mod(vUv.x * uGridDensity, 1.0);
   float yDir =  mod(vUv.y * uGridDensity, 1.0);

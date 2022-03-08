@@ -107,11 +107,11 @@ export default class Camera {
   }
 
   changeView() {
-    console.log("changing view");
-    this.thirdPerson = !this.thirdPerson;
-    if (!this.thirdPerson) {
-      this.movePosition(this.savedPosition);
-    }
+    // console.log("changing view");
+    // this.thirdPerson = !this.thirdPerson;
+    // if (!this.thirdPerson) {
+    //   this.movePosition(this.savedPosition);
+    // }
   }
 
   updatePosition() {

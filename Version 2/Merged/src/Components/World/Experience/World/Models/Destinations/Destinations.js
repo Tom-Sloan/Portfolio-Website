@@ -38,6 +38,26 @@ export default class Destinations {
 
       // check for destination generated in three.js
       if (destination.generated) {
+        // //create the dom element
+        // const labelDiv = document.createElement("div");
+        // labelDiv.classList.add("hoverlabel");
+
+        // const labelText = document.createTextNode(i + 1);
+        // labelDiv.appendChild(labelText);
+
+        // const contentDiv = document.createElement("div");
+        // contentDiv.classList.add("text");
+
+        // const contentText = document.createTextNode(this.labels[i].description);
+        // contentDiv.appendChild(contentText);
+
+        // const element = document.createElement("div");
+        // element.classList.add("point");
+        // element.classList.add("visible");
+        // element.appendChild(labelDiv);
+        // element.appendChild(contentDiv);
+
+        // document.body.appendChild(element);
         this.destinationsArray.push({
           destination,
           position,
@@ -98,11 +118,16 @@ export default class Destinations {
   }
 
   //was used for the dom elements
-  update() {}
+  update() {
+    this.destinationsArray.forEach((n) => n.destination.update());
+  }
 
   destroy() {
     this.destinationsArray.forEach((n) => {
       n.destination.destroy();
+      if (n.element) {
+        n.element.remove();
+      }
     });
 
     this.destinationsArray = [];

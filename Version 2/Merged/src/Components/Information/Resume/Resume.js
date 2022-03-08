@@ -45,22 +45,24 @@ export function Resume() {
   return (
     <div className={styles.parent} onClick={(e) => e.stopPropagation()}>
       {/* <Experience /> */}
-
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
-        <Viewer
-          fileUrl={"./resumes/Tom_Sloan_CV_Jan_2022.pdf"}
-          // plugins={[defaultLayoutPluginInstance]}
-        />
-      </Worker>
       <a
         target="_blank"
         download="./resumes/Tom_Sloan_CV_Jan_2022.pdf"
         href="/"
+        className={styles.downloadLink}
       >
         <button className={styles.btnDownload}>
           <FontAwesomeIcon icon={faDownload} className={styles.helpIcon} />
         </button>
       </a>
+      <div className={styles.pdfContainer}>
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
+          <Viewer
+            fileUrl={"./resumes/Tom_Sloan_CV_Jan_2022.pdf"}
+            // plugins={[defaultLayoutPluginInstance]}
+          />
+        </Worker>
+      </div>
     </div>
   );
 }

@@ -4,24 +4,24 @@ import { useEffect, useState, useContext } from "react";
 import styles from "./Resume.module.css";
 import ToggleSwitch from "../../components/ToggleSwitch/ToggleSwitch";
 import { LiquidRadioButton } from "./LiquidSwitch/liquidRadioButton";
-import { LinkedInTile } from '../linkedIn/LinkedInTile';
-import React from 'react';
-import { PDFReader } from 'react-read-pdf';
-import { MobilePDFReader } from 'react-read-pdf';
-import { Worker } from '@react-pdf-viewer/core';
-import { Viewer } from '@react-pdf-viewer/core';
-import { Plugin, SpecialZoomLevel } from '@react-pdf-viewer/core';
+import { LinkedInTile } from "../linkedIn/LinkedInTile";
+import React from "react";
+import { PDFReader } from "react-read-pdf";
+import { MobilePDFReader } from "react-read-pdf";
+import { Worker } from "@react-pdf-viewer/core";
+import { Viewer } from "@react-pdf-viewer/core";
+import { Plugin, SpecialZoomLevel } from "@react-pdf-viewer/core";
 import { Experience } from "../experience/Experience";
-import { setCSSGlobalVar } from '../../helpFunctions';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import { setCSSGlobalVar } from "../../helpFunctions";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { NameContext } from "../../AllContexts";
-import './backgroundStyles.scss';
+import "./backgroundStyles.scss";
 
 export function Resume() {
   const name = useContext(NameContext).personName;
-  console.log('name: ', name)
+  console.log("name: ", name);
   const [resume, setResume] = useState();
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
@@ -41,35 +41,38 @@ export function Resume() {
   useEffect(() => {
     window.addEventListener("resize", updateWindowDimensions);
     updateWindowDimensions();
-    setCSSGlobalVar('--rpv-core__inner-page-background-color', 'grey')
+    setCSSGlobalVar("--rpv-core__inner-page-background-color", "grey");
 
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
 
-
   useEffect(() => {
-    const documentPages = document.querySelectorAll('.rpv-core__inner-page')
-    console.log(documentPages)
-  }, [resume])
+    const documentPages = document.querySelectorAll(".rpv-core__inner-page");
+    console.log(documentPages);
+  }, [resume]);
 
   return (
     <div className={`${styles.resumeParent} resumeParent`}>
-      
-      <Experience human={name ==='tom' ? 'tom' : 'dan'} />
+      <Experience human={name === "tom" ? "tom" : "dan"} />
 
       <div className={styles.pdfContainer}>
-        
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js" >
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.2.228/build/pdf.worker.min.js">
           <div
             style={{
-              height: '100%',
+              height: "100%",
             }}
           >
-            <Viewer fileUrl={name==='tom'? "./resumes/Tom Sloan CV July 2021.pdf" : "./resumes/Daniel_Neasmith_CV.pdf"} plugins={[defaultLayoutPluginInstance]} />
+            <Viewer
+              fileUrl={
+                name === "tom"
+                  ? "./resumes/Tom Sloan CV July 2021.pdf"
+                  : "./resumes/Daniel_Neasmith_CV.pdf"
+              }
+              plugins={[defaultLayoutPluginInstance]}
+            />
           </div>
         </Worker>
       </div>
-     
     </div>
   );
 }

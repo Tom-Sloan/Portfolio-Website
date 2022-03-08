@@ -4,7 +4,7 @@ import resumeStyle from "../resume/Resume.module.css";
 import { selectExperienceArray } from "./experienceSlice";
 import { useEffect } from "react";
 
-export function Experience({human}) {
+export function Experience({ human }) {
   const experiences = useSelector(selectExperienceArray)[human];
 
   const updateWindowDimensions = () => {};

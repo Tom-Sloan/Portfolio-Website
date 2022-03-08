@@ -232,57 +232,6 @@ export function Projects({ background, cleanup }) {
                                 </div>
                             ))}
                     </div> */}
-<<<<<<< HEAD
-                    <div className={styles.projectList} onChange={updateWindowDimensions}>
-                        {projects.length > 0 &&
-                            projects.map((data, idx) => (
-                                <div className={styles.tiltCard} >
-                                    <div className={styles.project} id={`${data.title.replaceAll(' ', '-')}`}>
-                                        {console.log(`project-${data.title.replaceAll(' ', '-')}`)}
-                                        {data.category.map((item) => {
-                                            return (
-                                                <span
-                                                    className={styles.tags}
-                                                    style={{ background: item.color }}
-                                                >
-                                                    {item.tag}
-                                                </span>
-                                            );
-                                        })}
-                                        <h2>
-                                            {data.title}
-                                            {data.link && (
-                                                <a
-                                                    href={data.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className={styles.linkData}
-                                                >
-                                                    <FontAwesomeIcon icon={faExternalLinkAlt} />
-                                                </a>
-                                            )}
-                                        </h2>
-
-                                        <hr style={{ borderColor: "#2aa6cf" }} />
-
-
-                                        <h3>{data.subtitle}</h3>
-                                        {data.image && (
-                                            <img
-                                                src={data.image}
-                                                alt=""
-                                                onLoad={resizeFunction}
-                                            />
-                                        )}
-                                        <time>
-                                            {data.date} - {data.enddate}
-                                        </time>
-                                        <p>{data.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                    </div>
-=======
           <div className={styles.projectList} onChange={updateWindowDimensions}>
             {projects.length > 0 &&
               projects.map((data, idx) => (
@@ -324,7 +273,6 @@ export function Projects({ background, cleanup }) {
                     </time>
                     <p>{data.description}</p>
                   </div>
->>>>>>> tom-work
                 </div>
               ))}
           </div>

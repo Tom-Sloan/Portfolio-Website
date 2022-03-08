@@ -19,15 +19,14 @@
 .instructions {
   font-size: medium;
   background-color: rgba(255, 255, 255, 0.87);
-  width: 100%;
   position: fixed;
-  top: 30%;
-  right: 30%;
+  top: 25%;
+  right: 25%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
-  height: 30%;
-  width: 40%;
+  height: 50%;
+  width: 50%;
   border-radius: 8px;
   border: 4px solid black;
 
@@ -36,12 +35,19 @@
   flex-direction: column;
   justify-content: space-around;
 }
+@media only screen and (max-width: 800px) {
+  /* CSS that should be displayed if width is equal to or less than 991px goes here */
+  .instructions {
+    top: 15%;
+    height: 70%;
+  }
+}
 .instructionElementContainer {
   display: grid;
   width: 100%;
-  grid-template-columns: 20% 60%;
+  grid-template-columns: 20% 70%;
   /* gap: 20px; */
-  padding: 0px 20px;
+  padding: 5px 10px;
 }
 .instructionIcon {
   display: flex;
@@ -52,5 +58,5 @@
   font-size: x-large;
 }
 .instructionText {
-  text-align: center;
+  text-align: left;
 }

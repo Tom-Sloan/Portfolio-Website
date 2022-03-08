@@ -244,10 +244,18 @@
     margin: 0 20px;
   }
 }
-
+.downloadLink {
+  justify-self: flex-start;
+}
+.pdfContainer {
+  height: 95%;
+  max-height: 95%;
+  width: 100%;
+  max-width: 100%;
+}
 /* For download btn*/
 
-button {
+.btnDownload {
   background-color: #fff;
   width: 100px;
   height: 30px;
@@ -262,7 +270,7 @@ button {
   justify-content: center;
   align-items: center;
 }
-button:hover {
+.btnDownload:hover {
   background-color: #96cccffd;
 }
 @keyframes scaleFocus {
@@ -276,6 +284,6 @@ button:hover {
     transform: scale(1);
   }
 }
-button:focus {
+.btnDownload:focus {
   animation: scaleFocus 0.5s;
 }

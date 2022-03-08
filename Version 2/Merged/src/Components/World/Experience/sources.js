@@ -13,16 +13,6 @@ export default [
     ],
   },
   {
-    name: "grassColorTexture",
-    type: "texture",
-    path: "./static/textures/dirt/color.jpg",
-  },
-  {
-    name: "grassNormalTexture",
-    type: "texture",
-    path: "./static/textures/dirt/normal.jpg",
-  },
-  {
     name: "foxModel",
     type: "gltfModel",
     path: "/static/models/Fox/glTF/Fox.gltf",
@@ -32,14 +22,15 @@ export default [
     type: "texture",
     path: "/static/textures/particles/4.png",
   },
+
   {
-    name: "asteroidExplosionTexture",
-    type: "texture",
-    path: "/static/textures/asteroid1/explosion.png",
+    name: "resumeGLTFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/resume.glb",
   },
   {
-    name: "hoverPlatformModel",
+    name: "contactGLTFModel",
     type: "gltfModel",
-    path: "/static/models/hoverPlatform/hoverPlatform.glb",
+    path: "/static/models/destinations/contact.glb",
   },
 ];

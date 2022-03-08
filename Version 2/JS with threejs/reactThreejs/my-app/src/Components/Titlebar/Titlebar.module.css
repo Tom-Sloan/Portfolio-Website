@@ -1,0 +1,20 @@
+.titleHeader {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  padding-top: 20px;
+}
+
+.label {
+  padding: 10px 30px;
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+}
+.centerLabel {
+  border-left: 1px white solid;
+  border-right: 1px white solid;
+}

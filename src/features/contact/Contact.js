@@ -68,7 +68,7 @@ export function Contact() {
     // element.addEventListener("tiltChange", callback);
   }, []);
   return (
-    <div className={styles.contactParent} >
+    <div className={styles.contactParent}>
       <Card elements={contactInformation} />
       {/* <h2 style={{ textAlign: 'center' }} >Get in Touch</h2>
             <hr /> */}

@@ -1,0 +1,289 @@
+.parent {
+  height: 95vh;
+  max-height: 95vh;
+  width: 90vh;
+  max-width: 800px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.experienceContainer,
+.experienceContainer:after,
+.experienceContainer:before {
+  box-sizing: border-box;
+}
+
+.experienceContainer a:link,
+.experienceContainer a:visited,
+.experienceContainer a:hover,
+.experienceContainer a:active {
+  text-decoration: none;
+}
+
+.experienceContainer {
+  min-height: 100vh;
+  color: var(--text);
+  text-align: center;
+  box-sizing: border-box;
+  /* position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateZ(0); */
+}
+
+.experienceContainer h1 {
+  color: var(--light1);
+  /* padding: 5% 0; */
+}
+
+.experiences {
+  display: flex;
+  position: relative;
+}
+
+.timelineContainer {
+  min-height: 70vh;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0px;
+  margin-left: 40px;
+  position: sticky;
+  top: 10vh;
+  justify-content: space-between;
+}
+
+.timelineItem {
+  display: flex;
+  align-self: flex-start;
+  justify-content: flex-start;
+  padding-left: calc(5% + 30px);
+  padding-right: 0;
+}
+
+.timelineContent {
+  position: relative;
+  width: 150px;
+}
+
+.timelineBox {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 5px 10px;
+  position: relative;
+  width: max-content;
+  max-width: 70%;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.timelineBox::after {
+  content: " ";
+  background-color: #fff;
+  position: absolute;
+  top: calc(50% - 7.5px);
+  transform: rotate(45deg);
+  width: 15px;
+  height: 15px;
+  right: auto;
+  left: -7.5px;
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.timelineBox .timelineTag {
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  top: 5px;
+  letter-spacing: 1px;
+  padding: 2px;
+  position: absolute;
+  text-transform: uppercase;
+  left: auto;
+  right: 5px;
+}
+
+.timelineBox time {
+  color: #777;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.timelineBox p {
+  font-size: 16px;
+  margin: 15px 0;
+  padding: 0;
+}
+
+.timelineBox a {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.timelineBox a::after {
+  content: " ►";
+  font-size: 12px;
+}
+
+.timelineContent .timelineCircle {
+  background-color: #00b3bd;
+  border: 3px solid var(--light1);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+  right: auto;
+  left: -40px;
+}
+
+.circleLink:hover ~ .timelineBox {
+  opacity: 1;
+  filter: alpha(opacity=1);
+}
+
+.experienceList {
+  margin-right: 220px;
+  font-weight: bold;
+  height: 100%;
+}
+
+.experience {
+  text-align: left;
+  margin: 1vh 0 3vh 0;
+  top: 20vh;
+  bottom: 10vh;
+  width: 100%;
+  height: auto;
+  background-color: var(--backgroundShade);
+  border: 3px solid var(--lightest);
+  border-radius: var(--popUpBorderRadius);
+  padding: 10px;
+  display: inline-block;
+}
+
+.experience h1 {
+  color: var(--light1);
+}
+
+.experience h2 {
+  font-size: larger;
+  padding: 10px 0;
+}
+
+.experience ul {
+  padding: 20px 50px;
+  clear: both;
+}
+
+.experience li {
+  padding: 0;
+  font-weight: lighter;
+}
+
+.experience img {
+  float: right;
+  height: 20vh;
+  object-fit: scale-down;
+  width: 100px;
+  height: 100px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+
+.experience time {
+  color: #777;
+  font-size: initial;
+  font-weight: normal;
+  padding: 10px 0;
+}
+
+.progressContainer {
+  background-color: var(--light1);
+  position: absolute;
+  left: calc(5% - 2px);
+  width: 4px;
+  height: 100%;
+  /* top: 15px; */
+}
+
+.progressBar {
+  height: 0%;
+  background: #00dae6;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1023px) {
+  .experienceList {
+    margin-right: 170px;
+  }
+  .timelineContent {
+    width: 100px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .timelineContainer {
+    /* margin-left: 20px; */
+    display: none;
+  }
+  .experienceList {
+    /* margin-right: unset; */
+    margin: 0 20px;
+  }
+}
+.downloadLink {
+  justify-self: flex-start;
+}
+.pdfContainer {
+  height: 95%;
+  max-height: 95%;
+  width: 100%;
+  max-width: 100%;
+}
+/* For download btn*/
+
+.btnDownload {
+  background-color: #fff;
+  width: 100px;
+  height: 30px;
+  border: none;
+  outline: none;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btnDownload:hover {
+  background-color: #96cccffd;
+}
+@keyframes scaleFocus {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scaleX(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.btnDownload:focus {
+  animation: scaleFocus 0.5s;
+}

@@ -8,11 +8,7 @@ export const experienceSlice = createSlice({
         {
           workplace: "Telesat",
           title: "Satellite Engineering Co-op Student",
-          keywords: [
-            "tKinter",
-            "MATLAB",
-            "Python",
-          ],
+          keywords: ["tKinter", "MATLAB", "Python"],
           tasks: [
             "Made a python GUI using tKinter and connected GUI to MATLAB using MATLAB’s python application programming interface. This allowed an easier to use input interface for many MATLAB functions. This system was also able to receive and analyses all data that is returned to it using a very customizable plotting system. ",
             "Wrote a MATLAB interface to connect to a Python server that allowed for a variety of MATLAB functions (both native and user defined) to be called and returned all data in a proper format. This system contained extensive error checking and reliable feedback mechanisms. This system also was able to get around the native MATLAB deployment issue of requiring a MATLAB production server to have external GUIs running, allowing web applications and native apps to communicate easily with MATLAB.",
@@ -21,24 +17,30 @@ export const experienceSlice = createSlice({
           ],
           date: "May 2020",
           enddate: "December 2020",
-          image:"./workPlaces/Tom/telesat.jpg",
+          image: "./workPlaces/Tom/telesat.jpg",
         },
         {
           workplace: "Carleton University",
           title: "Researcher",
+          keywords: [
+            "python",
+            "MATLAB",
+            "AWS",
+            "Internet of Things",
+            "Qt",
+            "demonstrate",
+          ],
           tasks: [
             "Designed and built the hardware for systems using custom components for non-invasive monitoring of key health markers of older adults, such as heart rate monitoring, respiration rate, and body fluid flow",
             "Wrote software to analyze the effectiveness of said hardware using MATLAB and python",
             "Integrated above device Samsung Smarthings using AWS",
             "Operated independently to find applications of using Arduino and the Internet of Things to improve the lifestyles of seniors. Focusing on usability and dependability, this resulted in automated devices that can be controlled by Bluetooth or over Wi-Fi",
             "Wrote the software that allows for easy control of those devices for iPhone and android application built with Qt",
-            "Analyzed the work of co-workers and created presentations of their technology, allowing the laboratory to demonstrate the technology to many interested parties"
-
+            "Analyzed the work of co-workers and created presentations of their technology, allowing the laboratory to demonstrate the technology to many interested parties",
           ],
           date: "May 2018",
           enddate: "April 2021",
-          image:
-            "./workPlaces/Tom/carletonUniversity.png",
+          image: "./workPlaces/Tom/carletonUniversity.png",
         },
         {
           workplace: "City of Ottawa",
@@ -50,8 +52,7 @@ export const experienceSlice = createSlice({
           // ],
           date: "September 2015",
           enddate: "December 2017",
-          image:
-            "./workPlaces/Tom/cityOfOttawa.jfif",
+          image: "./workPlaces/Tom/cityOfOttawa.jfif",
         },
       ],
       dan: [
@@ -64,7 +65,7 @@ export const experienceSlice = createSlice({
             " C ",
             "ROS2",
             "Schematic",
-            "Layout"
+            "Layout",
           ],
           tasks: [
             "Robotics embedded software development with C using the ROS2.",
@@ -78,13 +79,7 @@ export const experienceSlice = createSlice({
         {
           workplace: "Telesat",
           title: "Satellite Engineering Co-op Student",
-          keywords: [
-            "Python",
-            "Javascript",
-            "PHP",
-            "HTML",
-            "MySQL",
-          ],
+          keywords: ["Python", "Javascript", "PHP", "HTML", "MySQL"],
           tasks: [
             "Wrote several Python scripts used for a variety of functions such as transferring data collected at ground sites onto a database using MySQL and pandas and generating perform scripts.",
             "Designed a webpage with PHP, Javascript, and HTML along with the HighChart and JQWidget libraries to display satellite datasets in pre-determined templates.",
@@ -98,12 +93,7 @@ export const experienceSlice = createSlice({
         {
           workplace: "Flex Ltd.",
           title: "Electrical Engineering Student",
-          keywords: [
-            "Schematic",
-            "Layout",
-            "Verilog",
-            "Python",
-          ],
+          keywords: ["Schematic", "Layout", "Verilog", "Python"],
           tasks: [
             "Designed and developed the schematic, PCB layout, and Verilog code for a device which uses multiple communication techniques to relay a select set of data from chosen sensors to a user.",
             "Organized a team to perform a testing subset for a physical media processing solution worth several million dollars which included verification of specifications, multidisciplinary testing, and part management.",

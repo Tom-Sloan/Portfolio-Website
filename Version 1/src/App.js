@@ -10,12 +10,12 @@ import { NameContext, IsDarkThemeContext } from "./AllContexts";
 
 function App() {
   const [personName, setPersonName] = useState("tom");
-  const [isDarkTheme, setDarkTheme] = useState(false);
+  const [isDarkTheme, setDarkTheme] = useState(true);
 
   return (
     <Router>
       <BreakpointProvider>
-        <IsDarkThemeContext.Provider value={{isDarkTheme, setDarkTheme}}>
+        <IsDarkThemeContext.Provider value={{ isDarkTheme, setDarkTheme }}>
           <NameContext.Provider value={{ personName, setPersonName }}>
             <div className={`App  light-theme`}>
               {/* <Breakpoint medium up>

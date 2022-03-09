@@ -19,7 +19,7 @@ export function Footer() {
           />
         </Link>
       </div>
-      <p>2021 by Tom Sloan and Daniel Neasmith</p>
+      <p>2021 by Tom Sloan</p>
       {/* <div className={styles.headerLinks}>
                 <Link className={styles.headerLink} to="/">Home</Link>
                 <Link className={styles.headerLink} to="/about">About</Link>

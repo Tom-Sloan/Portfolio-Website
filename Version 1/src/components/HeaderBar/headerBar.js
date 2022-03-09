@@ -108,7 +108,9 @@ export function HeaderBar() {
               className={styles.colorUIChangeIcon}
               icon={faShapes}
             />
-            <div className={`${styles.modal} ${styles.invisibility} portfolioContainer`}>
+            <div
+              className={`${styles.modal} ${styles.invisibility} portfolioContainer`}
+            >
               <div className={styles.modal_container}>
                 {Menu(headerLinks, selected, handleSelection)}
               </div>
@@ -127,13 +129,13 @@ export function HeaderBar() {
           />
         </div>
         {/* <div className={`${styles.headerLink} `}> */}
-          <ToggleSwitch
+        {/* <ToggleSwitch
             id="personToggle"
             checked={personToggle}
             onChange={onPersonChange}
             optionLabels={["Dan", "Tom"]}
             cvPage={true}
-          />
+          /> */}
         {/* </div> */}
         {/* <div
           ref={circleRef}

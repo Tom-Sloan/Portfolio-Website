@@ -73,3 +73,20 @@ html {
 .point:hover .text {
   opacity: 1;
 }
+
+.loadingPlane {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  z-index: 2;
+  transition: opacity 0.3s, transform 0ms 0.3s;
+  opacity: 0;
+}
+.loadingBar {
+  width: 100%;
+  height: 4px;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: top left;
+}

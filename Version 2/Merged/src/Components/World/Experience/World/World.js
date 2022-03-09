@@ -16,7 +16,7 @@ export default class World {
     // Wait for resources
     this.resources.on("ready", () => {
       // Setup
-      this.testGeo = new THREE.BoxGeometry(6, 6, 6, 512, 512);
+
       //This is first since everything else will be added to it
       this.physics = new Physics();
 
@@ -29,11 +29,13 @@ export default class World {
 
       // the exact placement is optional, however these must be after the above
       this.environment = new Environment();
-      this.asteroids = new Asteroids(0);
+      this.asteroids = new Asteroids(5);
       // this.rotationPractise = new RotationPractise();
       // this.background = new Background();
 
       this.floors.on("createdNewMesh", () => this.newMeshCreated());
+      this.experience.isReady = true;
+      this.experience.callback();
     });
   }
 

@@ -61,7 +61,7 @@ export default class Environment {
 
   setEnvironmentMap() {
     this.environmentMap = {};
-    this.environmentMap.intensity = 0.4;
+    this.environmentMap.intensity = 4;
     this.environmentMap.texture = this.resources.items.environmentMapTexture;
     this.environmentMap.texture.encoding = THREE.sRGBEncoding;
 
@@ -99,7 +99,7 @@ export default class Environment {
         .add(this.environmentMap, "intensity")
         .name("envMapIntensity")
         .min(0)
-        .max(4)
+        .max(40)
         .step(0.001)
         .onChange(this.environmentMap.updateMaterials);
 

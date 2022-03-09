@@ -72,4 +72,14 @@ export default [
     type: "texture",
     path: "/static/models/destinations/papers/papers.jpg",
   },
+  {
+    name: "projectsGTLFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/projects/birdCompressed.glb",
+  },
+  {
+    name: "contactGTLFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/contact/contact.glb",
+  },
 ];

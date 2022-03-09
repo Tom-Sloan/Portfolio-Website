@@ -41,6 +41,7 @@ export default class Experience {
     this.mouse = new Mouse();
     this.renderer = new Renderer();
     this.world = new World();
+    this.isReady = false;
 
     //For Stats
     var stats = new Stats();
@@ -49,11 +50,15 @@ export default class Experience {
 
     // Mouse move event
     this.mouse.on("mousemove", () => {
-      this.mouseMove();
+      if (this.isReady) {
+        this.mouseMove();
+      }
     });
 
     //Mouse Click Events
-    this.mouse.on("mouseclick", () => this.mouseClick());
+    this.mouse.on("mouseclick", () => {
+      if (this.isReady) this.mouseClick();
+    });
 
     // Resize event
     this.sizes.on("resize", () => {
@@ -69,7 +74,9 @@ export default class Experience {
 
     // On W press
     this.mouse.on("cameraChange", () => {
-      this.wPress();
+      if (this.isReady) {
+        this.wPress();
+      }
     });
   }
 

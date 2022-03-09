@@ -18,6 +18,7 @@ export default class Destination {
     this.size = 6;
     this.type = this.name.charAt(this.name.length - 1);
     this.parent = parent;
+    this.modelOffset = 0; //additioanl y factor for model position
 
     this.loadModels();
 
@@ -30,19 +31,15 @@ export default class Destination {
     //Set to the projects values
     if (this.type === "0") {
       //Get the model for the destination
-      this.model = this.resources.items.papersGTLFModel.scene.clone();
-      this.model.traverse((child) => {
-        //Set the texture of the model
-        if (
-          child instanceof THREE.Object3D &&
-          child.name === "Bunch_of_Papers_C001"
-        ) {
-          child.material.map = this.resources.items.papersTexture;
-          this.resources.items.papersTexture.flipY = false;
-        }
-      });
+      this.model = this.resources.items.projectsGTLFModel.scene.clone();
       //Scale the model
-      this.model.scale.set(60, 3, 60);
+      this.model.scale.set(1.5, 1.5, 1.5);
+
+      // this.model.traverse((child) => {
+      //   if (child instanceof THREE.Object3D && child.material) {
+      //     child.material.metalness = 0;
+      //   }
+      // });
       //Get the text of the model
       this.text = this.resources.items.projectsTextGTLFModel.scene.clone();
       this.text.scale.set(3.5, 3.5, 3.5);
@@ -70,19 +67,12 @@ export default class Destination {
       //Set to the contact values
     } else {
       //Get the model for the destination
-      this.model = this.resources.items.papersGTLFModel.scene.clone();
-      this.model.traverse((child) => {
-        //Set the texture of the model
-        if (
-          child instanceof THREE.Object3D &&
-          child.name === "Bunch_of_Papers_C001"
-        ) {
-          child.material.map = this.resources.items.papersTexture;
-          this.resources.items.papersTexture.flipY = false;
-        }
-      });
+      this.model = this.resources.items.contactGTLFModel.scene.clone();
+
       //Scale the model
-      this.model.scale.set(60, 3, 60);
+      this.model.scale.set(6, 6, 6);
+      this.modelOffset = 2;
+
       //Get the text of the model
       this.text = this.resources.items.contactTextGTLFModel.scene.clone();
       this.text.scale.set(3.5, 3.5, 3.5);
@@ -108,7 +98,7 @@ export default class Destination {
     this.instance.add(this.platformModel);
 
     //Add model
-    this.model.position.set(0, 1, 0);
+    this.model.position.set(0, 1 + this.modelOffset, 0);
 
     this.instance.add(this.model);
 
@@ -137,7 +127,7 @@ export default class Destination {
   setAnimation() {
     this.instance.traverse((child) => {
       if (child instanceof THREE.Object3D) {
-        if (child.name === "Text") {
+        if (child.name === "Text002") {
           this.textObject = child;
           if (this.techPedestalObject) {
             return;
@@ -172,6 +162,10 @@ export default class Destination {
           n.value.flipY = false;
         }
       });
+    }
+
+    if (this.textObject) {
+      this.textObject.material.color = new THREE.Color(0xffffff);
     }
     // // Mixer
     // this.animation.mixer = new THREE.AnimationMixer(this.instance);

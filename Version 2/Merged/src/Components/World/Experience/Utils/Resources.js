@@ -13,23 +13,34 @@ export default class Resources extends EventEmitter {
     this.items = {};
     this.toLoad = this.sources.length;
     this.loaded = 0;
-
+    this.loadingBarElement = document.querySelector(".loadingBar");
     this.setLoaders();
     this.startLoading();
   }
 
   setLoaders() {
     this.loaders = {};
-    this.loaders.gltfLoader = new GLTFLoader();
-    this.loaders.textureLoader = new THREE.TextureLoader();
-    this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader();
-    this.loaders.dracoLoader = new DRACOLoader();
+    this.loaders.manager = new THREE.LoadingManager(
+      // Loaded
+      () => {
+        console.log("loaded");
+      },
+
+      // Progress
+      (itemUrl, itemsLoaded, itemsTotal) => {
+        const progressRatio = itemsLoaded / itemsTotal;
+
+        this.loadingBarElement.style.transform = `scaleX(${progressRatio})`;
+      }
+    );
+    this.loaders.gltfLoader = new GLTFLoader(this.loaders.manager);
+    this.loaders.textureLoader = new THREE.TextureLoader(this.loaders.manager);
+    this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(
+      this.loaders.manager
+    );
+    this.loaders.dracoLoader = new DRACOLoader(this.loaders.manager);
     this.loaders.dracoLoader.setDecoderPath("./static/draco/");
     this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader);
-    this.loaders.rhinoLoader = new Rhino3dmLoader();
-    this.loaders.rhinoLoader.setLibraryPath(
-      "https://cdn.jsdelivr.net/npm/rhino3dm@7.11.1/"
-    );
   }
 
   startLoading() {
@@ -50,13 +61,6 @@ export default class Resources extends EventEmitter {
         this.loaders.cubeTextureLoader.load(source.path, (file) => {
           this.sourceLoaded(source, file);
         });
-      } else if (source.type === "rhinoModel") {
-        this.loaders.rhinoLoader.load(
-          source.path,
-          (file) => {
-            this.sourceLoaded(source, file);
-          } // called while loading is progressing
-        );
       }
     }
   }

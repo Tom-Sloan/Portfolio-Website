@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-export function HelpDisplay({ display }) {
+export function HelpDisplay({ display, isLoading }) {
   const [style, setStyle] = useState({
     opacity: 1,
   });
@@ -43,7 +43,7 @@ export function HelpDisplay({ display }) {
   ];
 
   return (
-    <div className={styles.helpContainer} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.helpContainer}>
       <FontAwesomeIcon icon={faCircleQuestion} className={styles.helpIcon} />
       <div className={styles.instructions} style={display ? style : {}}>
         {instructions &&
@@ -55,6 +55,16 @@ export function HelpDisplay({ display }) {
               <div className={styles.instructionText}>{n.text}</div>
             </div>
           ))}
+        {isLoading && (
+          <div className={styles.loadingBarContainer}>
+            <div className="loadingBar"></div>
+          </div>
+        )}
+        {!isLoading && display && (
+          <div className={styles.postText} style={{ "text-align": "center" }}>
+            Click anywhere to close the help box
+          </div>
+        )}
       </div>
     </div>
   );

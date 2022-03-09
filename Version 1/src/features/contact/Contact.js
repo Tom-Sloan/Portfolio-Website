@@ -15,10 +15,6 @@ export function Contact() {
       icon: <FontAwesomeIcon className={styles.icons} icon={faLinkedin} />,
       link: [
         {
-          link: "https://www.linkedin.com/in/danielneasmith/",
-          text: "Daniel Neasmith",
-        },
-        {
           link: "https://www.linkedin.com/in/tomsloan7/",
           text: "Tom Sloan",
         },
@@ -30,10 +26,6 @@ export function Contact() {
       icon: <FontAwesomeIcon className={styles.icons} icon={faGithubSquare} />,
       link: [
         {
-          link: "https://github.com/DanNeasmith",
-          text: "Daniel Neasmith",
-        },
-        {
           link: "https://github.com/Tom-Sloan",
           text: "Tom Sloan",
         },
@@ -44,10 +36,6 @@ export function Contact() {
       title: "Email",
       icon: <FontAwesomeIcon className={styles.icons} icon={faPaperPlane} />,
       link: [
-        {
-          link: "mailto:danneasmith@gmail.com",
-          text: "Daniel Neasmith",
-        },
         {
           link: "mailto:tsloan81@gmail.com",
           text: "Tom Sloan",

@@ -111,7 +111,27 @@ export default class Destinations {
   getDestinationByType(type) {
     return this.destinationsArray.filter((n) => n.type === type);
   }
+  activateByObject(object) {
+    if (object.name.includes("destination")) {
+      this.activateByName(object.name);
+      return;
+    }
+    object.traverseAncestors((parent) => {
+      if (parent.name.includes("destination")) {
+        this.activateByName(parent.name);
+        return;
+      }
+    });
+    object.traverse((child) => {
+      if (child.name.includes("destination")) {
+        this.activateByName(child.name);
+        return;
+      }
+    });
+  }
+
   activateByName(name) {
+    console.log("nome: ", name);
     const type = parseInt(name.charAt(name.length - 1));
     const destination = this.getDestinationByType(type);
     destination[0].destination.activate();

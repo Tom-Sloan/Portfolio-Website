@@ -104,7 +104,6 @@ export default class Floor {
         uColorOffset: { value: this.colorOffset },
         uColorMultiplier: { value: this.colorMultiplier },
         uOpacityMultiplier: { value: this.opacityMultiplier },
-
       },
     });
   }
@@ -119,6 +118,10 @@ export default class Floor {
     //scale the geometry since this allows dynamic size changing
     this.mesh.scale.set(this.size, this.size, this.size);
     this.scene.add(this.mesh);
+  }
+
+  activateDestination(object) {
+    this.destinations.activateByObject(object);
   }
 
   createDestinations() {

@@ -19,20 +19,77 @@ export default class Destination {
     this.type = this.name.charAt(this.name.length - 1);
     this.parent = parent;
 
-    if (this.type === "0") {
-      this.animations = this.resources.items.resumeGLTFModel.animations;
-      this.model = this.resources.items.resumeGLTFModel.scene.clone();
-    } else if (this.type === "1") {
-      this.animations = this.resources.items.resumeGLTFModel.animations;
-      this.model = this.resources.items.resumeGLTFModel.scene.clone();
-    } else {
-      this.animations = this.resources.items.resumeGLTFModel.animations;
-      this.model = this.resources.items.contactGLTFModel.scene.clone();
-    }
+    this.loadModels();
 
-    this.model.scale.set(1.5, 1.5, 1.5);
+    // this.model.scale.set(1.5, 1.5, 1.5);
     this.generated = this.generate();
     this.setAnimation();
+  }
+
+  loadModels() {
+    //Set to the projects values
+    if (this.type === "0") {
+      //Get the model for the destination
+      this.model = this.resources.items.papersGTLFModel.scene.clone();
+      this.model.traverse((child) => {
+        //Set the texture of the model
+        if (
+          child instanceof THREE.Object3D &&
+          child.name === "Bunch_of_Papers_C001"
+        ) {
+          child.material.map = this.resources.items.papersTexture;
+          this.resources.items.papersTexture.flipY = false;
+        }
+      });
+      //Scale the model
+      this.model.scale.set(60, 3, 60);
+      //Get the text of the model
+      this.text = this.resources.items.projectsTextGTLFModel.scene.clone();
+      this.text.scale.set(3.5, 3.5, 3.5);
+
+      //Set to the resume values
+    } else if (this.type === "1") {
+      //Get the model for the destination
+      this.model = this.resources.items.papersGTLFModel.scene.clone();
+      this.model.traverse((child) => {
+        //Set the texture of the model
+        if (
+          child instanceof THREE.Object3D &&
+          child.name === "Bunch_of_Papers_C001"
+        ) {
+          child.material.map = this.resources.items.papersTexture;
+          this.resources.items.papersTexture.flipY = false;
+        }
+      });
+      //Scale the model
+      this.model.scale.set(60, 3, 60);
+      //Get the text of the model
+      this.text = this.resources.items.resumeTextGTLFModel.scene.clone();
+      this.text.scale.set(3.5, 3.5, 3.5);
+
+      //Set to the contact values
+    } else {
+      //Get the model for the destination
+      this.model = this.resources.items.papersGTLFModel.scene.clone();
+      this.model.traverse((child) => {
+        //Set the texture of the model
+        if (
+          child instanceof THREE.Object3D &&
+          child.name === "Bunch_of_Papers_C001"
+        ) {
+          child.material.map = this.resources.items.papersTexture;
+          this.resources.items.papersTexture.flipY = false;
+        }
+      });
+      //Scale the model
+      this.model.scale.set(60, 3, 60);
+      //Get the text of the model
+      this.text = this.resources.items.contactTextGTLFModel.scene.clone();
+      this.text.scale.set(3.5, 3.5, 3.5);
+    }
+
+    this.platformModel = this.resources.items.pedestalGLTFModel.scene.clone();
+    this.platformModel.scale.set(0.5, 0.5, 0.5);
   }
 
   generate() {
@@ -46,25 +103,21 @@ export default class Destination {
     }
     //https://discourse.threejs.org/t/how-to-clone-a-model-thats-loaded-with-gltfloader/23723/6
     //Creating Destination
-    this.instance = this.model;
-    // const colorList = [
-    //   new THREE.Color("blue"),
-    //   new THREE.Color("orange"),
-    //   new THREE.Color("brown"),
-    //   new THREE.Color("purple"),
-    //   new THREE.Color("red"),
-    //   new THREE.Color("green"),
-    // ];
-    // this.geometry = this.experience.world.testGeo;
-    // this.material = new THREE.MeshBasicMaterial({
-    //   color: colorList[this.name.charAt(this.name.length - 1)],
-    // });
-    // this.instance = new THREE.Mesh(this.geometry, this.material);
+    this.instance = new THREE.Group();
+    //Add Platform
+    this.instance.add(this.platformModel);
+
+    //Add model
+    this.model.position.set(0, 1, 0);
+
+    this.instance.add(this.model);
+
+    this.instance.add(this.text);
+
     this.instance.position.copy(this.position);
     this.instance.name = this.name;
 
     //Adding Asteroid
-    // this.parent.add(this.instance);
     this.scene.add(this.instance);
 
     //update shader
@@ -82,40 +135,86 @@ export default class Destination {
   }
 
   setAnimation() {
-    this.animation = {};
+    this.instance.traverse((child) => {
+      if (child instanceof THREE.Object3D) {
+        if (child.name === "Text") {
+          this.textObject = child;
+          if (this.techPedestalObject) {
+            return;
+          }
+        }
+        if (child.name === "tech_pedestal") {
+          this.techPedestalObject = child;
+          if (this.textObject) {
+            return;
+          }
+        }
+      }
+    });
+    this.platformModel.traverse((child) => {
+      if (child instanceof THREE.Object3D) {
+        if (child.name === "tech_pedestal") {
+          this.techPedestalObject = child;
 
+          return;
+        }
+      }
+    });
+
+    if (this.techPedestalObject) {
+      this.techPedestalObjectTextures = [];
+      this.addTextures();
+
+      this.techPedestalObjectTextures.forEach((n) => {
+        this.techPedestalObject.material[n.key] = n.value;
+
+        if (n.value instanceof THREE.Texture) {
+          n.value.flipY = false;
+        }
+      });
+    }
     // // Mixer
-    this.animation.mixer = new THREE.AnimationMixer(this.instance);
+    // this.animation.mixer = new THREE.AnimationMixer(this.instance);
 
-    // // Actions
-    this.animation.actions = {};
+    // // // Actions
+    // this.animation.actions = {};
 
-    this.animation.actions.default = this.animation.mixer.clipAction(
-      this.animations[0]
-    );
-
-    this.animation.actions.default.play();
-    // this.animation.actions.walking = this.animation.mixer.clipAction(
-    //   this.resource.animations[1]
-    // );
-    // this.animation.actions.running = this.animation.mixer.clipAction(
-    //   this.resource.animations[2]
+    // this.animation.actions.default = this.animation.mixer.clipAction(
+    //   this.animations[0]
     // );
 
-    // this.animation.actions.current = this.animation.actions.idle;
-    // this.animation.actions.current.play();
+    // this.animation.actions.default.play();
+  }
 
-    // // Play the action
-    // this.animation.play = (name) => {
-    //   const newAction = this.animation.actions[name];
-    //   const oldAction = this.animation.actions.current;
-
-    //   newAction.reset();
-    //   newAction.play();
-    //   newAction.crossFadeFrom(oldAction, 1);
-
-    //   this.animation.actions.current = newAction;
-    // };
+  addTextures() {
+    this.techPedestalObjectTextures.push({
+      key: "transparent",
+      value: true,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "opacity",
+      value: 1,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "map",
+      value: this.resources.items.hoverPlatformColor,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "emissiveMap",
+      value: this.resources.items.hoverPlatformEmit,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "emissiveIntensity",
+      value: 10,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "metalnessMap",
+      value: this.resources.items.hoverPlatformMettalic,
+    });
+    this.techPedestalObjectTextures.push({
+      key: "roughnessMap",
+      value: this.resources.items.hoverPlatformRoughness,
+    });
   }
   setPhysics() {
     this.physics.generateNewBody(
@@ -125,7 +224,7 @@ export default class Destination {
         x: this.instance.position.x,
         y: this.instance.position.z,
       },
-      this.size,
+      this.size * 2 - 0.5,
       this.instance,
       (collidedWith) => this.onCollision()
     );
@@ -143,8 +242,9 @@ export default class Destination {
     this.callback(message);
   }
   update() {
-    //1.
-    this.animation.mixer.update(this.time.delta * 0.001);
+    if (this.textObject) {
+      this.textObject.rotation.z += 0.01;
+    }
   }
   destroy() {
     this.physics.removeBody(this.name);

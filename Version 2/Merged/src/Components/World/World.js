@@ -10,6 +10,7 @@ export function World({ destinations }) {
   const [popUpState, setPopUpState] = useState(false);
   const [current, setCurrent] = useState(0);
   const [compassValues, setCompassValues] = useState([]);
+  const [helpDisplayState, setHelpDisplayState] = useState(true);
 
   useEffect(() => {
     window.tomsloanTeleportation = -1;
@@ -22,6 +23,9 @@ export function World({ destinations }) {
   }, []);
 
   const onClickHandler = (e) => {
+    if (helpDisplayState) {
+      setHelpDisplayState(false);
+    }
     if (popUpState) {
       e.stopPropagation();
       setPopUpState(false);
@@ -48,7 +52,7 @@ export function World({ destinations }) {
       <canvas className="worldContainer" ref={domReference} />
       <canvas className="matterContainer" ref={matterReference} />
       <Compass compassValues={compassValues} />
-      <HelpDisplay />
+      <HelpDisplay display={helpDisplayState} />
     </div>
   );
 }

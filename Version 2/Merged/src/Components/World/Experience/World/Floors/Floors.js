@@ -289,7 +289,7 @@ export default class Floors extends EventEmitter {
     const dest = this.mouse.intersect(destination);
     if (dest.length) {
       console.log(dest);
-      this.planesArray[0].destinations.activateByName(dest[0].object.name);
+      this.planesArray[0].activateDestination(dest[0].object)
       // floor[0].destinations.activateByName(dest[0].object.name);
     } else {
       this.intersect = this.mouse.intersect(this.getFloorsArrayMeshs());

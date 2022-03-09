@@ -10,10 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-export function HelpDisplay() {
+export function HelpDisplay({ display }) {
   const [style, setStyle] = useState({
     opacity: 1,
   });
+
   const instructions = [
     // {
     //   icon: faW,
@@ -41,11 +42,10 @@ export function HelpDisplay() {
     },
   ];
 
-  useEffect(() => setTimeout(() => setStyle({}), 4000), []);
   return (
     <div className={styles.helpContainer} onClick={(e) => e.stopPropagation()}>
       <FontAwesomeIcon icon={faCircleQuestion} className={styles.helpIcon} />
-      <div className={styles.instructions} style={style}>
+      <div className={styles.instructions} style={display ? style : {}}>
         {instructions &&
           instructions.map((n) => (
             <div className={styles.instructionElementContainer}>

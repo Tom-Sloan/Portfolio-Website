@@ -2,7 +2,6 @@ import * as THREE from "three";
 import Experience from "../../Experience.js";
 import gsap from "gsap";
 import ModelRaycaster from "./ModelRaycaster.js";
-import { Vector2 } from "three";
 import RotationPractise from "./RotationPractise.js";
 
 export default class Fox {
@@ -142,8 +141,8 @@ export default class Fox {
       onStartParams: [this],
       onUpdate: this.updateMovement,
       onUpdateParams: [this],
-      onComplete: this.completeMovement,
-      onCompleteParams: [this],
+      onStart: this.completeMovement,
+      onStartParams: [this],
     });
     //rotation animation
     //Get amount to rotate
@@ -348,6 +347,7 @@ export default class Fox {
       location.z = location.z - 7;
       this.updatePosition(location);
       this.model.lookAt(dest[0].position);
+      this.planes.planesArray[0].activateDestination(dest[0]);
     } else {
       console.log("Invalid Teleport location");
     }
@@ -424,13 +424,11 @@ export default class Fox {
   }
   //Parts of Update:
   // 1. update animation
-  // 2. update compass
-  // 3. check for teleport
+  // 2. check for teleport
   update() {
     //1.
     this.animation.mixer.update(this.time.delta * 0.001);
-    //2.
-    // this.updateCompass();
+
     //3.
     if (window.tomsloanTeleportation !== -1) {
       console.log("Val: ", window.tomsloanTeleportation);

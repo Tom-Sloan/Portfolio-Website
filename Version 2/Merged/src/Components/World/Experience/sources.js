@@ -22,15 +22,54 @@ export default [
     type: "texture",
     path: "/static/textures/particles/4.png",
   },
-
   {
-    name: "resumeGLTFModel",
+    name: "projectsTextGTLFModel",
     type: "gltfModel",
-    path: "/static/models/destinations/resume.glb",
+    path: "/static/models/destinations/projects/projectsText.glb",
   },
   {
-    name: "contactGLTFModel",
+    name: "resumeTextGTLFModel",
     type: "gltfModel",
-    path: "/static/models/destinations/contact.glb",
+    path: "/static/models/destinations/papers/resumeText.glb",
+  },
+  {
+    name: "contactTextGTLFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/contact/contactText.glb",
+  },
+  {
+    name: "hoverPlatformColor",
+    type: "texture",
+    path: "/static/models/destinations/tech_pedestal/tech_pedestal_COL.png",
+  },
+  {
+    name: "hoverPlatformEmit",
+    type: "texture",
+    path: "/static/models/destinations/tech_pedestal/tech_pedestal_EMIT.png",
+  },
+  {
+    name: "hoverPlatformMettalic",
+    type: "texture",
+    path: "/static/models/destinations/tech_pedestal/tech_pedestal_METALLIC.png",
+  },
+  {
+    name: "hoverPlatformRoughness",
+    type: "texture",
+    path: "/static/models/destinations/tech_pedestal/tech_pedestal_ROUGHNESS.png",
+  },
+  {
+    name: "pedestalGLTFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/tech_pedestal/tech_pedestal.glb",
+  },
+  {
+    name: "papersGTLFModel",
+    type: "gltfModel",
+    path: "/static/models/destinations/papers/papers.glb",
+  },
+  {
+    name: "papersTexture",
+    type: "texture",
+    path: "/static/models/destinations/papers/papers.jpg",
   },
 ];

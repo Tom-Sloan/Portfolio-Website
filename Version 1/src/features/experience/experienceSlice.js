@@ -39,7 +39,7 @@ export const experienceSlice = createSlice({
             "Analyzed the work of co-workers and created presentations of their technology, allowing the laboratory to demonstrate the technology to many interested parties",
           ],
           date: "May 2018",
-          enddate: "April 2021",
+          enddate: "December 2021",
           image: "./workPlaces/Tom/carletonUniversity.png",
         },
         {

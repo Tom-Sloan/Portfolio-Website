@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export function Experience({ human }) {
   const experiences = useSelector(selectExperienceArray)[human];
 
-  const updateWindowDimensions = () => { };
+  const updateWindowDimensions = () => {};
 
   function isScrolledIntoView(elem) {
     var docViewTop = document.querySelector(`.${resumeStyle.parent}`).scrollTop;
@@ -35,10 +35,9 @@ export function Experience({ human }) {
 
     const updateTimeline = () => {
       try {
-        const children = Array.from(document.querySelector(
-          `.${styles.experienceList}`
-        ).children)
-
+        const children = Array.from(
+          document.querySelector(`.${styles.experienceList}`).children
+        );
 
         // console.log(getComputedStyle(document.querySelector(`.${styles.experienceList}`)).marginTop);
 
@@ -72,7 +71,7 @@ export function Experience({ human }) {
         var scrolled = (winScroll / height) * 100;
 
         children.forEach((elem, index) => {
-          if (scrolled > ((100 / (children.length - 1)) * index)) {
+          if (scrolled > (100 / (children.length - 1)) * index) {
             if (document.getElementById(`circle ${elem.id}`)) {
               document.getElementById(
                 `circle ${elem.id}`
@@ -131,16 +130,14 @@ export function Experience({ human }) {
   };
 
   const makeBold = (item, keywordList) => {
-    keywordList.forEach(keyword => {
-      console.log(keyword)
-      let re = new RegExp(keyword, 'ig')
-      console.log(re)
-      item = item.replaceAll(re, '<strong>' + keyword + '</strong>')
-      console.log(item)
-    })
+    keywordList.forEach((keyword) => {
+      let re = new RegExp(keyword, "ig");
+
+      item = item.replaceAll(re, "<strong>" + keyword + "</strong>");
+    });
 
     return item;
-  }
+  };
 
   return (
     <div className={styles.experienceContainer}>
@@ -181,16 +178,21 @@ export function Experience({ human }) {
                 <time>
                   {data.date} - {data.enddate}
                 </time>
-                {data.tasks &&
+                {data.tasks && (
                   <ul>
                     {data.tasks.length > 0 &&
-                      data.tasks.map((item) => (
-                        data.keywords && (
-                          <li dangerouslySetInnerHTML={{ __html: makeBold(item, data.keywords) }} ></li>
-                        ) || <li>{item}</li>
-                      ))}
+                      data.tasks.map(
+                        (item) =>
+                          (data.keywords && (
+                            <li
+                              dangerouslySetInnerHTML={{
+                                __html: makeBold(item, data.keywords),
+                              }}
+                            ></li>
+                          )) || <li>{item}</li>
+                      )}
                   </ul>
-                }
+                )}
               </div>
             ))}
         </div>

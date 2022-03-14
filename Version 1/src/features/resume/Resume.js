@@ -20,8 +20,9 @@ import { NameContext } from "../../AllContexts";
 import "./backgroundStyles.scss";
 
 export function Resume() {
+  const apiUrl = "https://ssn1hpic18.execute-api.us-east-1.amazonaws.com/demo";
   const name = useContext(NameContext).personName;
-  console.log("name: ", name);
+  const [resumeFileUrl, setResumeFileUrl] = useState(null);
   const [resume, setResume] = useState();
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
@@ -37,18 +38,60 @@ export function Resume() {
       width: window.innerWidth,
     });
   };
+  const getResume = async () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
+    const response = await fetch(
+      "https://ssn1hpic18.execute-api.us-east-1.amazonaws.com/demo",
+      requestOptions
+    );
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(responseJSON, requestOptions)
+      .then((response) => response.blob())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+    // const data = await resumeResponse.blob();
+    // download(data, "tom-sloan-cv-2022.pdf");
+    // const file = new Blob([data], { type: "application/pdf" });
+    // console.log(data)
+    // const fileURL = window.URL.createObjectURL(file);
+    // window.open(fileURL)
+  };
+
+  function download(blob, filename) {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    // the filename you want
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
   useEffect(() => {
     window.addEventListener("resize", updateWindowDimensions);
     updateWindowDimensions();
     setCSSGlobalVar("--rpv-core__inner-page-background-color", "grey");
+
+    getResume();
 
     return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
 
   useEffect(() => {
     const documentPages = document.querySelectorAll(".rpv-core__inner-page");
-    console.log(documentPages);
   }, [resume]);
 
   return (
@@ -56,22 +99,20 @@ export function Resume() {
       <Experience human={name === "tom" ? "tom" : "dan"} />
 
       <div className={styles.pdfContainer}>
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.2.228/build/pdf.worker.min.js">
-          <div
-            style={{
-              height: "100%",
-            }}
-          >
-            <Viewer
-              fileUrl={
-                name === "tom"
-                  ? "./resumes/Tom Sloan CV July 2021.pdf"
-                  : "./resumes/Daniel_Neasmith_CV.pdf"
-              }
-              plugins={[defaultLayoutPluginInstance]}
-            />
-          </div>
-        </Worker>
+        {resumeFileUrl && (
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.2.228/build/pdf.worker.min.js">
+            <div
+              style={{
+                height: "100%",
+              }}
+            >
+              <Viewer
+                fileUrl={resumeFileUrl}
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </div>
+          </Worker>
+        )}
       </div>
     </div>
   );

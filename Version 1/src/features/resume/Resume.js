@@ -44,28 +44,20 @@ export function Resume() {
       redirect: "follow",
     };
 
-    const response = await fetch(
-      "https://ssn1hpic18.execute-api.us-east-1.amazonaws.com/demo",
-      requestOptions
-    );
+    const response = await fetch(apiUrl, requestOptions);
     const responseJSON = await response.json();
-    console.log(responseJSON);
 
-    var requestOptions = {
+    requestOptions = {
       method: "GET",
       redirect: "follow",
     };
 
-    fetch(responseJSON, requestOptions)
-      .then((response) => response.blob())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-    // const data = await resumeResponse.blob();
-    // download(data, "tom-sloan-cv-2022.pdf");
-    // const file = new Blob([data], { type: "application/pdf" });
-    // console.log(data)
-    // const fileURL = window.URL.createObjectURL(file);
-    // window.open(fileURL)
+    const resumeResponse = await fetch(responseJSON, requestOptions);
+
+    const data = await resumeResponse.blob();
+
+    const fileURL = window.URL.createObjectURL(data);
+    setResumeFileUrl(fileURL);
   };
 
   function download(blob, filename) {

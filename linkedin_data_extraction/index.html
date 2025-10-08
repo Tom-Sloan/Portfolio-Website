@@ -242,12 +242,6 @@
 				position: relative;
 				overflow: hidden;
 				z-index: 0;
-				transition: all 0.3s ease;
-			}
-
-			.bg-image-wrapper.popped {
-				overflow: visible;
-				z-index: 50;
 			}
 
 			.bg-image-wrapper:nth-child(1) {
@@ -282,9 +276,36 @@
 				position: relative;
 			}
 
-			.bg-image.popped {
-				transform: scale(1.15);
-				filter: brightness(1.1);
+			.bg-image:hover {
+				opacity: 0.7;
+			}
+
+			/* Image Modal */
+			.image-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: rgba(0, 0, 0, 0.7);
+				z-index: 9999;
+				align-items: center;
+				justify-content: center;
+				padding: 2rem;
+				cursor: pointer;
+			}
+
+			.image-modal.active {
+				display: flex;
+			}
+
+			.image-modal img {
+				max-width: 90%;
+				max-height: 90%;
+				object-fit: contain;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+				cursor: default;
 			}
 
 			.profile-grid {
@@ -1000,11 +1021,31 @@
 			↑
 		</div>
 
+		<!-- Image Modal -->
+		<div class="image-modal" id="imageModal">
+			<img src="" alt="Thesis visualization" id="modalImage" onclick="event.stopPropagation()" />
+		</div>
+
 		<!-- Load Data -->
 		<script src="data.js"></script>
 
 		<!-- Render Functions -->
 		<script>
+			// Image Modal Functions
+			function openImageModal(imageSrc) {
+				const modal = document.getElementById('imageModal');
+				const modalImage = document.getElementById('modalImage');
+				modalImage.src = imageSrc;
+				modal.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			}
+
+			function closeImageModal() {
+				const modal = document.getElementById('imageModal');
+				modal.classList.remove('active');
+				document.body.style.overflow = 'auto';
+			}
+
 			// Render Profile Section
 			function renderProfile() {
 				const profile = portfolioData.profile;
@@ -1299,23 +1340,27 @@
 				renderResume();
 				renderFooter();
 
-				// Background image click handlers
+				// Background image click handlers - open modal
 				const bgImages = document.querySelectorAll('.bg-image');
 				bgImages.forEach((img) => {
 					img.addEventListener('click', function() {
-						const wrapper = this.parentElement;
-						const isCurrentlyPopped = wrapper.classList.contains('popped');
-
-						// Remove popped class from all images and wrappers
-						document.querySelectorAll('.bg-image-wrapper').forEach(w => w.classList.remove('popped'));
-						document.querySelectorAll('.bg-image').forEach(i => i.classList.remove('popped'));
-
-						// Toggle current image if it wasn't popped
-						if (!isCurrentlyPopped) {
-							wrapper.classList.add('popped');
-							this.classList.add('popped');
-						}
+						openImageModal(this.src);
 					});
+				});
+
+				// Modal event listeners
+				const modal = document.getElementById('imageModal');
+				modal.addEventListener('click', function(e) {
+					if (e.target === modal) {
+						closeImageModal();
+					}
+				});
+
+				// Close modal on ESC key
+				document.addEventListener('keydown', function(e) {
+					if (e.key === 'Escape') {
+						closeImageModal();
+					}
 				});
 
 				// Back to top button logic

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom Sloan - LinkedIn Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .headline {
+            font-size: 1.5em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header .location {
+            font-size: 1.1em;
+            opacity: 0.85;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .about {
+            background: #f8f9fa;
+            padding: 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .about p {
+            font-size: 1.2em;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #0077B5;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0077B5;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            font-size: 1.2em;
+        }
+
+        .section-title.education::before { content: '🎓'; }
+        .section-title.experience::before { content: '💼'; }
+        .section-title.certifications::before { content: '🏆'; }
+        .section-title.skills::before { content: '🛠️'; }
+
+        .card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            flex-shrink: 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            color: #888;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+        }
+
+        .card-description {
+            margin-top: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .skills-list {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: #e1f5ff;
+            color: #0077B5;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid #b3e5fc;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #00A0DC;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .cert-badge {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .credential-link {
+            display: inline-block;
+            background: #0077B5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+
+        .credential-link:hover {
+            background: #005885;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0077B5;
+        }
+
+        .skill-category h4 {
+            color: #0077B5;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .skill-category li::before {
+            content: '▸ ';
+            color: #0077B5;
+            font-weight: bold;
+        }
+
+        .timeline {
+            border-left: 3px solid #0077B5;
+            padding-left: 30px;
+            margin-left: 40px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: #0077B5;
+            border-radius: 50%;
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #0077B5;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #00A0DC;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card-header {
+                flex-direction: column;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                margin-left: 20px;
+            }
+        }
+
+        .current-badge {
+            background: #22c55e;
+        }
+
+        .cert-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .cert-detail {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .cert-detail strong {
+            display: block;
+            color: #0077B5;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="https://media.licdn.com/dms/image/v2/C5603AQEW-O-r7bsw1w/profile-displayphoto-shrink_400_400/0/1564098666249"
+                 alt="Tom Sloan" class="profile-picture">
+            <h1>Tom Sloan</h1>
+            <div class="headline">Software Developer</div>
+            <div class="location">📍 Ottawa, Ontario, Canada</div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about">
+            <p>Full stack developer skilled in React, AWS, JavaScript, Node, SQL. I constantly do projects to improve my technical ability. Carleton University Computer Systems Engineering graduate with distinction. See my portfolio website for more.</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Education Section -->
+            <section class="section">
+                <h2 class="section-title education">Education</h2>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Carleton_University_logo.svg"
+                             alt="Carleton University" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Carleton University</div>
+                            <div class="card-subtitle">Master of Engineering (MEng) - Artificial Intelligence</div>
+                            <div class="card-meta">📅 January 2024 - October 2025</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Advanced studies in Artificial Intelligence and Machine Learning
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Carleton_University_logo.svg"
+                             alt="Carleton University" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Carleton University</div>
+                            <div class="card-subtitle">Bachelor of Engineering (BE) - Computer Systems</div>
+                            <div class="card-meta">📅 September 2017 - December 2021</div>
+                            <div class="card-meta">🎖️ <strong>Graduated with distinction</strong></div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Computer Systems Engineering program
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Experience Section -->
+            <section class="section">
+                <h2 class="section-title experience">Work Experience</h2>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Carleton_University_logo.svg"
+                             alt="Carleton University" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">
+                                Software Developer
+                                <span class="badge current-badge">Current</span>
+                            </div>
+                            <div class="card-subtitle">Carleton University</div>
+                            <div class="card-meta">📅 October 2023 - Present (2 years 1 month)</div>
+                            <div class="card-meta">📍 Ottawa, Ontario, Canada</div>
+                            <div class="card-meta">💼 Permanent Full-time</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Full stack development using React, AWS, JavaScript, Node, and SQL. Building and maintaining web applications and services for the university.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Full Stack Development</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://media.licdn.com/dms/image/v2/C560BAQHGKlCNh8dU2g/company-logo_200_200/company-logo_200_200/0/1631303562803/magnet_forensics_logo"
+                             alt="Magnet Forensics" class="card-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%230077B5%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2230%22 font-family=%22Arial%22%3EMF%3C/text%3E%3C/svg%3E'">
+                        <div class="card-info">
+                            <div class="card-title">Software Engineer</div>
+                            <div class="card-subtitle">Magnet Forensics</div>
+                            <div class="card-meta">📅 April 2022 - June 2023 (1 year 3 months)</div>
+                            <div class="card-meta">📍 Ottawa, Ontario, Canada</div>
+                            <div class="card-meta">💼 Permanent Full-time</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Software engineering in digital forensics and incident response solutions. Developed features and tools for digital investigation platforms.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Software Engineering</span>
+                        <span class="skill-tag">Digital Forensics</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Telesat_logo.svg/200px-Telesat_logo.svg.png"
+                             alt="Telesat" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Spectrum Engineering Intern</div>
+                            <div class="card-subtitle">Telesat</div>
+                            <div class="card-meta">📅 May 2020 - December 2020 (8 months)</div>
+                            <div class="card-meta">📍 Ottawa/Kanata, Ontario, Canada</div>
+                            <div class="card-meta">💼 Full-time Internship</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Worked on spectrum engineering projects for satellite communications. Analyzed frequency spectrum usage and interference patterns.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Spectrum Engineering</span>
+                        <span class="skill-tag">Telecommunications</span>
+                        <span class="skill-tag">Satellite Communications</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Carleton_University_logo.svg"
+                             alt="Carleton University" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Research Assistant / Teaching Assistant</div>
+                            <div class="card-subtitle">Carleton University</div>
+                            <div class="card-meta">📅 May 2018 - December 2021 (3 years 8 months)</div>
+                            <div class="card-meta">📍 Ottawa, Canada Area</div>
+                            <div class="card-meta">💼 Part-time</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Teaching assistance, laboratory instruction, and research support. Assisted in computer engineering courses and labs while completing undergraduate studies.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Teaching</span>
+                        <span class="skill-tag">Research</span>
+                        <span class="skill-tag">Lab Instruction</span>
+                        <span class="skill-tag">Computer Engineering</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Ottawa_New_Logo.svg/200px-Ottawa_New_Logo.svg.png"
+                             alt="City of Ottawa" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Aquafitness Instructor</div>
+                            <div class="card-subtitle">City of Ottawa</div>
+                            <div class="card-meta">📅 June 2016 - December 2017 (1 year 7 months)</div>
+                            <div class="card-meta">📍 Ottawa, Ontario, Canada</div>
+                            <div class="card-meta">💼 Part-time</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Aquafitness instruction and recreation programming. Led water-based fitness classes for diverse age groups and fitness levels.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Aquafitness</span>
+                        <span class="skill-tag">Fitness Instruction</span>
+                        <span class="skill-tag">Recreation Programming</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Ottawa_New_Logo.svg/200px-Ottawa_New_Logo.svg.png"
+                             alt="City of Ottawa" class="card-logo">
+                        <div class="card-info">
+                            <div class="card-title">Recreation Staff</div>
+                            <div class="card-subtitle">City of Ottawa</div>
+                            <div class="card-meta">📅 September 2015 - December 2017 (2 years 4 months)</div>
+                            <div class="card-meta">📍 Ottawa, Ontario, Canada</div>
+                            <div class="card-meta">💼 Part-time</div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Recreation and community program support. Assisted with various community programs and recreational activities.
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Recreation</span>
+                        <span class="skill-tag">Community Programming</span>
+                        <span class="skill-tag">Customer Service</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section -->
+            <section class="section">
+                <h2 class="section-title certifications">Certifications</h2>
+
+                <div class="card">
+                    <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Security-Specialty_badge.3d43f0d19e10b2e7b56fa90c93eaad64b84a96f5.png"
+                         alt="AWS Security Specialty" class="cert-badge">
+                    <div class="card-title" style="text-align: center;">AWS Certified Security – Specialty</div>
+
+                    <div class="cert-info">
+                        <div class="cert-detail">
+                            <strong>Issuing Organization</strong>
+                            Amazon Web Services (AWS)
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Issue Date</strong>
+                            October 2022
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Expiration Date</strong>
+                            October 2025
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Credential ID</strong>
+                            c5e97a97-e61e-41b4-aa37-e03b6d62a3fa
+                        </div>
+                    </div>
+
+                    <div class="card-description">
+                        Validates expertise in creating and implementing AWS security solutions. Demonstrates ability to secure AWS workloads and implement controls for data classification and protection.
+                    </div>
+
+                    <div style="text-align: center;">
+                        <a href="https://www.credly.com/badges/c5e97a97-e61e-41b4-aa37-e03b6d62a3fa"
+                           target="_blank" class="credential-link">
+                            🔗 View Credential
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png"
+                         alt="AWS Cloud Practitioner" class="cert-badge">
+                    <div class="card-title" style="text-align: center;">AWS Certified Cloud Practitioner</div>
+
+                    <div class="cert-info">
+                        <div class="cert-detail">
+                            <strong>Issuing Organization</strong>
+                            Amazon Web Services (AWS)
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Issue Date</strong>
+                            July 2020
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Expiration Date</strong>
+                            May 2025
+                        </div>
+                        <div class="cert-detail">
+                            <strong>Credential ID</strong>
+                            c9afdb1e-f344-459e-b580-4534fae732d3
+                        </div>
+                    </div>
+
+                    <div class="card-description">
+                        Validates overall understanding of the AWS Cloud. Demonstrates fundamental knowledge of AWS services, architecture, security, and pricing.
+                    </div>
+
+                    <div style="text-align: center;">
+                        <a href="https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3"
+                           target="_blank" class="credential-link">
+                            🔗 View Credential
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section">
+                <h2 class="section-title skills">Skills</h2>
+
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Frontend Development</h4>
+                        <ul>
+                            <li>React</li>
+                            <li>JavaScript</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Backend Development</h4>
+                        <ul>
+                            <li>Node.js</li>
+                            <li>SQL</li>
+                            <li>GraphQL</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Cloud Computing</h4>
+                        <ul>
+                            <li>AWS</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Programming Languages</h4>
+                        <ul>
+                            <li>JavaScript</li>
+                            <li>Python</li>
+                            <li>Java</li>
+                            <li>C++</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Development Tools</h4>
+                        <ul>
+                            <li>Git</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Specializations</h4>
+                        <ul>
+                            <li>Full Stack Development</li>
+                            <li>Software Engineering</li>
+                            <li>Artificial Intelligence</li>
+                            <li>Machine Learning</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Tom Sloan</strong> | Software Developer</p>
+            <p>
+                <a href="https://www.linkedin.com/in/tom-sloan" target="_blank">LinkedIn Profile</a> •
+                <a href="https://tom-sloan.com" target="_blank">Portfolio Website</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">
+                This profile was generated from LinkedIn data extraction<br>
+                Last updated: January 2025
+            </p>
+        </div>
+    </div>
+</body>
+</html>

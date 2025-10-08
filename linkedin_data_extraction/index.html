@@ -1022,8 +1022,16 @@
 		</div>
 
 		<!-- Image Modal -->
-		<div class="image-modal" id="imageModal">
-			<img src="" alt="Thesis visualization" id="modalImage" onclick="event.stopPropagation()" />
+		<div
+			class="image-modal"
+			id="imageModal"
+		>
+			<img
+				src=""
+				alt="Thesis visualization"
+				id="modalImage"
+				onclick="event.stopPropagation()"
+			/>
 		</div>
 
 		<!-- Load Data -->
@@ -1033,17 +1041,17 @@
 		<script>
 			// Image Modal Functions
 			function openImageModal(imageSrc) {
-				const modal = document.getElementById('imageModal');
-				const modalImage = document.getElementById('modalImage');
+				const modal = document.getElementById("imageModal");
+				const modalImage = document.getElementById("modalImage");
 				modalImage.src = imageSrc;
-				modal.classList.add('active');
-				document.body.style.overflow = 'hidden';
+				modal.classList.add("active");
+				document.body.style.overflow = "hidden";
 			}
 
 			function closeImageModal() {
-				const modal = document.getElementById('imageModal');
-				modal.classList.remove('active');
-				document.body.style.overflow = 'auto';
+				const modal = document.getElementById("imageModal");
+				modal.classList.remove("active");
+				document.body.style.overflow = "auto";
 			}
 
 			// Render Profile Section
@@ -1341,24 +1349,24 @@
 				renderFooter();
 
 				// Background image click handlers - open modal
-				const bgImages = document.querySelectorAll('.bg-image');
+				const bgImages = document.querySelectorAll(".bg-image");
 				bgImages.forEach((img) => {
-					img.addEventListener('click', function() {
+					img.addEventListener("click", function () {
 						openImageModal(this.src);
 					});
 				});
 
 				// Modal event listeners
-				const modal = document.getElementById('imageModal');
-				modal.addEventListener('click', function(e) {
+				const modal = document.getElementById("imageModal");
+				modal.addEventListener("click", function (e) {
 					if (e.target === modal) {
 						closeImageModal();
 					}
 				});
 
 				// Close modal on ESC key
-				document.addEventListener('keydown', function(e) {
-					if (e.key === 'Escape') {
+				document.addEventListener("keydown", function (e) {
+					if (e.key === "Escape") {
 						closeImageModal();
 					}
 				});

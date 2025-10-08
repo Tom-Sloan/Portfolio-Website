@@ -4,146 +4,129 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repository contains two distinct portfolio websites:
+This repository contains a static HTML portfolio website built from LinkedIn data.
 
-1. **React Portfolio (Main)** - Interactive portfolio with React, Redux, and Matter.js physics
-   - Located in: `src/`, `public/`
-   - Built with Create React App
-   - Two versions: standard site (tom-sloan.com) and physics-based landing (version2.tom-sloan.com)
+**Location:** `linkedin_data_extraction/`
+**Tech Stack:** Pure HTML/CSS/JavaScript (no build process or dependencies)
+**Content Management:** All content loaded dynamically from `data.js`
 
-2. **LinkedIn Portfolio (Static)** - Standalone HTML portfolio with dynamic data loading
-   - Located in: `linkedin_data_extraction/`
-   - Pure HTML/CSS/JavaScript (no build process)
-   - Loads content from `data.js` for easy updates
-   - See `linkedin_data_extraction/README.md` for full details
+## How to Use
 
-## Common Commands
-
-### React Portfolio (Main)
+### Viewing the Website
 ```bash
-npm start          # Start development server (port 3000)
-npm run build      # Create production build
-npm test           # Run tests with Jest
-```
-
-### LinkedIn Portfolio (Static HTML)
-```bash
-# No build process - open directly in browser
+# Open directly in browser - no build process needed
 open linkedin_data_extraction/index.html
-
-# To update content:
-# 1. Edit linkedin_data_extraction/data.js
-# 2. Refresh browser - changes appear immediately
 ```
+
+### Updating Content
+1. Edit `linkedin_data_extraction/data.js` - this is a JavaScript file with a `portfolioData` object
+2. Refresh browser - changes appear immediately
+
+**IMPORTANT:** Edit `data.js` NOT `linkedin_data.json`. The website loads from `data.js` (JavaScript), not the JSON file.
 
 ## Architecture
 
-### React Portfolio Architecture
-
-**State Management** - Redux store configured in `src/app/store.js` with slices for:
-- `project` - Portfolio projects data (projectsSlice)
-- `work` - Work experience (workplaceSlice)
-- `experience` - Technical skills (experienceSlice)
-- `general` - General information/sports/hobbies (generalSlice)
-- `photos` - Photo gallery (photoSlice)
-- `home` - Home page state (homeSlice)
-
-**Context API** - Two global contexts defined in `src/AllContexts.js`:
-- `NameContext` - Controls which portfolio version to display (tom/dan)
-- `IsDarkThemeContext` - Theme toggle state
-
-**Routing Structure** - Main routes in `src/components/body.js`:
-- `/` - Home page
-- `/about` - Interactive bubble tiles (currently under construction)
-- `/projects` - Project showcase
-- `/resume` - Resume viewer
-- `/contact` - Contact information
-
-### LinkedIn Portfolio Architecture
-
-**Data-Driven Design** - All content loaded from single source:
-- `linkedin_data_extraction/data.js` - JavaScript object containing all website content
-- `linkedin_data_extraction/index.html` - Renders content dynamically on page load
+### Data-Driven Design
+All content is loaded from a single source:
+- **`data.js`** - JavaScript object containing all website content
+- **`index.html`** - Renders content dynamically on page load
 - No build process or dependencies required
 
-**Content Structure** in `data.js`:
-- `profile` - Name, headline, bio, links, profile image path
-- `education` - Array of degrees with logos and descriptions
-- `experience` - Array of jobs with company logos, skills, dates
-- `projects` - Array with images, tags, descriptions, GitHub links
-- `skills` - Object organized by category (languages, web dev, hardware)
-- `certifications` - Array with badge images and credential URLs
-- `resume` - Path to PDF file
+### Content Structure in `data.js`
 
-**Performance Features**:
-- Native lazy loading on all images except profile picture
-- Profile image preloaded with `fetchpriority="high"` for instant display
-- About section renders first for fast initial load
+```javascript
+const portfolioData = {
+  profile: {
+    name, headline, bio, links, profileImage
+  },
+  education: [
+    { degree, institution, logo, description, dates }
+  ],
+  experience: [
+    { title, company, logo, skills, dates, description }
+  ],
+  projects: [
+    { title, image, tags, description, github }
+  ],
+  skills: {
+    languages: [], webDev: [], hardware: [], ...
+  },
+  certifications: [
+    { name, image, url }
+  ],
+  resume: "path/to/resume.pdf"
+};
+```
 
-### Key Components
+### Image Organization
 
-**BubbleTiles System** (`src/components/BubbleTiles/`):
-- Complex scrolling interaction system with floating bubbles and sticky tiles
-- Uses position-based ordering where tiles reorder based on scroll
-- `BubbleTilesController.js` - Main orchestrator managing tile positions and heights
-- `Tiles.js` - Individual tile/paddle components
-- `Bubbles.js` - Floating bubble navigation elements
-- `NextBack.js` - Mobile navigation arrows
+All images stored in `linkedin_data_extraction/images/`:
+- `profile/` - Profile photo
+- `companies/` - Company/institution logos
+- `projects/` - Project screenshots
+- `skills/` - Technology logos
+- `certifications/` - Certification badges
+- `thesis/` - Thesis/research images
 
-**Landing Page** (`src/components/LandingPage/`):
-- Interactive physics-based landing using Matter.js
-- Creates a cloth simulation with clickable "teleportation balls" for navigation
-- `World.js` - Matter.js physics engine setup
-- `Render.js` - Custom renderer for the physics scene
-- Can be scrolled past to reach standard site navigation
+**Image paths in `data.js`:** Relative to HTML file (e.g., `images/profile/photo.png`)
 
-### React Portfolio Data Structure
+### Performance Features
 
-Project data is stored as Redux slice initial state in `src/features/projects/projectsSlice.js`. Each project contains:
-- `title`, `subtitle`, `description`
-- `date`, `enddate`
-- `category` array with `{tag, color}`
-- `image` path or URL
-- `link` to project/GitHub
+- **Profile image:** Loaded immediately with `fetchpriority="high"` (no lazy loading)
+- **All other images:** Native lazy loading with `loading="lazy"`
+- **About section:** Renders first for fast initial load
+- **No JavaScript dependencies:** Pure vanilla JS for maximum performance
 
-Similar structure for work experience in `workplaceSlice.js` and skills in `experienceSlice.js`.
+## LinkedIn Data Archive
 
-**Important**: When updating React portfolio content, edit the Redux slices. When updating LinkedIn portfolio, edit `linkedin_data_extraction/data.js`.
+The `archive/` folder contains raw LinkedIn HTML files that were used to extract the data:
+- `linked_in_page.html` (8.6MB) - Full LinkedIn profile
+- `experience_page.html`, `certs_page.html`, `skills_page.html`, etc.
+- These are kept for reference but not used by the website
 
-## Styling
+## Making Changes
 
-- Mix of SCSS modules (`.module.scss`) and CSS modules (`.module.css`)
-- Component-specific styles colocated with components
-- Global styles in `src/App.scss`
-- Light/dark theme controlled via `IsDarkThemeContext` (currently defaults to light theme)
+### Content Updates
+Edit `linkedin_data_extraction/data.js` and refresh the browser. That's it!
+
+### Image Updates
+1. Add image to appropriate folder in `linkedin_data_extraction/images/`
+2. Update image path in `data.js`
+3. Refresh browser
+
+### Structure/Style Changes
+Edit `linkedin_data_extraction/index.html` directly
+
+### Documentation
+See `linkedin_data_extraction/README.md` for complete folder structure documentation
 
 ## Important Notes
 
-### React Portfolio
-- The landing page physics engine must be properly cleaned up when unmounted to prevent memory leaks
-- BubbleTiles component calculates positions dynamically based on content height - resize events trigger recalculation
-- Responsive breakpoints managed via `react-socks` BreakpointProvider
-- Several experimental/unused components exist in `Unused/` directories - these are from development exploration
-- Matter.js wrap plugin used for physics boundaries
+- **No build process** - Changes appear immediately on refresh
+- **No dependencies** - Pure HTML/CSS/JavaScript
+- **Data source** - Always edit `data.js` for content updates
+- **Image optimization** - Profile image loads first, others lazy load
+- **Archive files** - 13.6MB of raw LinkedIn HTML kept for reference
 
-### LinkedIn Portfolio
-- **Edit `data.js` NOT `linkedin_data.json`** - The website loads from `data.js` (JavaScript), not the JSON file
-- All image paths in `data.js` are relative to HTML file: `images/profile/photo.png`
-- Images organized in folders: `profile/`, `companies/`, `projects/`, `skills/`, `thesis/`
-- Profile image uses `fetchpriority="high"` (not lazy loaded) for instant display
-- All other images use `loading="lazy"` for performance
-- Raw LinkedIn HTML files (13.6MB) archived in `linkedin_data_extraction/archive/`
-- Documentation for updating content: `linkedin_data_extraction/docs/DATA_README.md`
+## Project Structure
 
-## Working with LinkedIn Portfolio
-
-When user requests changes to the LinkedIn portfolio website:
-
-1. **Content updates**: Edit `linkedin_data_extraction/data.js` - this is a JavaScript file with a `portfolioData` object
-2. **Image updates**:
-   - Add images to appropriate folder in `linkedin_data_extraction/images/`
-   - Update image path in `data.js`
-3. **Structure changes**: Edit `linkedin_data_extraction/index.html`
-4. **No build process**: Changes appear immediately on browser refresh
-
-See `linkedin_data_extraction/README.md` for complete folder documentation.
+```
+Portfolio-Website/
+├── linkedin_data_extraction/     # The entire website
+│   ├── index.html               # Main HTML file
+│   ├── data.js                  # All content (EDIT THIS)
+│   ├── images/                  # All images
+│   │   ├── profile/
+│   │   ├── companies/
+│   │   ├── projects/
+│   │   ├── skills/
+│   │   ├── certifications/
+│   │   └── thesis/
+│   ├── resume/                  # Resume PDF
+│   ├── archive/                 # Raw LinkedIn HTML files
+│   ├── docs/                    # Documentation
+│   └── README.md                # Detailed documentation
+├── .gitignore
+├── CLAUDE.md                    # This file
+└── README.md                    # Project readme
+```

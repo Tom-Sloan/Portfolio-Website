@@ -1257,7 +1257,6 @@
 							<div class="profile-info">
 								<h2>${profile.name}</h2>
 								<div class="headline">${profile.headline}</div>
-								<div class="location">📍 ${profile.location}</div>
 								${profile.about.map((p) => `<p>${p}</p>`).join("")}
 							</div>
 						</div>
@@ -1524,13 +1523,28 @@
 									document.querySelector("#github-calendar");
 								if (calendar) {
 									// Override the library's CSS custom properties
-									calendar.style.setProperty('--color-calendar-graph-day-bg', '#ebedf0');
-									calendar.style.setProperty('--color-calendar-graph-day-L1-bg', '#40c463');
-									calendar.style.setProperty('--color-calendar-graph-day-L2-bg', '#40c463');
-									calendar.style.setProperty('--color-calendar-graph-day-L3-bg', '#40c463');
-									calendar.style.setProperty('--color-calendar-graph-day-L4-bg', '#40c463');
-									calendar.style.border = '0';
-									calendar.style.borderRadius = '0';
+									calendar.style.setProperty(
+										"--color-calendar-graph-day-bg",
+										"#ebedf0"
+									);
+									calendar.style.setProperty(
+										"--color-calendar-graph-day-L1-bg",
+										"#40c463"
+									);
+									calendar.style.setProperty(
+										"--color-calendar-graph-day-L2-bg",
+										"#40c463"
+									);
+									calendar.style.setProperty(
+										"--color-calendar-graph-day-L3-bg",
+										"#40c463"
+									);
+									calendar.style.setProperty(
+										"--color-calendar-graph-day-L4-bg",
+										"#40c463"
+									);
+									calendar.style.border = "0";
+									calendar.style.borderRadius = "0";
 
 									// Remove unwanted text elements
 									const skipLink = calendar.querySelector(

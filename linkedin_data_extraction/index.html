@@ -629,7 +629,13 @@
 				width: 100%;
 				height: 140px;
 				object-fit: cover;
+				object-position: center;
 				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			/* Show top of Smart Home project image */
+			.project-image[src*="smartHome"] {
+				object-position: top;
 			}
 
 			.project-content {
@@ -829,11 +835,9 @@
 			}
 
 			.cert-details {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 0.75rem;
+				display: flex;
+				justify-content: center;
 				margin: 1rem 0;
-				text-align: left;
 			}
 
 			.cert-detail {
@@ -1425,10 +1429,6 @@
 							<div class="cert-detail">
 								<strong>Issued</strong>
 								${cert.issueDate}
-							</div>
-							<div class="cert-detail">
-								<strong>Expires</strong>
-								${cert.expirationDate}
 							</div>
 						</div>
 						<p style="color: var(--light); margin-bottom: 1rem; font-size: 0.85rem;">

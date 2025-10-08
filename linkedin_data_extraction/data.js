@@ -37,7 +37,7 @@ const portfolioData = {
 			degree: "Bachelor of Engineering - BE",
 			field: "Computer Systems",
 			startDate: "September 2017",
-			endDate: "December 2022",
+			endDate: "December 2021",
 			current: false,
 			grade: "Graduated with distinction",
 			description:
@@ -57,7 +57,16 @@ const portfolioData = {
 			current: true,
 			description:
 				"Led the design and testing of a real-time indoor 3D mapping system using a consumer drone (DJI Mini 3), integrating monocular camera and IMU with cloud-based SLAM framework for AR applications. Implemented modular software architecture using Docker, RabbitMQ, and React.js to offload high-computation tasks to remote server, enabling real-time visualization on desktop and AR headsets.",
-			skills: ["Docker", "RabbitMQ", "React.js", "Unity", "SLAM", "AR", "Computer Vision", "Python"],
+			skills: [
+				"Docker",
+				"RabbitMQ",
+				"React.js",
+				"Unity",
+				"SLAM",
+				"AR",
+				"Computer Vision",
+				"Python",
+			],
 			logo: "images/companies/carleton-university.png",
 		},
 		{
@@ -70,8 +79,16 @@ const portfolioData = {
 			current: false,
 			description:
 				"Worked in a small team environment using DevOps tools including Jenkins, Linux, Python and PowerShell to help manage thousands of software builds a day on dozens of on-premise servers. Helped with the migration from on-premise to AWS cloud using CloudFormation and EC2.",
-			skills: ["Jenkins", "Linux", "Python", "PowerShell", "AWS", "CloudFormation", "EC2"],
-			logo: null,
+			skills: [
+				"Jenkins",
+				"Linux",
+				"Python",
+				"PowerShell",
+				"AWS",
+				"CloudFormation",
+				"EC2",
+			],
+			logo: "images/companies/magnet-forensics.png",
 		},
 		{
 			company: "Telesat",
@@ -96,7 +113,15 @@ const portfolioData = {
 			current: false,
 			description:
 				"Designed and built prototype hardware systems for non-invasive monitoring of key health markers (heart rate, respiration rate, body fluid flow) in older adults. Collaborated with faculty and graduate students on health-monitoring research projects while providing teaching assistance and laboratory instruction for computer engineering courses.",
-			skills: ["Hardware Design", "Sensors", "Data Acquisition", "Python", "C/C++", "Teaching", "Research"],
+			skills: [
+				"Hardware Design",
+				"Sensors",
+				"Data Acquisition",
+				"Python",
+				"C/C++",
+				"Teaching",
+				"Research",
+			],
 			logo: "images/companies/carleton-university.png",
 		},
 	],
@@ -255,7 +280,10 @@ const portfolioData = {
 			{ name: "PyTorch", icon: "images/skills/pytorch.png" },
 			{ name: "SLAM", icon: "images/skills/slam.png" },
 			{ name: "Unity", icon: "images/skills/unity.png" },
-			{ name: "Computer Vision", icon: "images/skills/computer-vision.png" },
+			{
+				name: "Computer Vision",
+				icon: "images/skills/computer-vision.png",
+			},
 		],
 		"Cloud & DevOps": [
 			{ name: "AWS", icon: "images/skills/aws.png" },
@@ -295,41 +323,37 @@ const portfolioData = {
 			description: "Validates expertise in AWS security solutions",
 			credentialUrl:
 				"https://www.credly.com/badges/c5e97a97-e61e-41b4-aa37-e03b6d62a3fa",
-			badgeImage:
-				"images/certifications/aws-security-speciatly.png",
+			badgeImage: "images/certifications/aws-security-specialty.png",
 		},
 		{
 			name: "AWS Certified SysOps Administrator – Associate",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "May 2022",
 			expirationDate: "May 2025",
-			description: "Validates technical expertise in deployment, management, and operations on AWS",
-			credentialUrl:
-				"https://www.credly.com/badges/",
-			badgeImage:
-				"images/certifications/aws-sysops-administrator-associate.png",
+			description:
+				"Validates technical expertise in deployment, management, and operations on AWS",
+			credentialUrl: "https://www.credly.com/badges/",
+			badgeImage: "images/certifications/aws-sysops-administrator.png",
 		},
 		{
 			name: "AWS Certified Solutions Architect – Associate",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "January 2022",
 			expirationDate: "January 2025",
-			description: "Validates ability to design and implement distributed systems on AWS",
-			credentialUrl:
-				"https://www.credly.com/badges/",
-			badgeImage:
-				"images/certifications/aws-solutions-architect.png",
+			description:
+				"Validates ability to design and implement distributed systems on AWS",
+			credentialUrl: "https://www.credly.com/badges/",
+			badgeImage: "images/certifications/aws-solutions-architect.png",
 		},
 		{
 			name: "AWS Certified Developer – Associate",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "February 2022",
 			expirationDate: "February 2025",
-			description: "Validates expertise in developing and maintaining AWS-based applications",
-			credentialUrl:
-				"https://www.credly.com/badges/",
-			badgeImage:
-				"images/certifications/aws-developer.png",
+			description:
+				"Validates expertise in developing and maintaining AWS-based applications",
+			credentialUrl: "https://www.credly.com/badges/",
+			badgeImage: "images/certifications/aws-developer.png",
 		},
 		{
 			name: "AWS Cloud Practitioner",
@@ -339,8 +363,7 @@ const portfolioData = {
 			description: "Fundamental AWS Cloud knowledge",
 			credentialUrl:
 				"https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3",
-			badgeImage:
-				"images/certifications/aws-cloud-practitioner.png",
+			badgeImage: "images/certifications/aws-cloud-practitioner.png",
 		},
 	],
 

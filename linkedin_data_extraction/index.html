@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title id="page-title">Portfolio</title>
+
+		<!-- Favicon - Drone Icon -->
+		<link
+			rel="icon"
+			href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛸</text></svg>"
+		/>
+
+		<!-- Preload critical resources for faster loading -->
+		<link
+			rel="preload"
+			href="data.js"
+			as="script"
+		/>
+		<link
+			rel="preload"
+			href="images/profile/tom-sloan-profile.png"
+			as="image"
+		/>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			:root {
+				/* Modern vibrant color scheme */
+				--darkest: #f8fafc;
+				--dark: #94a3b8;
+				--light: #475569;
+				--lightest: #0f172a;
+				--shadowStart: rgba(0, 0, 0, 0.05);
+				--shadowEnd: rgba(0, 0, 0, 0.15);
+				--text: #1e293b;
+				--accent: #3b82f6;
+				--accent-light: #60a5fa;
+				--accent-dark: #2563eb;
+				--success: #10b981;
+				--purple: #8b5cf6;
+				--orange: #f59e0b;
+				--background-alt: #ffffff;
+				--gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				--gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+				--gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+			}
+
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					"Roboto", "Oxygen", "Ubuntu", sans-serif;
+				line-height: 1.5;
+				color: var(--text);
+				background: radial-gradient(
+						circle at 20% 50%,
+						rgba(59, 130, 246, 0.05) 0%,
+						transparent 50%
+					),
+					radial-gradient(
+						circle at 80% 80%,
+						rgba(139, 92, 246, 0.05) 0%,
+						transparent 50%
+					),
+					radial-gradient(
+						circle at 40% 20%,
+						rgba(245, 158, 11, 0.03) 0%,
+						transparent 50%
+					),
+					var(--darkest);
+				font-size: 14px;
+			}
+
+			/* Navigation */
+			nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				background: rgba(240, 245, 249, 0.95);
+				backdrop-filter: blur(10px);
+				padding: 0.75rem 1.5rem;
+				box-shadow: 0 2px 8px var(--shadowStart);
+				z-index: 1000;
+			}
+
+			nav .container {
+				max-width: 1200px;
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			nav .logo {
+				font-size: 1.2rem;
+				font-weight: 700;
+				color: var(--lightest);
+			}
+
+			nav ul {
+				list-style: none;
+				display: flex;
+				gap: 1.5rem;
+			}
+
+			nav a {
+				color: var(--light);
+				text-decoration: none;
+				font-weight: 500;
+				font-size: 0.9rem;
+				transition: all 0.3s ease;
+				position: relative;
+				padding-bottom: 4px;
+			}
+
+			nav a::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 0;
+				height: 2px;
+				background: var(--accent);
+				transition: width 0.3s ease;
+			}
+
+			nav a:hover {
+				color: var(--accent);
+			}
+
+			nav a:hover::after {
+				width: 100%;
+			}
+
+			nav a.active {
+				color: var(--accent);
+				font-weight: 600;
+			}
+
+			nav a.active::after {
+				width: 100%;
+			}
+
+			/* Container */
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem 1.5rem;
+			}
+
+			/* Add subtle pattern to main sections */
+			section.container {
+				position: relative;
+			}
+
+			section.container::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 100vw;
+				height: 100%;
+				background-image: repeating-linear-gradient(
+					90deg,
+					transparent,
+					transparent 2px,
+					rgba(59, 130, 246, 0.02) 2px,
+					rgba(59, 130, 246, 0.02) 4px
+				);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* Section Titles */
+			.section-title {
+				font-size: 1.8rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 2rem;
+				text-align: center;
+				position: relative;
+				padding-bottom: 0.75rem;
+				z-index: 1;
+			}
+
+			.section-title::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 80px;
+				height: 4px;
+				background: var(--gradient-3);
+				border-radius: 3px;
+				animation: pulse 2s ease-in-out infinite;
+			}
+
+			@keyframes pulse {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.7;
+				}
+			}
+
+			/* Profile Section */
+			.profile-section {
+				background: white;
+				padding: 2.5rem 1.5rem;
+				margin-top: 60px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.title-background {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				bottom: 0px;
+				z-index: 0;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr;
+				gap: 0;
+				padding: 0;
+			}
+
+			.bg-image-wrapper {
+				position: relative;
+				overflow: hidden;
+				z-index: 0;
+				transition: all 0.3s ease;
+			}
+
+			.bg-image-wrapper.popped {
+				overflow: visible;
+				z-index: 50;
+			}
+
+			.bg-image-wrapper:nth-child(1) {
+				grid-column: 1;
+				grid-row: 1;
+			}
+
+			.bg-image-wrapper:nth-child(2) {
+				grid-column: 2;
+				grid-row: 1;
+			}
+
+			.bg-image-wrapper:nth-child(3) {
+				grid-column: 1;
+				grid-row: 2;
+			}
+
+			.bg-image-wrapper:nth-child(4) {
+				grid-column: 2;
+				grid-row: 2;
+			}
+
+			.bg-image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				min-width: 0;
+				min-height: 0;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				position: relative;
+			}
+
+			.bg-image.popped {
+				transform: scale(1.15);
+				filter: brightness(1.1);
+			}
+
+			.profile-grid {
+				display: grid;
+				grid-template-columns: 200px 1fr;
+				gap: 2.5rem;
+				align-items: start;
+				position: relative;
+				z-index: 2;
+				background: rgba(255, 255, 255, 0.85);
+				padding: 1.5rem;
+				border-radius: 12px;
+				backdrop-filter: blur(10px);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+			}
+
+			.profile-image-container {
+				text-align: center;
+			}
+
+			.profile-image {
+				width: 180px;
+				height: 180px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 4px solid var(--darkest);
+				box-shadow: 0 8px 20px var(--shadowEnd);
+				margin-bottom: 1rem;
+				transform: rotate(21deg);
+			}
+
+			.profile-info h2 {
+				font-size: 1.6rem;
+				margin-bottom: 0.4rem;
+				color: var(--lightest);
+				text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+			}
+
+			.profile-info .headline {
+				font-size: 1.1rem;
+				color: var(--accent);
+				margin-bottom: 0.4rem;
+				font-weight: 600;
+				text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+			}
+
+			.profile-info .location {
+				color: var(--light);
+				margin-bottom: 1.5rem;
+				font-size: 0.95rem;
+			}
+
+			.profile-info p {
+				font-size: 0.95rem;
+				line-height: 1.6;
+				color: var(--text);
+				margin-bottom: 1rem;
+			}
+
+			.contact-links {
+				display: flex;
+				gap: 0.75rem;
+				margin-top: 1.5rem;
+				flex-wrap: wrap;
+			}
+
+			.contact-btn {
+				display: inline-block;
+				padding: 0.6rem 1.2rem;
+				background: var(--accent);
+				color: white;
+				text-decoration: none;
+				border-radius: 6px;
+				font-weight: 600;
+				font-size: 0.85rem;
+				transition: all 0.3s;
+			}
+
+			.contact-btn:hover {
+				background: var(--accent-light);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+			}
+
+			.contact-btn.secondary {
+				background: var(--dark);
+			}
+
+			.contact-btn.secondary:hover {
+				background: var(--light);
+			}
+
+			/* Card Grid */
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 1.5rem;
+				position: relative;
+				z-index: 1;
+			}
+
+			.card {
+				background: white;
+				border-radius: 16px;
+				padding: 1.5rem;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+					0 2px 4px -1px rgba(0, 0, 0, 0.06);
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				border: 2px solid transparent;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: var(--gradient-3);
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.card:hover {
+				transform: translateY(-8px) scale(1.02);
+				box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+					0 10px 10px -5px rgba(0, 0, 0, 0.04);
+				border-color: var(--accent-light);
+			}
+
+			.card:hover::before {
+				transform: scaleX(1);
+			}
+
+			.card-header {
+				display: flex;
+				align-items: flex-start;
+				gap: 1rem;
+				margin-bottom: 1rem;
+			}
+
+			.card-logo {
+				width: 55px;
+				height: 55px;
+				object-fit: contain;
+				border-radius: 6px;
+				padding: 6px;
+				background: var(--darkest);
+				flex-shrink: 0;
+			}
+
+			.card-title {
+				font-size: 1.15rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.4rem;
+			}
+
+			.card-subtitle {
+				font-size: 0.95rem;
+				color: var(--accent);
+				margin-bottom: 0.4rem;
+				font-weight: 600;
+			}
+
+			.card-meta {
+				color: var(--dark);
+				font-size: 0.85rem;
+				margin-bottom: 0.25rem;
+			}
+
+			.card-description {
+				color: var(--light);
+				line-height: 1.5;
+				margin-top: 0.75rem;
+				font-size: 0.9rem;
+			}
+
+			.badge {
+				display: inline-block;
+				padding: 0.3rem 0.6rem;
+				background: var(--success);
+				color: white;
+				border-radius: 5px;
+				font-size: 0.75rem;
+				font-weight: 600;
+				margin-left: 0.4rem;
+			}
+
+			.skills-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+				margin-top: 0.75rem;
+			}
+
+			.skill-tag {
+				background: var(--darkest);
+				color: var(--light);
+				padding: 0.4rem 0.8rem;
+				border-radius: 15px;
+				font-size: 0.8rem;
+				border: 1px solid var(--dark);
+			}
+
+			/* Skills Grid */
+			.skills-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+				gap: 1.25rem;
+				text-align: center;
+				position: relative;
+				z-index: 1;
+			}
+
+			.skill-item {
+				background: white;
+				padding: 1rem;
+				border-radius: 12px;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				box-shadow: 0 2px 6px var(--shadowStart);
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+			}
+
+			.skill-item::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: var(--gradient-1);
+				opacity: 0;
+				transition: opacity 0.4s ease;
+				z-index: 0;
+			}
+
+			.skill-item:hover {
+				transform: translateY(-6px) scale(1.05);
+				box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+			}
+
+			.skill-item:hover::before {
+				opacity: 0.1;
+			}
+
+			.skill-item > * {
+				position: relative;
+				z-index: 1;
+			}
+
+			.skill-icon {
+				width: 45px;
+				height: 45px;
+				object-fit: contain;
+				margin-bottom: 0.75rem;
+				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.skill-item:hover .skill-icon {
+				transform: scale(1.15) rotate(-5deg);
+			}
+
+			.skill-name {
+				font-size: 0.8rem;
+				color: var(--light);
+				font-weight: 600;
+			}
+
+			/* Projects Section */
+			.projects-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.25rem;
+				position: relative;
+				z-index: 1;
+			}
+
+			.project-card {
+				background: white;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				border: 2px solid transparent;
+			}
+
+			.project-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+				border-color: var(--accent-light);
+			}
+
+			.project-card:hover .project-image {
+				transform: scale(1.05);
+			}
+
+			.project-image {
+				width: 100%;
+				height: 140px;
+				object-fit: cover;
+				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.project-content {
+				padding: 1rem;
+			}
+
+			.project-title {
+				font-size: 1.05rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.3rem;
+				line-height: 1.3;
+			}
+
+			.project-subtitle {
+				font-size: 0.85rem;
+				color: var(--accent);
+				margin-bottom: 0.5rem;
+			}
+
+			.project-description {
+				color: var(--light);
+				line-height: 1.5;
+				margin-bottom: 0.75rem;
+				font-size: 0.8rem;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+
+			.project-tags {
+				display: flex;
+				gap: 0.4rem;
+				flex-wrap: wrap;
+				margin-bottom: 0.75rem;
+			}
+
+			.project-tag {
+				padding: 0.25rem 0.6rem;
+				border-radius: 4px;
+				color: white;
+				font-weight: 600;
+				font-size: 0.7rem;
+			}
+
+			.project-link {
+				display: inline-block;
+				padding: 0.5rem 1rem;
+				background: var(--accent);
+				color: white;
+				text-decoration: none;
+				border-radius: 6px;
+				font-weight: 600;
+				font-size: 0.75rem;
+				transition: all 0.3s;
+			}
+
+			.project-link:hover {
+				background: var(--accent-light);
+			}
+
+			/* Resume Section */
+			.resume-section {
+				background: var(--lightest);
+				color: white;
+				padding: 2.5rem 1.5rem;
+				text-align: center;
+			}
+
+			.resume-content {
+				max-width: 900px;
+				margin: 0 auto;
+			}
+
+			.resume-section h2 {
+				color: white;
+				margin-bottom: 1.5rem;
+			}
+
+			.resume-section p {
+				font-size: 0.95rem;
+				margin-bottom: 1.5rem;
+				opacity: 0.9;
+			}
+
+			.resume-btn {
+				display: inline-block;
+				padding: 0.8rem 2rem;
+				background: var(--accent);
+				color: white;
+				text-decoration: none;
+				border-radius: 6px;
+				font-weight: 600;
+				font-size: 0.95rem;
+				transition: all 0.3s;
+			}
+
+			.resume-btn:hover {
+				background: var(--accent-light);
+				transform: translateY(-2px);
+			}
+
+			/* Thesis Highlight */
+			.thesis-highlight {
+				background: var(--gradient-1);
+				color: white;
+				padding: 2.5rem 1.5rem;
+				border-radius: 16px;
+				margin-bottom: 1.5rem;
+				display: flex;
+				gap: 2rem;
+				align-items: center;
+				box-shadow: 0 10px 40px -10px rgba(102, 126, 234, 0.5);
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.thesis-highlight:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 20px 50px -10px rgba(102, 126, 234, 0.6);
+			}
+
+			.thesis-image {
+				width: 300px;
+				height: auto;
+				border-radius: 10px;
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+			}
+
+			.thesis-text h3 {
+				font-size: 1.5rem;
+				margin-bottom: 0.75rem;
+			}
+
+			.thesis-text p {
+				font-size: 0.9rem;
+				line-height: 1.6;
+				opacity: 0.95;
+			}
+
+			/* Certifications */
+			.cert-card {
+				background: white;
+				border-radius: 16px;
+				padding: 1.75rem;
+				text-align: center;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+					0 2px 4px -1px rgba(0, 0, 0, 0.06);
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				border: 2px solid transparent;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.cert-card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: var(--gradient-2);
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.cert-card:hover {
+				transform: translateY(-8px) scale(1.02);
+				box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+					0 10px 10px -5px rgba(0, 0, 0, 0.04);
+				border-color: var(--purple);
+			}
+
+			.cert-card:hover::before {
+				transform: scaleX(1);
+			}
+
+			.cert-badge-img {
+				width: 110px;
+				height: 110px;
+				object-fit: contain;
+				margin: 0 auto 1rem;
+				transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.cert-card:hover .cert-badge-img {
+				transform: scale(1.1) rotate(5deg);
+			}
+
+			.cert-title {
+				font-size: 1.1rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.75rem;
+			}
+
+			.cert-details {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.75rem;
+				margin: 1rem 0;
+				text-align: left;
+			}
+
+			.cert-detail {
+				padding: 0.75rem;
+				background: var(--darkest);
+				border-radius: 6px;
+				font-size: 0.85rem;
+			}
+
+			.cert-detail strong {
+				display: block;
+				color: var(--accent);
+				margin-bottom: 0.25rem;
+				font-size: 0.8rem;
+			}
+
+			/* Footer */
+			footer {
+				background: var(--lightest);
+				color: white;
+				padding: 2rem 1.5rem;
+				text-align: center;
+				font-size: 0.9rem;
+			}
+
+			footer a {
+				color: var(--accent-light);
+				text-decoration: none;
+			}
+
+			footer a:hover {
+				text-decoration: underline;
+			}
+
+			/* Category Headers */
+			.category-header {
+				color: var(--lightest);
+				margin: 2rem 0 1.25rem;
+				font-size: 1.2rem;
+				font-weight: 600;
+				position: relative;
+				z-index: 1;
+			}
+
+			/* Responsive */
+			@media (max-width: 1024px) {
+				.profile-grid {
+					grid-template-columns: 1fr;
+					text-align: center;
+				}
+
+				.thesis-highlight {
+					flex-direction: column;
+				}
+
+				.thesis-image {
+					width: 100%;
+					max-width: 400px;
+				}
+
+				nav ul {
+					gap: 1rem;
+				}
+			}
+
+			@media (max-width: 768px) {
+				.section-title {
+					font-size: 1.5rem;
+				}
+
+				.card-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.skills-grid {
+					grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+				}
+
+				nav ul {
+					display: none;
+				}
+
+				.profile-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.profile-image {
+					width: 150px;
+					height: 150px;
+				}
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			.back-to-top {
+				position: fixed;
+				bottom: 1.5rem;
+				right: 1.5rem;
+				width: 45px;
+				height: 45px;
+				background: var(--accent);
+				color: white;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+				transition: all 0.3s;
+				z-index: 999;
+				font-size: 1.2rem;
+			}
+
+			.back-to-top:hover {
+				background: var(--accent-light);
+				transform: translateY(-3px);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav>
+			<div
+				class="container"
+				style="padding: 0"
+			>
+				<div
+					class="logo"
+					id="nav-name"
+				>
+					Portfolio
+				</div>
+				<ul>
+					<li><a href="#about">About</a></li>
+					<li><a href="#education">Education</a></li>
+					<li><a href="#experience">Experience</a></li>
+					<li><a href="#projects">Projects</a></li>
+					<li><a href="#skills">Skills</a></li>
+					<li><a href="#certifications">Certifications</a></li>
+					<li><a href="#resume">Resume</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Profile/About Section -->
+		<section
+			class="profile-section"
+			id="about"
+		></section>
+
+		<!-- Education Section -->
+		<section
+			class="container"
+			id="education"
+		></section>
+
+		<!-- Work Experience Section -->
+		<section
+			class="container"
+			id="experience"
+		></section>
+
+		<!-- Projects Section -->
+		<section
+			class="container"
+			id="projects"
+		></section>
+
+		<!-- Skills Section -->
+		<section
+			class="container"
+			id="skills"
+		></section>
+
+		<!-- Certifications Section -->
+		<section
+			class="container"
+			id="certifications"
+			style="
+				background: white;
+				border-radius: 16px;
+				padding: 2.5rem 1.5rem;
+				margin: 2rem auto;
+			"
+		></section>
+
+		<!-- Resume Section -->
+		<section
+			class="resume-section"
+			id="resume"
+		></section>
+
+		<!-- Footer -->
+		<footer id="footer"></footer>
+
+		<!-- Back to Top Button -->
+		<div
+			class="back-to-top"
+			onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+		>
+			↑
+		</div>
+
+		<!-- Load Data -->
+		<script src="data.js"></script>
+
+		<!-- Render Functions -->
+		<script>
+			// Render Profile Section
+			function renderProfile() {
+				const profile = portfolioData.profile;
+				const section = document.getElementById("about");
+
+				section.innerHTML = `
+					<div class="title-background">
+						<div class="bg-image-wrapper">
+							<img src="images/thesis/thesis-results-chart.png" alt="" class="bg-image" loading="lazy" />
+						</div>
+						<div class="bg-image-wrapper">
+							<img src="images/thesis/thesis-architecture-diagram.png" alt="" class="bg-image" loading="lazy" />
+						</div>
+						<div class="bg-image-wrapper">
+							<img src="images/thesis/thesis-figure-02.png" alt="" class="bg-image" loading="lazy" />
+						</div>
+						<div class="bg-image-wrapper">
+							<img src="images/thesis/thesis-main-visualization.png" alt="" class="bg-image" loading="lazy" />
+						</div>
+					</div>
+					<div class="container">
+						<div class="profile-grid">
+							<div class="profile-image-container">
+								<img src="${profile.image}" alt="${
+					profile.name
+				}" class="profile-image" fetchpriority="high" />
+								<div class="contact-links" style="flex-direction: column">
+									<a href="${
+										profile.links.linkedin
+									}" target="_blank" class="contact-btn">LinkedIn</a>
+									<a href="${
+										profile.links.github
+									}" target="_blank" class="contact-btn secondary">GitHub</a>
+								</div>
+							</div>
+							<div class="profile-info">
+								<h2>${profile.name}</h2>
+								<div class="headline">${profile.headline}</div>
+								<div class="location">📍 ${profile.location}</div>
+								${profile.about.map((p) => `<p>${p}</p>`).join("")}
+							</div>
+						</div>
+					</div>
+				`;
+			}
+
+			// Render Education Section
+			function renderEducation() {
+				const education = portfolioData.education;
+				const section = document.getElementById("education");
+
+				const cardsHTML = education
+					.map(
+						(edu) => `
+					<div class="card">
+						<div class="card-header">
+							<img src="${edu.logo}" alt="${edu.school}" class="card-logo" loading="lazy" />
+							<div>
+								<div class="card-title">${edu.school}</div>
+								<div class="card-subtitle">${edu.degree}</div>
+							</div>
+						</div>
+						<div class="card-meta">🎯 Field: ${edu.field}</div>
+						<div class="card-meta">📅 ${edu.startDate} - ${edu.endDate}</div>
+						${
+							edu.grade
+								? `<div class="card-meta">🎖️ <strong>${edu.grade}</strong></div>`
+								: ""
+						}
+						<div class="card-description">${edu.description}</div>
+					</div>
+				`
+					)
+					.join("");
+
+				section.innerHTML = `
+					<h2 class="section-title">Education</h2>
+					<div class="card-grid">${cardsHTML}</div>
+				`;
+			}
+
+			// Render Experience Section
+			function renderExperience() {
+				const experience = portfolioData.experience;
+				const section = document.getElementById("experience");
+
+				const cardsHTML = experience
+					.map((exp) => {
+						const logoHTML = exp.logo
+							? `<img src="${exp.logo}" alt="${exp.company}" class="card-logo" loading="lazy" />`
+							: `<div style="width: 55px; height: 55px; border-radius: 6px; padding: 6px; background: var(--darkest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+								<div style="font-weight: 700; color: var(--accent); font-size: 0.9rem;">${exp.company
+									.substring(0, 2)
+									.toUpperCase()}</div>
+							</div>`;
+
+						return `
+						<div class="card">
+							<div class="card-header">
+								${logoHTML}
+								<div>
+									<div class="card-title">
+										${exp.title}
+										${exp.current ? '<span class="badge">Current</span>' : ""}
+									</div>
+									<div class="card-subtitle">${exp.company}</div>
+								</div>
+							</div>
+							<div class="card-meta">📅 ${exp.startDate} - ${exp.endDate}</div>
+							<div class="card-meta">📍 ${exp.location}</div>
+							<div class="card-meta">💼 ${exp.employmentType}</div>
+							<div class="card-description">${exp.description}</div>
+							<div class="skills-tags">
+								${exp.skills.map((skill) => `<span class="skill-tag">${skill}</span>`).join("")}
+							</div>
+						</div>
+					`;
+					})
+					.join("");
+
+				section.innerHTML = `
+					<h2 class="section-title">Work Experience</h2>
+					<div class="card-grid">${cardsHTML}</div>
+				`;
+			}
+
+			// Render Projects Section
+			function renderProjects() {
+				const projects = portfolioData.projects;
+				const section = document.getElementById("projects");
+
+				const projectsHTML = projects
+					.map(
+						(project) => `
+					<div class="project-card">
+						<img src="${project.image}" alt="${
+							project.title
+						}" class="project-image" loading="lazy" />
+						<div class="project-content">
+							<h3 class="project-title">${project.title}</h3>
+							<div class="project-subtitle">${project.subtitle}</div>
+							<p class="project-description">${project.description}</p>
+							<div class="project-tags">
+								${project.category
+									.map(
+										(cat) =>
+											`<span class="project-tag" style="background: ${cat.color}">${cat.tag}</span>`
+									)
+									.join("")}
+							</div>
+							${
+								project.link
+									? `<a href="${project.link}" target="_blank" class="project-link">View Project →</a>`
+									: ""
+							}
+						</div>
+					</div>
+				`
+					)
+					.join("");
+
+				section.innerHTML = `
+					<h2 class="section-title">Projects</h2>
+					<div class="projects-grid">${projectsHTML}</div>
+				`;
+			}
+
+			// Render Skills Section
+			function renderSkills() {
+				const skills = portfolioData.skills;
+				const section = document.getElementById("skills");
+
+				let html = '<h2 class="section-title">Technical Skills</h2>';
+
+				for (const [category, skillList] of Object.entries(skills)) {
+					html += `
+						<h3 class="category-header">${category}</h3>
+						<div class="skills-grid">
+							${skillList
+								.map(
+									(skill) => `
+								<div class="skill-item">
+									<img src="${skill.icon}" alt="${skill.name}" class="skill-icon" loading="lazy" />
+									<div class="skill-name">${skill.name}</div>
+								</div>
+							`
+								)
+								.join("")}
+						</div>
+					`;
+				}
+
+				section.innerHTML = html;
+			}
+
+			// Render Certifications Section
+			function renderCertifications() {
+				const certifications = portfolioData.certifications;
+				const section = document.getElementById("certifications");
+
+				const certsHTML = certifications
+					.map(
+						(cert) => `
+					<div class="cert-card">
+						<img src="${cert.badgeImage}" alt="${cert.name}" class="cert-badge-img" loading="lazy" />
+						<h3 class="cert-title">${cert.name}</h3>
+						<div class="cert-details">
+							<div class="cert-detail">
+								<strong>Issued</strong>
+								${cert.issueDate}
+							</div>
+							<div class="cert-detail">
+								<strong>Expires</strong>
+								${cert.expirationDate}
+							</div>
+						</div>
+						<p style="color: var(--light); margin-bottom: 1rem; font-size: 0.85rem;">
+							${cert.description}
+						</p>
+						<a href="${cert.credentialUrl}" target="_blank" class="contact-btn">View Credential</a>
+					</div>
+				`
+					)
+					.join("");
+
+				section.innerHTML = `
+					<h2 class="section-title">Certifications</h2>
+					<div class="card-grid">${certsHTML}</div>
+				`;
+			}
+
+			// Render Resume Section
+			function renderResume() {
+				const resume = portfolioData.resume;
+				const section = document.getElementById("resume");
+
+				section.innerHTML = `
+					<div class="resume-content">
+						<h2 class="section-title" style="color: white">Resume / CV</h2>
+						<p>${resume.description}</p>
+						<a href="${resume.path}" download class="resume-btn" style="margin-bottom: 2rem; display: inline-block">
+							📄 Download Resume (PDF)
+						</a>
+						<div style="margin-top: 2rem;">
+							<iframe
+								src="${resume.path}"
+								style="width: 100%; height: 800px; border: 2px solid var(--dark); border-radius: 8px; background: white;"
+								title="${resume.title}"
+							></iframe>
+						</div>
+					</div>
+				`;
+			}
+
+			// Render Footer
+			function renderFooter() {
+				const profile = portfolioData.profile;
+				const footer = document.getElementById("footer");
+
+				footer.innerHTML = `
+					<div class="container" style="padding: 0">
+						<h3 style="margin-bottom: 0.75rem; font-size: 1.1rem">${profile.name}</h3>
+						<p style="margin-bottom: 0.75rem">${profile.headline}</p>
+						<p>
+							<a href="${profile.links.linkedin}" target="_blank">LinkedIn</a> •
+							<a href="${profile.links.portfolio}" target="_blank">Portfolio</a> •
+							<a href="${profile.links.github}" target="_blank">GitHub</a>
+						</p>
+						<p style="margin-top: 1.5rem; opacity: 0.7; font-size: 0.85rem">
+							${profile.location} | Last updated: October 2025
+						</p>
+					</div>
+				`;
+			}
+
+			// Initialize page
+			document.addEventListener("DOMContentLoaded", function () {
+				// Update page title and nav name
+				document.getElementById(
+					"page-title"
+				).textContent = `${portfolioData.profile.name} - ${portfolioData.profile.headline}`;
+				document.getElementById("nav-name").textContent =
+					portfolioData.profile.name;
+
+				// Render all sections
+				renderProfile();
+				renderEducation();
+				renderExperience();
+				renderProjects();
+				renderSkills();
+				renderCertifications();
+				renderResume();
+				renderFooter();
+
+				// Background image click handlers
+				const bgImages = document.querySelectorAll('.bg-image');
+				bgImages.forEach((img) => {
+					img.addEventListener('click', function() {
+						const wrapper = this.parentElement;
+						const isCurrentlyPopped = wrapper.classList.contains('popped');
+
+						// Remove popped class from all images and wrappers
+						document.querySelectorAll('.bg-image-wrapper').forEach(w => w.classList.remove('popped'));
+						document.querySelectorAll('.bg-image').forEach(i => i.classList.remove('popped'));
+
+						// Toggle current image if it wasn't popped
+						if (!isCurrentlyPopped) {
+							wrapper.classList.add('popped');
+							this.classList.add('popped');
+						}
+					});
+				});
+
+				// Back to top button logic
+				window.addEventListener("scroll", function () {
+					const backToTop = document.querySelector(".back-to-top");
+					if (window.scrollY > 300) {
+						backToTop.style.opacity = "1";
+						backToTop.style.pointerEvents = "auto";
+					} else {
+						backToTop.style.opacity = "0";
+						backToTop.style.pointerEvents = "none";
+					}
+				});
+				document.querySelector(".back-to-top").style.opacity = "0";
+
+				// Scroll spy for active navigation
+				const sections = document.querySelectorAll("section[id]");
+				const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+				function setActiveNav() {
+					const scrollY = window.pageYOffset;
+
+					sections.forEach((section) => {
+						const sectionHeight = section.offsetHeight;
+						const sectionTop = section.offsetTop - 100;
+						const sectionId = section.getAttribute("id");
+
+						if (
+							scrollY > sectionTop &&
+							scrollY <= sectionTop + sectionHeight
+						) {
+							navLinks.forEach((link) => {
+								link.classList.remove("active");
+								if (
+									link.getAttribute("href") ===
+									`#${sectionId}`
+								) {
+									link.classList.add("active");
+								}
+							});
+						}
+					});
+
+					// Handle edge case for top of page
+					if (scrollY < 100) {
+						navLinks.forEach((link) =>
+							link.classList.remove("active")
+						);
+						if (navLinks[0]) navLinks[0].classList.add("active");
+					}
+				}
+
+				window.addEventListener("scroll", setActiveNav);
+				setActiveNav(); // Set initial active state
+			});
+		</script>
+	</body>
+</html>

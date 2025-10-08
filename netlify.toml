@@ -1,0 +1,25 @@
+[build]
+  # Base directory for the site
+  base = "linkedin_data_extraction"
+
+  # No build command needed for static HTML
+  command = "echo 'No build required - static HTML site'"
+
+  # Publish the entire directory (it's already in base)
+  publish = "."
+
+# Optional: Set up redirects for clean URLs
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# Optional: Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"

@@ -1,12 +1,12 @@
 [build]
-  # Base directory for the site
-  base = "linkedin_data_extraction"
+  # Base directory is the repo root
+  base = ""
 
   # No build command needed for static HTML
-  command = "echo 'No build required - static HTML site'"
+  command = ""
 
-  # Publish the entire directory (it's already in base)
-  publish = "."
+  # Publish the linkedin_data_extraction subfolder
+  publish = "linkedin_data_extraction"
 
 # Optional: Set up redirects for clean URLs
 [[redirects]]

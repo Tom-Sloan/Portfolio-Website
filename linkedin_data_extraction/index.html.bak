@@ -348,7 +348,6 @@
 				height: 180px;
 				border-radius: 50%;
 				object-fit: cover;
-				object-position: center calc(50% + 30px);
 				border: 4px solid var(--darkest);
 				box-shadow: 0 8px 20px var(--shadowEnd);
 				margin-bottom: 1rem;

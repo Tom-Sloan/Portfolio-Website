@@ -9,7 +9,7 @@ const portfolioData = {
 		image: "images/profile/tom-sloan-profile.png",
 		about: [
 			"Robot Vision Engineer specializing in SLAM, computer vision, and drone-based 3D mapping systems. Expertise in AWS, Docker, Python, and embedded systems. Constantly working on projects to push the boundaries of autonomous systems and AI.",
-			"Carleton University Computer Systems Engineering graduate with distinction, currently completing a Master's of Applied Science in Electrical and Computer Engineering with focus on Neural SLAM and augmented reality applications.",
+			"Carleton University Computer Systems Engineering graduate with distinction, I'll be defending my Master's of Applied Science in Electrical and Computer Engineering with focus on Neural SLAM and augmented reality applications in November 2025.",
 			"Currently working as a Researcher at Carleton University developing real-time indoor 3D mapping systems using consumer drones, cloud-based SLAM, and AR visualization. Previous experience includes DevOps engineering at Magnet Forensics and spectrum engineering at Telesat.",
 		],
 		links: {

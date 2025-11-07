@@ -81,6 +81,7 @@
     </div>
     <div id="info">
         <strong>Point Cloud Viewer</strong><br>
+        <span style="font-size: 12px; opacity: 0.8;">Interior view mode active</span><br>
         <br>
         <strong>Controls:</strong><br>
         Desktop: Click and drag to rotate<br>
@@ -172,31 +173,92 @@
                     const scale = 2 / maxDim;
                     geometry.scale(scale, scale, scale);
 
-                    // Create point cloud material with vertex colors
-                    const material = new THREE.PointsMaterial({
-                        size: 0.01,
-                        vertexColors: true,
-                        sizeAttenuation: true
+                    // Create custom shader material with normal-based culling
+                    const material = new THREE.ShaderMaterial({
+                        uniforms: THREE.UniformsUtils.merge([
+                            THREE.UniformsLib.common,
+                            {
+                                pointSize: { value: 0.03 }
+                            }
+                        ]),
+                        vertexShader: `
+                            uniform float pointSize;
+                            // cameraPosition is built-in to Three.js
+
+                            attribute vec3 color;
+                            // normal is built-in to Three.js
+
+                            varying vec3 vColor;
+                            varying float vVisible;
+
+                            void main() {
+                                vColor = color;
+
+                                // Calculate view direction (from point to camera)
+                                vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+                                vec3 viewDirection = normalize(cameraPosition - worldPosition);
+
+                                // Calculate if point is facing camera
+                                // If dot product is positive, normal points towards camera (front-facing)
+                                float facingCamera = dot(normalize(normal), viewDirection);
+
+                                // Hide front-facing points (facing camera)
+                                // Only show points where facingCamera < 0 (back-facing)
+                                vVisible = facingCamera < 0.0 ? 1.0 : 0.0;
+
+                                // Standard position and point size calculation
+                                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                                gl_PointSize = pointSize * (300.0 / -mvPosition.z);
+                                gl_Position = projectionMatrix * mvPosition;
+                            }
+                        `,
+                        fragmentShader: `
+                            varying vec3 vColor;
+                            varying float vVisible;
+
+                            void main() {
+                                // Discard front-facing points
+                                if (vVisible < 0.5) {
+                                    discard;
+                                }
+
+                                // Create circular points (not squares)
+                                vec2 center = gl_PointCoord - vec2(0.5);
+                                if (length(center) > 0.5) {
+                                    discard;
+                                }
+
+                                gl_FragColor = vec4(vColor, 1.0);
+                            }
+                        `,
+                        transparent: false
                     });
+
+                    // Log debug information about attributes
+                    console.log('Point cloud loaded successfully');
+                    console.log('Vertices:', geometry.attributes.position.count);
+                    console.log('Available attributes:', Object.keys(geometry.attributes));
+
+                    // Check for color and normal data
+                    if (geometry.attributes.color) {
+                        console.log('Color data: ✓', geometry.attributes.color.count);
+                    } else {
+                        console.warn('No color attribute found');
+                    }
+                    if (geometry.attributes.normal) {
+                        console.log('Normal data: ✓', geometry.attributes.normal.count);
+                    } else {
+                        console.warn('No normal attribute found');
+                    }
 
                     // Create point cloud
                     model = new THREE.Points(geometry, material);
-
-                    // Log color information for debugging
-                    if (geometry.attributes.color) {
-                        console.log('Point cloud has color data:', geometry.attributes.color.count, 'colors');
-                    } else {
-                        console.log('Warning: No color data found in PLY file');
-                    }
 
                     // Position slightly above grid
                     model.position.y = 1;
 
                     scene.add(model);
                     loading.style.display = 'none';
-
-                    console.log('Model loaded successfully');
-                    console.log('Vertices:', geometry.attributes.position.count);
                 },
                 function (xhr) {
                     const percent = (xhr.loaded / xhr.total * 100).toFixed(0);

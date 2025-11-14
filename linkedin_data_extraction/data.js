@@ -220,7 +220,7 @@ const portfolioData = {
 			],
 			image: "images/projects/twitterBot.png",
 			link: "https://github.com/Tom-Sloan/TwitterBot",
-			featured: false,
+			featured: true,
 		},
 		{
 			title: "Automated Hydroponics System",

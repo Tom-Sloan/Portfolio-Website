@@ -699,6 +699,66 @@
 				background: var(--accent-light);
 			}
 
+			/* Additional Projects List */
+			.additional-projects-section {
+				margin-top: 3rem;
+			}
+
+			.additional-projects-title {
+				font-size: 1.4rem;
+				font-weight: 600;
+				color: var(--lightest);
+				margin-bottom: 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 2px solid var(--dark);
+			}
+
+			.projects-list {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+
+			.project-list-item {
+				background: white;
+				padding: 1rem 1.25rem;
+				border-radius: 8px;
+				border-left: 3px solid var(--accent);
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+				transition: all 0.2s ease;
+			}
+
+			.project-list-item:hover {
+				transform: translateX(4px);
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+				border-left-color: var(--accent-light);
+			}
+
+			.project-list-title {
+				font-size: 1rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.25rem;
+			}
+
+			.project-list-subtitle {
+				font-size: 0.85rem;
+				color: var(--accent);
+				margin-bottom: 0.5rem;
+			}
+
+			.project-list-description {
+				font-size: 0.85rem;
+				color: var(--light);
+				line-height: 1.5;
+				margin-bottom: 0.5rem;
+			}
+
+			.project-list-meta {
+				font-size: 0.8rem;
+				color: var(--dark);
+			}
+
 			/* Resume Section */
 			.resume-section {
 				background: var(--lightest);
@@ -1350,7 +1410,12 @@
 				const projects = portfolioData.projects;
 				const section = document.getElementById("projects");
 
-				const projectsHTML = projects
+				// Separate featured and non-featured projects
+				const featuredProjects = projects.filter(p => p.featured);
+				const additionalProjects = projects.filter(p => !p.featured);
+
+				// Render featured projects as tiles
+				const featuredHTML = featuredProjects
 					.map(
 						(project) => `
 					<div class="project-card">
@@ -1380,9 +1445,31 @@
 					)
 					.join("");
 
+				// Render non-featured projects as list
+				const additionalHTML = additionalProjects.length > 0 ? `
+					<div class="additional-projects-section">
+						<h3 class="additional-projects-title">Additional Projects</h3>
+						<div class="projects-list">
+							${additionalProjects
+								.map(
+									(project) => `
+								<div class="project-list-item">
+									<div class="project-list-title">${project.title}</div>
+									<div class="project-list-subtitle">${project.subtitle}</div>
+									<div class="project-list-description">${project.description}</div>
+									<div class="project-list-meta">${project.startDate} - ${project.endDate}</div>
+								</div>
+							`
+								)
+								.join("")}
+						</div>
+					</div>
+				` : '';
+
 				section.innerHTML = `
 					<h2 class="section-title">Projects</h2>
-					<div class="projects-grid">${projectsHTML}</div>
+					<div class="projects-grid">${featuredHTML}</div>
+					${additionalHTML}
 				`;
 			}
 

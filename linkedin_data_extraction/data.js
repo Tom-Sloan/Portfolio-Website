@@ -140,14 +140,14 @@ const portfolioData = {
 				{ tag: "In Progress", color: "#22c55e" },
 			],
 			image: "images/thesis/thesis-main-visualization.png",
-			link: null,
+			link: "https://github.com/Tom-Sloan/WorldSystem",
 			featured: true,
 		},
 		{
 			title: "Smart Band Project",
 			subtitle: "Sensors, PCB, and Bluetooth",
 			description:
-				"The Smart Band project is the capstone project of the personal projects that I completed while attending university. The goal of the project was to allow a user to control any smart device with gestures using a device like a Fitbit. To do this, I designed and fabricated a small, printed circuit board (PCB) that could gather information, analyze a user's motion, and determine what the gesture was. The band would then relay this information to the device to which it was connected.",
+				"The Smart Band project is the personal projects that I completed while attending university. The goal of the project was to allow a user to control any smart device with gestures using a device like a Fitbit. To do this, I designed and fabricated a small, printed circuit board (PCB) that could gather information, analyze a user's motion, and determine what the gesture was. The band would then relay this information to the device to which it was connected.",
 			startDate: "November 2019",
 			endDate: "May 2021",
 			current: false,
@@ -179,9 +179,9 @@ const portfolioData = {
 		},
 		{
 			title: "Smart Pillbox",
-			subtitle: "B.Eng Capstone: Medical Device",
+			subtitle: "Medical Device",
 			description:
-				"The Smart Pillbox was the capstone project of my university degree. The goal of The Smart Pillbox project was to design and construct a medication storage device that will allow medical practitioners the ability to monitor consumption of medications, set reminders and alarms, and enable a locking mechanism, if required, for that given patient. This device was designed to help improve the lifestyles of patients and their caregivers who have memory loss illnesses.",
+				"A medication storage device designed as a product mockup for adults with dementia and their caregivers. The system allows medical practitioners to monitor medication consumption, set reminders and alarms, and enable a locking mechanism if required. This device was designed to help improve the lifestyles of patients and their caregivers.",
 			startDate: "August 2020",
 			endDate: "April 2021",
 			current: false,

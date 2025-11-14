@@ -194,6 +194,73 @@ const portfolioData = {
 			featured: true,
 		},
 		{
+			title: "LidarWorld",
+			subtitle: "Interactive 3D LiDAR Sensor Simulation",
+			description:
+				"Built an interactive 3D LiDAR sensor simulation using React Three Fiber and Three.js to enable real-time visualization and testing of LiDAR sensors in customizable room environments. The application features procedurally generated room layouts with randomized geometry and furniture placement, real-time raycasting for object detection visualization, and multiple configurable sensor types with adjustable positioning. Implemented a grid-based spatial analysis system for sensor coverage evaluation, interactive 3D controls with 360-degree rotation, and a Leva control panel for real-time parameter adjustments.",
+			startDate: "December 2023",
+			endDate: "November 2025",
+			current: true,
+			category: [
+				{ tag: "Web Development", color: "#FB4D3D" },
+				{ tag: "3D Graphics", color: "#8b5cf6" },
+				{ tag: "Programming", color: "#149e5e" },
+			],
+			image: "images/projects/lidarworld.png",
+			link: null,
+			featured: true,
+		},
+		{
+			title: "Hound Dog - Family Card Game",
+			subtitle: "Cross-Platform Mobile Card Game",
+			description:
+				"Brought a beloved family card game from my childhood to digital life using React Native and Expo. The application features real-time multiplayer gameplay with Socket.io, AI opponents with configurable difficulty levels, and a polished user interface supporting both iOS and Android platforms. Implemented with TypeScript, Zustand for state management, and Expo Router for navigation, delivering a comprehensive gaming experience with full rule support and special card mechanics.",
+			startDate: "April 2025",
+			endDate: "July 2025",
+			current: false,
+			category: [
+				{ tag: "Mobile Dev", color: "#10b981" },
+				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Web Development", color: "#FB4D3D" },
+			],
+			image: "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+			link: null,
+			featured: false,
+		},
+		{
+			title: "Speakeasy - AI-Enhanced Social Podcast Platform",
+			subtitle: "Full-Stack Mobile Podcast Application",
+			description:
+				"Built a full-stack mobile podcast platform using React Native and Expo with AI-powered conversational features. The application integrates the PodcastIndex API with a FastAPI backend, PostgreSQL database via Supabase, and Redis caching to deliver real-time audio streaming with background playback support. Implemented JWT authentication for both registered and anonymous users, with Row-Level Security policies for secure multi-tenant data access. The platform features podcast discovery, personalized subscriptions, listening progress tracking, and social interactions, with a multi-layer caching system reducing API calls by 70%.",
+			startDate: "April 2025",
+			endDate: "November 2025",
+			current: false,
+			category: [
+				{ tag: "Mobile Dev", color: "#10b981" },
+				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Web Development", color: "#FB4D3D" },
+			],
+			image: "https://cdn-icons-png.flaticon.com/512/3845/3845874.png",
+			link: null,
+			featured: false,
+		},
+		{
+			title: "Algorithmic Trading in Python",
+			subtitle: "Quantitative Trading Strategies",
+			description:
+				"Developed three algorithmic trading strategies in Python using quantitative analysis techniques. Built equal-weight portfolio rebalancing, momentum-based investing, and value investing calculators that pull real-time market data via the IEX Cloud API. The system uses pandas and numpy to calculate optimal stock portfolio allocations and generates formatted Excel reports with purchase recommendations for S&P 500 securities.",
+			startDate: "July 2020",
+			endDate: "December 2020",
+			current: false,
+			category: [
+				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Data Science", color: "#8b5cf6" },
+			],
+			image: "https://cdn-icons-png.flaticon.com/512/2962/2962818.png",
+			link: null,
+			featured: false,
+		},
+		{
 			title: "Reddit Client",
 			subtitle: "Codecademy Full Stack Web Developer Portfolio Project",
 			description:

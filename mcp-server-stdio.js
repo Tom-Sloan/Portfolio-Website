@@ -1,4 +1,12 @@
+#!/usr/bin/env node
+
+/**
+ * Stdio-based MCP server for Claude Desktop
+ * Fetches data from the live portfolio site
+ */
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   CallToolRequestSchema,
   ListResourcesRequestSchema,
@@ -6,55 +14,13 @@ import {
   ReadResourceRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 
-// Portfolio data interface
-interface PortfolioData {
-  profile: {
-    name: string;
-    headline: string;
-    location: string;
-    about: string[];
-    links: Record<string, string>;
-  };
-  education: Array<{
-    school: string;
-    degree: string;
-    field: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-  }>;
-  experience: Array<{
-    company: string;
-    title: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-    skills: string[];
-  }>;
-  projects: Array<{
-    title: string;
-    subtitle?: string;
-    description: string;
-    category: Array<{ tag: string; color: string }>;
-    link?: string;
-    featured?: boolean;
-  }>;
-  skills: Record<string, Array<{ name: string; icon?: string }>>;
-  certifications: Array<{
-    name: string;
-    organization: string;
-    description: string;
-  }>;
-}
-
 // Cache for portfolio data
-let cachedData: PortfolioData | null = null;
+let cachedData = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // Fetch portfolio data from live site
-async function fetchPortfolioData(): Promise<PortfolioData> {
+async function fetchPortfolioData() {
   const now = Date.now();
 
   // Return cached data if still valid
@@ -72,13 +38,12 @@ async function fetchPortfolioData(): Promise<PortfolioData> {
     const text = await response.text();
 
     // Extract the portfolioData object from the JavaScript file
-    // The file contains: const portfolioData = { ... };
     const dataMatch = text.match(/const\s+portfolioData\s*=\s*({[\s\S]*?});?\s*$/m);
     if (!dataMatch) {
       throw new Error('Could not extract portfolioData from data.js');
     }
 
-    // Use eval to parse the JavaScript object (safe in this context as we control the source)
+    // Use eval to parse the JavaScript object (safe - we control the source)
     const portfolioData = eval(`(${dataMatch[1]})`);
 
     // Cache the data
@@ -112,7 +77,7 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
       {
         uri: 'portfolio://profile',
         name: 'Profile Information',
-        description: 'Tom Sloan\'s professional profile including name, headline, bio, and links',
+        description: "Tom Sloan's professional profile including name, headline, bio, and links",
         mimeType: 'application/json',
       },
       {
@@ -154,8 +119,8 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
   const uri = request.params.uri;
   const data = await fetchPortfolioData();
 
-  let content: any;
-  let description: string;
+  let content;
+  let description;
 
   switch (uri) {
     case 'portfolio://profile':
@@ -271,7 +236,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   switch (name) {
     case 'search_projects': {
-      const query = (args.query as string).toLowerCase();
+      const query = args.query.toLowerCase();
       const results = data.projects.filter((project) => {
         const titleMatch = project.title.toLowerCase().includes(query);
         const descMatch = project.description.toLowerCase().includes(query);
@@ -295,14 +260,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       let results = data.experience;
 
       if (args.company) {
-        const company = (args.company as string).toLowerCase();
+        const company = args.company.toLowerCase();
         results = results.filter((exp) =>
           exp.company.toLowerCase().includes(company)
         );
       }
 
       if (args.skill) {
-        const skill = (args.skill as string).toLowerCase();
+        const skill = args.skill.toLowerCase();
         results = results.filter((exp) =>
           exp.skills.some((s) => s.toLowerCase().includes(skill))
         );
@@ -319,7 +284,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     case 'get_projects_by_tag': {
-      const tag = (args.tag as string).toLowerCase();
+      const tag = args.tag.toLowerCase();
       const results = data.projects.filter((project) =>
         project.category.some((cat) => cat.tag.toLowerCase().includes(tag))
       );
@@ -335,8 +300,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     case 'find_skills': {
-      const query = (args.query as string).toLowerCase();
-      const results: Array<{ category: string; skills: any[] }> = [];
+      const query = args.query.toLowerCase();
+      const results = [];
 
       for (const [category, skills] of Object.entries(data.skills)) {
         if (category.toLowerCase().includes(query)) {
@@ -368,36 +333,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
-// Netlify Function handler
-export const handler = async (event: any) => {
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    };
-  }
+// Connect to stdio transport
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
 
-  try {
-    const request = JSON.parse(event.body);
+  // Server is now running and will handle requests from Claude Desktop
+}
 
-    // Process MCP request
-    const response = await server.request(request);
-
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(response),
-    };
-  } catch (error) {
-    console.error('Error processing MCP request:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      }),
-    };
-  }
-};
+main().catch((error) => {
+  console.error('Fatal error:', error);
+  process.exit(1);
+});

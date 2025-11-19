@@ -8,11 +8,6 @@
   # Publish the portfolio subfolder
   publish = "portfolio"
 
-# Functions configuration for MCP server
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
 # Optional: Set up redirects for clean URLs
 [[redirects]]
   from = "/*"

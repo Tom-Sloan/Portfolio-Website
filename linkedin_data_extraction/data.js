@@ -147,7 +147,7 @@ const portfolioData = {
 			title: "Portfolio MCP Server",
 			subtitle: "Model Context Protocol Integration",
 			description:
-				"Built a Model Context Protocol (MCP) server deployed as a Netlify serverless function to provide AI assistants like Claude with structured access to portfolio data. The server exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP JSON-RPC protocol. Implements intelligent caching with 5-minute TTL, fetches data from the live portfolio site, and executes in under 500ms. Enables AI assistants to answer questions about my work, projects, and technical expertise with real-time, accurate data.",
+				"Built a Model Context Protocol (MCP) server deployed as a Netlify serverless function to provide AI assistants with structured access to portfolio data. The server exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP JSON-RPC protocol. Implements intelligent caching with 5-minute TTL, fetches data from the live portfolio site, and executes in under 500ms. Enables AI assistants to answer questions about my work, projects, and technical expertise with real-time, accurate data.",
 			startDate: "November 2025",
 			endDate: "November 2025",
 			current: false,

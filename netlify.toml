@@ -5,8 +5,8 @@
   # No build command needed for static HTML
   command = ""
 
-  # Publish the linkedin_data_extraction subfolder
-  publish = "linkedin_data_extraction"
+  # Publish the portfolio subfolder
+  publish = "portfolio"
 
 # Functions configuration for MCP server
 [functions]

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Cloud Viewer - WebXR</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 100;
+            max-width: 300px;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            z-index: 100;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        #back-button:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="loading">
+        <div class="spinner"></div>
+        <div>Loading Point Cloud...</div>
+    </div>
+    <div id="info">
+        <strong>Point Cloud Viewer</strong><br>
+        <span style="font-size: 12px; opacity: 0.8;">Interior view mode active</span><br>
+        <br>
+        <strong>Controls:</strong><br>
+        Desktop: Click and drag to rotate<br>
+        Mouse wheel to zoom<br>
+        <br>
+        <strong>VR Mode:</strong><br>
+        Click "Enter VR" button to view in Quest 3
+    </div>
+    <a href="index.html" id="back-button">← Back to Portfolio</a>
+
+    <!-- Three.js and required modules from CDN -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { VRButton } from 'three/addons/webxr/VRButton.js';
+
+        let scene, camera, renderer, controls, model;
+        const container = document.getElementById('container');
+        const loading = document.getElementById('loading');
+
+        function init() {
+            // Scene setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a1a);
+            scene.fog = new THREE.Fog(0x1a1a1a, 10, 50);
+
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0, 1.6, 3); // Eye level for VR (1.6m)
+
+            // Renderer setup with WebXR
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true; // Enable WebXR
+            container.appendChild(renderer.domElement);
+
+            // Add VR button for Quest 3
+            const vrButton = VRButton.createButton(renderer);
+            vrButton.style.bottom = '20px';
+            vrButton.style.position = 'absolute';
+            document.body.appendChild(vrButton);
+
+            // Orbit controls (disabled in VR mode automatically)
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 0.5;
+            controls.maxDistance = 20;
+
+            // Lighting setup (minimal for point clouds)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+            scene.add(ambientLight);
+
+            // Add a grid for reference
+            const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x222222);
+            scene.add(gridHelper);
+
+            // Load PLY model
+            const loader = new PLYLoader();
+            loader.load(
+                'clean3.ply',
+                function (geometry) {
+                    // Center and scale the geometry
+                    geometry.computeBoundingBox();
+                    const center = new THREE.Vector3();
+                    geometry.boundingBox.getCenter(center);
+                    geometry.translate(-center.x, -center.y, -center.z);
+
+                    // Scale to reasonable size
+                    const size = new THREE.Vector3();
+                    geometry.boundingBox.getSize(size);
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const scale = 2 / maxDim;
+                    geometry.scale(scale, scale, scale);
+
+                    // Create custom shader material with normal-based culling
+                    const material = new THREE.ShaderMaterial({
+                        uniforms: THREE.UniformsUtils.merge([
+                            THREE.UniformsLib.common,
+                            {
+                                pointSize: { value: 0.03 }
+                            }
+                        ]),
+                        vertexShader: `
+                            uniform float pointSize;
+                            // cameraPosition is built-in to Three.js
+
+                            attribute vec3 color;
+                            // normal is built-in to Three.js
+
+                            varying vec3 vColor;
+                            varying float vVisible;
+
+                            void main() {
+                                vColor = color;
+
+                                // Calculate view direction (from point to camera)
+                                vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+                                vec3 viewDirection = normalize(cameraPosition - worldPosition);
+
+                                // Calculate if point is facing camera
+                                // If dot product is positive, normal points towards camera (front-facing)
+                                float facingCamera = dot(normalize(normal), viewDirection);
+
+                                // Hide front-facing points (facing camera)
+                                // Only show points where facingCamera < 0 (back-facing)
+                                vVisible = facingCamera < 0.0 ? 1.0 : 0.0;
+
+                                // Standard position and point size calculation
+                                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                                gl_PointSize = pointSize * (300.0 / -mvPosition.z);
+                                gl_Position = projectionMatrix * mvPosition;
+                            }
+                        `,
+                        fragmentShader: `
+                            varying vec3 vColor;
+                            varying float vVisible;
+
+                            void main() {
+                                // Discard front-facing points
+                                if (vVisible < 0.5) {
+                                    discard;
+                                }
+
+                                // Create circular points (not squares)
+                                vec2 center = gl_PointCoord - vec2(0.5);
+                                if (length(center) > 0.5) {
+                                    discard;
+                                }
+
+                                gl_FragColor = vec4(vColor, 1.0);
+                            }
+                        `,
+                        transparent: false
+                    });
+
+                    // Log debug information about attributes
+                    console.log('Point cloud loaded successfully');
+                    console.log('Vertices:', geometry.attributes.position.count);
+                    console.log('Available attributes:', Object.keys(geometry.attributes));
+
+                    // Check for color and normal data
+                    if (geometry.attributes.color) {
+                        console.log('Color data: ✓', geometry.attributes.color.count);
+                    } else {
+                        console.warn('No color attribute found');
+                    }
+                    if (geometry.attributes.normal) {
+                        console.log('Normal data: ✓', geometry.attributes.normal.count);
+                    } else {
+                        console.warn('No normal attribute found');
+                    }
+
+                    // Create point cloud
+                    model = new THREE.Points(geometry, material);
+
+                    // Position slightly above grid
+                    model.position.y = 1;
+
+                    scene.add(model);
+                    loading.style.display = 'none';
+                },
+                function (xhr) {
+                    const percent = (xhr.loaded / xhr.total * 100).toFixed(0);
+                    loading.innerHTML = `
+                        <div class="spinner"></div>
+                        <div>Loading Point Cloud... ${percent}%</div>
+                    `;
+                },
+                function (error) {
+                    console.error('Error loading PLY file:', error);
+                    loading.innerHTML = `
+                        <div style="color: #ff4444;">Error loading point cloud</div>
+                        <div style="font-size: 14px; margin-top: 10px;">Please check the console for details</div>
+                    `;
+                }
+            );
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+
+            // Start animation loop
+            renderer.setAnimationLoop(animate);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            // Update controls (automatically disabled in VR)
+            controls.update();
+
+            // Optional: Rotate model slowly
+            if (model) {
+                model.rotation.y += 0.001;
+            }
+
+            // Render scene
+            renderer.render(scene, camera);
+        }
+
+        // Initialize the scene
+        init();
+    </script>
+</body>
+</html>

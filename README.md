@@ -3,7 +3,7 @@
 Robot Vision Engineer & AI Researcher based in Ottawa, Ontario, Canada.
 
 <div align="center">
-  <img src="linkedin_data_extraction/images/profile/tom-sloan-profile.png" alt="Tom Sloan" width="200" style="border-radius: 10%;">
+  <img src="portfolio/images/profile/tom-sloan-profile.png" alt="Tom Sloan" width="200" style="border-radius: 10%;">
 </div>
 
 ## About

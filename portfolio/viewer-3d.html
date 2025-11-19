@@ -254,6 +254,9 @@
                     // Create point cloud
                     model = new THREE.Points(geometry, material);
 
+                    // Rotate 180 degrees to fix upside-down orientation
+                    model.rotation.x = Math.PI;
+
                     // Position slightly above grid
                     model.position.y = 1;
 

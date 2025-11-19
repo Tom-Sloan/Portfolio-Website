@@ -11,3 +11,16 @@
 # Temporary files
 *.tmp
 *.log
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+.netlify/
+
+# TypeScript
+*.tsbuildinfo
+CLAUDE.md

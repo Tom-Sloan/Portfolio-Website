@@ -1,100 +1,76 @@
-# Portfolio Website
+# Tom Sloan
 
-A clean, performant static HTML portfolio website built from LinkedIn profile data.
+Robot Vision Engineer & AI Researcher based in Ottawa, Ontario, Canada.
 
-## 🚀 Quick Start
+<div align="center">
+  <img src="linkedin_data_extraction/images/profile/tom-sloan-profile.png" alt="Tom Sloan" width="200" style="border-radius: 10%;">
+</div>
 
-```bash
-# Open the website directly in your browser
-open linkedin_data_extraction/index.html
-```
+## About
 
-That's it! No build process, no dependencies, no npm install required.
+Robot Vision Engineer specializing in SLAM, computer vision, and drone-based 3D mapping systems. Expertise in AWS, Docker, Python, and embedded systems. Constantly working on projects to push the boundaries of autonomous systems and AI.
 
-## ✨ Features
+Currently working as a Researcher at Carleton University developing real-time indoor 3D mapping systems using consumer drones, cloud-based SLAM, and AR visualization. Previous experience includes DevOps engineering at Magnet Forensics and spectrum engineering at Telesat.
 
-- **Zero Dependencies** - Pure HTML, CSS, and vanilla JavaScript
-- **Instant Updates** - Edit `data.js`, refresh browser, done
-- **Performance Optimized** - Lazy loading, prioritized profile image
-- **Fully Responsive** - Works seamlessly on desktop and mobile
-- **Easy Maintenance** - All content in one JavaScript file
+## Education
 
-## 📝 Updating Content
+**Master of Applied Science - MASc**
+Carleton University
+Electrical and Computer Engineering
+January 2024 - November 2025
 
-All website content is managed through a single file:
+Thesis: Indoor 3D Modeling Using Consumer Drones and Neural Simultaneous Localization and Mapping (SLAM) for Virtual Reality and a Cloud Architecture. Defending November 2025.
 
-```bash
-linkedin_data_extraction/data.js
-```
+**Bachelor of Engineering - BE**
+Carleton University
+Computer Systems Engineering
+September 2017 - December 2021
+Graduated with distinction
 
-Edit this file to update:
-- Profile information (name, bio, links)
-- Work experience
-- Projects
-- Skills
-- Certifications
-- Education
+## Experience
 
-**Changes take effect immediately** - just refresh your browser!
+**Researcher**
+Carleton University
+October 2023 - Present
 
-## 📁 Project Structure
+Leading the design and testing of a real-time indoor 3D mapping system using a consumer drone (DJI Mini 3), integrating monocular camera and IMU with cloud-based SLAM framework for AR applications. Implemented modular software architecture using Docker, RabbitMQ, and React.js to offload high-computation tasks to remote server, enabling real-time visualization on desktop and AR headsets.
 
-```
-Portfolio-Website/
-├── linkedin_data_extraction/     # Your portfolio website
-│   ├── index.html               # Main HTML file
-│   ├── data.js                  # All content (EDIT THIS!)
-│   ├── images/                  # All website images
-│   ├── resume/                  # Resume PDF
-│   ├── archive/                 # Original LinkedIn HTML files
-│   └── README.md                # Detailed documentation
-├── .gitignore
-├── CLAUDE.md                    # Instructions for Claude Code
-└── README.md                    # This file
-```
+**DevOps Engineer**
+Magnet Forensics
+April 2022 - June 2023
 
-## 📚 Documentation
+Worked in a small team environment using DevOps tools including Jenkins, Linux, Python and PowerShell to help manage thousands of software builds a day on dozens of on-premise servers. Helped with the migration from on-premise to AWS cloud using CloudFormation and EC2.
 
-For detailed information about the portfolio structure and how to customize it:
+**Spectrum Engineering Co-Op**
+Telesat
+May 2020 - December 2021
 
-- **Main Documentation**: `linkedin_data_extraction/README.md`
-- **Data Format Guide**: `linkedin_data_extraction/docs/DATA_README.md`
+Made an alternative user interface and API in Python to interact with MATLAB giving the ability to directly use satellite XML data without requiring expensive MATLAB add-ons. Wrote extensive tests and code to analyze satellite spectrum use for international telecommunications regulations.
 
-## 🖼️ Adding Images
+## Technical Skills
 
-1. Add your image to the appropriate folder in `linkedin_data_extraction/images/`:
-   - `profile/` - Profile photos
-   - `companies/` - Company/institution logos
-   - `projects/` - Project screenshots
-   - `skills/` - Technology/tool logos
-   - `certifications/` - Certification badges
+**Programming Languages:** Python, C/C++, JavaScript/TypeScript, MATLAB, Swift
 
-2. Update the image path in `data.js`:
-   ```javascript
-   profileImage: "images/profile/my-photo.jpg"
-   ```
+**AI & Computer Vision:** TensorFlow, PyTorch, OpenCV, SLAM, Neural Networks, Computer Vision
 
-3. Refresh your browser to see the changes
+**Cloud & DevOps:** AWS (EC2, S3, Lambda, CloudFormation), Docker, Jenkins, Linux, Git
 
-## 🎨 Customizing Styles
+**Web Development:** React.js, Node.js, HTML/CSS, REST APIs
 
-The HTML file contains embedded CSS that can be customized directly in `linkedin_data_extraction/index.html`.
+**Databases & Backend:** PostgreSQL, SQL, Redis, FastAPI
 
-## 📦 What's in the Archive?
+**Hardware & Embedded:** PCB Design, Arduino, Raspberry Pi, Sensors, IoT
 
-The `archive/` folder contains the original LinkedIn HTML pages (13.6MB total) that were used to create this portfolio. These are kept for reference but aren't used by the website.
+## Certifications
 
-## 🛠️ Tech Stack
+-   AWS Certified Security - Specialty
+-   AWS Certified Solutions Architect - Associate
+-   AWS Certified Developer - Associate
+-   AWS Certified SysOps Administrator - Associate
+-   AWS Certified Cloud Practitioner
 
-- **HTML5** - Semantic markup
-- **CSS3** - Modern styles with flexbox/grid
-- **Vanilla JavaScript** - No frameworks or libraries
-- **Native Lazy Loading** - Built-in browser performance
+## Connect
 
-## 📄 License
-
-This is a personal portfolio website. Feel free to use the structure as inspiration for your own portfolio!
-
----
-
-**Need help?** Check out `CLAUDE.md` for detailed guidance on working with this codebase.
+-   Portfolio: [tom-sloan.com](https://tom-sloan.com)
+-   LinkedIn: [linkedin.com/in/tom-sloan](https://www.linkedin.com/in/tom-sloan)
+-   GitHub: [github.com/Tom-Sloan](https://github.com/Tom-Sloan)

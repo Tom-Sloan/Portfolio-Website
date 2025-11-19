@@ -8,6 +8,11 @@
   # Publish the linkedin_data_extraction subfolder
   publish = "linkedin_data_extraction"
 
+# Functions configuration for MCP server
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Optional: Set up redirects for clean URLs
 [[redirects]]
   from = "/*"

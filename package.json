@@ -1,16 +1,21 @@
 {
   "name": "portfolio-mcp-server",
   "version": "1.0.0",
-  "description": "Stdio MCP server for Tom Sloan's portfolio (Claude Desktop integration)",
+  "description": "Dual-transport MCP server for Tom Sloan's portfolio (Stdio + HTTP)",
   "type": "module",
   "scripts": {
-    "deploy": "netlify deploy --prod"
+    "build": "tsc",
+    "deploy": "npm run build && netlify deploy --prod"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4"
   },
   "devDependencies": {
-    "netlify-cli": "^17.37.3"
+    "@netlify/functions": "^5.1.0",
+    "@types/node": "^24.10.1",
+    "netlify-cli": "^17.37.3",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
   },
   "engines": {
     "node": ">=18.0.0"

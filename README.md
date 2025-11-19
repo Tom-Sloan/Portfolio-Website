@@ -69,6 +69,44 @@ Made an alternative user interface and API in Python to interact with MATLAB giv
 -   AWS Certified SysOps Administrator - Associate
 -   AWS Certified Cloud Practitioner
 
+## MCP Server Integration
+
+This portfolio includes a Model Context Protocol (MCP) server written in TypeScript that provides AI assistants like Claude Desktop with structured access to portfolio data.
+
+**What it does:**
+- Exposes portfolio resources (profile, projects, experience, skills, education, certifications)
+- Provides tools to search projects, filter experience, and query skills
+- Fetches live data from the deployed website
+- Uses Zod for runtime schema validation
+
+**Architecture:**
+- `mcp-core.ts` - Shared logic (tools, resources, data fetching)
+- `mcp-server-stdio.ts` - Stdio transport for Claude Desktop (local)
+- `netlify/functions/mcp-server-http.ts` - HTTP transport for remote access (in progress)
+
+**Setup for Claude Desktop:**
+
+1. Build the TypeScript: `npm run build`
+
+2. Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "tom-sloan-portfolio": {
+      "command": "node",
+      "args": ["/absolute/path/to/Portfolio-Website/dist/mcp-server-stdio.js"]
+    }
+  }
+}
+```
+
+3. Restart Claude Desktop
+
+After setup, you can ask questions like:
+- "What projects has Tom worked on with Python?"
+- "Show me Tom's AWS experience"
+- "What are Tom's AI-related skills?"
+
 ## Connect
 
 -   Portfolio: [tom-sloan.com](https://tom-sloan.com)

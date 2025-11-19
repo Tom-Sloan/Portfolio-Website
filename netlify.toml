@@ -2,11 +2,16 @@
   # Base directory is the repo root
   base = ""
 
-  # No build command needed for static HTML
-  command = ""
+  # Build TypeScript before deployment
+  command = "npm run build"
 
   # Publish the portfolio subfolder
   publish = "portfolio"
+
+# Functions configuration for MCP HTTP server
+[functions]
+  directory = "dist/netlify/functions"
+  node_bundler = "esbuild"
 
 # Optional: Set up redirects for clean URLs
 [[redirects]]

@@ -131,9 +131,9 @@ const portfolioData = {
 			title: "Master's Thesis in Artificial Intelligence",
 			subtitle: "AI Research",
 			description:
-				"Current research in advanced AI and machine learning at Carleton University. Exploring novel approaches to intelligent systems with focus on practical applications and theoretical foundations. Expected completion: October 2025.",
+				"Current research in advanced AI and machine learning at Carleton University. Exploring novel approaches to intelligent systems with focus on practical applications and theoretical foundations. Expected completion: November 2025.",
 			startDate: "January 2024",
-			endDate: "October 2025",
+			endDate: "November 2025",
 			current: true,
 			category: [
 				{ tag: "AI Research", color: "#0077B5" },
@@ -156,7 +156,7 @@ const portfolioData = {
 				{ tag: "AI Integration", color: "#8b5cf6" },
 				{ tag: "Serverless", color: "#10b981" },
 			],
-			image: "images/projects/mcp-server.svg",
+			image: "images/projects/MCP_in_action.mp4",
 			link: "https://github.com/Tom-Sloan/Portfolio-Website",
 			featured: true,
 		},

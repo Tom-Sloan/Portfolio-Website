@@ -325,6 +325,309 @@
 				cursor: default;
 			}
 
+			/* Project Detail Modal */
+			.project-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: rgba(0, 0, 0, 0.85);
+				z-index: 10000;
+				align-items: center;
+				justify-content: center;
+				padding: 2rem;
+				overflow-y: auto;
+			}
+
+			.project-modal.active {
+				display: flex;
+			}
+
+			.project-modal-content {
+				background: white;
+				border-radius: 16px;
+				max-width: 1200px;
+				width: 100%;
+				max-height: 90vh;
+				overflow-y: auto;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+				position: relative;
+			}
+
+			/* Video layout: side-by-side */
+			.project-modal-video-layout {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0;
+				min-height: 500px;
+			}
+
+			.project-modal-video-container {
+				background: #000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 16px 0 0 16px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.project-modal-video-container video {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+
+			/* Image layout: stacked (original) */
+			.project-modal-stacked-layout {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.project-modal-close {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				border: none;
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				cursor: pointer;
+				font-size: 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.3s;
+				z-index: 10;
+			}
+
+			.project-modal-close:hover {
+				background: rgba(0, 0, 0, 0.9);
+				transform: rotate(90deg);
+			}
+
+			.project-modal-media {
+				width: 100%;
+				height: 300px;
+				object-fit: cover;
+				border-radius: 16px 16px 0 0;
+			}
+
+			.project-modal-body {
+				padding: 2rem;
+			}
+
+			.project-modal-body-sidebar {
+				padding: 2rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				overflow-y: auto;
+			}
+
+			.project-modal-title {
+				font-size: 2rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.5rem;
+			}
+
+			.project-modal-subtitle {
+				font-size: 1.1rem;
+				color: var(--accent);
+				margin-bottom: 1rem;
+			}
+
+			.project-modal-description {
+				color: var(--text);
+				line-height: 1.7;
+				margin-bottom: 1.5rem;
+				font-size: 1rem;
+			}
+
+			.project-modal-tags {
+				display: flex;
+				gap: 0.6rem;
+				flex-wrap: wrap;
+				margin-bottom: 1.5rem;
+			}
+
+			.project-modal-tag {
+				padding: 0.4rem 0.8rem;
+				border-radius: 6px;
+				color: white;
+				font-weight: 600;
+				font-size: 0.85rem;
+			}
+
+			.project-modal-link {
+				display: inline-block;
+				padding: 0.75rem 1.5rem;
+				background: var(--accent);
+				color: white;
+				text-decoration: none;
+				border-radius: 8px;
+				font-weight: 600;
+				font-size: 1rem;
+				transition: all 0.3s;
+			}
+
+			.project-modal-link:hover {
+				background: var(--accent-dark);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+			}
+
+			/* Generic Detail Modal (for experience, education, etc) */
+			.detail-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: rgba(0, 0, 0, 0.85);
+				z-index: 10000;
+				align-items: center;
+				justify-content: center;
+				padding: 2rem;
+				overflow-y: auto;
+			}
+
+			.detail-modal.active {
+				display: flex;
+			}
+
+			.detail-modal-content {
+				background: white;
+				border-radius: 16px;
+				max-width: 700px;
+				width: 100%;
+				max-height: 90vh;
+				overflow-y: auto;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+				position: relative;
+				padding: 2.5rem;
+			}
+
+			.detail-modal-close {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				border: none;
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				cursor: pointer;
+				font-size: 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.3s;
+				z-index: 10;
+			}
+
+			.detail-modal-close:hover {
+				background: rgba(0, 0, 0, 0.9);
+				transform: rotate(90deg);
+			}
+
+			.detail-modal-header {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1.5rem;
+				padding-bottom: 1.5rem;
+				border-bottom: 2px solid var(--darkest);
+			}
+
+			.detail-modal-logo {
+				width: 70px;
+				height: 70px;
+				object-fit: contain;
+				border-radius: 8px;
+				border: 2px solid var(--darkest);
+				padding: 8px;
+				background: white;
+				flex-shrink: 0;
+			}
+
+			.detail-modal-title {
+				font-size: 1.75rem;
+				font-weight: 700;
+				color: var(--lightest);
+				margin-bottom: 0.25rem;
+			}
+
+			.detail-modal-subtitle {
+				font-size: 1.1rem;
+				color: var(--accent);
+			}
+
+			.detail-modal-meta {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				margin-bottom: 1.5rem;
+				padding: 1rem;
+				background: var(--darkest);
+				border-radius: 8px;
+			}
+
+			.detail-modal-meta-item {
+				font-size: 0.95rem;
+				color: var(--text);
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			.detail-modal-description {
+				color: var(--text);
+				line-height: 1.7;
+				margin-bottom: 1.5rem;
+				font-size: 1rem;
+				white-space: pre-wrap;
+			}
+
+			.detail-modal-skills {
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+			}
+
+			.detail-modal-skill {
+				padding: 0.4rem 0.8rem;
+				border-radius: 6px;
+				background: var(--accent-light);
+				color: white;
+				font-weight: 600;
+				font-size: 0.8rem;
+			}
+
+			/* Mobile responsive for video modal */
+			@media (max-width: 768px) {
+				.project-modal-video-layout {
+					grid-template-columns: 1fr;
+					grid-template-rows: auto 1fr;
+				}
+
+				.project-modal-video-container {
+					border-radius: 16px 16px 0 0;
+					min-height: 300px;
+				}
+
+				.project-modal-content {
+					max-width: 95%;
+				}
+			}
+
 			.profile-grid {
 				display: grid;
 				grid-template-columns: 200px 1fr;
@@ -434,6 +737,7 @@
 				border: 2px solid transparent;
 				position: relative;
 				overflow: hidden;
+				cursor: pointer;
 			}
 
 			.card::before {
@@ -613,6 +917,7 @@
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 				border: 2px solid transparent;
+				cursor: pointer;
 			}
 
 			.project-card:hover {
@@ -635,6 +940,11 @@
 
 			/* Show top of Smart Home project image */
 			.project-image[src*="smartHome"] {
+				object-position: top;
+			}
+
+			/* Show top of video instead of center */
+			video.project-image {
 				object-position: top;
 			}
 
@@ -1343,8 +1653,14 @@
 
 				const cardsHTML = education
 					.map(
-						(edu) => `
-					<div class="card">
+						(edu) => {
+							// Truncate description for card view
+							const truncatedDesc = edu.description.length > 200
+								? edu.description.substring(0, 200) + '...'
+								: edu.description;
+
+							return `
+					<div class="card" onclick='openEducationModal(${JSON.stringify(edu).replace(/'/g, "&#39;")})'>
 						<div class="card-header">
 							<img src="${edu.logo}" alt="${edu.school}" class="card-logo" loading="lazy" />
 							<div>
@@ -1359,9 +1675,10 @@
 								? `<div class="card-meta">🎖️ <strong>${edu.grade}</strong></div>`
 								: ""
 						}
-						<div class="card-description">${edu.description}</div>
+						<div class="card-description">${truncatedDesc}</div>
 					</div>
-				`
+				`;
+						}
 					)
 					.join("");
 
@@ -1386,8 +1703,13 @@
 									.toUpperCase()}</div>
 							</div>`;
 
+						// Truncate description for card view
+						const truncatedDesc = exp.description.length > 200
+							? exp.description.substring(0, 200) + '...'
+							: exp.description;
+
 						return `
-						<div class="card">
+						<div class="card" onclick='openExperienceModal(${JSON.stringify(exp).replace(/'/g, "&#39;")})'>
 							<div class="card-header">
 								${logoHTML}
 								<div>
@@ -1401,7 +1723,7 @@
 							<div class="card-meta">📅 ${exp.startDate} - ${exp.endDate}</div>
 							<div class="card-meta">📍 ${exp.location}</div>
 							<div class="card-meta">💼 ${exp.employmentType}</div>
-							<div class="card-description">${exp.description}</div>
+							<div class="card-description">${truncatedDesc}</div>
 							<div class="skills-tags">
 								${exp.skills.map((skill) => `<span class="skill-tag">${skill}</span>`).join("")}
 							</div>
@@ -1428,11 +1750,16 @@
 				// Render featured projects as tiles
 				const featuredHTML = featuredProjects
 					.map(
-						(project) => `
-					<div class="project-card">
-						<img src="${project.image}" alt="${
-							project.title
-						}" class="project-image" loading="lazy" />
+						(project, index) => {
+							// Check if the image is a video
+							const isVideo = project.image && project.image.endsWith('.mp4');
+							const mediaHTML = isVideo
+								? `<video class="project-image lazy-video" data-src="${project.image}" loop muted playsinline></video>`
+								: `<img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy" />`;
+
+							return `
+					<div class="project-card" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
+						${mediaHTML}
 						<div class="project-content">
 							<h3 class="project-title">${project.title}</h3>
 							<div class="project-subtitle">${project.subtitle}</div>
@@ -1447,14 +1774,34 @@
 							</div>
 							${
 								project.link
-									? `<a href="${project.link}" target="_blank" class="project-link">View Project →</a>`
+									? `<a href="${project.link}" target="_blank" class="project-link" onclick="event.stopPropagation()">View Project →</a>`
 									: ""
 							}
 						</div>
 					</div>
-				`
+				`;
+						}
 					)
 					.join("");
+
+				// Setup lazy loading for videos after rendering
+				setTimeout(() => {
+					const lazyVideos = document.querySelectorAll('video.lazy-video');
+					const videoObserver = new IntersectionObserver((entries) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								const video = entry.target;
+								video.src = video.dataset.src;
+								video.load();
+								video.play().catch(() => {}); // Autoplay with error handling
+								video.classList.remove('lazy-video');
+								videoObserver.unobserve(video);
+							}
+						});
+					}, { rootMargin: '50px' });
+
+					lazyVideos.forEach(video => videoObserver.observe(video));
+				}, 100);
 
 				// Render non-featured projects as list
 				const additionalHTML = additionalProjects.length > 0 ? `
@@ -1464,7 +1811,7 @@
 							${additionalProjects
 								.map(
 									(project) => `
-								<div class="project-list-item">
+								<div class="project-list-item" style="cursor: pointer;" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
 									<div class="project-list-title">${project.title}</div>
 									<div class="project-list-subtitle">${project.subtitle}</div>
 									<div class="project-list-description">${project.description}</div>
@@ -1796,6 +2143,188 @@
 
 				window.addEventListener("scroll", setActiveNav);
 				setActiveNav(); // Set initial active state
+			});
+		</script>
+
+		<!-- Project Detail Modal -->
+		<div id="projectModal" class="project-modal">
+			<div class="project-modal-content">
+				<button class="project-modal-close" onclick="closeProjectModal()">&times;</button>
+				<div id="projectModalContent"></div>
+			</div>
+		</div>
+
+		<script>
+			function openProjectModal(project) {
+				const modal = document.getElementById('projectModal');
+				const content = document.getElementById('projectModalContent');
+
+				// Determine if media is video or image
+				const isVideo = project.image && project.image.endsWith('.mp4');
+
+				if (isVideo) {
+					// Video layout: side-by-side
+					content.innerHTML = `
+						<div class="project-modal-video-layout">
+							<div class="project-modal-video-container">
+								<video autoplay loop muted playsinline>
+									<source src="${project.image}" type="video/mp4">
+								</video>
+							</div>
+							<div class="project-modal-body-sidebar">
+								<h2 class="project-modal-title">${project.title}</h2>
+								<div class="project-modal-subtitle">${project.subtitle || ''}</div>
+								<p class="project-modal-description">${project.description}</p>
+								<div class="project-modal-tags">
+									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
+								</div>
+								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link">View Project →</a>` : ''}
+							</div>
+						</div>
+					`;
+				} else {
+					// Image layout: stacked (traditional)
+					content.innerHTML = `
+						<div class="project-modal-stacked-layout">
+							<img src="${project.image}" alt="${project.title}" class="project-modal-media" />
+							<div class="project-modal-body">
+								<h2 class="project-modal-title">${project.title}</h2>
+								<div class="project-modal-subtitle">${project.subtitle || ''}</div>
+								<p class="project-modal-description">${project.description}</p>
+								<div class="project-modal-tags">
+									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
+								</div>
+								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link">View Project →</a>` : ''}
+							</div>
+						</div>
+					`;
+				}
+
+				modal.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			}
+
+			function closeProjectModal() {
+				const modal = document.getElementById('projectModal');
+				modal.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+
+			// Close modal when clicking outside
+			document.getElementById('projectModal').addEventListener('click', function(e) {
+				if (e.target === this) {
+					closeProjectModal();
+				}
+			});
+
+			// Close modal on escape key
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape') {
+					closeProjectModal();
+					closeExperienceModal();
+					closeEducationModal();
+				}
+			});
+		</script>
+
+		<!-- Experience Detail Modal -->
+		<div id="experienceModal" class="detail-modal">
+			<div class="detail-modal-content">
+				<button class="detail-modal-close" onclick="closeExperienceModal()">&times;</button>
+				<div id="experienceModalContent"></div>
+			</div>
+		</div>
+
+		<!-- Education Detail Modal -->
+		<div id="educationModal" class="detail-modal">
+			<div class="detail-modal-content">
+				<button class="detail-modal-close" onclick="closeEducationModal()">&times;</button>
+				<div id="educationModalContent"></div>
+			</div>
+		</div>
+
+		<script>
+			function openExperienceModal(exp) {
+				const modal = document.getElementById('experienceModal');
+				const content = document.getElementById('experienceModalContent');
+
+				const logoHTML = exp.logo
+					? `<img src="${exp.logo}" alt="${exp.company}" class="detail-modal-logo" />`
+					: `<div class="detail-modal-logo" style="display: flex; align-items: center; justify-content: center; background: var(--darkest);"><div style="font-weight: 700; color: var(--accent); font-size: 1.2rem;">${exp.company.substring(0, 2).toUpperCase()}</div></div>`;
+
+				content.innerHTML = `
+					<div class="detail-modal-header">
+						${logoHTML}
+						<div>
+							<h2 class="detail-modal-title">${exp.title}</h2>
+							<div class="detail-modal-subtitle">${exp.company}${exp.current ? ' <span class="badge">Current</span>' : ''}</div>
+						</div>
+					</div>
+					<div class="detail-modal-meta">
+						<div class="detail-modal-meta-item">📅 ${exp.startDate} - ${exp.endDate}</div>
+						<div class="detail-modal-meta-item">📍 ${exp.location}</div>
+						<div class="detail-modal-meta-item">💼 ${exp.employmentType}</div>
+					</div>
+					<div class="detail-modal-description">${exp.description}</div>
+					${exp.skills && exp.skills.length > 0 ? `
+						<h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Skills Used</h3>
+						<div class="detail-modal-skills">
+							${exp.skills.map(skill => `<span class="detail-modal-skill">${skill}</span>`).join('')}
+						</div>
+					` : ''}
+				`;
+
+				modal.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			}
+
+			function closeExperienceModal() {
+				const modal = document.getElementById('experienceModal');
+				modal.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+
+			function openEducationModal(edu) {
+				const modal = document.getElementById('educationModal');
+				const content = document.getElementById('educationModalContent');
+
+				content.innerHTML = `
+					<div class="detail-modal-header">
+						<img src="${edu.logo}" alt="${edu.school}" class="detail-modal-logo" />
+						<div>
+							<h2 class="detail-modal-title">${edu.school}</h2>
+							<div class="detail-modal-subtitle">${edu.degree}</div>
+						</div>
+					</div>
+					<div class="detail-modal-meta">
+						<div class="detail-modal-meta-item">🎯 Field: ${edu.field}</div>
+						<div class="detail-modal-meta-item">📅 ${edu.startDate} - ${edu.endDate}</div>
+						${edu.grade ? `<div class="detail-modal-meta-item">🎖️ <strong>${edu.grade}</strong></div>` : ''}
+					</div>
+					<div class="detail-modal-description">${edu.description}</div>
+				`;
+
+				modal.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			}
+
+			function closeEducationModal() {
+				const modal = document.getElementById('educationModal');
+				modal.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+
+			// Close modals when clicking outside
+			document.getElementById('experienceModal').addEventListener('click', function(e) {
+				if (e.target === this) {
+					closeExperienceModal();
+				}
+			});
+
+			document.getElementById('educationModal').addEventListener('click', function(e) {
+				if (e.target === this) {
+					closeEducationModal();
+				}
 			});
 		</script>
 	</body>

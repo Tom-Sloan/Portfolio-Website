@@ -2178,7 +2178,13 @@
 								<div class="project-modal-tags">
 									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
 								</div>
-								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link">View Project →</a>` : ''}
+								${project.technologies && project.technologies.length > 0 ? `
+									<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Technologies Used</h3>
+									<div class="detail-modal-skills">
+										${project.technologies.map(tech => `<span class="detail-modal-skill">${tech}</span>`).join('')}
+									</div>
+								` : ''}
+								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>` : ''}
 							</div>
 						</div>
 					`;
@@ -2194,7 +2200,13 @@
 								<div class="project-modal-tags">
 									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
 								</div>
-								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link">View Project →</a>` : ''}
+								${project.technologies && project.technologies.length > 0 ? `
+									<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Technologies Used</h3>
+									<div class="detail-modal-skills">
+										${project.technologies.map(tech => `<span class="detail-modal-skill">${tech}</span>`).join('')}
+									</div>
+								` : ''}
+								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>` : ''}
 							</div>
 						</div>
 					`;

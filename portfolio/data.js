@@ -167,7 +167,7 @@ const portfolioData = {
 			title: "Portfolio MCP Server",
 			subtitle: "Model Context Protocol Integration",
 			description:
-				"Built a Model Context Protocol (MCP) server deployed as a Netlify serverless function to provide AI assistants with structured access to portfolio data. The server exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP JSON-RPC protocol. Enables AI assistants to answer questions about my work, projects, and technical expertise with real-time, accurate data.",
+				"Built a Model Context Protocol (MCP) server deployed as a Netlify serverless function to provide AI assistants with structured access to portfolio data. The server exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP protocol. Enables AI assistants to answer questions about my work, projects, and technical expertise with real-time, accurate data.",
 			startDate: "November 2025",
 			endDate: "November 2025",
 			current: false,
@@ -405,7 +405,7 @@ const portfolioData = {
 			description:
 				"In an attempt to grow coffee hydroponically and locally in Ottawa, a drip automated hydroponic system was built. The system is currently in the 'alpha' stage and is being tested with several smaller plants that are easier to set up such as lettuce, and basil. The end result of the system will be for it to contain Arabica coffee and green tea plants.",
 			startDate: "July 2021",
-			endDate: "Ongoing",
+			endDate: "August 2021",
 			current: false,
 			category: [
 				{ tag: "Hardware", color: "#66023C" },
@@ -443,7 +443,7 @@ const portfolioData = {
 			description:
 				"Transforming an antique wooden speed boat with rotted wood and various parts missing by my cousin and myself. The boat is being remade with many technology improvement and include new smart devices. The motor has been repaired, the wood replaced and the vessel is seaworthy again after decades of sitting around and wasting away.",
 			startDate: "July 2021",
-			endDate: "Ongoing",
+			endDate: "August 2021",
 			current: false,
 			category: [
 				{ tag: "Hardware", color: "#66023C" },

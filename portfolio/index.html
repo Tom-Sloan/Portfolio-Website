@@ -1069,6 +1069,53 @@
 				color: var(--dark);
 			}
 
+			/* Progressive disclosure for additional projects */
+			.projects-list {
+				position: relative;
+			}
+
+			.project-list-item.hidden-item {
+				display: none;
+			}
+
+			.projects-list.expanded .project-list-item.hidden-item {
+				display: block;
+			}
+
+			.show-more-container {
+				position: relative;
+				margin-top: 0.75rem;
+			}
+
+			.show-more-btn {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				padding: 0.75rem 2rem;
+				background: rgba(59, 130, 246, 0.95);
+				color: white;
+				border: none;
+				border-radius: 8px;
+				font-weight: 600;
+				font-size: 0.9rem;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				z-index: 10;
+				backdrop-filter: blur(10px);
+			}
+
+			.show-more-btn:hover {
+				background: rgba(96, 165, 250, 0.95);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+			}
+
+			.projects-list.expanded ~ .show-more-container .show-more-btn {
+				position: static;
+				margin: 1rem auto 0;
+			}
+
 			/* Resume Section */
 			.resume-section {
 				background: var(--lightest);
@@ -1775,7 +1822,13 @@
 
 				// Separate featured and non-featured projects
 				const featuredProjects = projects.filter(p => p.featured);
-				const additionalProjects = projects.filter(p => !p.featured);
+				const additionalProjects = projects.filter(p => !p.featured)
+					.sort((a, b) => {
+						// Sort by end date, most recent first
+						const dateA = new Date(a.endDate === 'Ongoing' ? '9999-12-31' : a.endDate);
+						const dateB = new Date(b.endDate === 'Ongoing' ? '9999-12-31' : b.endDate);
+						return dateB - dateA;
+					});
 
 				// Render featured projects as tiles
 				const featuredHTML = featuredProjects
@@ -1833,15 +1886,15 @@
 					lazyVideos.forEach(video => videoObserver.observe(video));
 				}, 100);
 
-				// Render non-featured projects as list
+				// Render non-featured projects as list with progressive disclosure
 				const additionalHTML = additionalProjects.length > 0 ? `
 					<div class="additional-projects-section">
 						<h3 class="additional-projects-title">Additional Projects</h3>
-						<div class="projects-list">
+						<div class="projects-list" id="projectsList">
 							${additionalProjects
 								.map(
-									(project) => `
-								<div class="project-list-item" style="cursor: pointer;" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
+									(project, index) => `
+								<div class="project-list-item ${index > 0 ? 'hidden-item' : ''}" style="cursor: pointer;" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
 									<div class="project-list-title">${project.title}</div>
 									<div class="project-list-subtitle">${project.subtitle}</div>
 									<div class="project-list-description">${project.description}</div>
@@ -1851,6 +1904,7 @@
 								)
 								.join("")}
 						</div>
+						${additionalProjects.length > 1 ? '<div class="show-more-container"><button class="show-more-btn" id="showMoreBtn">Show More Projects</button></div>' : ''}
 					</div>
 				` : '';
 
@@ -2097,6 +2151,21 @@
 				renderCertifications();
 				renderResume();
 				renderFooter();
+
+				// Setup "Show More" button for additional projects
+				const showMoreBtn = document.getElementById('showMoreBtn');
+				if (showMoreBtn) {
+					showMoreBtn.addEventListener('click', function() {
+						const projectsList = document.getElementById('projectsList');
+						projectsList.classList.toggle('expanded');
+
+						if (projectsList.classList.contains('expanded')) {
+							this.textContent = 'Show Less';
+						} else {
+							this.textContent = 'Show More Projects';
+						}
+					});
+				}
 
 				// Background image click handlers - open modal
 				const bgImages = document.querySelectorAll(".bg-image");

@@ -397,7 +397,7 @@ const portfolioData = {
 			technologies: ["Python", "Twitter API", "Heroku", "Web Scraping"],
 			image: "images/projects/twitterBot.png",
 			link: "https://github.com/Tom-Sloan/TwitterBot",
-			featured: true,
+			featured: false,
 		},
 		{
 			title: "Automated Hydroponics System",

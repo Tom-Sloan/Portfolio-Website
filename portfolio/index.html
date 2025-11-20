@@ -1493,7 +1493,7 @@
 					<li><a href="#about">About</a></li>
 					<li><a href="#education">Education</a></li>
 					<li><a href="#experience">Experience</a></li>
-					<li><a href="#projects">Projects</a></li>
+					<li><a href="#projects">Featured Projects</a></li>
 					<li><a href="#github">GitHub</a></li>
 					<li><a href="#skills">Skills</a></li>
 					<li><a href="#certifications">Certifications</a></li>
@@ -1588,28 +1588,38 @@
 		<section
 			class="container"
 			id="references"
-			style="padding: 3rem 1.5rem; text-align: center;"
+			style="padding: 3rem 1.5rem; text-align: center"
 		>
-			<div style="
-				max-width: 600px;
-				margin: 0 auto;
-				background: white;
-				padding: 2rem;
-				border-radius: 12px;
-				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-				border-left: 4px solid var(--accent);
-			">
-				<h3 style="
-					font-size: 1.3rem;
-					font-weight: 700;
-					color: var(--lightest);
-					margin-bottom: 0.75rem;
-				">References</h3>
-				<p style="
-					color: var(--light);
-					font-size: 1rem;
-					line-height: 1.6;
-				">Professional and academic references available upon request.</p>
+			<div
+				style="
+					max-width: 600px;
+					margin: 0 auto;
+					background: white;
+					padding: 2rem;
+					border-radius: 12px;
+					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+					border-left: 4px solid var(--accent);
+				"
+			>
+				<h3
+					style="
+						font-size: 1.3rem;
+						font-weight: 700;
+						color: var(--lightest);
+						margin-bottom: 0.75rem;
+					"
+				>
+					References
+				</h3>
+				<p
+					style="
+						color: var(--light);
+						font-size: 1rem;
+						line-height: 1.6;
+					"
+				>
+					Professional and academic references available upon request.
+				</p>
 			</div>
 		</section>
 
@@ -1694,17 +1704,13 @@
 					profile.name
 				}" class="profile-image" fetchpriority="high" />
 								<div class="contact-links" style="flex-direction: column">
-									<a href="${
-										profile.links.linkedin
-									}" target="_blank" class="contact-btn">
+									<a href="${profile.links.linkedin}" target="_blank" class="contact-btn">
 										<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 0.5rem;">
 											<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
 										</svg>
 										LinkedIn
 									</a>
-									<a href="${
-										profile.links.github
-									}" target="_blank" class="contact-btn secondary">
+									<a href="${profile.links.github}" target="_blank" class="contact-btn secondary">
 										<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: middle; margin-right: 0.5rem;">
 											<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
 										</svg>
@@ -1729,15 +1735,18 @@
 				const section = document.getElementById("education");
 
 				const cardsHTML = education
-					.map(
-						(edu) => {
-							// Truncate description for card view
-							const truncatedDesc = edu.description.length > 200
-								? edu.description.substring(0, 200) + '...'
+					.map((edu) => {
+						// Truncate description for card view
+						const truncatedDesc =
+							edu.description.length > 200
+								? edu.description.substring(0, 200) + "..."
 								: edu.description;
 
-							return `
-					<div class="card" onclick='openEducationModal(${JSON.stringify(edu).replace(/'/g, "&#39;")})'>
+						return `
+					<div class="card" onclick='openEducationModal(${JSON.stringify(edu).replace(
+						/'/g,
+						"&#39;"
+					)})'>
 						<div class="card-header">
 							<img src="${edu.logo}" alt="${edu.school}" class="card-logo" loading="lazy" />
 							<div>
@@ -1755,8 +1764,7 @@
 						<div class="card-description">${truncatedDesc}</div>
 					</div>
 				`;
-						}
-					)
+					})
 					.join("");
 
 				section.innerHTML = `
@@ -1781,12 +1789,16 @@
 							</div>`;
 
 						// Truncate description for card view
-						const truncatedDesc = exp.description.length > 200
-							? exp.description.substring(0, 200) + '...'
-							: exp.description;
+						const truncatedDesc =
+							exp.description.length > 200
+								? exp.description.substring(0, 200) + "..."
+								: exp.description;
 
 						return `
-						<div class="card" onclick='openExperienceModal(${JSON.stringify(exp).replace(/'/g, "&#39;")})'>
+						<div class="card" onclick='openExperienceModal(${JSON.stringify(exp).replace(
+							/'/g,
+							"&#39;"
+						)})'>
 							<div class="card-header">
 								${logoHTML}
 								<div>
@@ -1821,27 +1833,34 @@
 				const section = document.getElementById("projects");
 
 				// Separate featured and non-featured projects
-				const featuredProjects = projects.filter(p => p.featured);
-				const additionalProjects = projects.filter(p => !p.featured)
+				const featuredProjects = projects.filter((p) => p.featured);
+				const additionalProjects = projects
+					.filter((p) => !p.featured)
 					.sort((a, b) => {
 						// Sort by end date, most recent first
-						const dateA = new Date(a.endDate === 'Ongoing' ? '9999-12-31' : a.endDate);
-						const dateB = new Date(b.endDate === 'Ongoing' ? '9999-12-31' : b.endDate);
+						const dateA = new Date(
+							a.endDate === "Ongoing" ? "9999-12-31" : a.endDate
+						);
+						const dateB = new Date(
+							b.endDate === "Ongoing" ? "9999-12-31" : b.endDate
+						);
 						return dateB - dateA;
 					});
 
 				// Render featured projects as tiles
 				const featuredHTML = featuredProjects
-					.map(
-						(project, index) => {
-							// Check if the image is a video
-							const isVideo = project.image && project.image.endsWith('.mp4');
-							const mediaHTML = isVideo
-								? `<video class="project-image lazy-video" data-src="${project.image}" loop muted playsinline></video>`
-								: `<img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy" />`;
+					.map((project, index) => {
+						// Check if the image is a video
+						const isVideo =
+							project.image && project.image.endsWith(".mp4");
+						const mediaHTML = isVideo
+							? `<video class="project-image lazy-video" data-src="${project.image}" loop muted playsinline></video>`
+							: `<img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy" />`;
 
-							return `
-					<div class="project-card" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
+						return `
+					<div class="project-card" onclick='openProjectModal(${JSON.stringify(
+						project
+					).replace(/'/g, "&#39;")})'>
 						${mediaHTML}
 						<div class="project-content">
 							<h3 class="project-title">${project.title}</h3>
@@ -1863,38 +1882,47 @@
 						</div>
 					</div>
 				`;
-						}
-					)
+					})
 					.join("");
 
 				// Setup lazy loading for videos after rendering
 				setTimeout(() => {
-					const lazyVideos = document.querySelectorAll('video.lazy-video');
-					const videoObserver = new IntersectionObserver((entries) => {
-						entries.forEach(entry => {
-							if (entry.isIntersecting) {
-								const video = entry.target;
-								video.src = video.dataset.src;
-								video.load();
-								video.play().catch(() => {}); // Autoplay with error handling
-								video.classList.remove('lazy-video');
-								videoObserver.unobserve(video);
-							}
-						});
-					}, { rootMargin: '50px' });
+					const lazyVideos =
+						document.querySelectorAll("video.lazy-video");
+					const videoObserver = new IntersectionObserver(
+						(entries) => {
+							entries.forEach((entry) => {
+								if (entry.isIntersecting) {
+									const video = entry.target;
+									video.src = video.dataset.src;
+									video.load();
+									video.play().catch(() => {}); // Autoplay with error handling
+									video.classList.remove("lazy-video");
+									videoObserver.unobserve(video);
+								}
+							});
+						},
+						{ rootMargin: "50px" }
+					);
 
-					lazyVideos.forEach(video => videoObserver.observe(video));
+					lazyVideos.forEach((video) => videoObserver.observe(video));
 				}, 100);
 
 				// Render non-featured projects as list with progressive disclosure
-				const additionalHTML = additionalProjects.length > 0 ? `
+				const additionalHTML =
+					additionalProjects.length > 0
+						? `
 					<div class="additional-projects-section">
 						<h3 class="additional-projects-title">Additional Projects</h3>
 						<div class="projects-list" id="projectsList">
 							${additionalProjects
 								.map(
 									(project, index) => `
-								<div class="project-list-item ${index > 0 ? 'hidden-item' : ''}" style="cursor: pointer;" onclick='openProjectModal(${JSON.stringify(project).replace(/'/g, "&#39;")})'>
+								<div class="project-list-item ${
+									index > 0 ? "hidden-item" : ""
+								}" style="cursor: pointer;" onclick='openProjectModal(${JSON.stringify(
+										project
+									).replace(/'/g, "&#39;")})'>
 									<div class="project-list-title">${project.title}</div>
 									<div class="project-list-subtitle">${project.subtitle}</div>
 									<div class="project-list-description">${project.description}</div>
@@ -1904,12 +1932,17 @@
 								)
 								.join("")}
 						</div>
-						${additionalProjects.length > 1 ? '<div class="show-more-container"><button class="show-more-btn" id="showMoreBtn">Show More Projects</button></div>' : ''}
+						${
+							additionalProjects.length > 1
+								? '<div class="show-more-container"><button class="show-more-btn" id="showMoreBtn">Show More Projects</button></div>'
+								: ""
+						}
 					</div>
-				` : '';
+				`
+						: "";
 
 				section.innerHTML = `
-					<h2 class="section-title">Projects</h2>
+					<h2 class="section-title">Featured Projects</h2>
 					<div class="projects-grid">${featuredHTML}</div>
 					${additionalHTML}
 				`;
@@ -2153,16 +2186,17 @@
 				renderFooter();
 
 				// Setup "Show More" button for additional projects
-				const showMoreBtn = document.getElementById('showMoreBtn');
+				const showMoreBtn = document.getElementById("showMoreBtn");
 				if (showMoreBtn) {
-					showMoreBtn.addEventListener('click', function() {
-						const projectsList = document.getElementById('projectsList');
-						projectsList.classList.toggle('expanded');
+					showMoreBtn.addEventListener("click", function () {
+						const projectsList =
+							document.getElementById("projectsList");
+						projectsList.classList.toggle("expanded");
 
-						if (projectsList.classList.contains('expanded')) {
-							this.textContent = 'Show Less';
+						if (projectsList.classList.contains("expanded")) {
+							this.textContent = "Show Less";
 						} else {
-							this.textContent = 'Show More Projects';
+							this.textContent = "Show More Projects";
 						}
 					});
 				}
@@ -2246,20 +2280,28 @@
 		</script>
 
 		<!-- Project Detail Modal -->
-		<div id="projectModal" class="project-modal">
+		<div
+			id="projectModal"
+			class="project-modal"
+		>
 			<div class="project-modal-content">
-				<button class="project-modal-close" onclick="closeProjectModal()">&times;</button>
+				<button
+					class="project-modal-close"
+					onclick="closeProjectModal()"
+				>
+					&times;
+				</button>
 				<div id="projectModalContent"></div>
 			</div>
 		</div>
 
 		<script>
 			function openProjectModal(project) {
-				const modal = document.getElementById('projectModal');
-				const content = document.getElementById('projectModalContent');
+				const modal = document.getElementById("projectModal");
+				const content = document.getElementById("projectModalContent");
 
 				// Determine if media is video or image
-				const isVideo = project.image && project.image.endsWith('.mp4');
+				const isVideo = project.image && project.image.endsWith(".mp4");
 
 				if (isVideo) {
 					// Video layout: side-by-side
@@ -2272,18 +2314,37 @@
 							</div>
 							<div class="project-modal-body-sidebar">
 								<h2 class="project-modal-title">${project.title}</h2>
-								<div class="project-modal-subtitle">${project.subtitle || ''}</div>
+								<div class="project-modal-subtitle">${project.subtitle || ""}</div>
 								<p class="project-modal-description">${project.description}</p>
 								<div class="project-modal-tags">
-									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
+									${project.category
+										.map(
+											(cat) =>
+												`<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`
+										)
+										.join("")}
 								</div>
-								${project.technologies && project.technologies.length > 0 ? `
+								${
+									project.technologies &&
+									project.technologies.length > 0
+										? `
 									<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Technologies Used</h3>
 									<div class="detail-modal-skills">
-										${project.technologies.map(tech => `<span class="detail-modal-skill">${tech}</span>`).join('')}
+										${project.technologies
+											.map(
+												(tech) =>
+													`<span class="detail-modal-skill">${tech}</span>`
+											)
+											.join("")}
 									</div>
-								` : ''}
-								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>` : ''}
+								`
+										: ""
+								}
+								${
+									project.link
+										? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>`
+										: ""
+								}
 							</div>
 						</div>
 					`;
@@ -2291,46 +2352,69 @@
 					// Image layout: stacked (traditional)
 					content.innerHTML = `
 						<div class="project-modal-stacked-layout">
-							<img src="${project.image}" alt="${project.title}" class="project-modal-media" />
+							<img src="${project.image}" alt="${
+						project.title
+					}" class="project-modal-media" />
 							<div class="project-modal-body">
 								<h2 class="project-modal-title">${project.title}</h2>
-								<div class="project-modal-subtitle">${project.subtitle || ''}</div>
+								<div class="project-modal-subtitle">${project.subtitle || ""}</div>
 								<p class="project-modal-description">${project.description}</p>
 								<div class="project-modal-tags">
-									${project.category.map(cat => `<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`).join('')}
+									${project.category
+										.map(
+											(cat) =>
+												`<span class="project-modal-tag" style="background: ${cat.color}">${cat.tag}</span>`
+										)
+										.join("")}
 								</div>
-								${project.technologies && project.technologies.length > 0 ? `
+								${
+									project.technologies &&
+									project.technologies.length > 0
+										? `
 									<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Technologies Used</h3>
 									<div class="detail-modal-skills">
-										${project.technologies.map(tech => `<span class="detail-modal-skill">${tech}</span>`).join('')}
+										${project.technologies
+											.map(
+												(tech) =>
+													`<span class="detail-modal-skill">${tech}</span>`
+											)
+											.join("")}
 									</div>
-								` : ''}
-								${project.link ? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>` : ''}
+								`
+										: ""
+								}
+								${
+									project.link
+										? `<a href="${project.link}" target="_blank" class="project-modal-link" style="margin-top: 1.5rem;">View Project →</a>`
+										: ""
+								}
 							</div>
 						</div>
 					`;
 				}
 
-				modal.classList.add('active');
-				document.body.style.overflow = 'hidden';
+				modal.classList.add("active");
+				document.body.style.overflow = "hidden";
 			}
 
 			function closeProjectModal() {
-				const modal = document.getElementById('projectModal');
-				modal.classList.remove('active');
-				document.body.style.overflow = '';
+				const modal = document.getElementById("projectModal");
+				modal.classList.remove("active");
+				document.body.style.overflow = "";
 			}
 
 			// Close modal when clicking outside
-			document.getElementById('projectModal').addEventListener('click', function(e) {
-				if (e.target === this) {
-					closeProjectModal();
-				}
-			});
+			document
+				.getElementById("projectModal")
+				.addEventListener("click", function (e) {
+					if (e.target === this) {
+						closeProjectModal();
+					}
+				});
 
 			// Close modal on escape key
-			document.addEventListener('keydown', function(e) {
-				if (e.key === 'Escape') {
+			document.addEventListener("keydown", function (e) {
+				if (e.key === "Escape") {
 					closeProjectModal();
 					closeExperienceModal();
 					closeEducationModal();
@@ -2339,36 +2423,58 @@
 		</script>
 
 		<!-- Experience Detail Modal -->
-		<div id="experienceModal" class="detail-modal">
+		<div
+			id="experienceModal"
+			class="detail-modal"
+		>
 			<div class="detail-modal-content">
-				<button class="detail-modal-close" onclick="closeExperienceModal()">&times;</button>
+				<button
+					class="detail-modal-close"
+					onclick="closeExperienceModal()"
+				>
+					&times;
+				</button>
 				<div id="experienceModalContent"></div>
 			</div>
 		</div>
 
 		<!-- Education Detail Modal -->
-		<div id="educationModal" class="detail-modal">
+		<div
+			id="educationModal"
+			class="detail-modal"
+		>
 			<div class="detail-modal-content">
-				<button class="detail-modal-close" onclick="closeEducationModal()">&times;</button>
+				<button
+					class="detail-modal-close"
+					onclick="closeEducationModal()"
+				>
+					&times;
+				</button>
 				<div id="educationModalContent"></div>
 			</div>
 		</div>
 
 		<script>
 			function openExperienceModal(exp) {
-				const modal = document.getElementById('experienceModal');
-				const content = document.getElementById('experienceModalContent');
+				const modal = document.getElementById("experienceModal");
+				const content = document.getElementById(
+					"experienceModalContent"
+				);
 
 				const logoHTML = exp.logo
 					? `<img src="${exp.logo}" alt="${exp.company}" class="detail-modal-logo" />`
-					: `<div class="detail-modal-logo" style="display: flex; align-items: center; justify-content: center; background: var(--darkest);"><div style="font-weight: 700; color: var(--accent); font-size: 1.2rem;">${exp.company.substring(0, 2).toUpperCase()}</div></div>`;
+					: `<div class="detail-modal-logo" style="display: flex; align-items: center; justify-content: center; background: var(--darkest);"><div style="font-weight: 700; color: var(--accent); font-size: 1.2rem;">${exp.company
+							.substring(0, 2)
+							.toUpperCase()}</div></div>`;
 
 				content.innerHTML = `
 					<div class="detail-modal-header">
 						${logoHTML}
 						<div>
 							<h2 class="detail-modal-title">${exp.title}</h2>
-							<div class="detail-modal-subtitle">${exp.company}${exp.current ? ' <span class="badge">Current</span>' : ''}</div>
+							<div class="detail-modal-subtitle">${exp.company}${
+					exp.current ? ' <span class="badge">Current</span>' : ""
+				}</div>
 						</div>
 					</div>
 					<div class="detail-modal-meta">
@@ -2377,27 +2483,38 @@
 						<div class="detail-modal-meta-item">💼 ${exp.employmentType}</div>
 					</div>
 					<div class="detail-modal-description">${exp.description}</div>
-					${exp.skills && exp.skills.length > 0 ? `
+					${
+						exp.skills && exp.skills.length > 0
+							? `
 						<h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--lightest);">Skills Used</h3>
 						<div class="detail-modal-skills">
-							${exp.skills.map(skill => `<span class="detail-modal-skill">${skill}</span>`).join('')}
+							${exp.skills
+								.map(
+									(skill) =>
+										`<span class="detail-modal-skill">${skill}</span>`
+								)
+								.join("")}
 						</div>
-					` : ''}
+					`
+							: ""
+					}
 				`;
 
-				modal.classList.add('active');
-				document.body.style.overflow = 'hidden';
+				modal.classList.add("active");
+				document.body.style.overflow = "hidden";
 			}
 
 			function closeExperienceModal() {
-				const modal = document.getElementById('experienceModal');
-				modal.classList.remove('active');
-				document.body.style.overflow = '';
+				const modal = document.getElementById("experienceModal");
+				modal.classList.remove("active");
+				document.body.style.overflow = "";
 			}
 
 			function openEducationModal(edu) {
-				const modal = document.getElementById('educationModal');
-				const content = document.getElementById('educationModalContent');
+				const modal = document.getElementById("educationModal");
+				const content = document.getElementById(
+					"educationModalContent"
+				);
 
 				content.innerHTML = `
 					<div class="detail-modal-header">
@@ -2410,33 +2527,41 @@
 					<div class="detail-modal-meta">
 						<div class="detail-modal-meta-item">🎯 Field: ${edu.field}</div>
 						<div class="detail-modal-meta-item">📅 ${edu.startDate} - ${edu.endDate}</div>
-						${edu.grade ? `<div class="detail-modal-meta-item">🎖️ <strong>${edu.grade}</strong></div>` : ''}
+						${
+							edu.grade
+								? `<div class="detail-modal-meta-item">🎖️ <strong>${edu.grade}</strong></div>`
+								: ""
+						}
 					</div>
 					<div class="detail-modal-description">${edu.description}</div>
 				`;
 
-				modal.classList.add('active');
-				document.body.style.overflow = 'hidden';
+				modal.classList.add("active");
+				document.body.style.overflow = "hidden";
 			}
 
 			function closeEducationModal() {
-				const modal = document.getElementById('educationModal');
-				modal.classList.remove('active');
-				document.body.style.overflow = '';
+				const modal = document.getElementById("educationModal");
+				modal.classList.remove("active");
+				document.body.style.overflow = "";
 			}
 
 			// Close modals when clicking outside
-			document.getElementById('experienceModal').addEventListener('click', function(e) {
-				if (e.target === this) {
-					closeExperienceModal();
-				}
-			});
+			document
+				.getElementById("experienceModal")
+				.addEventListener("click", function (e) {
+					if (e.target === this) {
+						closeExperienceModal();
+					}
+				});
 
-			document.getElementById('educationModal').addEventListener('click', function(e) {
-				if (e.target === this) {
-					closeEducationModal();
-				}
-			});
+			document
+				.getElementById("educationModal")
+				.addEventListener("click", function (e) {
+					if (e.target === this) {
+						closeEducationModal();
+					}
+				});
 		</script>
 	</body>
 </html>

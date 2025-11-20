@@ -12,8 +12,7 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": "./",
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
     "sourceMap": true,
     "types": ["node"]
   },

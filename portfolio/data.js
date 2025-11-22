@@ -49,7 +49,7 @@ const portfolioData = {
 	experience: [
 		{
 			company: "Carleton University",
-			title: "Researcher",
+			title: "Machine Learning Researcher",
 			employmentType: "Full-time",
 			location: "Ottawa, Ontario, Canada",
 			startDate: "October 2023",

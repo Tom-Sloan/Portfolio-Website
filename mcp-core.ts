@@ -62,6 +62,18 @@ export interface PortfolioData {
     credentialUrl: string;
     badgeImage: string;
   }>;
+  publications: Array<{
+    title: string;
+    authors: string[];
+    conference: string;
+    location: string;
+    year: number;
+    pages: string;
+    doi: string;
+    url: string;
+    image?: string;
+    keywords: string[];
+  }>;
 }
 
 /**
@@ -113,6 +125,12 @@ const FindSkillsSchema = z.object({
 const FilterCertificationsSchema = z.object({
   organization: z.string().optional().describe('Filter by organization name (partial match, e.g., "AWS")'),
   query: z.string().optional().describe('Search in certification name and description'),
+});
+
+const FilterPublicationsSchema = z.object({
+  author: z.string().optional().describe('Filter by author name (partial match)'),
+  year: z.number().optional().describe('Filter by publication year'),
+  keyword: z.string().optional().describe('Search in title, conference, and keywords'),
 });
 
 /**
@@ -173,6 +191,12 @@ export function createMcpServer(): Server {
           description: 'Professional certifications and credentials',
           mimeType: 'application/json',
         },
+        {
+          uri: 'portfolio://publications',
+          name: 'Publications',
+          description: 'Academic publications and research papers',
+          mimeType: 'application/json',
+        },
       ],
     };
   });
@@ -201,6 +225,9 @@ export function createMcpServer(): Server {
         break;
       case 'portfolio://certifications':
         content = data.certifications;
+        break;
+      case 'portfolio://publications':
+        content = data.publications;
         break;
       default:
         throw new Error(`Unknown resource: ${uri}`);
@@ -294,6 +321,27 @@ export function createMcpServer(): Server {
               query: {
                 type: 'string',
                 description: 'Search in certification name and description',
+              },
+            },
+          },
+        },
+        {
+          name: 'filter_publications',
+          description: 'Filter publications by author, year, or search in title/keywords',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              author: {
+                type: 'string',
+                description: 'Filter by author name (partial match)',
+              },
+              year: {
+                type: 'number',
+                description: 'Filter by publication year',
+              },
+              keyword: {
+                type: 'string',
+                description: 'Search in title, conference, and keywords',
               },
             },
           },
@@ -434,6 +482,41 @@ export function createMcpServer(): Server {
           results = results.filter((cert) =>
             cert.name.toLowerCase().includes(queryLower) ||
             cert.description.toLowerCase().includes(queryLower)
+          );
+        }
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(results, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'filter_publications': {
+        const { author, year, keyword } = FilterPublicationsSchema.parse(args);
+        const data = await fetchPortfolioData();
+        let results = data.publications;
+
+        if (author) {
+          const authorLower = author.toLowerCase();
+          results = results.filter((pub) =>
+            pub.authors.some((a) => a.toLowerCase().includes(authorLower))
+          );
+        }
+
+        if (year) {
+          results = results.filter((pub) => pub.year === year);
+        }
+
+        if (keyword) {
+          const keywordLower = keyword.toLowerCase();
+          results = results.filter((pub) =>
+            pub.title.toLowerCase().includes(keywordLower) ||
+            pub.conference.toLowerCase().includes(keywordLower) ||
+            pub.keywords.some((k) => k.toLowerCase().includes(keywordLower))
           );
         }
 

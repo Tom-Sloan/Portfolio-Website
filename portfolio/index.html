@@ -1496,6 +1496,7 @@
 					<li><a href="#projects">Featured Projects</a></li>
 					<li><a href="#github">GitHub</a></li>
 					<li><a href="#certifications">Certifications</a></li>
+					<li><a href="#publications">Publications</a></li>
 					<li><a href="#skills">Skills</a></li>
 					<li><a href="#resume">Resume</a></li>
 					<li><a href="#references">References</a></li>
@@ -1564,6 +1565,18 @@
 		<section
 			class="container"
 			id="certifications"
+			style="
+				background: white;
+				border-radius: 16px;
+				padding: 2.5rem 1.5rem;
+				margin: 2rem auto;
+			"
+		></section>
+
+		<!-- Publications Section -->
+		<section
+			class="container"
+			id="publications"
 			style="
 				background: white;
 				border-radius: 16px;
@@ -2008,6 +2021,53 @@
 				`;
 			}
 
+			// Render Publications Section
+			function renderPublications() {
+				const publications = portfolioData.publications;
+				const section = document.getElementById("publications");
+
+				const pubsHTML = publications
+					.map(
+						(pub) => `
+					<div class="cert-card">
+						${pub.image ? `<img src="${pub.image}" alt="${pub.title}" class="cert-badge-img" style="width: 100%; height: auto; max-height: 200px; object-fit: contain; margin-bottom: 1rem; border-radius: 8px;" loading="lazy" />` : ''}
+						<div style="text-align: left; margin-bottom: 1.5rem;">
+							<h3 class="cert-title" style="text-align: left; line-height: 1.4; margin-bottom: 0.75rem;">
+								${pub.title}
+							</h3>
+							<p style="color: var(--light); font-size: 0.85rem; margin-bottom: 0.5rem;">
+								<strong>Authors:</strong> ${pub.authors.join(", ")}
+							</p>
+							<p style="color: var(--light); font-size: 0.85rem; margin-bottom: 0.5rem;">
+								<strong>Conference:</strong> ${pub.conference}
+							</p>
+							<p style="color: var(--light); font-size: 0.85rem; margin-bottom: 0.5rem;">
+								<strong>Location:</strong> ${pub.location}
+							</p>
+							<div class="cert-details" style="margin-top: 1rem;">
+								<div class="cert-detail">
+									<strong>Year</strong>
+									${pub.year}
+								</div>
+							</div>
+						</div>
+						<p style="color: var(--text); margin-bottom: 1rem; font-size: 0.85rem; text-align: left;">
+							<strong>DOI:</strong> ${pub.doi}
+						</p>
+						<a href="${pub.url}" target="_blank" class="contact-btn" style="background: var(--purple);">
+							📄 View Paper
+						</a>
+					</div>
+				`
+					)
+					.join("");
+
+				section.innerHTML = `
+					<h2 class="section-title">Publications</h2>
+					<div class="card-grid">${pubsHTML}</div>
+				`;
+			}
+
 			// Render Resume Section
 			function renderResume() {
 				const resume = portfolioData.resume;
@@ -2180,8 +2240,9 @@
 				renderExperience();
 				renderProjects();
 				renderGitHubCalendar();
-				renderSkills();
 				renderCertifications();
+				renderPublications();
+				renderSkills();
 				renderResume();
 				renderFooter();
 

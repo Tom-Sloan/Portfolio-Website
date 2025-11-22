@@ -503,6 +503,17 @@ const portfolioData = {
 
 	certifications: [
 		{
+			name: "AWS Certified Machine Learning Engineer – Associate",
+			organization: "Amazon Web Services (AWS)",
+			issueDate: "November 2025",
+			expirationDate: "November 2028",
+			description:
+				"Validates technical ability in implementing ML workloads in production and operationalizing them on AWS",
+			credentialUrl:
+				"https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140",
+			badgeImage: "images/certifications/aws-ml-engineer-associate.png",
+		},
+		{
 			name: "AWS Security Specialty",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "October 2022",

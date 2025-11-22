@@ -61,22 +61,10 @@ export interface PortfolioData {
   }>;
 }
 
-// Cache for portfolio data
-let cachedData: PortfolioData | null = null;
-let cacheTimestamp = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
 /**
- * Fetch portfolio data from live site with caching
+ * Fetch portfolio data from live site
  */
 export async function fetchPortfolioData(): Promise<PortfolioData> {
-  const now = Date.now();
-
-  // Return cached data if still valid
-  if (cachedData && now - cacheTimestamp < CACHE_DURATION) {
-    return cachedData;
-  }
-
   try {
     // Fetch data.js from the live site
     const response = await fetch('https://tom-sloan.com/data.js');
@@ -94,10 +82,6 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
 
     // Use eval to parse the JavaScript object (safe - we control the source)
     const portfolioData = eval(`(${dataMatch[1]})`) as PortfolioData;
-
-    // Cache the data
-    cachedData = portfolioData;
-    cacheTimestamp = now;
 
     return portfolioData;
   } catch (error) {

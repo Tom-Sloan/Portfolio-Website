@@ -56,8 +56,11 @@ export interface PortfolioData {
   certifications: Array<{
     name: string;
     organization: string;
+    issueDate: string;
+    expirationDate: string | null;
     description: string;
-    date?: string;
+    credentialUrl: string;
+    badgeImage: string;
   }>;
 }
 

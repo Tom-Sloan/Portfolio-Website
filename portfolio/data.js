@@ -456,51 +456,6 @@ const portfolioData = {
 		},
 	],
 
-	skills: {
-		"Programming Languages": [
-			{ name: "Python", icon: "images/skills/python.png" },
-			{ name: "C/C++", icon: "images/skills/c-language.png" },
-			{ name: "JavaScript", icon: "images/skills/javascript.png" },
-			{ name: "MATLAB", icon: "images/skills/matlab.png" },
-		],
-		"AI & Computer Vision": [
-			{ name: "PyTorch", icon: "images/skills/pytorch.png" },
-			{ name: "SLAM", icon: "images/skills/slam.png" },
-			{ name: "Unity", icon: "images/skills/unity.png" },
-			{
-				name: "Computer Vision",
-				icon: "images/skills/computer-vision.png",
-			},
-		],
-		"Cloud & DevOps": [
-			{ name: "AWS", icon: "images/skills/aws.png" },
-			{ name: "Docker", icon: "images/skills/docker.png" },
-			{ name: "Jenkins", icon: "images/skills/jenkins.png" },
-			{ name: "Linux", icon: "images/skills/linux.png" },
-			{ name: "RabbitMQ", icon: "images/skills/rabbitmq.png" },
-		],
-		"Web Development": [
-			{ name: "React", icon: "images/skills/react.png" },
-			{ name: "Node.js", icon: "images/skills/nodejs.png" },
-			{ name: "Redux", icon: "images/skills/redux.png" },
-			{ name: "HTML/CSS", icon: "images/skills/html.png" },
-			{ name: "Sass", icon: "images/skills/sass.png" },
-		],
-		"Databases & Backend": [
-			{ name: "PostgreSQL", icon: "images/skills/postgresql.png" },
-			{ name: "MySQL", icon: "images/skills/mysql.png" },
-			{ name: "Firebase", icon: "images/skills/firebase.png" },
-			{ name: "Git/GitHub", icon: "images/skills/github.png" },
-		],
-		"Hardware & Embedded": [
-			{ name: "PCB Design", icon: "images/skills/pcb-design.png" },
-			{ name: "MCU", icon: "images/skills/microcontroller.png" },
-			{ name: "Arduino", icon: "images/skills/arduino.png" },
-			{ name: "FPGA", icon: "images/skills/fpga.png" },
-			{ name: "Circuits", icon: "images/skills/circuit-design.png" },
-		],
-	},
-
 	certifications: [
 		{
 			name: "AWS Certified Machine Learning Engineer – Associate",
@@ -563,7 +518,63 @@ const portfolioData = {
 				"https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3",
 			badgeImage: "images/certifications/aws-cloud-practitioner.png",
 		},
+		{
+			name: "Canadian Securities Course (CSC)",
+			organization: "Canadian Securities Institute (CSI)",
+			issueDate: "August 2018",
+			expirationDate: null,
+			description:
+				"Comprehensive foundation in Canadian capital markets, securities, and investment products",
+			credentialUrl:
+				"https://www.credly.com/earner/earned/badge/565999ea-75d7-4ad5-996c-e33ca6f0e8e1",
+			badgeImage: "images/certifications/canadian-securities-course.png",
+		},
 	],
+
+	skills: {
+		"Programming Languages": [
+			{ name: "Python", icon: "images/skills/python.png" },
+			{ name: "C/C++", icon: "images/skills/c-language.png" },
+			{ name: "JavaScript", icon: "images/skills/javascript.png" },
+			{ name: "MATLAB", icon: "images/skills/matlab.png" },
+		],
+		"AI & Computer Vision": [
+			{ name: "PyTorch", icon: "images/skills/pytorch.png" },
+			{ name: "SLAM", icon: "images/skills/slam.png" },
+			{ name: "Unity", icon: "images/skills/unity.png" },
+			{
+				name: "Computer Vision",
+				icon: "images/skills/computer-vision.png",
+			},
+		],
+		"Cloud & DevOps": [
+			{ name: "AWS", icon: "images/skills/aws.png" },
+			{ name: "Docker", icon: "images/skills/docker.png" },
+			{ name: "Jenkins", icon: "images/skills/jenkins.png" },
+			{ name: "Linux", icon: "images/skills/linux.png" },
+			{ name: "RabbitMQ", icon: "images/skills/rabbitmq.png" },
+		],
+		"Web Development": [
+			{ name: "React", icon: "images/skills/react.png" },
+			{ name: "Node.js", icon: "images/skills/nodejs.png" },
+			{ name: "Redux", icon: "images/skills/redux.png" },
+			{ name: "HTML/CSS", icon: "images/skills/html.png" },
+			{ name: "Sass", icon: "images/skills/sass.png" },
+		],
+		"Databases & Backend": [
+			{ name: "PostgreSQL", icon: "images/skills/postgresql.png" },
+			{ name: "MySQL", icon: "images/skills/mysql.png" },
+			{ name: "Firebase", icon: "images/skills/firebase.png" },
+			{ name: "Git/GitHub", icon: "images/skills/github.png" },
+		],
+		"Hardware & Embedded": [
+			{ name: "PCB Design", icon: "images/skills/pcb-design.png" },
+			{ name: "MCU", icon: "images/skills/microcontroller.png" },
+			{ name: "Arduino", icon: "images/skills/arduino.png" },
+			{ name: "FPGA", icon: "images/skills/fpga.png" },
+			{ name: "Circuits", icon: "images/skills/circuit-design.png" },
+		],
+	},
 
 	resume: {
 		path: "resume/Tom Sloan CV Oct 2025 - Website.pdf",

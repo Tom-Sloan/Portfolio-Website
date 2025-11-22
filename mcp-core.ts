@@ -110,6 +110,11 @@ const FindSkillsSchema = z.object({
   query: z.string().describe('Skill name or category to search for. Use "all" to return all skills.'),
 });
 
+const FilterCertificationsSchema = z.object({
+  organization: z.string().optional().describe('Filter by organization name (partial match, e.g., "AWS")'),
+  query: z.string().optional().describe('Search in certification name and description'),
+});
+
 /**
  * Create and configure an MCP server with all tools and resources
  */
@@ -276,6 +281,23 @@ export function createMcpServer(): Server {
             required: ['query'],
           },
         },
+        {
+          name: 'filter_certifications',
+          description: 'Filter certifications by organization or search in name/description',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              organization: {
+                type: 'string',
+                description: 'Filter by organization name (partial match, e.g., "AWS")',
+              },
+              query: {
+                type: 'string',
+                description: 'Search in certification name and description',
+              },
+            },
+          },
+        },
       ],
     };
   });
@@ -383,6 +405,36 @@ export function createMcpServer(): Server {
               }
             }
           }
+        }
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(results, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'filter_certifications': {
+        const { organization, query } = FilterCertificationsSchema.parse(args);
+        const data = await fetchPortfolioData();
+        let results = data.certifications;
+
+        if (organization) {
+          const orgLower = organization.toLowerCase();
+          results = results.filter((cert) =>
+            cert.organization.toLowerCase().includes(orgLower)
+          );
+        }
+
+        if (query) {
+          const queryLower = query.toLowerCase();
+          results = results.filter((cert) =>
+            cert.name.toLowerCase().includes(queryLower) ||
+            cert.description.toLowerCase().includes(queryLower)
+          );
         }
 
         return {

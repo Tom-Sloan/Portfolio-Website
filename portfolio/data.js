@@ -401,9 +401,9 @@ const portfolioData = {
 		},
 		{
 			title: "Automated Hydroponics System",
-			subtitle: "Sensors, Pumps, and Free Food",
+			subtitle: "PID-Controlled Nutrient Delivery with Sensor Fusion",
 			description:
-				"In an attempt to grow coffee hydroponically and locally in Ottawa, a drip automated hydroponic system was built. The system is currently in the 'alpha' stage and is being tested with several smaller plants that are easier to set up such as lettuce, and basil. The end result of the system will be for it to contain Arabica coffee and green tea plants.",
+				"A fully automated drip hydroponic system built from PVC pipes with 3D-printed components (Prusa MK3). The system uses an Arduino microcontroller implementing PID auto-tuning with Kalman filters for precise sensor fusion across pH meters, electrical conductivity sensors, water level sensors, and temperature monitors. Peristaltic dosing pumps deliver nutrients with high accuracy, while a Raspberry Pi serves as the central hub for data logging and remote monitoring. Initially tested with lettuce and basil, the system was designed to eventually support Arabica coffee and green tea cultivation in Ottawa's climate.",
 			startDate: "July 2021",
 			endDate: "August 2021",
 			current: false,
@@ -411,8 +411,8 @@ const portfolioData = {
 				{ tag: "Hardware", color: "#66023C" },
 				{ tag: "Embedded", color: "#042A2B" },
 			],
-			technologies: ["Arduino", "C++", "Sensors", "Water Pumps", "IoT"],
-			image: "https://clipground.com/images/hydroponic-png-9.png",
+			technologies: ["Arduino", "Raspberry Pi", "C++", "PID Control", "Kalman Filter", "3D Printing", "IoT"],
+			image: null,
 			link: null,
 			featured: false,
 		},

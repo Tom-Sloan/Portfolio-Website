@@ -579,6 +579,32 @@ const portfolioData = {
 	publications: [
 		{
 			title:
+				"Drone-Based Indoor Mapping for Augmented Indoor 3D Modeling Using Neural Simultaneous Localization and Mapping (SLAM)",
+			authors: ["T. Sloan", "B. Wallace", "R. Goubran"],
+			conference:
+				"2026 IEEE 44th International Conference on Consumer Electronics (ICCE)",
+			location: "Dubai, UAE",
+			year: 2026,
+			pages: "1-6",
+			image: "images/publications/neural-slam.png",
+			keywords: [
+				"Simultaneous localization and mapping",
+				"Neural SLAM",
+				"Indoor environment",
+				"3D modeling",
+				"Augmented reality",
+				"Autonomous aerial vehicles",
+				"Drones",
+				"consumer drones",
+				"indoor SLAM",
+				"autonomous navigation",
+				"real-time mapping",
+				"DJI Mini 3",
+				"UAV",
+			],
+		},
+		{
+			title:
 				"Impact of Image Resolution on Controlling Drones Using Remote VR Headset Visualization and a Cloud Architecture",
 			authors: ["T. Sloan", "B. Wallace", "R. Goubran"],
 			conference:

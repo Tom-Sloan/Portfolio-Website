@@ -411,7 +411,15 @@ const portfolioData = {
 				{ tag: "Hardware", color: "#66023C" },
 				{ tag: "Embedded", color: "#042A2B" },
 			],
-			technologies: ["Arduino", "Raspberry Pi", "C++", "PID Control", "Kalman Filter", "3D Printing", "IoT"],
+			technologies: [
+				"Arduino",
+				"Raspberry Pi",
+				"C++",
+				"PID Control",
+				"Kalman Filter",
+				"3D Printing",
+				"IoT",
+			],
 			image: null,
 			link: null,
 			featured: false,
@@ -578,8 +586,7 @@ const portfolioData = {
 
 	publications: [
 		{
-			title:
-				"Drone-Based Indoor Mapping for Augmented Indoor 3D Modeling Using Neural Simultaneous Localization and Mapping (SLAM)",
+			title: "Drone-Based Indoor Mapping for Augmented Indoor 3D Modeling Using Neural Simultaneous Localization and Mapping (SLAM)",
 			authors: ["T. Sloan", "B. Wallace", "R. Goubran"],
 			conference:
 				"2026 IEEE 44th International Conference on Consumer Electronics (ICCE)",
@@ -604,11 +611,9 @@ const portfolioData = {
 			],
 		},
 		{
-			title:
-				"Impact of Image Resolution on Controlling Drones Using Remote VR Headset Visualization and a Cloud Architecture",
+			title: "Impact of Image Resolution on Controlling Drones Using Remote VR Headset Visualization and a Cloud Architecture",
 			authors: ["T. Sloan", "B. Wallace", "R. Goubran"],
-			conference:
-				"2025 IEEE Sensors Applications Symposium (SAS)",
+			conference: "2025 IEEE Sensors Applications Symposium (SAS)",
 			location: "Newcastle, United Kingdom",
 			year: 2025,
 			pages: "1-6",
@@ -635,8 +640,7 @@ const portfolioData = {
 			],
 		},
 		{
-			title:
-				"System for Drone-Based Indoor Mapping for Augmented Reality",
+			title: "System for Drone-Based Indoor Mapping for Augmented Reality",
 			authors: ["T. Sloan", "B. Wallace", "R. Goubran"],
 			conference:
 				"2025 IEEE International Instrumentation and Measurement Technology Conference (I2MTC)",
@@ -666,8 +670,7 @@ const portfolioData = {
 			],
 		},
 		{
-			title:
-				"Frequency Response of a Novel IR Based Pressure Sensitive Mat for Well-being Assessment",
+			title: "Frequency Response of a Novel IR Based Pressure Sensitive Mat for Well-being Assessment",
 			authors: [
 				"B. Wallace",
 				"J. Larivière-Chartier",
@@ -702,7 +705,7 @@ const portfolioData = {
 	],
 
 	resume: {
-		path: "resume/Tom Sloan CV Oct 2025 - Website.pdf",
+		path: "resume/Tom_Sloan_CV_Feb_2026_website.pdf",
 		title: "Tom Sloan - Resume",
 		description:
 			"Download my complete resume for detailed information about my education, experience, and skills.",

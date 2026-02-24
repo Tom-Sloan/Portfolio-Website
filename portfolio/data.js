@@ -67,7 +67,7 @@ const portfolioData = {
 				"Python",
 				"LLM",
 			],
-			logo: "images/companies/carleton-university.png",
+			logo: "images/companies/sam3.png",
 		},
 		{
 			company: "Carleton University",

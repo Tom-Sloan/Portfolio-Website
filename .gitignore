@@ -23,4 +23,6 @@ dist/
 
 # TypeScript
 *.tsbuildinfo
+# Claude Code
 CLAUDE.md
+.claude/worktrees/

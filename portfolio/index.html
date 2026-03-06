@@ -269,9 +269,24 @@
 				padding: 100px 24px 56px;
 				position: relative;
 				z-index: 1;
+				display: flex;
+				align-items: center;
+				gap: 40px;
 			}
 			.hero-main {
 				animation: hero-in 0.7s ease forwards;
+				flex: 1;
+				min-width: 0;
+			}
+			.hero-visual {
+				flex: 0 0 340px;
+				height: 340px;
+				animation: hero-in 0.7s ease 0.2s both;
+			}
+			.hero-visual canvas {
+				width: 100%;
+				height: 100%;
+				display: block;
 			}
 			.status-line {
 				display: flex;
@@ -316,6 +331,13 @@
 				line-height: 1.7;
 				margin-bottom: 24px;
 				font-weight: 300;
+			}
+			.hero-stats-line {
+				font-family: "IBM Plex Sans", sans-serif;
+				font-size: 14px;
+				color: var(--text-muted);
+				line-height: 1.6;
+				margin-bottom: 28px;
 			}
 			.hero-actions {
 				display: flex;
@@ -1292,6 +1314,12 @@
 
 			/* ── Responsive ── */
 			@media (max-width: 768px) {
+				.hero-content {
+					flex-direction: column;
+				}
+				.hero-visual {
+					display: none;
+				}
 				.profile-card {
 					flex-direction: column;
 					align-items: center;
@@ -1657,6 +1685,104 @@
 						closeImageModal();
 				});
 
+			// ─── Hero Node Graph Animation ──────────────────────────────────
+			function initHeroNodeGraph() {
+				const canvas = document.getElementById("heroCanvas");
+				if (!canvas) return;
+				const ctx = canvas.getContext("2d");
+				let animId;
+				let t = 0;
+
+				const nodes = [
+					{ x: 0.50, y: 0.10, label: "SLAM", r: 22 },
+					{ x: 0.15, y: 0.30, label: "CV", r: 18 },
+					{ x: 0.85, y: 0.22, label: "PyTorch", r: 20 },
+					{ x: 0.22, y: 0.58, label: "PCB", r: 17 },
+					{ x: 0.78, y: 0.52, label: "Jetson", r: 19 },
+					{ x: 0.50, y: 0.82, label: "Docker", r: 18 },
+					{ x: 0.10, y: 0.82, label: "AWS", r: 18 },
+					{ x: 0.90, y: 0.78, label: "React", r: 17 },
+					{ x: 0.50, y: 0.46, label: "TS", r: 26 },
+				];
+
+				const edges = [
+					[8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 6], [8, 7],
+					[0, 1], [0, 2], [1, 3], [2, 4], [3, 6], [4, 7], [5, 6], [5, 7],
+				];
+
+				function resize() {
+					const dpr = window.devicePixelRatio || 1;
+					const rect = canvas.getBoundingClientRect();
+					canvas.width = rect.width * dpr;
+					canvas.height = rect.height * dpr;
+					ctx.scale(dpr, dpr);
+				}
+
+				resize();
+				window.addEventListener("resize", resize);
+
+				function draw() {
+					t += 0.003;
+					const w = canvas.getBoundingClientRect().width;
+					const h = canvas.getBoundingClientRect().height;
+					ctx.clearRect(0, 0, w, h);
+
+					const pts = nodes.map((n, i) => ({
+						x: n.x * w + Math.sin(t + i * 0.8) * 7,
+						y: n.y * h + Math.cos(t + i * 0.6) * 6,
+						label: n.label,
+						r: n.r,
+					}));
+
+					edges.forEach(([a, b]) => {
+						const pa = pts[a], pb = pts[b];
+						ctx.beginPath();
+						ctx.moveTo(pa.x, pa.y);
+						ctx.lineTo(pb.x, pb.y);
+						ctx.strokeStyle = "rgba(0,221,192,0.07)";
+						ctx.lineWidth = 1;
+						ctx.stroke();
+
+						const pulse = (t * 0.35 + a * 0.15) % 1;
+						const px = pa.x + (pb.x - pa.x) * pulse;
+						const py = pa.y + (pb.y - pa.y) * pulse;
+						ctx.beginPath();
+						ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+						ctx.fillStyle = "rgba(0,221,192,0.22)";
+						ctx.fill();
+					});
+
+					pts.forEach((p, i) => {
+						const isCenter = i === 8;
+						const glow = Math.sin(t * 2 + i) * 0.15 + 0.85;
+
+						ctx.beginPath();
+						ctx.arc(p.x, p.y, p.r + 5, 0, Math.PI * 2);
+						ctx.strokeStyle = "rgba(0,221,192," + (isCenter ? 0.12 * glow : 0.05 * glow) + ")";
+						ctx.lineWidth = 1;
+						ctx.stroke();
+
+						ctx.beginPath();
+						ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+						ctx.fillStyle = isCenter ? "rgba(0,221,192,0.07)" : "rgba(0,221,192,0.025)";
+						ctx.fill();
+						ctx.strokeStyle = "rgba(0,221,192," + (isCenter ? 0.28 : 0.10) + ")";
+						ctx.lineWidth = isCenter ? 1.5 : 1;
+						ctx.stroke();
+
+						ctx.font = (isCenter ? 11 : 9) + "px 'Azeret Mono', monospace";
+						ctx.fillStyle = "rgba(0,221,192," + (isCenter ? 0.65 : 0.38) + ")";
+						ctx.textAlign = "center";
+						ctx.textBaseline = "middle";
+						ctx.fillText(p.label, p.x, p.y);
+					});
+
+					animId = requestAnimationFrame(draw);
+				}
+
+				draw();
+			}
+
 			// ─── Render Hero ────────────────────────────────────────────────
 			function renderHero() {
 				const p = portfolioData.profile;
@@ -1681,31 +1807,32 @@
 				}, 9999);
 				const years = new Date().getFullYear() - earliest;
 
+				const awsCerts = portfolioData.certifications.filter(c => c.organization.includes("AWS")).length;
+
 				document.getElementById("hero").innerHTML = `
 					<div class="dot-grid"></div>
 					<div class="hero-content">
 						<div class="hero-main">
 							<div class="status-line">
 								<div class="status-dot"></div>
-								<span class="status-text">Currently at ${currentJob ? currentJob.company : "work"}</span>
+								<span class="status-text">Building robots at ${currentJob ? currentJob.company : "work"}</span>
 							</div>
 							<h1>${p.name}</h1>
 							<p class="subtitle">${p.headline}</p>
-							<p class="tagline">${p.about[0].length > 200 ? p.about[0].substring(0, 200) + "..." : p.about[0]}</p>
+							<p class="tagline">${p.tagline || p.about[0]}</p>
+							<p class="hero-stats-line">${pubCount} IEEE publications · ${awsCerts} AWS certifications · Training imitation learning policies on a Jetson Orin Nano.</p>
 							<div class="hero-actions">
 								<a href="#contact" onclick="event.preventDefault(); scrollToSection('contact');" class="btn-primary">Get in touch</a>
 								<a href="${p.links.github}" target="_blank" class="btn-outline">GitHub</a>
 								<span class="hero-location">${p.location} · Willing to relocate</span>
 							</div>
 						</div>
-						<div class="stats-bar">
-							<div><div class="stat-num">${pubCount}</div><div class="stat-label">IEEE Publications</div></div>
-							<div><div class="stat-num">${certCount}</div><div class="stat-label">Certifications</div></div>
-							<div><div class="stat-num">${years}+</div><div class="stat-label">Years Engineering</div></div>
-							<div class="stat-with-tooltip"><div class="stat-tooltip">${projectNames}</div><div class="stat-num">${projectCount}</div><div class="stat-label">Active Projects</div></div>
+						<div class="hero-visual">
+							<canvas id="heroCanvas"></canvas>
 						</div>
 					</div>
 				`;
+				initHeroNodeGraph();
 			}
 
 			// ─── Render About ───────────────────────────────────────────────
@@ -1717,7 +1844,6 @@
 					</div>
 					<div class="animate-in" style="transition-delay: 80ms">
 						<div class="profile-card">
-							<img src="${p.image}" alt="${p.name}" class="profile-image" fetchpriority="high" />
 							<div>
 								<div style="font-family: 'Azeret Mono', monospace; font-size: 20px; color: var(--text-heading); font-weight: 600; margin-bottom: 4px;">${p.name}</div>
 								<div style="font-size: 14px; color: var(--accent-primary); margin-bottom: 12px; font-weight: 500;">${p.headline}</div>

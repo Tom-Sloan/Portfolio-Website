@@ -4,7 +4,8 @@
 const portfolioData = {
 	profile: {
 		name: "Tom Sloan",
-		headline: "Robot Vision Engineer & AI Researcher",
+		headline: "Applied AI Engineer",
+		tagline: "I design hardware, train models, and ship the software that connects them. Right now I'm teaching a robotic arm to pick things up by watching me do it first.",
 		location: "Ottawa, Ontario, Canada",
 		image: "images/profile/tom-sloan-profile.png",
 		about: [

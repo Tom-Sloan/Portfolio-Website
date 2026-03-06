@@ -9,8 +9,8 @@ const portfolioData = {
 		image: "images/profile/tom-sloan-profile.png",
 		about: [
 			"Robot Vision Engineer specializing in SLAM, computer vision, and drone-based 3D mapping systems. Expertise in AWS, Docker, Python, and embedded systems. Constantly working on projects to push the boundaries of autonomous systems and AI.",
-			"Carleton University Computer Systems Engineering graduate with distinction, I'll be defending my Master's of Applied Science in Electrical and Computer Engineering with focus on Neural SLAM and augmented reality applications in November 2025.",
-			"Currently working as a Researcher at Carleton University developing real-time indoor 3D mapping systems using consumer drones, cloud-based SLAM, and AR visualization. Previous experience includes DevOps engineering at Magnet Forensics and spectrum engineering at Telesat.",
+			"Carleton University Computer Systems Engineering graduate with distinction. Completed Master's of Applied Science in Electrical and Computer Engineering (February 2026) with thesis on Neural SLAM and augmented reality applications for indoor 3D mapping.",
+			"Currently a Machine Learning Researcher at SAM3, building predictive models for health monitoring using multi-modal IoT sensors. Previously developed real-time indoor 3D mapping systems at Carleton University using consumer drones, cloud-based SLAM, and AR visualization. Prior experience includes DevOps engineering at Magnet Forensics and spectrum engineering at Telesat.",
 		],
 		links: {
 			linkedin: "https://www.linkedin.com/in/tom-sloan",
@@ -24,12 +24,12 @@ const portfolioData = {
 			school: "Carleton University",
 			degree: "Master of Applied Science - MASc",
 			field: "Electrical and Computer Engineering",
-			startDate: "January 2024",
+			startDate: "October 2023",
 			endDate: "February 2026",
 			current: false,
-			grade: null,
+			grade: "Graduate coursework: Machine Learning, Advanced ML, Deep Learning, Computer Vision",
 			description:
-				"Thesis: Indoor 3D Modeling Using Consumer Drones and Neural Simultaneous Localization and Mapping (SLAM) for Virtual Reality and a Cloud Architecture.",
+				"Thesis: Indoor 3D Modeling Using Consumer Drones and Neural Simultaneous Localization and Mapping (SLAM) for Virtual Reality and a Cloud Architecture.\n\nDeveloped a modular cloud-assisted SLAM framework for autonomous indoor mapping using a consumer drone (DJI Mini 3). Compared traditional visual-inertial (ORB-SLAM3) and neural SLAM (SLAM3R) approaches. Co-authored 3 IEEE papers presented at ICCE 2026, I2MTC 2025, and SAS 2025.",
 			logo: "images/companies/carleton-university.png",
 		},
 		{
@@ -151,41 +151,40 @@ const portfolioData = {
 
 	projects: [
 		{
-			title: "Master's Thesis in Artificial Intelligence",
-			subtitle: "AI Research",
+			title: "M.A.Sc. Thesis — Neural SLAM for Indoor 3D Mapping",
+			subtitle: "Electrical & Computer Engineering, Carleton University",
 			description:
-				"Trained and evaluated transformer-based neural SLAM model against traditional approaches, achieving 6.61 cm RMSE on Replica benchmark at 21 FPS inference. Built real-time indoor 3D mapping system using consumer drone (DJI Mini 3) with cloud-based SLAM framework for AR applications.",
-			startDate: "January 2024",
+				"Developed a modular, cloud-assisted SLAM framework enabling fully autonomous indoor mapping with a consumer drone (DJI Mini 3) generating digital twins. Compared traditional visual-inertial SLAM (ORB-SLAM3) against neural SLAM (SLAM3R), achieving 6.61 cm RMSE on Replica benchmark at 21 FPS on RTX 4070 Ti. Designed cloud architecture using Docker, RabbitMQ, and React.js for real-time 3D reconstruction with AR headset streaming. Published at IEEE ICCE 2026, I2MTC 2025, and SAS 2025.",
+			startDate: "October 2023",
 			endDate: "February 2026",
 			current: false,
 			category: [
-				{ tag: "AI Research", color: "#0077B5" },
+				{ tag: "AI Research", color: "#38BDF8" },
+				{ tag: "Robotics", color: "#38BDF8" },
 				{ tag: "Completed", color: "#22c55e" },
 			],
 			technologies: [
 				"Python",
+				"PyTorch",
+				"ORB-SLAM3",
+				"SLAM3R",
 				"Docker",
 				"RabbitMQ",
 				"React",
 				"Three.js",
-				"FastAPI",
+				"Unity",
 				"Open3D",
-				"SLAM3R",
-				"Android",
-				"Java",
-				"Kotlin",
 				"C++",
 				"CUDA",
+				"DJI SDK",
+				"Android",
+				"Nginx",
 				"Prometheus",
 				"Grafana",
-				"Jaeger",
-				"Nginx",
-				"WebSocket",
-				"PyTorch",
-				"Hugging Face",
 			],
 			image: "images/thesis/thesis-main-visualization.png",
 			link: "https://github.com/Tom-Sloan/WorldSystem",
+			viewer3d: "viewer-3d.html",
 			featured: true,
 		},
 		{
@@ -203,6 +202,8 @@ const portfolioData = {
 			technologies: [
 				"OpenClaw",
 				"Claude API",
+				"Canva AI",
+				"LangChain",
 				"RAG",
 				"SQLite",
 				"OpenAI Embeddings",
@@ -224,8 +225,8 @@ const portfolioData = {
 			endDate: "Present",
 			current: true,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
-				{ tag: "Computer Vision", color: "#0077B5" },
+				{ tag: "Hardware", color: "#E05297" },
+				{ tag: "Computer Vision", color: "#38BDF8" },
 				{ tag: "Desktop App", color: "#8b5cf6" },
 				{ tag: "In Progress", color: "#22c55e" },
 			],
@@ -259,8 +260,8 @@ const portfolioData = {
 			endDate: "Present",
 			current: true,
 			category: [
-				{ tag: "Robotics", color: "#0077B5" },
-				{ tag: "Hardware", color: "#66023C" },
+				{ tag: "Robotics", color: "#38BDF8" },
+				{ tag: "Hardware", color: "#E05297" },
 				{ tag: "In Progress", color: "#22c55e" },
 			],
 			technologies: [
@@ -273,7 +274,7 @@ const portfolioData = {
 				"Feetech Servos",
 				"Imitation Learning",
 			],
-			image: "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/so101_leader_follower.webp",
+			image: null,
 			link: "https://huggingface.co/docs/lerobot/so101",
 			featured: true,
 		},
@@ -284,7 +285,7 @@ const portfolioData = {
 				"Built ETL pipelines automating GDPR data exports from Apple, Google, Discord, and Twitter. Parses heterogeneous zip archives with SQL queries for data analysis and visualization dashboards for cross-platform activity analysis.",
 			startDate: "July 2024",
 			endDate: "Present",
-			current: true,
+			current: false,
 			category: [
 				{ tag: "Data Analytics", color: "#10b981" },
 				{ tag: "In Progress", color: "#22c55e" },
@@ -299,7 +300,7 @@ const portfolioData = {
 			],
 			image: null,
 			link: "https://tom-sloan.com/#projects",
-			featured: true,
+			featured: false,
 		},
 		{
 			title: "Portfolio MCP Server",
@@ -335,8 +336,8 @@ const portfolioData = {
 			endDate: "May 2021",
 			current: false,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Hardware", color: "#E05297" },
+				{ tag: "Programming", color: "#34D399" },
 				{ tag: "IoT", color: "#00ADCC" },
 			],
 			technologies: [
@@ -361,8 +362,8 @@ const portfolioData = {
 			endDate: "May 2021",
 			current: false,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Hardware", color: "#E05297" },
+				{ tag: "Programming", color: "#34D399" },
 				{ tag: "IoT", color: "#00ADCC" },
 			],
 			technologies: [
@@ -382,7 +383,7 @@ const portfolioData = {
 			],
 			image: "images/projects/smartHome.gif",
 			link: "https://github.com/Tom-Sloan/Smart-Home-Project",
-			featured: true,
+			featured: false,
 		},
 		{
 			title: "Smart Pillbox",
@@ -393,7 +394,7 @@ const portfolioData = {
 			endDate: "April 2021",
 			current: false,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
+				{ tag: "Hardware", color: "#E05297" },
 				{ tag: "IoT", color: "#00ADCC" },
 			],
 			technologies: [
@@ -406,7 +407,7 @@ const portfolioData = {
 			],
 			image: "images/projects/pillbox1.jpg",
 			link: null,
-			featured: true,
+			featured: false,
 		},
 		{
 			title: "LidarWorld",
@@ -415,11 +416,11 @@ const portfolioData = {
 				"Built an interactive 3D LiDAR sensor simulation using React Three Fiber and Three.js to enable real-time visualization and testing of LiDAR sensors in customizable room environments. The application features procedurally generated room layouts with randomized geometry and furniture placement, real-time raycasting for object detection visualization, and multiple configurable sensor types with adjustable positioning. Implemented a grid-based spatial analysis system for sensor coverage evaluation, interactive 3D controls with 360-degree rotation, and a Leva control panel for real-time parameter adjustments.",
 			startDate: "December 2023",
 			endDate: "November 2025",
-			current: true,
+			current: false,
 			category: [
 				{ tag: "Web Development", color: "#FB4D3D" },
 				{ tag: "3D Graphics", color: "#8b5cf6" },
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Programming", color: "#34D399" },
 			],
 			technologies: [
 				"React",
@@ -443,7 +444,7 @@ const portfolioData = {
 			current: false,
 			category: [
 				{ tag: "Mobile Dev", color: "#10b981" },
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Programming", color: "#34D399" },
 				{ tag: "Web Development", color: "#FB4D3D" },
 			],
 			technologies: [
@@ -468,7 +469,7 @@ const portfolioData = {
 			current: false,
 			category: [
 				{ tag: "Mobile Dev", color: "#10b981" },
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Programming", color: "#34D399" },
 				{ tag: "Web Development", color: "#FB4D3D" },
 			],
 			technologies: [
@@ -495,7 +496,7 @@ const portfolioData = {
 			endDate: "December 2020",
 			current: false,
 			category: [
-				{ tag: "Programming", color: "#149e5e" },
+				{ tag: "Programming", color: "#34D399" },
 				{ tag: "Data Science", color: "#8b5cf6" },
 			],
 			technologies: [
@@ -549,8 +550,8 @@ const portfolioData = {
 			endDate: "August 2021",
 			current: false,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
-				{ tag: "Embedded", color: "#042A2B" },
+				{ tag: "Hardware", color: "#E05297" },
+				{ tag: "Embedded", color: "#14B8A6" },
 			],
 			technologies: [
 				"Arduino",
@@ -595,7 +596,7 @@ const portfolioData = {
 			endDate: "August 2021",
 			current: false,
 			category: [
-				{ tag: "Hardware", color: "#66023C" },
+				{ tag: "Hardware", color: "#E05297" },
 				{ tag: "IoT", color: "#00ADCC" },
 			],
 			technologies: ["IoT", "Hardware", "Marine Engineering"],
@@ -701,12 +702,12 @@ const portfolioData = {
 			{ name: "SLAM", icon: "images/skills/slam.png" },
 		],
 		"LLM & Agents": [
-			{ name: "RAG Pipelines", icon: "images/skills/ai.png" },
-			{ name: "Vector Search", icon: "images/skills/ai.png" },
-			{ name: "Prompt Engineering", icon: "images/skills/ai.png" },
-			{ name: "Claude API", icon: "images/skills/ai.png" },
-			{ name: "OpenClaw", icon: "images/skills/ai.png" },
-			{ name: "n8n", icon: "images/skills/ai.png" },
+			{ name: "RAG Pipelines", icon: "images/skills/rag.png" },
+			{ name: "Vector Search", icon: "images/skills/vector-search.png" },
+			{ name: "Prompt Engineering", icon: "images/skills/prompt-engineering.png" },
+			{ name: "Claude API", icon: "images/skills/claude.png" },
+			{ name: "OpenClaw", icon: "images/skills/openclaw.png" },
+			{ name: "n8n", icon: "images/skills/n8n.png" },
 		],
 		"Cloud & DevOps": [
 			{ name: "AWS", icon: "images/skills/aws.png" },

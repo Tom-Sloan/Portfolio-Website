@@ -1,0 +1,736 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+const EXPERIENCE = [
+  {
+    title: "Machine Learning Researcher",
+    company: "SAM3",
+    type: "Full-time",
+    location: "Ottawa, ON",
+    start: "Nov 2025",
+    end: "Present",
+    current: true,
+    description: "Building predictive models for fall detection, UTI risk, and sleep pattern analysis using multi-modal IoT sensors for elderly patient monitoring. Developing time-series classification pipelines for AGE-WELL-funded envisAGE aging-in-place study. Deployed n8n automation pipelines for IoT sensor notifications. Engineered multi-step LLM pipelines using Claude API for automated research workflows.",
+    tags: ["PyTorch", "Time-Series", "IoT", "n8n", "Claude API", "RAG", "Python", "LLM"],
+  },
+  {
+    title: "Research Assistant",
+    company: "Carleton University",
+    type: "Full-time",
+    location: "Ottawa, ON",
+    start: "Oct 2023",
+    end: "Nov 2025",
+    current: false,
+    description: "Led design and testing of a real-time indoor 3D mapping system using a consumer drone (DJI Mini 3), integrating monocular camera and IMU with cloud-based SLAM framework for AR applications. Trained transformer-based neural SLAM model achieving 6.61 cm RMSE on Replica benchmark at 21 FPS. Co-authored 3 IEEE papers.",
+    tags: ["Docker", "RabbitMQ", "React.js", "Unity", "SLAM", "AR", "Computer Vision", "PyTorch"],
+  },
+  {
+    title: "DevOps Engineer",
+    company: "Magnet Forensics",
+    type: "Full-time",
+    location: "Ottawa, ON",
+    start: "Apr 2022",
+    end: "Jun 2023",
+    current: false,
+    description: "Managed thousands of daily software builds on dozens of on-premise servers using Jenkins, Linux, Python, and PowerShell. Helped migrate infrastructure from on-premise to AWS cloud using CloudFormation and EC2.",
+    tags: ["Jenkins", "Linux", "Python", "PowerShell", "AWS", "CloudFormation"],
+  },
+  {
+    title: "Spectrum Engineering Co-Op",
+    company: "Telesat",
+    type: "Internship",
+    location: "Ottawa, ON",
+    start: "May 2020",
+    end: "Dec 2021",
+    current: false,
+    description: "Built alternative UI and API in Python to interface with MATLAB, enabling direct use of satellite XML data without expensive MATLAB add-ons. Analyzed satellite spectrum use for international telecommunications regulations.",
+    tags: ["Python", "MATLAB", "Telecommunications", "Satellite"],
+  },
+  {
+    title: "Research / Teaching Assistant",
+    company: "Carleton University",
+    type: "Part-time",
+    location: "Ottawa, ON",
+    start: "May 2018",
+    end: "Dec 2021",
+    current: false,
+    description: "Designed and built prototype hardware systems for non-invasive monitoring of key health markers (heart rate, respiration, body fluid flow) in older adults. Collaborated on health-monitoring research and provided lab instruction for computer engineering courses.",
+    tags: ["Hardware Design", "Sensors", "Data Acquisition", "Python", "C/C++"],
+  },
+];
+
+const FEATURED_PROJECTS = [
+  {
+    title: "LeRobot SO-101",
+    subtitle: "AI-Powered Robotic Arm with Imitation Learning",
+    categories: [
+      { tag: "Robotics", color: "#0077B5" },
+      { tag: "Hardware", color: "#66023C" },
+      { tag: "In Progress", color: "#22c55e" },
+    ],
+    tech: ["Python", "Jetson Orin Nano", "LeRobot", "Hugging Face", "PyTorch", "3D Printing", "Feetech Servos", "Imitation Learning"],
+    recruiter: "Built and trained a 6-DOF robotic arm that learns tasks by watching human demonstrations. 3D-printed the hardware, assembled the servo system, and trained neural network policies on NVIDIA Jetson for autonomous execution.",
+    engineer: "Hugging Face LeRobot SO-101 with leader-follower teleoperation using Feetech STS3215 servos. Collected demonstration datasets via teleoperation interface, training end-to-end imitation learning policies (ACT architecture) on Jetson Orin Nano. 3D-printed arm components on Prusa MK3.",
+    link: "https://huggingface.co/docs/lerobot/so101",
+    date: "Mar 2026 – Present",
+  },
+  {
+    title: "LidarWorld",
+    subtitle: "Interactive 3D LiDAR Sensor Simulation",
+    categories: [
+      { tag: "Web Development", color: "#FB4D3D" },
+      { tag: "3D Graphics", color: "#8b5cf6" },
+      { tag: "Programming", color: "#149e5e" },
+    ],
+    tech: ["React", "Three.js", "React Three Fiber", "TypeScript", "Leva", "WebGL"],
+    recruiter: "Built an interactive 3D simulation that lets you place and test virtual LiDAR sensors in procedurally generated rooms. Real-time visualization of sensor coverage with adjustable parameters.",
+    engineer: "React Three Fiber + Three.js application with procedurally generated room layouts and randomized geometry. Real-time raycasting for object detection, grid-based spatial analysis for coverage evaluation, and Leva control panel for runtime parameter adjustment.",
+    link: null,
+    date: "Dec 2023 – Nov 2025",
+  },
+  {
+    title: "Smart Band",
+    subtitle: "Gesture-Controlled Wearable with Custom PCB",
+    categories: [
+      { tag: "Hardware", color: "#66023C" },
+      { tag: "Programming", color: "#149e5e" },
+      { tag: "IoT", color: "#00ADCC" },
+    ],
+    tech: ["C++", "PCB Design", "Bluetooth", "MQTT", "Arduino", "IMU Sensors", "Machine Learning"],
+    recruiter: "Designed and fabricated a wearable device that lets you control any smart home device with hand gestures. Custom PCB gathers motion data, classifies gestures with ML, and relays commands over Bluetooth.",
+    engineer: "Custom PCB design with IMU sensor array for 6-axis motion capture. On-device gesture classification using lightweight ML model on Arduino MCU. BLE communication with MQTT protocol for smart home device integration.",
+    link: "https://github.com/Tom-Sloan/Smart-Home-Project/tree/master/SmartBand",
+    date: "Nov 2019 – May 2021",
+  },
+  {
+    title: "Speakeasy",
+    subtitle: "AI-Enhanced Social Podcast Platform",
+    categories: [
+      { tag: "Mobile Dev", color: "#10b981" },
+      { tag: "Programming", color: "#149e5e" },
+      { tag: "Web Development", color: "#FB4D3D" },
+    ],
+    tech: ["React Native", "TypeScript", "Expo", "FastAPI", "PostgreSQL", "Supabase", "Redis", "JWT"],
+    recruiter: "Full-stack mobile podcast app with AI-powered discovery, real-time streaming, background playback, and social features. Multi-layer caching reduced API calls by 70%.",
+    engineer: "React Native + Expo frontend with FastAPI backend. PostgreSQL via Supabase with Row-Level Security for multi-tenant access. JWT auth for registered and anonymous users. Redis caching layer + PodcastIndex API integration.",
+    link: null,
+    date: "Apr 2025 – Nov 2025",
+  },
+];
+
+const OTHER_PROJECTS = [
+  { title: "Automated Hydroponics System", desc: "PID-controlled nutrient delivery with Kalman filter sensor fusion. Arduino + Raspberry Pi, 3D-printed PVC components.", date: "Jul – Aug 2021" },
+  { title: "Algorithmic Trading", desc: "Three quantitative trading strategies (momentum, value, equal-weight) pulling real-time data from IEX Cloud API.", date: "Jul – Dec 2020" },
+  { title: "Smart Pillbox", desc: "Medical device for dementia patients with medication monitoring, reminders, and locking mechanism. Custom PCB + Arduino.", date: "Aug 2020 – Apr 2021" },
+  { title: "Reddit Client", desc: "Pinterest-style Reddit viewer built with React. Adjustable column layout, subreddit search, responsive grid.", date: "Jun 2020" },
+];
+
+const SKILLS = [
+  { category: "Programming Languages", skills: ["Python", "C/C++", "JavaScript", "TypeScript", "Rust", "SQL"] },
+  { category: "AI & Machine Learning", skills: ["PyTorch", "TensorFlow", "Hugging Face", "scikit-learn", "Computer Vision", "SLAM"] },
+  { category: "LLM & Agents", skills: ["RAG Pipelines", "Vector Search", "Prompt Engineering", "Claude API", "OpenClaw", "n8n"] },
+  { category: "Cloud & DevOps", skills: ["AWS", "Docker", "Jenkins", "Linux", "RabbitMQ"] },
+  { category: "Web Development", skills: ["React", "Node.js", "Redux", "HTML/CSS", "Sass"] },
+  { category: "Databases & Backend", skills: ["PostgreSQL", "MongoDB", "Supabase", "Firebase", "Git/GitHub"] },
+  { category: "Hardware & Embedded", skills: ["PCB Design", "MCU", "Arduino", "FPGA", "Circuits"] },
+];
+
+const PUBLICATIONS = [
+  { title: "Drone-Based Indoor Mapping for Augmented Indoor 3D Modeling Using Neural SLAM", authors: "T. Sloan, B. Wallace, R. Goubran", conf: "2026 IEEE 44th ICCE", location: "Dubai, UAE", year: 2026, doi: null },
+  { title: "Impact of Image Resolution on Controlling Drones Using Remote VR Headset Visualization and a Cloud Architecture", authors: "T. Sloan, B. Wallace, R. Goubran", conf: "2025 IEEE SAS", location: "Newcastle, UK", year: 2025, doi: "10.1109/SAS65169.2025.11105183" },
+  { title: "System for Drone-Based Indoor Mapping for Augmented Reality", authors: "T. Sloan, B. Wallace, R. Goubran", conf: "2025 IEEE I2MTC", location: "Chemnitz, Germany", year: 2025, doi: "10.1109/I2MTC62753.2025.11079049" },
+  { title: "Frequency Response of a Novel IR Based Pressure Sensitive Mat for Well-being Assessment", authors: "B. Wallace, J. Larivière-Chartier, H. Liu, T. Sloan, R. Goubran, F. Knoefel", conf: "2020 IEEE BIBE", location: "Cincinnati, USA", year: 2020, doi: "10.1109/BIBE50027.2020.00083" },
+];
+
+const CERTIFICATIONS = [
+  { name: "AWS ML Engineer – Associate", org: "AWS", date: "Nov 2025", url: "https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140" },
+  { name: "AWS Security Specialty", org: "AWS", date: "Oct 2022", url: null },
+  { name: "AWS SysOps Administrator", org: "AWS", date: "May 2022", url: null },
+  { name: "AWS Solutions Architect", org: "AWS", date: "Jan 2022", url: null },
+  { name: "AWS Developer – Associate", org: "AWS", date: "Feb 2022", url: null },
+  { name: "AWS Cloud Practitioner", org: "AWS", date: "Jul 2020", url: "https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3" },
+  { name: "Canadian Securities Course", org: "CSI", date: "Aug 2018", url: null },
+];
+
+const NAV_ITEMS = ["About", "Experience", "Projects", "Skills", "Publications", "Certifications", "Contact"];
+
+// ─── Hooks ───────────────────────────────────────────────────────────────────
+
+function useInView(options = {}) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setIsVisible(true); obs.unobserve(el); }
+    }, { threshold: 0.08, ...options });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, isVisible];
+}
+
+function AnimateIn({ children, delay = 0, style = {} }) {
+  const [ref, isVisible] = useInView();
+  return (
+    <div ref={ref} style={{
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? "translateY(0)" : "translateY(14px)",
+      transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+// ─── Sub-components ──────────────────────────────────────────────────────────
+
+function SectionLabel({ children, id }) {
+  return (
+    <h2 id={id} style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 13, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 32, color: "var(--text-muted)" }}>
+      <span style={{ color: "var(--accent-primary)" }}>// </span>{children}
+    </h2>
+  );
+}
+
+function Tag({ children, color, border }) {
+  return (
+    <span style={{
+      display: "inline-block", fontSize: 11, fontFamily: "'IBM Plex Sans', sans-serif",
+      padding: "3px 10px", borderRadius: 2, marginRight: 6, marginBottom: 6,
+      border: border ? "1px solid var(--border-default)" : "none",
+      background: color ? `${color}22` : "transparent",
+      color: color || "var(--text-muted)",
+      letterSpacing: "0.02em",
+    }}>
+      {children}
+    </span>
+  );
+}
+
+function ProjectCard({ project }) {
+  const [view, setView] = useState("recruiter");
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: hovered ? "var(--bg-elevated)" : "var(--bg-surface)",
+        border: `1px solid ${hovered ? "var(--border-hover)" : "var(--border-default)"}`,
+        borderRadius: 2, padding: 0, transition: "all 0.2s ease", display: "flex", flexDirection: "column",
+      }}
+    >
+      {/* Image placeholder */}
+      <div style={{
+        width: "100%", aspectRatio: "16/9", background: "var(--bg-elevated)",
+        borderBottom: "1px solid var(--border-default)", display: "flex", alignItems: "center", justifyContent: "center",
+        position: "relative", overflow: "hidden",
+      }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 30% 40%, rgba(0,221,192,0.04) 0%, transparent 60%)" }} />
+        <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.1em" }}>
+          {project.categories[0]?.tag === "In Progress" || project.categories.some(c => c.tag === "In Progress") ? "[ IN PROGRESS ]" : "[ PROJECT IMAGE ]"}
+        </span>
+      </div>
+      <div style={{ padding: "20px 24px 24px" }}>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+          {project.categories.map((c, i) => <Tag key={i} color={c.color}>{c.tag}</Tag>)}
+        </div>
+        <h3 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 18, color: "var(--text-heading)", margin: 0, lineHeight: 1.3 }}>{project.title}</h3>
+        <p style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-muted)", margin: "4px 0 16px", lineHeight: 1.4 }}>{project.subtitle}</p>
+
+        {/* Toggle */}
+        <div style={{ display: "flex", gap: 0, marginBottom: 16, borderRadius: 2, overflow: "hidden", border: "1px solid var(--border-default)" }}>
+          {["recruiter", "engineer"].map((v) => (
+            <button key={v} onClick={() => setView(v)} style={{
+              flex: 1, padding: "7px 12px", fontSize: 11, fontFamily: "'Azeret Mono', monospace",
+              letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", border: "none",
+              background: view === v ? "rgba(0,221,192,0.08)" : "transparent",
+              color: view === v ? "var(--accent-primary)" : "var(--text-muted)",
+              transition: "all 0.15s ease",
+            }}>
+              {v === "recruiter" ? "Recruiter" : "Engineer"}
+            </button>
+          ))}
+        </div>
+
+        <p style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 14, color: "var(--text-primary)", lineHeight: 1.65, margin: "0 0 16px", minHeight: 80 }}>
+          {view === "recruiter" ? project.recruiter : project.engineer}
+        </p>
+
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: project.link ? 16 : 0 }}>
+          {project.tech.slice(0, 6).map((t, i) => <Tag key={i} border>{t}</Tag>)}
+          {project.tech.length > 6 && <Tag border>+{project.tech.length - 6}</Tag>}
+        </div>
+
+        {project.link && (
+          <a href={project.link} target="_blank" rel="noopener noreferrer" style={{
+            fontFamily: "'Azeret Mono', monospace", fontSize: 12, color: "var(--accent-primary)",
+            textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6,
+          }}>
+            View Project <span style={{ fontSize: 14 }}>→</span>
+          </a>
+        )}
+        <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 11, color: "var(--text-muted)", marginTop: 12 }}>{project.date}</div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
+
+export default function TomSloanPortfolio() {
+  const [mobileNav, setMobileNav] = useState(false);
+  const [showOther, setShowOther] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", h, { passive: true });
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+
+  const scrollTo = useCallback((id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setMobileNav(false);
+  }, []);
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+        :root {
+          --bg-primary: #080C14;
+          --bg-surface: #111827;
+          --bg-elevated: #1E2A3A;
+          --accent-primary: #00DDC0;
+          --accent-secondary: #F0A500;
+          --text-primary: #D1D5DB;
+          --text-heading: #F1F5F9;
+          --text-muted: #6B7280;
+          --border-default: rgba(0, 221, 192, 0.10);
+          --border-hover: rgba(0, 221, 192, 0.35);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-primary); color: var(--text-primary); font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+        ::selection { background: rgba(0,221,192,0.2); color: var(--text-heading); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 2px; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes hero-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
+
+      {/* ── Topographic SVG Background ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
+        <svg viewBox="0 0 1200 900" style={{ width: "100%", height: "100%", opacity: 0.025 }} preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="#00DDC0" strokeWidth="0.8">
+            <path d="M-50,200 Q200,150 400,220 T800,180 T1250,240" />
+            <path d="M-50,280 Q150,250 350,300 T750,260 T1250,310" />
+            <path d="M-50,370 Q250,320 500,380 T900,340 T1250,400" />
+            <path d="M-50,460 Q180,430 420,480 T850,440 T1250,500" />
+            <path d="M-50,550 Q300,510 550,560 T950,530 T1250,590" />
+            <path d="M-50,640 Q220,610 480,660 T880,620 T1250,680" />
+            <path d="M-50,730 Q280,700 520,740 T920,710 T1250,770" />
+          </g>
+        </svg>
+      </div>
+
+      {/* ── NAV ── */}
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: scrolled ? "rgba(8,12,20,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? "1px solid var(--border-default)" : "1px solid transparent",
+        transition: "all 0.3s ease",
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56 }}>
+          <button onClick={() => scrollTo("hero")} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "'Azeret Mono', monospace", fontSize: 15, fontWeight: 600, color: "var(--text-heading)", letterSpacing: "0.04em" }}>
+            TS<span style={{ color: "var(--accent-primary)" }}>.</span>
+          </button>
+          {/* Desktop nav */}
+          <div style={{ display: "flex", gap: 28, alignItems: "center" }} className="desktop-nav">
+            {NAV_ITEMS.map((item) => (
+              <button key={item} onClick={() => scrollTo(item.toLowerCase())} style={{
+                background: "none", border: "none", cursor: "pointer",
+                fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-muted)",
+                transition: "color 0.15s", letterSpacing: "0.02em",
+              }}
+                onMouseEnter={e => e.target.style.color = "var(--accent-primary)"}
+                onMouseLeave={e => e.target.style.color = "var(--text-muted)"}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+          {/* Mobile toggle */}
+          <button onClick={() => setMobileNav(!mobileNav)} style={{
+            display: "none", background: "none", border: "none", cursor: "pointer", color: "var(--text-heading)", fontSize: 22, padding: 4,
+          }} className="mobile-toggle">
+            {mobileNav ? "✕" : "☰"}
+          </button>
+        </div>
+        {/* Mobile menu */}
+        {mobileNav && (
+          <div style={{ background: "rgba(8,12,20,0.97)", borderTop: "1px solid var(--border-default)", padding: "16px 24px" }}>
+            {NAV_ITEMS.map((item) => (
+              <button key={item} onClick={() => scrollTo(item.toLowerCase())} style={{
+                display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer",
+                fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 15, color: "var(--text-primary)", padding: "10px 0",
+              }}>
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
+        <style>{`
+          @media (max-width: 768px) {
+            .desktop-nav { display: none !important; }
+            .mobile-toggle { display: block !important; }
+          }
+        `}</style>
+      </nav>
+
+      {/* ── HERO ── */}
+      <section id="hero" style={{
+        minHeight: "100vh", display: "flex", alignItems: "center", position: "relative",
+        background: "radial-gradient(ellipse at 20% 50%, rgba(0,221,192,0.03) 0%, transparent 50%)",
+      }}>
+        {/* Dot grid hero overlay */}
+        <div style={{
+          position: "absolute", inset: 0, pointerEvents: "none",
+          backgroundImage: "radial-gradient(rgba(0,221,192,0.04) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }} />
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "120px 24px 80px", position: "relative", zIndex: 1 }}>
+          <div style={{ animation: "hero-in 0.7s ease forwards" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--accent-primary)", animation: "pulse-dot 2.5s ease-in-out infinite" }} />
+              <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--accent-primary)", fontWeight: 500 }}>
+                Currently building robots at SAM3
+              </span>
+            </div>
+            <h1 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 700, color: "var(--text-heading)", lineHeight: 1.1, marginBottom: 12 }}>
+              Tom Sloan
+            </h1>
+            <p style={{ fontFamily: "'Azeret Mono', monospace", fontSize: "clamp(16px, 2.2vw, 22px)", color: "var(--accent-primary)", fontWeight: 400, marginBottom: 24, lineHeight: 1.4 }}>
+              Applied AI Engineer
+            </p>
+            <p style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 17, color: "var(--text-primary)", maxWidth: 560, lineHeight: 1.7, marginBottom: 32, fontWeight: 300 }}>
+              I build intelligent physical systems — from custom circuits to neural policies.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }} style={{
+                fontFamily: "'Azeret Mono', monospace", fontSize: 13, color: "var(--bg-primary)", background: "var(--accent-primary)",
+                padding: "10px 24px", borderRadius: 2, textDecoration: "none", fontWeight: 500, letterSpacing: "0.04em",
+                transition: "opacity 0.15s",
+              }}
+                onMouseEnter={e => e.target.style.opacity = "0.85"}
+                onMouseLeave={e => e.target.style.opacity = "1"}
+              >
+                Get in touch
+              </a>
+              <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-muted)" }}>Ottawa, Canada</span>
+            </div>
+          </div>
+          {/* Stats bar */}
+          <div style={{
+            display: "flex", gap: 48, marginTop: 64, paddingTop: 32,
+            borderTop: "1px solid var(--border-default)", flexWrap: "wrap",
+            animation: "hero-in 0.7s ease 0.3s both",
+          }}>
+            {[
+              { num: "4", label: "IEEE Publications" },
+              { num: "6", label: "AWS Certifications" },
+              { num: "7+", label: "Years Engineering" },
+              { num: "3", label: "Active Projects" },
+            ].map((s, i) => (
+              <div key={i}>
+                <div style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 28, fontWeight: 700, color: "var(--text-heading)" }}>{s.num}</div>
+                <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 12, color: "var(--text-muted)", marginTop: 4, letterSpacing: "0.04em" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 24px" }}>
+        <AnimateIn>
+          <SectionLabel id="about">About</SectionLabel>
+        </AnimateIn>
+        <AnimateIn delay={80}>
+          <div style={{ maxWidth: 720 }}>
+            <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--text-primary)", fontWeight: 300 }}>
+              I'm an engineer who works across the full stack of intelligent machines — I've designed PCBs, trained SLAM models on consumer drones, deployed cloud pipelines, and built the React frontends to visualize it all. Currently focused on robotics and applied ML for defense and healthcare applications.
+            </p>
+            <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--text-primary)", marginTop: 16, fontWeight: 300 }}>
+              I'm at my best when the problem requires understanding every layer, from silicon to software. I want to build machines that operate in the real world — systems that sense, decide, and act.
+            </p>
+          </div>
+        </AnimateIn>
+      </section>
+
+      {/* ── EXPERIENCE ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <AnimateIn>
+          <SectionLabel id="experience">Experience</SectionLabel>
+        </AnimateIn>
+        <div style={{ position: "relative", paddingLeft: 32 }}>
+          {/* Timeline line */}
+          <div style={{ position: "absolute", left: 7, top: 8, bottom: 8, width: 1, background: "var(--border-default)" }} />
+          {EXPERIENCE.map((exp, i) => (
+            <AnimateIn key={i} delay={i * 70}>
+              <div style={{ position: "relative", marginBottom: 32, paddingBottom: 8 }}>
+                {/* Dot */}
+                <div style={{
+                  position: "absolute", left: -29, top: 8, width: 9, height: 9, borderRadius: "50%",
+                  background: exp.current ? "var(--accent-primary)" : "var(--bg-elevated)",
+                  border: exp.current ? "none" : "1.5px solid var(--text-muted)",
+                  boxShadow: exp.current ? "0 0 8px rgba(0,221,192,0.4)" : "none",
+                }} />
+                <div style={{
+                  background: "var(--bg-surface)", border: "1px solid var(--border-default)",
+                  borderRadius: 2, padding: "20px 24px",
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8 }}>
+                    <div>
+                      <h3 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 16, color: "var(--text-heading)", fontWeight: 500, lineHeight: 1.3 }}>
+                        {exp.title}
+                      </h3>
+                      <p style={{ fontSize: 14, color: "var(--accent-primary)", marginTop: 4, fontWeight: 500 }}>{exp.company}</p>
+                    </div>
+                    <div style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 12, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                      {exp.start} – {exp.end}
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--text-primary)", marginTop: 12, fontWeight: 300 }}>
+                    {exp.description}
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 0, marginTop: 14 }}>
+                    {exp.tags.map((t, j) => <Tag key={j} border>{t}</Tag>)}
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PROJECTS ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <AnimateIn>
+          <SectionLabel id="projects">Projects</SectionLabel>
+        </AnimateIn>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 480px), 1fr))",
+          gap: 24,
+        }}>
+          {FEATURED_PROJECTS.map((p, i) => (
+            <AnimateIn key={i} delay={i * 80}>
+              <ProjectCard project={p} />
+            </AnimateIn>
+          ))}
+        </div>
+
+        {/* Other projects */}
+        <AnimateIn delay={350}>
+          <div style={{ marginTop: 40 }}>
+            <button onClick={() => setShowOther(!showOther)} style={{
+              background: "none", border: "1px solid var(--border-default)", borderRadius: 2,
+              padding: "10px 20px", cursor: "pointer", fontFamily: "'Azeret Mono', monospace",
+              fontSize: 12, color: "var(--text-muted)", letterSpacing: "0.08em",
+              transition: "all 0.15s",
+            }}
+              onMouseEnter={e => { e.target.style.borderColor = "var(--border-hover)"; e.target.style.color = "var(--accent-primary)"; }}
+              onMouseLeave={e => { e.target.style.borderColor = "var(--border-default)"; e.target.style.color = "var(--text-muted)"; }}
+            >
+              {showOther ? "HIDE" : "SHOW"} OTHER PROJECTS ({OTHER_PROJECTS.length})
+            </button>
+            {showOther && (
+              <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+                {OTHER_PROJECTS.map((p, i) => (
+                  <div key={i} style={{
+                    background: "var(--bg-surface)", border: "1px solid var(--border-default)",
+                    borderRadius: 2, padding: "16px 20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap",
+                  }}>
+                    <div style={{ flex: 1, minWidth: 240 }}>
+                      <h4 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 14, color: "var(--text-heading)", fontWeight: 500 }}>{p.title}</h4>
+                      <p style={{ fontSize: 13, color: "var(--text-primary)", marginTop: 6, lineHeight: 1.5, fontWeight: 300 }}>{p.desc}</p>
+                    </div>
+                    <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap" }}>{p.date}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </AnimateIn>
+      </section>
+
+      {/* ── SKILLS ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <AnimateIn>
+          <SectionLabel id="skills">Skills</SectionLabel>
+        </AnimateIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: 20 }}>
+          {SKILLS.map((group, i) => (
+            <AnimateIn key={i} delay={i * 60}>
+              <div style={{
+                background: "var(--bg-surface)", border: "1px solid var(--border-default)",
+                borderRadius: 2, padding: "20px 22px",
+              }}>
+                <h3 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 12, color: "var(--accent-primary)", fontWeight: 500, marginBottom: 14, letterSpacing: "0.06em" }}>
+                  {group.category}
+                </h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 0 }}>
+                  {group.skills.map((s, j) => (
+                    <span key={j} style={{
+                      fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-primary)",
+                      padding: "5px 12px", borderRadius: 2, margin: "0 6px 6px 0",
+                      background: "rgba(0,221,192,0.04)", border: "1px solid var(--border-default)",
+                    }}>
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PUBLICATIONS ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <AnimateIn>
+          <SectionLabel id="publications">Publications</SectionLabel>
+        </AnimateIn>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {PUBLICATIONS.map((pub, i) => (
+            <AnimateIn key={i} delay={i * 70}>
+              <div style={{
+                background: "var(--bg-surface)", border: "1px solid var(--border-default)",
+                borderRadius: 2, padding: "20px 24px",
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
+                  <h3 style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 15, color: "var(--text-heading)", fontWeight: 500, lineHeight: 1.4, flex: 1, minWidth: 240 }}>
+                    {pub.title}
+                  </h3>
+                  <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 13, color: "var(--accent-secondary)", fontWeight: 600 }}>{pub.year}</span>
+                </div>
+                <p style={{ fontSize: 13, color: "var(--text-primary)", marginTop: 8, lineHeight: 1.5 }}>
+                  {pub.authors.split(", ").map((a, j) => (
+                    <span key={j}>
+                      {j > 0 && ", "}
+                      <span style={{ color: a.includes("T. Sloan") ? "var(--accent-primary)" : "inherit", fontWeight: a.includes("T. Sloan") ? 500 : 300 }}>
+                        {a}
+                      </span>
+                    </span>
+                  ))}
+                </p>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 6 }}>
+                  {pub.conf} · {pub.location}
+                </p>
+                {pub.doi && (
+                  <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" style={{
+                    fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--accent-primary)",
+                    textDecoration: "none", marginTop: 8, display: "inline-block",
+                  }}>
+                    DOI: {pub.doi}
+                  </a>
+                )}
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CERTIFICATIONS ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <AnimateIn>
+          <SectionLabel id="certifications">Certifications</SectionLabel>
+        </AnimateIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 16 }}>
+          {CERTIFICATIONS.map((cert, i) => (
+            <AnimateIn key={i} delay={i * 50}>
+              <div style={{
+                background: "var(--bg-surface)", border: "1px solid var(--border-default)",
+                borderRadius: 2, padding: "18px 20px", display: "flex", flexDirection: "column", gap: 8,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 2, background: "var(--bg-elevated)",
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                    fontFamily: "'Azeret Mono', monospace", fontSize: 10, color: "var(--accent-secondary)", fontWeight: 600,
+                  }}>
+                    {cert.org}
+                  </div>
+                  <div>
+                    <h4 style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-heading)", fontWeight: 500, lineHeight: 1.3 }}>
+                      {cert.name}
+                    </h4>
+                    <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--text-muted)" }}>{cert.date}</span>
+                  </div>
+                </div>
+                {cert.url && (
+                  <a href={cert.url} target="_blank" rel="noopener noreferrer" style={{
+                    fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--accent-primary)", textDecoration: "none",
+                  }}>
+                    Verify →
+                  </a>
+                )}
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CONTACT ── */}
+      <section style={{
+        maxWidth: 1200, margin: "0 auto", padding: "60px 24px 40px",
+        borderTop: "1px solid var(--border-default)",
+      }}>
+        <AnimateIn>
+          <SectionLabel id="contact">Contact</SectionLabel>
+        </AnimateIn>
+        <AnimateIn delay={80}>
+          <p style={{ fontSize: 17, color: "var(--text-heading)", fontWeight: 400, marginBottom: 8, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+            Open to opportunities in robotics, defense, and applied AI.
+          </p>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 28 }}>
+            Let's build something that operates in the real world.
+          </p>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            {[
+              { label: "GitHub", href: "#" },
+              { label: "LinkedIn", href: "#" },
+              { label: "Google Scholar", href: "#" },
+              { label: "Email", href: "mailto:your@email.com" },
+            ].map((link, i) => (
+              <a key={i} href={link.href} target="_blank" rel="noopener noreferrer" style={{
+                fontFamily: "'Azeret Mono', monospace", fontSize: 13, color: "var(--accent-primary)",
+                textDecoration: "none", padding: "8px 18px", border: "1px solid var(--border-default)",
+                borderRadius: 2, transition: "all 0.15s",
+              }}
+                onMouseEnter={e => { e.target.style.borderColor = "var(--border-hover)"; e.target.style.background = "rgba(0,221,192,0.04)"; }}
+                onMouseLeave={e => { e.target.style.borderColor = "var(--border-default)"; e.target.style.background = "transparent"; }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </AnimateIn>
+        <div style={{ marginTop: 60, paddingTop: 20, borderTop: "1px solid var(--border-default)", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--text-muted)" }}>
+            © 2026 Tom Sloan
+          </span>
+          <span style={{ fontFamily: "'Azeret Mono', monospace", fontSize: 11, color: "var(--text-muted)" }}>
+            Built with precision.
+          </span>
+        </div>
+      </section>
+    </>
+  );
+}

@@ -8,9 +8,9 @@ const portfolioData = {
 		location: "Ottawa, Ontario, Canada",
 		image: "images/profile/tom-sloan-profile.png",
 		about: [
-			"Robot Vision Engineer specializing in SLAM, computer vision, and drone-based 3D mapping systems. Expertise in AWS, Docker, Python, and embedded systems. Constantly working on projects to push the boundaries of autonomous systems and AI.",
-			"Carleton University Computer Systems Engineering graduate with distinction. Completed Master's of Applied Science in Electrical and Computer Engineering (February 2026) with thesis on Neural SLAM and augmented reality applications for indoor 3D mapping.",
-			"Currently a Machine Learning Researcher at SAM3, building predictive models for health monitoring using multi-modal IoT sensors. Previously developed real-time indoor 3D mapping systems at Carleton University using consumer drones, cloud-based SLAM, and AR visualization. Prior experience includes DevOps engineering at Magnet Forensics and spectrum engineering at Telesat.",
+			"Robot Vision Engineer working with SLAM, computer vision, and drone-based 3D mapping. I use AWS, Docker, Python, and embedded systems daily. I keep building projects in autonomous systems and AI because I can't stop tinkering.",
+			"Graduated with distinction from Carleton University's Computer Systems Engineering program. Finished my Master's of Applied Science in Electrical and Computer Engineering (February 2026) with a thesis on Neural SLAM and augmented reality for indoor 3D mapping.",
+			"Right now I'm a Machine Learning Researcher at SAM3, building predictive models for health monitoring with multi-modal IoT sensors. Before that, I built real-time indoor 3D mapping systems at Carleton University using consumer drones, cloud-based SLAM, and AR visualization. I've also done DevOps at Magnet Forensics and spectrum engineering at Telesat.",
 		],
 		links: {
 			linkedin: "https://www.linkedin.com/in/tom-sloan",
@@ -29,7 +29,7 @@ const portfolioData = {
 			current: false,
 			grade: "Graduate coursework: Machine Learning, Advanced ML, Deep Learning, Computer Vision",
 			description:
-				"Thesis: Indoor 3D Modeling Using Consumer Drones and Neural Simultaneous Localization and Mapping (SLAM) for Virtual Reality and a Cloud Architecture.\n\nDeveloped a modular cloud-assisted SLAM framework for autonomous indoor mapping using a consumer drone (DJI Mini 3). Compared traditional visual-inertial (ORB-SLAM3) and neural SLAM (SLAM3R) approaches. Co-authored 3 IEEE papers presented at ICCE 2026, I2MTC 2025, and SAS 2025.",
+				"Thesis: Indoor 3D Modeling Using Consumer Drones and Neural Simultaneous Localization and Mapping (SLAM) for Virtual Reality and a Cloud Architecture.\n\nBuilt a modular cloud-assisted SLAM framework for autonomous indoor mapping with a consumer drone (DJI Mini 3). Compared traditional visual-inertial (ORB-SLAM3) and neural SLAM (SLAM3R) approaches. Co-authored 3 IEEE papers presented at ICCE 2026, I2MTC 2025, and SAS 2025.",
 			logo: "images/companies/carleton-university.png",
 		},
 		{
@@ -41,7 +41,7 @@ const portfolioData = {
 			current: false,
 			grade: "Graduated with distinction",
 			description:
-				"Computer Systems Engineering covering hardware, software, and systems design with strong foundation in embedded systems and circuit design.",
+				"Computer Systems Engineering covering hardware, software, and systems design. Heavy focus on embedded systems and circuit design.",
 			logo: "images/companies/carleton-university.png",
 		},
 	],
@@ -56,7 +56,7 @@ const portfolioData = {
 			endDate: "Present",
 			current: true,
 			description:
-				"Building predictive models for fall detection, UTI risk, and sleep pattern analysis using multi-modal IoT sensors for elderly patient monitoring. Developing time-series classification pipelines for AGE-WELL-funded envisAGE aging-in-place study. Deployed n8n automation pipelines for IoT sensor notifications. Engineered multi-step LLM pipelines using Claude API for automated research workflows.",
+				"Building predictive models for fall detection, UTI risk, and sleep pattern analysis using multi-modal IoT sensors to monitor elderly patients. Developing time-series classification pipelines for the AGE-WELL-funded envisAGE aging-in-place study. Set up n8n automation pipelines for IoT sensor notifications. Built multi-step LLM pipelines with the Claude API for automated research workflows.",
 			skills: [
 				"PyTorch",
 				"Time-Series Analysis",
@@ -135,7 +135,7 @@ const portfolioData = {
 			endDate: "December 2021",
 			current: false,
 			description:
-				"Designed and built prototype hardware systems for non-invasive monitoring of key health markers (heart rate, respiration rate, body fluid flow) in older adults. Collaborated with faculty and graduate students on health-monitoring research projects while providing teaching assistance and laboratory instruction for computer engineering courses.",
+				"Designed and built prototype hardware for non-invasive monitoring of health markers (heart rate, respiration rate, body fluid flow) in older adults. Worked with faculty and grad students on health-monitoring research while TAing and running labs for computer engineering courses.",
 			skills: [
 				"Hardware Design",
 				"Sensors",
@@ -151,10 +151,10 @@ const portfolioData = {
 
 	projects: [
 		{
-			title: "M.A.Sc. Thesis — Neural SLAM for Indoor 3D Mapping",
+			title: "M.A.Sc. Thesis: Neural SLAM for Indoor 3D Mapping",
 			subtitle: "Electrical & Computer Engineering, Carleton University",
 			description:
-				"Developed a modular, cloud-assisted SLAM framework enabling fully autonomous indoor mapping with a consumer drone (DJI Mini 3) generating digital twins. Compared traditional visual-inertial SLAM (ORB-SLAM3) against neural SLAM (SLAM3R), achieving 6.61 cm RMSE on Replica benchmark at 21 FPS on RTX 4070 Ti. Designed cloud architecture using Docker, RabbitMQ, and React.js for real-time 3D reconstruction with AR headset streaming. Published at IEEE ICCE 2026, I2MTC 2025, and SAS 2025.",
+				"Built a modular, cloud-assisted SLAM framework for fully autonomous indoor mapping with a consumer drone (DJI Mini 3) that generates digital twins. Compared traditional visual-inertial SLAM (ORB-SLAM3) against neural SLAM (SLAM3R) and hit 6.61 cm RMSE on Replica benchmark at 21 FPS on an RTX 4070 Ti. The cloud architecture uses Docker, RabbitMQ, and React.js for real-time 3D reconstruction with AR headset streaming. Published at IEEE ICCE 2026, I2MTC 2025, and SAS 2025.",
 			startDate: "October 2023",
 			endDate: "February 2026",
 			current: false,
@@ -255,7 +255,7 @@ const portfolioData = {
 			title: "LeRobot SO-101",
 			subtitle: "AI-Powered Robotic Arm with Imitation Learning",
 			description:
-				"Built and trained a Hugging Face LeRobot SO-101 6-DOF robotic arm system with leader-follower teleoperation. 3D-printed the arm components and assembled with Feetech STS3215 servo motors. Collected demonstration datasets via teleoperation and trained imitation learning policies on a Jetson Orin Nano for autonomous task execution. The leader arm records human demonstrations while the follower replicates movements, enabling data collection for end-to-end neural network training.",
+				"Built and trained a Hugging Face LeRobot SO-101 6-DOF robotic arm with leader-follower teleoperation. 3D-printed the arm components and assembled them with Feetech STS3215 servo motors. Collected demonstration datasets through teleoperation and trained imitation learning policies on a Jetson Orin Nano for autonomous task execution. The leader arm records human demonstrations while the follower replicates movements, and I use that data to train end-to-end neural networks.",
 			startDate: "March 2026",
 			endDate: "Present",
 			current: true,
@@ -306,7 +306,7 @@ const portfolioData = {
 			title: "Portfolio MCP Server",
 			subtitle: "Model Context Protocol Integration",
 			description:
-				"Built a Model Context Protocol (MCP) server deployed as a Netlify serverless function to provide AI assistants with structured access to portfolio data. The server exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP protocol. Enables AI assistants to answer questions about my work, projects, and technical expertise with real-time, accurate data.",
+				"MCP server deployed as a Netlify serverless function so AI assistants can query my portfolio data directly. Exposes resources (profile, projects, experience, skills, education, certifications) and tools (search projects, filter experience, find skills) via the MCP protocol. AI assistants pull real-time data about my work instead of relying on stale training data.",
 			startDate: "November 2025",
 			endDate: "November 2025",
 			current: false,
@@ -331,7 +331,7 @@ const portfolioData = {
 			title: "Smart Band Project",
 			subtitle: "Sensors, PCB, and Bluetooth",
 			description:
-				"The Smart Band project is the personal projects that I completed while attending university. The goal of the project was to allow a user to control any smart device with gestures using a device like a Fitbit. To do this, I designed and fabricated a small, printed circuit board (PCB) that could gather information, analyze a user's motion, and determine what the gesture was. The band would then relay this information to the device to which it was connected.",
+				"A personal project from university. I wanted to control smart devices with hand gestures using something like a Fitbit. I designed and fabricated a small PCB that reads motion data, classifies gestures, and sends commands to whatever device it's paired with.",
 			startDate: "November 2019",
 			endDate: "May 2021",
 			current: false,
@@ -389,7 +389,7 @@ const portfolioData = {
 			title: "Smart Pillbox",
 			subtitle: "Medical Device",
 			description:
-				"A medication storage device designed as a product mockup for adults with dementia and their caregivers. The system allows medical practitioners to monitor medication consumption, set reminders and alarms, and enable a locking mechanism if required. This device was designed to help improve the lifestyles of patients and their caregivers.",
+				"Medication storage device mockup for adults with dementia and their caregivers. Medical practitioners can monitor medication consumption, set reminders and alarms, and lock the device if needed.",
 			startDate: "August 2020",
 			endDate: "April 2021",
 			current: false,
@@ -413,7 +413,7 @@ const portfolioData = {
 			title: "LidarWorld",
 			subtitle: "Interactive 3D LiDAR Sensor Simulation",
 			description:
-				"Built an interactive 3D LiDAR sensor simulation using React Three Fiber and Three.js to enable real-time visualization and testing of LiDAR sensors in customizable room environments. The application features procedurally generated room layouts with randomized geometry and furniture placement, real-time raycasting for object detection visualization, and multiple configurable sensor types with adjustable positioning. Implemented a grid-based spatial analysis system for sensor coverage evaluation, interactive 3D controls with 360-degree rotation, and a Leva control panel for real-time parameter adjustments.",
+				"Interactive 3D LiDAR sensor simulation built with React Three Fiber and Three.js. Rooms are procedurally generated with randomized geometry and furniture. Sensors cast rays in real time to show detection coverage, and you can configure sensor types, adjust positioning, and rotate the view 360 degrees. Uses a grid-based spatial analysis system for coverage evaluation and a Leva control panel for tweaking parameters on the fly.",
 			startDate: "December 2023",
 			endDate: "November 2025",
 			current: false,
@@ -438,7 +438,7 @@ const portfolioData = {
 			title: "Hound Dog - Family Card Game",
 			subtitle: "Cross-Platform Mobile Card Game",
 			description:
-				"Brought a beloved family card game from my childhood to digital life using React Native and Expo. The application features real-time multiplayer gameplay with Socket.io, AI opponents with configurable difficulty levels, and a polished user interface supporting both iOS and Android platforms. Implemented with TypeScript, Zustand for state management, and Expo Router for navigation, delivering a comprehensive gaming experience with full rule support and special card mechanics.",
+				"Turned a family card game from my childhood into a mobile app with React Native and Expo. Has real-time multiplayer via Socket.io, AI opponents with adjustable difficulty, and runs on both iOS and Android. Built with TypeScript, Zustand for state, and Expo Router for navigation.",
 			startDate: "April 2025",
 			endDate: "July 2025",
 			current: false,
@@ -463,7 +463,7 @@ const portfolioData = {
 			title: "Speakeasy - AI-Enhanced Social Podcast Platform",
 			subtitle: "Full-Stack Mobile Podcast Application",
 			description:
-				"Built a full-stack mobile podcast platform using React Native and Expo with AI-powered conversational features. The application integrates the PodcastIndex API with a FastAPI backend, PostgreSQL database via Supabase, and Redis caching to deliver real-time audio streaming with background playback support. Implemented JWT authentication for both registered and anonymous users, with Row-Level Security policies for secure multi-tenant data access. The platform features podcast discovery, personalized subscriptions, listening progress tracking, and social interactions, with a multi-layer caching system reducing API calls by 70%.",
+				"Full-stack mobile podcast app built with React Native, Expo, and a FastAPI backend. Pulls podcasts from the PodcastIndex API, stores data in PostgreSQL via Supabase, and uses Redis caching (cut API calls by 70%). Supports real-time audio streaming with background playback. JWT auth works for both registered and anonymous users, with Row-Level Security for multi-tenant data access. Includes podcast discovery, subscriptions, progress tracking, and social features.",
 			startDate: "April 2025",
 			endDate: "November 2025",
 			current: false,
@@ -491,7 +491,7 @@ const portfolioData = {
 			title: "Algorithmic Trading in Python",
 			subtitle: "Quantitative Trading Strategies",
 			description:
-				"Developed three algorithmic trading strategies in Python using quantitative analysis techniques. Built equal-weight portfolio rebalancing, momentum-based investing, and value investing calculators that pull real-time market data via the IEX Cloud API. The system uses pandas and numpy to calculate optimal stock portfolio allocations and generates formatted Excel reports with purchase recommendations for S&P 500 securities.",
+				"Three algorithmic trading strategies in Python: equal-weight portfolio rebalancing, momentum-based investing, and value investing. Each pulls real-time market data from the IEX Cloud API, calculates portfolio allocations with pandas and numpy, and spits out formatted Excel reports with buy recommendations for S&P 500 stocks.",
 			startDate: "July 2020",
 			endDate: "December 2020",
 			current: false,
@@ -514,7 +514,7 @@ const portfolioData = {
 			title: "Reddit Client",
 			subtitle: "Codecademy Full Stack Web Developer Portfolio Project",
 			description:
-				"Created a Reddit Client using the Reddit API and react. Based the layout off of Pinterest, we decided to implement a version of reddit where new posts are displayed in columns, to allow quicker and more engaging viewing. There is a black diamond toggle button in the corner to change the number of columns, as well as some preloaded subreddits. The search bar provides the user a method to display whatever reddit content they wish.",
+				"Reddit client built with the Reddit API and React, using a Pinterest-style column layout for browsing posts. A diamond toggle in the corner changes the column count. Comes with preloaded subreddits and a search bar to pull up whatever you want.",
 			startDate: "June 2020",
 			endDate: "June 2020",
 			current: false,
@@ -528,7 +528,7 @@ const portfolioData = {
 			title: "Twitter Quote Bot",
 			subtitle: "Automated quote plagiarism from my favourite authors",
 			description:
-				"The Twitter Bot I built connected to an online quote repository (https://www.quotes.net/) which contains many of quotes from authors I admire (such as Marcus Aurelius and Seneca). The goal of the bot was to posts quotes to my Twitter timeline once a day. This was written in Python and deployed on Heroku. This bot was disabled to not spam my feed; however, the source code can be seen on my GitHub.",
+				"A Python bot that scraped quotes from authors I like (Marcus Aurelius, Seneca) off quotes.net and posted one to my Twitter timeline daily. Deployed on Heroku. I turned it off so it'd stop spamming my feed, but the source code is on GitHub.",
 			startDate: "April 2021",
 			endDate: "April 2021",
 			current: false,
@@ -545,7 +545,7 @@ const portfolioData = {
 			title: "Automated Hydroponics System",
 			subtitle: "PID-Controlled Nutrient Delivery with Sensor Fusion",
 			description:
-				"A fully automated drip hydroponic system built from PVC pipes with 3D-printed components (Prusa MK3). The system uses an Arduino microcontroller implementing PID auto-tuning with Kalman filters for precise sensor fusion across pH meters, electrical conductivity sensors, water level sensors, and temperature monitors. Peristaltic dosing pumps deliver nutrients with high accuracy, while a Raspberry Pi serves as the central hub for data logging and remote monitoring. Initially tested with lettuce and basil, the system was designed to eventually support Arabica coffee and green tea cultivation in Ottawa's climate.",
+				"Fully automated drip hydroponic system built from PVC pipes and 3D-printed parts (Prusa MK3). An Arduino runs PID auto-tuning with Kalman filters to fuse readings from pH, electrical conductivity, water level, and temperature sensors. Peristaltic pumps dose nutrients precisely. A Raspberry Pi handles data logging and remote monitoring. Tested with lettuce and basil, with the eventual goal of growing Arabica coffee and green tea in Ottawa.",
 			startDate: "July 2021",
 			endDate: "August 2021",
 			current: false,
@@ -570,7 +570,7 @@ const portfolioData = {
 			title: "Full Stack Development Course",
 			subtitle: "Front End and Back End, including React and Redux",
 			description:
-				"The Full Stack Development course by Codecademy was very useful at transitioning my development interests to more web-based projects. This course was completed over the course of summer 2021. In total, I spent hundreds of hours improving my web development skills. Throughout doing this course I took breaks to build extensive projects (such as my previous portfolio website!).",
+				"Codecademy's Full Stack Development course, completed over summer 2021. Spent hundreds of hours on it and it got me into web development. I'd take breaks from the course to build actual projects, including my previous portfolio website.",
 			startDate: "May 2021",
 			endDate: "July 2021",
 			current: false,
@@ -591,7 +591,7 @@ const portfolioData = {
 			title: "Boat Refurbishment",
 			subtitle: "New Hardware Implementation and Restoration",
 			description:
-				"Transforming an antique wooden speed boat with rotted wood and various parts missing by my cousin and myself. The boat is being remade with many technology improvement and include new smart devices. The motor has been repaired, the wood replaced and the vessel is seaworthy again after decades of sitting around and wasting away.",
+				"My cousin and I restored an antique wooden speed boat that had rotted wood and missing parts. We repaired the motor, replaced the wood, and added some smart devices. The boat is seaworthy again after decades of sitting in a barn.",
 			startDate: "July 2021",
 			endDate: "August 2021",
 			current: false,
@@ -613,7 +613,7 @@ const portfolioData = {
 			issueDate: "November 2025",
 			expirationDate: "November 2028",
 			description:
-				"Validates technical ability in implementing ML workloads in production and operationalizing them on AWS",
+				"Covers implementing ML workloads in production on AWS",
 			credentialUrl:
 				"https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140",
 			badgeImage: "images/certifications/aws-ml-engineer-associate.png",
@@ -623,7 +623,7 @@ const portfolioData = {
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "October 2022",
 			expirationDate: "October 2025",
-			description: "Validates expertise in AWS security solutions",
+			description: "Covers AWS security services and best practices",
 			credentialUrl:
 				"https://www.credly.com/badges/c5e97a97-e61e-41b4-aa37-e03b6d62a3fa",
 			badgeImage: "images/certifications/aws-security-specialty.png",
@@ -634,7 +634,7 @@ const portfolioData = {
 			issueDate: "May 2022",
 			expirationDate: "May 2025",
 			description:
-				"Validates technical expertise in deployment, management, and operations on AWS",
+				"Covers deployment, management, and operations on AWS",
 			credentialUrl: "https://www.credly.com/badges/",
 			badgeImage: "images/certifications/aws-sysops-administrator.png",
 		},
@@ -644,7 +644,7 @@ const portfolioData = {
 			issueDate: "January 2022",
 			expirationDate: "January 2025",
 			description:
-				"Validates ability to design and implement distributed systems on AWS",
+				"Covers designing and implementing distributed systems on AWS",
 			credentialUrl: "https://www.credly.com/badges/",
 			badgeImage: "images/certifications/aws-solutions-architect.png",
 		},
@@ -654,7 +654,7 @@ const portfolioData = {
 			issueDate: "February 2022",
 			expirationDate: "February 2025",
 			description:
-				"Validates expertise in developing and maintaining AWS-based applications",
+				"Covers developing and maintaining applications on AWS",
 			credentialUrl: "https://www.credly.com/badges/",
 			badgeImage: "images/certifications/aws-developer.png",
 		},
@@ -663,7 +663,7 @@ const portfolioData = {
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "July 2020",
 			expirationDate: "May 2025",
-			description: "Fundamental AWS Cloud knowledge",
+			description: "Foundational AWS cloud knowledge",
 			credentialUrl:
 				"https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3",
 			badgeImage: "images/certifications/aws-cloud-practitioner.png",
@@ -674,7 +674,7 @@ const portfolioData = {
 			issueDate: "August 2018",
 			expirationDate: null,
 			description:
-				"Comprehensive foundation in Canadian capital markets, securities, and investment products",
+				"Covers Canadian capital markets, securities, and investment products",
 			credentialUrl:
 				"https://www.credly.com/earner/earned/badge/565999ea-75d7-4ad5-996c-e33ca6f0e8e1",
 			badgeImage: "images/certifications/canadian-securities-course.png",
@@ -863,7 +863,7 @@ const portfolioData = {
 		path: "resume/Tom_Sloan_CV_Feb_2026.pdf",
 		title: "Tom Sloan - Resume",
 		description:
-			"Download my complete resume for detailed information about my education, experience, and skills.",
+			"Download my full resume.",
 	},
 };
 

@@ -243,101 +243,101 @@
 
 			/* ── HERO ── */
 			.hero {
-				min-height: auto;
+				min-height: 100vh;
 				display: flex;
 				align-items: center;
 				position: relative;
-				background: radial-gradient(
-					ellipse at 20% 50%,
-					rgba(0, 221, 192, 0.03) 0%,
-					transparent 50%
-				);
+				overflow: hidden;
 			}
-			.hero .dot-grid {
+			.hero-hex-canvas {
 				position: absolute;
-				inset: 0;
-				pointer-events: none;
-				background-image: radial-gradient(
-					rgba(0, 221, 192, 0.04) 1px,
-					transparent 1px
-				);
-				background-size: 24px 24px;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+				cursor: crosshair;
 			}
 			.hero-content {
 				max-width: 1200px;
 				margin: 0 auto;
-				padding: 100px 24px 56px;
+				padding: 100px 28px 60px;
+				width: 100%;
 				position: relative;
-				z-index: 1;
-				display: flex;
-				align-items: center;
-				gap: 40px;
+				z-index: 2;
+				pointer-events: none;
 			}
 			.hero-main {
-				animation: hero-in 0.7s ease forwards;
-				flex: 1;
-				min-width: 0;
+				max-width: 46%;
+				pointer-events: auto;
+				transition: max-width 0.4s ease;
 			}
-			.hero-visual {
-				flex: 0 0 340px;
-				height: 340px;
-				animation: hero-in 0.7s ease 0.2s both;
+			.hero-main.full-width {
+				max-width: 100%;
 			}
-			.hero-visual canvas {
-				width: 100%;
-				height: 100%;
-				display: block;
+			.hero-text-block {
+				opacity: 0;
+				transform: translateY(28px);
 			}
-			.status-line {
-				display: flex;
+			.hero-text-block.visible {
+				opacity: 1;
+				transform: translateY(0);
+				transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+			}
+			.status-badge {
+				display: inline-flex;
 				align-items: center;
-				gap: 10px;
-				margin-bottom: 20px;
+				gap: 8px;
+				padding: 5px 14px;
+				border-radius: 2px;
+				border: 1px solid rgba(34,197,94,0.2);
+				background: rgba(34,197,94,0.05);
+				margin-bottom: 28px;
 			}
 			.status-dot {
-				width: 8px;
-				height: 8px;
+				width: 6px;
+				height: 6px;
 				border-radius: 50%;
-				background: var(--accent-primary);
+				background: #22c55e;
 				animation: pulse-dot 2.5s ease-in-out infinite;
 			}
 			.status-text {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--accent-primary);
-				font-weight: 500;
+				font-family: "Azeret Mono", monospace;
+				font-size: 11px;
+				color: #22c55e;
+				letter-spacing: 0.06em;
 			}
 			.hero h1 {
 				font-family: "Azeret Mono", monospace;
-				font-size: clamp(36px, 5vw, 56px);
+				font-size: clamp(38px, 5.5vw, 60px);
 				font-weight: 700;
 				color: var(--text-heading);
-				line-height: 1.1;
-				margin-bottom: 12px;
+				line-height: 1.05;
+				margin-bottom: 10px;
 			}
 			.hero .subtitle {
 				font-family: "Azeret Mono", monospace;
-				font-size: clamp(16px, 2.2vw, 22px);
+				font-size: clamp(15px, 2vw, 20px);
 				color: var(--accent-primary);
-				font-weight: 400;
-				margin-bottom: 16px;
-				line-height: 1.4;
+				font-weight: 500;
+				margin-bottom: 24px;
+				line-height: 1.35;
 			}
 			.hero .tagline {
 				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 17px;
+				font-size: 16px;
 				color: var(--text-primary);
-				max-width: 560px;
 				line-height: 1.7;
-				margin-bottom: 24px;
+				margin-bottom: 16px;
 				font-weight: 300;
 			}
 			.hero-stats-line {
 				font-family: "IBM Plex Sans", sans-serif;
 				font-size: 14px;
 				color: var(--text-muted);
-				line-height: 1.6;
-				margin-bottom: 28px;
+				line-height: 1.65;
+				font-weight: 300;
+				margin-bottom: 32px;
 			}
 			.hero-actions {
 				display: flex;
@@ -349,28 +349,93 @@
 				font-family: "IBM Plex Sans", sans-serif;
 				font-size: 13px;
 				color: var(--text-muted);
+				margin-left: 4px;
 			}
-			.stats-bar {
-				display: flex;
-				gap: 36px;
-				margin-top: 40px;
-				padding-top: 24px;
+			.hero-stats-bar {
+				margin-top: 56px;
+				padding-top: 28px;
 				border-top: 1px solid var(--border-default);
-				flex-wrap: wrap;
-				animation: hero-in 0.7s ease 0.3s both;
+				max-width: 46%;
+				pointer-events: auto;
+				display: flex;
+				gap: 32px;
+				flex-wrap: nowrap;
+				transition: max-width 0.4s ease;
+			}
+			.hero-stats-bar.full-width {
+				max-width: 100%;
+			}
+			.stat-item {
+				white-space: nowrap;
+				min-width: 90px;
 			}
 			.stat-num {
 				font-family: "Azeret Mono", monospace;
-				font-size: 24px;
+				font-size: 28px;
 				font-weight: 700;
 				color: var(--text-heading);
+				line-height: 1;
 			}
 			.stat-label {
 				font-family: "IBM Plex Sans", sans-serif;
+				font-size: 11px;
+				color: var(--text-muted);
+				margin-top: 6px;
+			}
+
+			/* ── Skill Popup ── */
+			.skill-popup-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 200;
+			}
+			.skill-popup {
+				position: fixed;
+				z-index: 201;
+				width: 260px;
+				background: rgba(10,14,22,0.95);
+				border-radius: 3px;
+				padding: 16px 18px;
+				backdrop-filter: blur(12px);
+			}
+			.skill-popup-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 12px;
+			}
+			.skill-popup-name {
+				font-family: "Azeret Mono", monospace;
+				font-size: 14px;
+				font-weight: 600;
+			}
+			.skill-popup-cat {
+				font-family: "Azeret Mono", monospace;
+				font-size: 9px;
+				letter-spacing: 0.1em;
+			}
+			.skill-popup-label {
+				font-family: "Azeret Mono", monospace;
+				font-size: 9px;
+				color: var(--text-muted);
+				letter-spacing: 0.1em;
+				margin-bottom: 8px;
+			}
+			.skill-popup-item {
+				font-family: "IBM Plex Sans", sans-serif;
+				font-size: 12.5px;
+				color: var(--text-primary);
+				padding: 5px 0;
+				font-weight: 300;
+			}
+			.skill-popup-item + .skill-popup-item {
+				border-top: 1px solid rgba(255,255,255,0.04);
+			}
+			.skill-popup-empty {
+				font-family: "IBM Plex Sans", sans-serif;
 				font-size: 12px;
 				color: var(--text-muted);
-				margin-top: 2px;
-				letter-spacing: 0.04em;
+				font-style: italic;
 			}
 
 			/* ── Stat tooltip ── */
@@ -1291,10 +1356,11 @@
 
 			/* ── Responsive ── */
 			@media (max-width: 768px) {
-				.hero-content {
-					flex-direction: column;
+				.hero-main,
+				.hero-stats-bar {
+					max-width: 100% !important;
 				}
-				.hero-visual {
+				.hero-hex-canvas {
 					display: none;
 				}
 				.profile-card {
@@ -1648,102 +1714,405 @@
 						closeImageModal();
 				});
 
-			// ─── Hero Node Graph Animation ──────────────────────────────────
-			function initHeroNodeGraph() {
-				const canvas = document.getElementById("heroCanvas");
+			// ─── Hero Hex Grid Skills Data ──────────────────────────────────
+			const HERO_SKILLS = [
+				{ label: "PyTorch", cat: 1, pri: 10, used: ["SAM3 - ML Researcher", "Carleton - Research Asst", "LeRobot SO-101", "M.A.Sc. Thesis"] },
+				{ label: "SLAM", cat: 1, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
+				{ label: "Comp Vision", cat: 1, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
+				{ label: "RAG", cat: 1, pri: 7, used: ["SAM3 - ML Researcher"] },
+				{ label: "Claude API", cat: 1, pri: 7, used: ["SAM3 - ML Researcher"] },
+				{ label: "Hugging Face", cat: 1, pri: 7, used: ["LeRobot SO-101"] },
+				{ label: "n8n", cat: 1, pri: 6, used: ["SAM3 - ML Researcher"] },
+				{ label: "TensorFlow", cat: 1, pri: 5, used: [] },
+				{ label: "scikit-learn", cat: 1, pri: 4, used: [] },
+				{ label: "Vec Search", cat: 1, pri: 3, used: [] },
+				{ label: "Prompt Eng", cat: 1, pri: 3, used: [] },
+				{ label: "OpenClaw", cat: 1, pri: 2, used: [] },
+				{ label: "Jetson", cat: 2, pri: 10, used: ["LeRobot SO-101"] },
+				{ label: "PCB", cat: 2, pri: 9, used: ["Smart Band", "Carleton - Research/TA"] },
+				{ label: "Drones", cat: 2, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
+				{ label: "IoT", cat: 2, pri: 8, used: ["SAM3 - ML Researcher", "Smart Band"] },
+				{ label: "Arduino", cat: 2, pri: 7, used: ["Smart Band", "Hydroponics System"] },
+				{ label: "ROS 2", cat: 2, pri: 7, used: ["M.A.Sc. Thesis"] },
+				{ label: "Isaac Sim", cat: 2, pri: 6, used: ["LeRobot SO-101"] },
+				{ label: "MCU", cat: 2, pri: 5, used: ["Smart Band"] },
+				{ label: "Circuits", cat: 2, pri: 4, used: ["Carleton - Research/TA"] },
+				{ label: "FPGA", cat: 2, pri: 3, used: [] },
+				{ label: "Gazebo", cat: 2, pri: 2, used: [] },
+				{ label: "AWS", cat: 3, pri: 9, used: ["Magnet Forensics - DevOps"] },
+				{ label: "Docker", cat: 3, pri: 8, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
+				{ label: "Linux", cat: 3, pri: 7, used: ["Magnet Forensics - DevOps"] },
+				{ label: "Jenkins", cat: 3, pri: 5, used: ["Magnet Forensics - DevOps"] },
+				{ label: "RabbitMQ", cat: 3, pri: 5, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
+				{ label: "React", cat: 4, pri: 8, used: ["Carleton - Research Asst", "LidarWorld", "M.A.Sc. Thesis"] },
+				{ label: "PostgreSQL", cat: 4, pri: 6, used: ["Speakeasy"] },
+				{ label: "Supabase", cat: 4, pri: 5, used: ["Speakeasy"] },
+				{ label: "Node.js", cat: 4, pri: 4, used: [] },
+				{ label: "Redux", cat: 4, pri: 2, used: [] },
+				{ label: "HTML/CSS", cat: 4, pri: 2, used: [] },
+				{ label: "Sass", cat: 4, pri: 1, used: [] },
+				{ label: "MongoDB", cat: 4, pri: 3, used: [] },
+				{ label: "Firebase", cat: 4, pri: 2, used: [] },
+				{ label: "Git", cat: 4, pri: 4, used: [] },
+				{ label: "Python", cat: 5, pri: 10, used: ["SAM3", "Carleton", "Magnet Forensics", "Telesat", "Speakeasy", "Algo Trading", "LeRobot SO-101"] },
+				{ label: "C/C++", cat: 5, pri: 8, used: ["Carleton - Research/TA", "Smart Band", "M.A.Sc. Thesis"] },
+				{ label: "TypeScript", cat: 5, pri: 7, used: ["LidarWorld", "Speakeasy"] },
+				{ label: "JavaScript", cat: 5, pri: 5, used: ["LidarWorld"] },
+				{ label: "Rust", cat: 5, pri: 3, used: [] },
+				{ label: "SQL", cat: 5, pri: 4, used: [] },
+			];
+
+			const HEX_CAT_COLORS = {
+				0: [0, 221, 192],
+				1: [90, 180, 255],
+				2: [245, 175, 50],
+				3: [120, 160, 220],
+				4: [110, 210, 160],
+				5: [170, 200, 140],
+				empty: [20, 30, 42],
+			};
+
+			const HEX_CAT_NAMES = { 1: "AI/ML", 2: "Hardware", 3: "Cloud", 4: "Web/DB", 5: "Languages" };
+
+			// ─── Hero Hex Grid Animation ────────────────────────────────────
+			function initHeroHexGrid() {
+				const canvas = document.getElementById("heroHexCanvas");
 				if (!canvas) return;
 				const ctx = canvas.getContext("2d");
-				let animId;
-				let t = 0;
+				let animId, t = 0;
+				let builtW = 0, builtH = 0;
+				const mouse = { x: -9999, y: -9999 };
+				let smx = -9999, smy = -9999;
+				const trail = [];
+				let frameCount = 0;
+				let hexPositions = [];
 
-				const nodes = [
-					{ x: 0.50, y: 0.10, label: "SLAM", r: 22 },
-					{ x: 0.15, y: 0.30, label: "CV", r: 18 },
-					{ x: 0.85, y: 0.22, label: "PyTorch", r: 20 },
-					{ x: 0.22, y: 0.58, label: "PCB", r: 17 },
-					{ x: 0.78, y: 0.52, label: "Jetson", r: 19 },
-					{ x: 0.50, y: 0.82, label: "Docker", r: 18 },
-					{ x: 0.10, y: 0.82, label: "AWS", r: 18 },
-					{ x: 0.90, y: 0.78, label: "React", r: 17 },
-					{ x: 0.50, y: 0.46, label: "TS", r: 26 },
-				];
+				const TRAIL_LEN = 150;
+				const BORDER_BASE = 0.15;
+				const DOT_MOD = 7;
+				const DOT_SIZE = 3.0;
+				const MIN_COLS = 5;
 
-				const edges = [
-					[8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 6], [8, 7],
-					[0, 1], [0, 2], [1, 3], [2, 4], [3, 6], [4, 7], [5, 6], [5, 7],
-				];
+				function hexPath(cx, cy, size) {
+					ctx.beginPath();
+					for (let i = 0; i < 6; i++) {
+						const a = Math.PI / 180 * (60 * i - 30);
+						const px = cx + size * Math.cos(a), py = cy + size * Math.sin(a);
+						i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+					}
+					ctx.closePath();
+				}
+
+				function buildGrid(w, h) {
+					const baseHex = 48;
+					const hSp = baseHex * 1.82;
+					const vSp = baseHex * 1.58;
+					const cols = Math.ceil(w / hSp) + 1;
+					const rows = Math.ceil(h / vSp) + 1;
+
+					const availWidth = w * 0.48;
+					const fittingCols = Math.floor(availWidth / hSp);
+					if (fittingCols < MIN_COLS) {
+						hexPositions = [];
+						builtW = w; builtH = h;
+						updateHeroLayout(false);
+						return;
+					}
+
+					const exL = 0.52, exT = 0.10, exB = 0.84;
+					const navBottom = 0.07;
+					const positions = [];
+					for (let r = 0; r < rows; r++) {
+						for (let c = 0; c < cols; c++) {
+							const cx = c * hSp + (r % 2 ? hSp * 0.5 : 0);
+							const cy = r * vSp + vSp * 0.5;
+							const nx = cx / w, ny = cy / h;
+							if (ny < navBottom) continue;
+							if (nx < exL && ny > exT && ny < exB) continue;
+							positions.push({ cx, cy, nx, ny, skill: null, baseR: baseHex });
+						}
+					}
+
+					let centerIdx = 0, minD = Infinity;
+					positions.forEach((p, i) => {
+						const d = Math.sqrt((p.nx - 0.62) ** 2 + (p.ny - 0.46) ** 2);
+						if (d < minD) { minD = d; centerIdx = i; }
+					});
+					positions[centerIdx].skill = { label: "TS", cat: 0, pri: 99, used: [] };
+					positions[centerIdx].isCenter = true;
+
+					const centerPos = positions[centerIdx];
+					const available = positions.filter((_, i) => i !== centerIdx);
+					available.sort((a, b) => {
+						const da = Math.sqrt((a.cx - centerPos.cx) ** 2 + (a.cy - centerPos.cy) ** 2);
+						const db = Math.sqrt((b.cx - centerPos.cx) ** 2 + (b.cy - centerPos.cy) ** 2);
+						return da - db;
+					});
+
+					const sorted = [...HERO_SKILLS].sort((a, b) => b.pri - a.pri);
+					const count = Math.min(sorted.length, available.length);
+					for (let i = 0; i < count; i++) {
+						available[i].skill = sorted[i];
+					}
+
+					hexPositions = positions;
+					builtW = w; builtH = h;
+					updateHeroLayout(true);
+				}
+
+				function updateHeroLayout(tilesVisible) {
+					const main = document.querySelector('.hero-main');
+					const statsBar = document.querySelector('.hero-stats-bar');
+					if (main) main.classList.toggle('full-width', !tilesVisible);
+					if (statsBar) statsBar.classList.toggle('full-width', !tilesVisible);
+				}
 
 				function resize() {
 					const dpr = window.devicePixelRatio || 1;
 					const rect = canvas.getBoundingClientRect();
+					if (rect.width < 10) return;
 					canvas.width = rect.width * dpr;
 					canvas.height = rect.height * dpr;
 					ctx.scale(dpr, dpr);
+					if (Math.abs(rect.width - builtW) > 30 || Math.abs(rect.height - builtH) > 30) {
+						buildGrid(rect.width, rect.height);
+					}
 				}
 
+				function onMouse(e) {
+					const r = canvas.getBoundingClientRect();
+					mouse.x = e.clientX - r.left;
+					mouse.y = e.clientY - r.top;
+				}
+				function onLeave() { mouse.x = -9999; mouse.y = -9999; }
+				function onClick(e) {
+					const r = canvas.getBoundingClientRect();
+					const mx = e.clientX - r.left, my = e.clientY - r.top;
+					let closest = null, minD = Infinity;
+					hexPositions.forEach(p => {
+						if (!p.skill || p.isCenter) return;
+						const d = Math.sqrt((mx - p.cx) ** 2 + (my - p.cy) ** 2);
+						if (d < p.baseR * 1.2 && d < minD) { minD = d; closest = p; }
+					});
+					if (closest) {
+						showSkillPopup(closest.skill, e.clientX, e.clientY);
+					}
+				}
+
+				canvas.addEventListener("mousemove", onMouse);
+				canvas.addEventListener("mouseleave", onLeave);
+				canvas.addEventListener("click", onClick);
 				resize();
+				setTimeout(resize, 100);
+				setTimeout(resize, 500);
 				window.addEventListener("resize", resize);
 
+				function getProx(px, py) {
+					const mActive = smx > -1000;
+					if (!mActive) return 0;
+					const spotR = 170;
+					const dCur = Math.sqrt((smx - px) ** 2 + (smy - py) ** 2);
+					let best = Math.max(0, 1 - dCur / spotR);
+					best = best * best;
+					for (let i = trail.length - 1; i >= 0; i--) {
+						const age = (trail.length - 1 - i) / TRAIL_LEN;
+						const decay = (1 - age) * 0.55;
+						const d = Math.sqrt((trail[i].x - px) ** 2 + (trail[i].y - py) ** 2);
+						let p = Math.max(0, 1 - d / spotR);
+						p = p * p * decay;
+						if (p > best) best = p;
+					}
+					return best;
+				}
+
 				function draw() {
-					t += 0.003;
-					const w = canvas.getBoundingClientRect().width;
-					const h = canvas.getBoundingClientRect().height;
+					t += 0.004;
+					frameCount++;
+					const rect = canvas.getBoundingClientRect();
+					const w = rect.width, h = rect.height;
+					if (w < 10 || h < 10) { animId = requestAnimationFrame(draw); return; }
+
 					ctx.clearRect(0, 0, w, h);
+					if (hexPositions.length === 0) { animId = requestAnimationFrame(draw); return; }
 
-					const pts = nodes.map((n, i) => ({
-						x: n.x * w + Math.sin(t + i * 0.8) * 7,
-						y: n.y * h + Math.cos(t + i * 0.6) * 6,
-						label: n.label,
-						r: n.r,
-					}));
+					const mx = mouse.x, my = mouse.y;
+					smx += (mx - smx) * 0.12; smy += (my - smy) * 0.12;
+					const mActive = smx > -1000;
+					const spotR = 170;
 
-					edges.forEach(([a, b]) => {
-						const pa = pts[a], pb = pts[b];
-						ctx.beginPath();
-						ctx.moveTo(pa.x, pa.y);
-						ctx.lineTo(pb.x, pb.y);
-						ctx.strokeStyle = "rgba(0,221,192,0.07)";
-						ctx.lineWidth = 1;
-						ctx.stroke();
+					if (mActive && frameCount % 2 === 0) {
+						trail.push({ x: smx, y: smy });
+						if (trail.length > TRAIL_LEN) trail.shift();
+					}
+					if (!mActive) { trail.length = 0; }
 
-						const pulse = (t * 0.35 + a * 0.15) % 1;
-						const px = pa.x + (pb.x - pa.x) * pulse;
-						const py = pa.y + (pb.y - pa.y) * pulse;
-						ctx.beginPath();
-						ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-						ctx.fillStyle = "rgba(0,221,192,0.22)";
-						ctx.fill();
+					// Pass 1: Edges with traveling dots
+					hexPositions.forEach((a, ai) => {
+						if (!a.skill) return;
+						hexPositions.forEach((b, bi) => {
+							if (bi <= ai || !b.skill) return;
+							const dx = a.cx - b.cx, dy = a.cy - b.cy;
+							const dist = Math.sqrt(dx * dx + dy * dy);
+							if (dist > a.baseR * 3.8) return;
+
+							let eProx = Math.max(getProx(a.cx, a.cy), getProx(b.cx, b.cy));
+							if (eProx < 0.005) return;
+
+							ctx.beginPath(); ctx.moveTo(a.cx, a.cy); ctx.lineTo(b.cx, b.cy);
+							ctx.strokeStyle = "rgba(0,221,192," + (eProx * 0.12).toFixed(4) + ")";
+							ctx.lineWidth = eProx > 0.1 ? 1.2 : 0.4;
+							ctx.stroke();
+
+							const bothLit = Math.min(getProx(a.cx, a.cy), getProx(b.cx, b.cy));
+							if (bothLit > 0.08 && (ai + bi) % DOT_MOD === 0) {
+								const pulse = (t * 0.3 + ai * 0.1) % 1;
+								const px = a.cx + (b.cx - a.cx) * pulse;
+								const py = a.cy + (b.cy - a.cy) * pulse;
+								const dToA = Math.sqrt((px - a.cx) ** 2 + (py - a.cy) ** 2);
+								const dToB = Math.sqrt((px - b.cx) ** 2 + (py - b.cy) ** 2);
+								const nearCat = dToA < dToB ? a.skill.cat : b.skill.cat;
+								const dc = HEX_CAT_COLORS[nearCat] || HEX_CAT_COLORS[0];
+								ctx.beginPath();
+								ctx.arc(px, py, DOT_SIZE, 0, Math.PI * 2);
+								ctx.fillStyle = "rgba(" + dc[0] + "," + dc[1] + "," + dc[2] + "," + (bothLit * 0.4).toFixed(4) + ")";
+								ctx.fill();
+							}
+						});
 					});
 
-					pts.forEach((p, i) => {
-						const isCenter = i === 8;
-						const glow = Math.sin(t * 2 + i) * 0.15 + 0.85;
+					// Pass 2: Hexes
+					hexPositions.forEach(hex => {
+						const isEmpty = !hex.skill;
+						const isCenter = hex.isCenter;
+						const sk = hex.skill;
+						const c = isEmpty ? HEX_CAT_COLORS.empty : HEX_CAT_COLORS[sk.cat];
+						const hr = hex.baseR;
+						const prox = isEmpty ? 0 : getProx(hex.cx, hex.cy);
+						const breathe = Math.sin(t * 1.2 + hex.cx * 0.003 + hex.cy * 0.005) * 0.06 + 0.94;
 
-						ctx.beginPath();
-						ctx.arc(p.x, p.y, p.r + 5, 0, Math.PI * 2);
-						ctx.strokeStyle = "rgba(0,221,192," + (isCenter ? 0.12 * glow : 0.05 * glow) + ")";
-						ctx.lineWidth = 1;
-						ctx.stroke();
+						// Bloom glow
+						if (prox > 0.03 && !isEmpty) {
+							const glR = hr * 3.5;
+							const grd = ctx.createRadialGradient(hex.cx, hex.cy, 0, hex.cx, hex.cy, glR);
+							grd.addColorStop(0, "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.2).toFixed(4) + ")");
+							grd.addColorStop(0.3, "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.05).toFixed(4) + ")");
+							grd.addColorStop(1, "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0)");
+							ctx.fillStyle = grd;
+							ctx.beginPath(); ctx.arc(hex.cx, hex.cy, glR, 0, Math.PI * 2); ctx.fill();
+							if (prox > 0.08) {
+								hexPath(hex.cx, hex.cy, hr + 7);
+								ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.4).toFixed(4) + ")";
+								ctx.lineWidth = 1.5; ctx.stroke();
+							}
+						}
 
-						ctx.beginPath();
-						ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-						ctx.fillStyle = isCenter ? "rgba(0,221,192,0.07)" : "rgba(0,221,192,0.025)";
+						// Hex fill
+						hexPath(hex.cx, hex.cy, hr);
+						let fillA = isEmpty ? 0 : (isCenter
+							? (0.005 + prox * 0.22) * breathe
+							: (0.0 + prox * 0.16) * breathe);
+						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + fillA.toFixed(4) + ")";
 						ctx.fill();
-						ctx.strokeStyle = "rgba(0,221,192," + (isCenter ? 0.28 : 0.10) + ")";
-						ctx.lineWidth = isCenter ? 1.5 : 1;
+
+						// Border
+						let borderA;
+						if (isEmpty) {
+							borderA = BORDER_BASE * 0.55;
+						} else if (isCenter) {
+							borderA = (BORDER_BASE * 1.3 + prox * 0.60) * breathe;
+						} else {
+							borderA = (BORDER_BASE + prox * 0.50) * breathe;
+						}
+						ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + borderA.toFixed(4) + ")";
+						ctx.lineWidth = isCenter ? 2 : (prox > 0.1 ? 2 : 0.8);
 						ctx.stroke();
 
-						ctx.font = (isCenter ? 11 : 9) + "px 'Azeret Mono', monospace";
-						ctx.fillStyle = "rgba(0,221,192," + (isCenter ? 0.65 : 0.38) + ")";
-						ctx.textAlign = "center";
-						ctx.textBaseline = "middle";
-						ctx.fillText(p.label, p.x, p.y);
+						// Label
+						if (sk && !isEmpty) {
+							let textA = isCenter ? 0.02 + prox * 0.90 : 0.0 + prox * 0.95;
+							if (textA > 0.01) {
+								const fs = isCenter ? 15 : 11;
+								ctx.font = (isCenter ? "700 " : "500 ") + fs + "px 'Azeret Mono', monospace";
+								ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + Math.min(textA, 1).toFixed(4) + ")";
+								ctx.textAlign = "center"; ctx.textBaseline = "middle";
+								ctx.fillText(sk.label, hex.cx, hex.cy);
+							}
+						}
 					});
+
+					// Legend
+					const lgX = 20, lgY = h - 22;
+					ctx.font = "500 11px 'Azeret Mono', monospace";
+					let lx = lgX;
+					[
+						{ l: "AI/ML", cat: 1 }, { l: "Hardware", cat: 2 },
+						{ l: "Cloud", cat: 3 }, { l: "Web/DB", cat: 4 }, { l: "Languages", cat: 5 },
+					].forEach(item => {
+						const c = HEX_CAT_COLORS[item.cat];
+						ctx.beginPath(); ctx.arc(lx, lgY, 4.5, 0, Math.PI * 2);
+						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0.6)"; ctx.fill();
+						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0.5)";
+						ctx.textAlign = "left"; ctx.textBaseline = "middle";
+						ctx.fillText(item.l, lx + 9, lgY);
+						lx += ctx.measureText(item.l).width + 30;
+					});
+
+					ctx.font = "400 9px 'Azeret Mono', monospace";
+					ctx.fillStyle = "rgba(81,91,107,0.35)";
+					ctx.textAlign = "right";
+					ctx.fillText("hover to explore \u00b7 click for details", w - 16, lgY);
 
 					animId = requestAnimationFrame(draw);
 				}
-
 				draw();
+			}
+
+			// ─── Skill Popup ────────────────────────────────────────────────
+			function showSkillPopup(skill, x, y) {
+				closeSkillPopup();
+				const c = HEX_CAT_COLORS[skill.cat];
+				const catName = HEX_CAT_NAMES[skill.cat] || "";
+				const rgb = c[0] + "," + c[1] + "," + c[2];
+				const left = Math.min(x + 12, window.innerWidth - 280);
+				const top = Math.min(y - 20, window.innerHeight - 200);
+
+				let usedHtml;
+				if (skill.used && skill.used.length > 0) {
+					usedHtml = '<div class="skill-popup-label">USED AT</div>' +
+						skill.used.map(u => '<div class="skill-popup-item">' + u + '</div>').join('');
+				} else {
+					usedHtml = '<div class="skill-popup-empty">Skill in toolkit</div>';
+				}
+
+				const overlay = document.createElement('div');
+				overlay.className = 'skill-popup-overlay';
+				overlay.id = 'skillPopupOverlay';
+				overlay.onclick = closeSkillPopup;
+
+				const popup = document.createElement('div');
+				popup.className = 'skill-popup';
+				popup.id = 'skillPopup';
+				popup.style.left = left + 'px';
+				popup.style.top = top + 'px';
+				popup.style.border = '1px solid rgba(' + rgb + ',0.25)';
+				popup.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(' + rgb + ',0.06)';
+				popup.innerHTML = '<div class="skill-popup-header">' +
+					'<span class="skill-popup-name" style="color:rgba(' + rgb + ',0.9)">' + skill.label + '</span>' +
+					'<span class="skill-popup-cat" style="color:rgba(' + rgb + ',0.4)">' + catName + '</span>' +
+					'</div>' + usedHtml;
+
+				document.body.appendChild(overlay);
+				document.body.appendChild(popup);
+
+				function onEsc(e) { if (e.key === 'Escape') { closeSkillPopup(); window.removeEventListener('keydown', onEsc); } }
+				window.addEventListener('keydown', onEsc);
+			}
+
+			function closeSkillPopup() {
+				const overlay = document.getElementById('skillPopupOverlay');
+				const popup = document.getElementById('skillPopup');
+				if (overlay) overlay.remove();
+				if (popup) popup.remove();
 			}
 
 			// ─── Render Hero ────────────────────────────────────────────────
@@ -1758,9 +2127,6 @@
 					(proj) => proj.current,
 				);
 				const projectCount = activeProjects.length;
-				const projectNames = activeProjects
-					.map((p) => p.title)
-					.join("<br>");
 
 				const experiences = portfolioData.experience;
 				const earliest = experiences.reduce((min, exp) => {
@@ -1773,29 +2139,62 @@
 				const awsCerts = portfolioData.certifications.filter(c => c.organization.includes("AWS")).length;
 
 				document.getElementById("hero").innerHTML = `
-					<div class="dot-grid"></div>
+					<canvas class="hero-hex-canvas" id="heroHexCanvas"></canvas>
 					<div class="hero-content">
 						<div class="hero-main">
-							<div class="status-line">
-								<div class="status-dot"></div>
-								<span class="status-text">Building robots at ${currentJob ? currentJob.company : "work"}</span>
+							<div class="hero-text-block" style="transition-delay: 0ms">
+								<div class="status-badge">
+									<span class="status-dot"></span>
+									<span class="status-text">Building robots at ${currentJob ? currentJob.company : "work"}</span>
+								</div>
 							</div>
-							<h1>${p.name}</h1>
-							<p class="subtitle">${p.headline}</p>
-							<p class="tagline">${p.tagline || p.about[0]}</p>
-							<p class="hero-stats-line">${pubCount} IEEE publications · ${awsCerts} AWS certifications · Training imitation learning policies on a Jetson Orin Nano.</p>
-							<div class="hero-actions">
-								<a href="#contact" onclick="event.preventDefault(); scrollToSection('contact');" class="btn-primary">Get in touch</a>
-								<a href="${p.links.github}" target="_blank" class="btn-outline">GitHub</a>
-								<span class="hero-location">${p.location} · Willing to relocate</span>
+							<div class="hero-text-block" style="transition-delay: 100ms">
+								<h1>${p.name}</h1>
+							</div>
+							<div class="hero-text-block" style="transition-delay: 200ms">
+								<p class="subtitle">${p.headline}</p>
+							</div>
+							<div class="hero-text-block" style="transition-delay: 300ms">
+								<p class="tagline">${p.tagline || p.about[0]}</p>
+								<p class="hero-stats-line">${pubCount} IEEE publications · ${awsCerts} AWS certifications · Training imitation learning policies on a Jetson Orin Nano.</p>
+							</div>
+							<div class="hero-text-block" style="transition-delay: 400ms">
+								<div class="hero-actions">
+									<a href="#contact" onclick="event.preventDefault(); scrollToSection('contact');" class="btn-primary">Get in touch</a>
+									<a href="${p.links.github}" target="_blank" class="btn-outline">GitHub</a>
+									<span class="hero-location">${p.location}</span>
+								</div>
 							</div>
 						</div>
-						<div class="hero-visual">
-							<canvas id="heroCanvas"></canvas>
+						<div class="hero-text-block" style="transition-delay: 550ms">
+							<div class="hero-stats-bar">
+								<div class="stat-item">
+									<div class="stat-num">${pubCount}</div>
+									<div class="stat-label">Publications</div>
+								</div>
+								<div class="stat-item">
+									<div class="stat-num">${certCount}</div>
+									<div class="stat-label">Certs</div>
+								</div>
+								<div class="stat-item">
+									<div class="stat-num">${years}+</div>
+									<div class="stat-label">Yrs Eng.</div>
+								</div>
+								<div class="stat-item">
+									<div class="stat-num">${projectCount}</div>
+									<div class="stat-label">Projects</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				`;
-				initHeroNodeGraph();
+
+				// Trigger staggered entrance animation
+				setTimeout(() => {
+					document.querySelectorAll('.hero-text-block').forEach(el => el.classList.add('visible'));
+				}, 150);
+
+				initHeroHexGrid();
 			}
 
 			// ─── Render About ───────────────────────────────────────────────

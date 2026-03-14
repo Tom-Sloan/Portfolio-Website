@@ -614,6 +614,16 @@ const portfolioData = {
 
 	certifications: [
 		{
+			name: "Small Remotely Piloted Aircraft (VLOS) – Basic Operations",
+			organization: "Transport Canada",
+			issueDate: "March 2026",
+			expirationDate: null,
+			description:
+				"Pilot certificate for basic operations of small remotely piloted aircraft systems within visual line-of-sight",
+			credentialUrl: null,
+			badgeImage: "images/certifications/transport-canada-rpas.png",
+		},
+		{
 			name: "AWS Certified Machine Learning Engineer – Associate",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "November 2025",

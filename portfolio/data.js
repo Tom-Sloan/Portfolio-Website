@@ -5,7 +5,8 @@ const portfolioData = {
 	profile: {
 		name: "Tom Sloan",
 		headline: "Applied AI Engineer",
-		tagline: "I design hardware, train models, and ship the software that connects them. Right now I'm teaching a robotic arm to pick things up by watching me do it first.",
+		tagline:
+			"I design hardware, train models, and ship the software that connects them. Right now I'm teaching a robotic arm to pick things up by watching me do it first.",
 		location: "Ottawa, Ontario, Canada",
 		image: "images/profile/tom-sloan-profile.png",
 		about: [
@@ -297,7 +298,8 @@ const portfolioData = {
 		},
 		{
 			title: "drone-ai",
-			subtitle: "Autonomous Drone Flight via Visual SLAM & Learned Motion Estimation",
+			subtitle:
+				"Autonomous Drone Flight via Visual SLAM & Learned Motion Estimation",
 			description:
 				"Full-stack autonomous drone system built on ROS 2 Humble that flies GPS-free indoors using monocular visual SLAM and a SegNeXt neural network that extracts 6-DOF velocity from camera motion blur — replacing traditional IMU hardware entirely (image-as-an-IMU, ICCV 2025). Runs 10 containerized ROS 2 packages on a Jetson Orin Nano 8GB controlling a 17g BetaFPV Air65 via 250 Hz ExpressLRS radio. Custom ORB visual odometry with loop closure feeds into an Extended Kalman Filter fusing 15-25 Hz SLAM poses with 5-10 Hz learned velocity at 50 Hz output. 4-axis PID controller with ArUco metric scale estimation, geofence safety system, and optional LLM-powered autonomous flight via DimOS + Claude API. Supports distributed GPU offload over Tailscale VPN to a remote RTX 3090.",
 			startDate: "October 2025",
@@ -563,6 +565,7 @@ const portfolioData = {
 			link: null,
 			featured: false,
 		},
+
 		{
 			title: "Reddit Client",
 			subtitle: "Codecademy Full Stack Web Developer Portfolio Project",
@@ -696,8 +699,7 @@ const portfolioData = {
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "May 2022",
 			expirationDate: "May 2025",
-			description:
-				"Covers deployment, management, and operations on AWS",
+			description: "Covers deployment, management, and operations on AWS",
 			credentialUrl: "https://www.credly.com/badges/",
 			badgeImage: "images/certifications/aws-sysops-administrator.png",
 		},
@@ -767,7 +769,10 @@ const portfolioData = {
 		"LLM & Agents": [
 			{ name: "RAG Pipelines", icon: "images/skills/rag.png" },
 			{ name: "Vector Search", icon: "images/skills/vector-search.png" },
-			{ name: "Prompt Engineering", icon: "images/skills/prompt-engineering.png" },
+			{
+				name: "Prompt Engineering",
+				icon: "images/skills/prompt-engineering.png",
+			},
 			{ name: "Claude API", icon: "images/skills/claude.png" },
 			{ name: "OpenClaw", icon: "images/skills/openclaw.png" },
 			{ name: "n8n", icon: "images/skills/n8n.png" },
@@ -930,8 +935,7 @@ const portfolioData = {
 	resume: {
 		path: "resume/Tom_Sloan_CV_Feb_2026.pdf",
 		title: "Tom Sloan - Resume",
-		description:
-			"Download my full resume.",
+		description: "Download my full resume.",
 	},
 };
 

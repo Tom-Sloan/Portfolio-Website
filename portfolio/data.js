@@ -468,7 +468,7 @@ const portfolioData = {
 			title: "LidarWorld",
 			subtitle: "Interactive 3D LiDAR Sensor Simulation",
 			description:
-				"Interactive 3D LiDAR sensor simulation built with React Three Fiber and Three.js. Rooms are procedurally generated with randomized geometry and furniture. Sensors cast rays in real time to show detection coverage, and you can configure sensor types, adjust positioning, and rotate the view 360 degrees. Uses a grid-based spatial analysis system for coverage evaluation and a Leva control panel for tweaking parameters on the fly. ",
+				"Interactive 3D LiDAR sensor simulation built with React Three Fiber and Three.js. Rooms are procedurally generated with randomized geometry and furniture. Sensors cast rays in real time to show detection coverage, and you can configure sensor types, adjust positioning, and rotate the view 360 degrees. Uses a grid-based spatial analysis system for coverage evaluation and a Leva control panel for tweaking parameters on the fly.",
 			startDate: "December 2023",
 			endDate: "November 2025",
 			current: false,

@@ -14,7 +14,7 @@ I finished my MASc at Carleton, where I built a drone-based indoor mapping syste
 
 Before NRC, I worked on multi-sensor health monitoring at SAM3, using thermal cameras, pressure mats and IoT sensor nodes, and on PCB sensor arrays at Carleton. I also did DevOps at Magnet Forensics, where I moved build infrastructure to AWS, and built satellite spectrum analysis tooling at Telesat.
 
-On my own time, I build AI-native. I use coding agents throughout research, design, implementation, testing and review, and I often run several in parallel to explore different approaches and check each other's work. I set the direction and verify the results against real hardware. Current projects include a 6-DOF robot arm trained with imitation learning in NVIDIA Isaac Sim, PixelBar, and Crier, an iOS app that turns written content into audio.
+On my own time, I build AI-native. I use coding agents throughout research, design, implementation, testing and review, and I often run several in parallel to explore different approaches and check each other's work. I set the direction and verify the results against real hardware. Current projects include a 6-DOF robot arm trained with imitation learning in NVIDIA Isaac Sim and Crier, an iOS app that turns written content into audio.
 
 ## Education
 

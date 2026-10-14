@@ -13,7 +13,7 @@ const portfolioData = {
 			"I integrate sensors into autonomous systems and build the software that makes their data usable. I'm a Payload Sensor Specialist at the National Research Council Canada's Aerospace Research Centre, where I integrate and test sensor payloads on NRC aircraft, including drones, as the Centre expands into full-scale aircraft autonomy.",
 			"I finished my MASc at Carleton, where I built a drone-based indoor mapping system. I calibrated and flight-tested the camera payload on a DJI Mini 3, designed a Docker and RabbitMQ pipeline that synchronizes sensor data and streams it to the cloud for 3D reconstruction, and benchmarked neural SLAM against visual-inertial methods, reaching 6.61 cm RMSE at 21 FPS on the Replica benchmark. The work led to three IEEE papers: ICCE 2026, I2MTC 2025 and SAS 2025. I also graduated with distinction from Carleton's Computer Systems Engineering program.",
 			"Before NRC, I worked on multi-sensor health monitoring at SAM3, using thermal cameras, pressure mats and IoT sensor nodes, and on PCB sensor arrays at Carleton. I also did DevOps at Magnet Forensics, where I moved build infrastructure to AWS, and built satellite spectrum analysis tooling at Telesat.",
-			"On my own time, I build AI-native. I use coding agents throughout research, design, implementation, testing and review, and I often run several in parallel to explore different approaches and check each other's work. I set the direction and verify the results against real hardware. Current projects include a 6-DOF robot arm trained with imitation learning in NVIDIA Isaac Sim, PixelBar, and Crier, an iOS app that turns written content into audio.",
+			"On my own time, I build AI-native. I use coding agents throughout research, design, implementation, testing and review, and I often run several in parallel to explore different approaches and check each other's work. I set the direction and verify the results against real hardware. Current projects include a 6-DOF robot arm trained with imitation learning in NVIDIA Isaac Sim and Crier, an iOS app that turns written content into audio.",
 			"My tools are Python, C/C++, MATLAB, ROS 2, OpenCV, PyTorch, Docker and AWS (Certified Machine Learning Engineer). I'm also a Transport Canada-certified RPAS pilot.",
 		],
 		links: {
@@ -301,19 +301,6 @@ const portfolioData = {
 			],
 			image: null,
 			link: "https://github.com/Tom-Sloan/llm-research-workflows",
-			featured: true,
-		},
-		{
-			title: "PixelBar",
-			subtitle: "Computer Vision Gaming Peripheral",
-			description: "",
-			startDate: "February 2026",
-			endDate: "Present",
-			current: true,
-			category: [{ tag: "In Progress", color: "#22c55e" }],
-			technologies: [],
-			image: [],
-			link: null,
 			featured: true,
 		},
 		{

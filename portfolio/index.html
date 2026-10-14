@@ -514,7 +514,9 @@
 			}
 			.portrait img {
 				position: relative;
+				display: block;
 				width: 100%;
+				height: auto;
 				aspect-ratio: 4 / 5;
 				object-fit: cover;
 				object-position: center 20%;
@@ -561,8 +563,8 @@
 				}
 				.portrait {
 					order: -1;
-					justify-self: start;
-					width: 132px;
+					justify-self: center;
+					width: min(100%, 220px);
 				}
 				.portrait::before {
 					inset: 8px -8px -8px 8px;
@@ -570,7 +572,8 @@
 				}
 				.portrait img {
 					border-radius: 22px;
-					aspect-ratio: 1;
+					aspect-ratio: 4 / 5;
+					object-position: center 15%;
 				}
 				.stats {
 					grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1390,14 +1393,14 @@
 			}
 
 			/* ── Reveal ── */
-			.js .reveal {
+			.reveal.pending {
 				opacity: 0;
 				transform: translateY(16px);
 				transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
 					transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 				transition-delay: var(--d, 0ms);
 			}
-			.js .reveal.in {
+			.reveal.pending.in {
 				opacity: 1;
 				transform: none;
 			}
@@ -1437,9 +1440,16 @@
 					transition-duration: 0.001ms !important;
 					transition-delay: 0ms !important;
 				}
-				.js .reveal {
+				.reveal.pending {
 					opacity: 1;
 					transform: none;
+				}
+			}
+			@media print {
+				.reveal.pending {
+					opacity: 1;
+					transform: none;
+					transition: none;
 				}
 			}
 		</style>
@@ -1639,6 +1649,16 @@
 			}
 
 			// ── about ──
+			// The hero already shows the tagline, so drop its opening sentence from the first About paragraph.
+			function aboutParas(p) {
+				const first = ((p.tagline || "").match(/^.+?[.!?](?=\s|$)/) || [""])[0];
+				const [lead, ...rest] = p.about;
+				if (first && lead && lead.startsWith(first)) {
+					const trimmed = lead.slice(first.length).trim();
+					return trimmed ? [trimmed, ...rest] : rest;
+				}
+				return p.about;
+			}
 			function renderAbout() {
 				const p = D.profile;
 				const now = D.experience.find((e) => e.current);
@@ -1646,7 +1666,7 @@
 				$("aboutInner").innerHTML = `
 					${head("About", "Sensors, autonomy and the software around them")}
 					<div class="about-grid">
-						<div class="prose reveal">${p.about.map((t) => `<p>${esc(t)}</p>`).join("")}</div>
+						<div class="prose reveal">${aboutParas(p).map((t) => `<p>${esc(t)}</p>`).join("")}</div>
 						<aside class="aside-card reveal" style="--d:100ms">
 							<h3>At a glance</h3>
 							<ul class="facts">
@@ -2044,17 +2064,43 @@
 
 			// ── reveal on scroll ──
 			function setupReveal() {
-				const els = document.querySelectorAll(".reveal");
+				const els = [...document.querySelectorAll(".reveal")];
+				const show = (el) => el.classList.add("in");
+				const showAll = () => els.forEach(show);
+				window.addEventListener("beforeprint", showAll);
 				if (reduceMotion || !("IntersectionObserver" in window)) {
-					els.forEach((el) => el.classList.add("in"));
+					showAll();
 					return;
 				}
-				const io = new IntersectionObserver((entries) => {
-					entries.forEach((en) => {
-						if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
-					});
-				}, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
-				els.forEach((el) => io.observe(el));
+				try {
+					const io = new IntersectionObserver((entries) => {
+						entries.forEach((en) => {
+							if (en.isIntersecting) { show(en.target); io.unobserve(en.target); }
+						});
+					}, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
+					els.forEach((el) => io.observe(el));
+					// Only elements confirmed below the fold start hidden.
+					const vh = window.innerHeight;
+					els.filter((el) => el.getBoundingClientRect().top > vh).forEach((el) => el.classList.add("pending"));
+
+					// Safety nets: show anything whose top is above the viewport bottom, and everything after load + 1.5s.
+					let queued = false;
+					const sweep = () => {
+						queued = false;
+						const h = window.innerHeight;
+						els.forEach((el) => {
+							if (!el.classList.contains("in") && el.getBoundingClientRect().top < h) show(el);
+						});
+					};
+					window.addEventListener("scroll", () => {
+						if (!queued) { queued = true; requestAnimationFrame(sweep); }
+					}, { passive: true });
+					const fallback = () => setTimeout(showAll, 1500);
+					if (document.readyState === "complete") fallback();
+					else window.addEventListener("load", fallback, { once: true });
+				} catch (err) {
+					showAll();
+				}
 			}
 
 			// ── init ──

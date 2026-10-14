@@ -2,2976 +2,2083 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title id="page-title">Tom Sloan - Portfolio</title>
 		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
+			name="description"
+			content="Tom Sloan: Payload Sensor Specialist at NRC Aerospace. Sensors, autonomous systems, robotics and applied AI."
 		/>
-		<title id="page-title">Portfolio</title>
+		<meta name="color-scheme" content="dark light" />
 
-		<!-- Favicons -->
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="48x48"
-			href="favicon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="favicon.ico"
-		/>
-		<link
-			rel="shortcut icon"
-			href="favicon.ico"
-		/>
-		<link
-			rel="mask-icon"
-			href="safari-pinned-tab.svg"
-			color="#00DDC0"
-		/>
+		<link rel="icon" type="image/png" sizes="48x48" href="favicon.png" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#00DDC0" />
 
-		<!-- Preload critical resources -->
-		<link
-			rel="preload"
-			href="data.js"
-			as="script"
-		/>
-		<link
-			rel="preload"
-			href="images/profile/tom-sloan-profile.png"
-			as="image"
-		/>
+		<link rel="preload" href="data.js" as="script" />
 
-		<!-- Fonts -->
-		<link
-			rel="preconnect"
-			href="https://fonts.googleapis.com"
-		/>
-		<link
-			rel="preconnect"
-			href="https://fonts.gstatic.com"
-			crossorigin
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap&font-display=swap"
-			rel="stylesheet"
-		/>
+		<!-- Apply saved theme before first paint -->
+		<script>
+			try {
+				var t = localStorage.getItem("theme");
+				if (t === "light" || t === "dark")
+					document.documentElement.setAttribute("data-theme", t);
+			} catch (e) {}
+		</script>
 
 		<style>
 			:root {
-				--bg-primary: #080c14;
-				--bg-surface: #111827;
-				--bg-elevated: #1e2a3a;
-				--accent-primary: #00ddc0;
-				--accent-secondary: #f0a500;
-				--text-primary: #d1d5db;
-				--text-heading: #f1f5f9;
-				--text-muted: #9ca3af;
-				--border-default: rgba(0, 221, 192, 0.1);
-				--border-hover: rgba(0, 221, 192, 0.35);
+				color-scheme: dark;
+				--bg: #0a0d13;
+				--bg-soft: #0f131b;
+				--surface: #131822;
+				--surface-2: #1a2130;
+				--line: rgba(255, 255, 255, 0.08);
+				--line-strong: rgba(255, 255, 255, 0.16);
+				--text: #c9d1de;
+				--heading: #f4f6fa;
+				--muted: #8b95a7;
+				--accent: #2dd4bf;
+				--accent-ink: #04211d;
+				--accent-soft: rgba(45, 212, 191, 0.12);
+				--warm: #f5b544;
+				--ok: #4ade80;
+				--shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.28);
+				--nav-bg: rgba(10, 13, 19, 0.78);
+				--glow-a: rgba(45, 212, 191, 0.14);
+				--glow-b: rgba(99, 102, 241, 0.12);
+
+				--sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+					"Helvetica Neue", Arial, "Noto Sans", sans-serif;
+				--mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+					"Liberation Mono", monospace;
+
+				--fs-0: 0.8125rem;
+				--fs-1: 0.9375rem;
+				--fs-2: 1.0625rem;
+				--fs-3: 1.25rem;
+				--fs-4: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+				--fs-5: clamp(2.25rem, 1.4rem + 3.6vw, 4rem);
+				--radius: 14px;
+				--wrap: 1120px;
+			}
+			@media (prefers-color-scheme: light) {
+				:root:not([data-theme="dark"]) {
+					color-scheme: light;
+					--bg: #fafaf8;
+					--bg-soft: #f2f2ee;
+					--surface: #ffffff;
+					--surface-2: #f4f5f7;
+					--line: rgba(15, 23, 42, 0.1);
+					--line-strong: rgba(15, 23, 42, 0.2);
+					--text: #364152;
+					--heading: #0b1220;
+					--muted: #5d6879;
+					--accent: #0b7d70;
+					--accent-ink: #ffffff;
+					--accent-soft: rgba(11, 125, 112, 0.1);
+					--warm: #a86400;
+					--ok: #15803d;
+					--shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
+					--nav-bg: rgba(250, 250, 248, 0.82);
+					--glow-a: rgba(11, 125, 112, 0.12);
+					--glow-b: rgba(99, 102, 241, 0.1);
+				}
+			}
+			:root[data-theme="light"] {
+				color-scheme: light;
+				--bg: #fafaf8;
+				--bg-soft: #f2f2ee;
+				--surface: #ffffff;
+				--surface-2: #f4f5f7;
+				--line: rgba(15, 23, 42, 0.1);
+				--line-strong: rgba(15, 23, 42, 0.2);
+				--text: #364152;
+				--heading: #0b1220;
+				--muted: #5d6879;
+				--accent: #0b7d70;
+				--accent-ink: #ffffff;
+				--accent-soft: rgba(11, 125, 112, 0.1);
+				--warm: #a86400;
+				--ok: #15803d;
+				--shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.08);
+				--nav-bg: rgba(250, 250, 248, 0.82);
+				--glow-a: rgba(11, 125, 112, 0.12);
+				--glow-b: rgba(99, 102, 241, 0.1);
 			}
 
 			*,
 			*::before,
 			*::after {
 				box-sizing: border-box;
+			}
+			* {
 				margin: 0;
-				padding: 0;
 			}
 			html {
 				scroll-behavior: smooth;
-				scroll-padding-top: 70px;
+				scroll-padding-top: 72px;
+				-webkit-text-size-adjust: 100%;
 			}
 			body {
-				background: var(--bg-primary);
-				color: var(--text-primary);
-				font-family: "IBM Plex Sans", sans-serif;
+				background: var(--bg);
+				color: var(--text);
+				font-family: var(--sans);
+				font-size: var(--fs-1);
+				line-height: 1.65;
 				-webkit-font-smoothing: antialiased;
-				font-size: 14px;
-				line-height: 1.5;
+				overflow-x: hidden;
 			}
-			::selection {
-				background: rgba(0, 221, 192, 0.2);
-				color: var(--text-heading);
-			}
-			a:focus-visible,
-			button:focus-visible {
-				outline: 2px solid var(--accent-primary);
-				outline-offset: 2px;
-			}
-
-			@keyframes pulse-dot {
-				0%,
-				100% {
-					opacity: 1;
-				}
-				50% {
-					opacity: 0.4;
-				}
-			}
-			@keyframes hero-in {
-				from {
-					opacity: 0;
-					transform: translateY(20px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			/* Animate-in */
-			.animate-in {
-				opacity: 0;
-				transform: translateY(14px);
-				transition:
-					opacity 0.5s ease,
-					transform 0.5s ease;
-			}
-			.animate-in.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
-
-			/* ── NAV ── */
-			nav {
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				z-index: 100;
-				background: transparent;
-				border-bottom: 1px solid transparent;
-				transition: all 0.3s ease;
-			}
-			nav.scrolled {
-				background: rgba(8, 12, 20, 0.92);
-				backdrop-filter: blur(12px);
-				border-bottom-color: var(--border-default);
-			}
-			.nav-inner {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 0 24px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				height: 56px;
-			}
-			nav .logo {
-				background: none;
-				border: none;
-				cursor: pointer;
-				font-family: "Azeret Mono", monospace;
-				font-size: 15px;
-				font-weight: 600;
-				color: var(--text-heading);
-				letter-spacing: 0.04em;
-			}
-			nav .logo .dot {
-				color: var(--accent-primary);
-			}
-			.nav-links {
-				display: flex;
-				gap: 28px;
-				align-items: center;
-			}
-			.nav-links button {
-				background: none;
-				border: none;
-				cursor: pointer;
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--text-muted);
-				transition: color 0.15s;
-				letter-spacing: 0.02em;
-			}
-			.nav-links button:hover {
-				color: var(--accent-primary);
-			}
-			.mobile-toggle {
-				display: none;
-				background: none;
-				border: none;
-				cursor: pointer;
-				color: var(--text-heading);
-				font-size: 22px;
-				padding: 4px;
-			}
-			.mobile-menu {
-				display: none;
-				background: rgba(8, 12, 20, 0.97);
-				border-top: 1px solid var(--border-default);
-				padding: 16px 24px;
-			}
-			.mobile-menu.active {
+			img,
+			video {
 				display: block;
-			}
-			.mobile-menu button {
-				display: block;
-				width: 100%;
-				text-align: left;
-				background: none;
-				border: none;
-				cursor: pointer;
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 15px;
-				color: var(--text-primary);
-				padding: 10px 0;
-			}
-			@media (max-width: 768px) {
-				.nav-links {
-					display: none !important;
-				}
-				.mobile-toggle {
-					display: block !important;
-				}
-			}
-
-			/* ── Section label ── */
-			.section-label {
-				font-family: "Azeret Mono", monospace;
-				font-size: 13px;
-				letter-spacing: 0.15em;
-				text-transform: uppercase;
-				margin-bottom: 20px;
-				color: var(--text-muted);
-			}
-			.section-label .prefix {
-				color: var(--accent-primary);
-			}
-
-			/* ── HERO ── */
-			.hero {
-				min-height: 100vh;
-				display: flex;
-				align-items: center;
-				position: relative;
-				overflow: hidden;
-			}
-			.hero-hex-canvas {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 0;
-				cursor: crosshair;
-			}
-			.hero-content {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 100px 28px 60px;
-				width: 100%;
-				position: relative;
-				z-index: 2;
-				pointer-events: none;
-			}
-			.hero-main {
-				max-width: 46%;
-				pointer-events: auto;
-				transition: max-width 0.4s ease;
-			}
-			.hero-main.full-width {
 				max-width: 100%;
 			}
-			.hero-text-block {
-				opacity: 0;
-				transform: translateY(28px);
+			a {
+				color: inherit;
 			}
-			.hero-text-block.visible {
-				opacity: 1;
-				transform: translateY(0);
-				transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+			button {
+				font: inherit;
+				color: inherit;
 			}
-			.status-badge {
+			::selection {
+				background: var(--accent-soft);
+				color: var(--heading);
+			}
+			:focus-visible {
+				outline: 2px solid var(--accent);
+				outline-offset: 3px;
+				border-radius: 4px;
+			}
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+				clip: rect(0 0 0 0);
+				white-space: nowrap;
+			}
+			.skip {
+				position: absolute;
+				left: 12px;
+				top: -60px;
+				background: var(--accent);
+				color: var(--accent-ink);
+				padding: 8px 14px;
+				border-radius: 8px;
+				z-index: 300;
+				text-decoration: none;
+			}
+			.skip:focus {
+				top: 12px;
+			}
+
+			/* ── Layout ── */
+			.wrap {
+				max-width: var(--wrap);
+				margin: 0 auto;
+				padding: 0 24px;
+			}
+			section {
+				padding: 88px 0 0;
+			}
+			.eyebrow {
+				font-family: var(--mono);
+				font-size: var(--fs-0);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--accent);
+				margin-bottom: 10px;
+			}
+			.section-head {
+				margin-bottom: 36px;
+				max-width: 640px;
+			}
+			h2 {
+				font-size: var(--fs-4);
+				line-height: 1.15;
+				letter-spacing: -0.02em;
+				color: var(--heading);
+				font-weight: 700;
+			}
+			.section-sub {
+				margin-top: 10px;
+				color: var(--muted);
+			}
+
+			/* ── Buttons & tags ── */
+			.btn {
 				display: inline-flex;
 				align-items: center;
 				gap: 8px;
-				padding: 5px 14px;
-				border-radius: 2px;
-				border: 1px solid rgba(34,197,94,0.2);
-				background: rgba(34,197,94,0.05);
-				margin-bottom: 28px;
-			}
-			.status-dot {
-				width: 6px;
-				height: 6px;
-				border-radius: 50%;
-				background: #22c55e;
-				animation: pulse-dot 2.5s ease-in-out infinite;
-			}
-			.status-text {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: #22c55e;
-				letter-spacing: 0.06em;
-			}
-			.hero h1 {
-				font-family: "Azeret Mono", monospace;
-				font-size: clamp(38px, 5.5vw, 60px);
-				font-weight: 700;
-				color: var(--text-heading);
-				line-height: 1.05;
-				margin-bottom: 10px;
-			}
-			.hero .subtitle {
-				font-family: "Azeret Mono", monospace;
-				font-size: clamp(15px, 2vw, 20px);
-				color: var(--accent-primary);
-				font-weight: 500;
-				margin-bottom: 24px;
-				line-height: 1.35;
-			}
-			.hero .tagline {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 16px;
-				color: var(--text-primary);
-				line-height: 1.7;
-				margin-bottom: 16px;
-				font-weight: 300;
-			}
-			.hero-stats-line {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 14px;
-				color: var(--text-muted);
-				line-height: 1.65;
-				font-weight: 300;
-				margin-bottom: 32px;
-			}
-			.hero-actions {
-				display: flex;
-				gap: 12px;
-				flex-wrap: wrap;
-				align-items: center;
-			}
-			.hero-location {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--text-muted);
-				margin-left: 4px;
-			}
-			.hero-stats-bar {
-				margin-top: 56px;
-				padding-top: 28px;
-				border-top: 1px solid var(--border-default);
-				max-width: 46%;
-				pointer-events: auto;
-				display: flex;
-				gap: 32px;
-				flex-wrap: nowrap;
-				transition: max-width 0.4s ease;
-			}
-			.hero-stats-bar.full-width {
-				max-width: 100%;
-			}
-			.stat-item {
-				white-space: nowrap;
-				min-width: 90px;
-			}
-			.stat-num {
-				font-family: "Azeret Mono", monospace;
-				font-size: 28px;
-				font-weight: 700;
-				color: var(--text-heading);
-				line-height: 1;
-			}
-			.stat-label {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 11px;
-				color: var(--text-muted);
-				margin-top: 6px;
-			}
-
-			/* ── Skill Popup ── */
-			.skill-popup-overlay {
-				position: fixed;
-				inset: 0;
-				z-index: 200;
-			}
-			.skill-popup {
-				position: fixed;
-				z-index: 201;
-				width: 260px;
-				background: rgba(10,14,22,0.95);
-				border-radius: 3px;
-				padding: 16px 18px;
-				backdrop-filter: blur(12px);
-			}
-			.skill-popup-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-bottom: 12px;
-			}
-			.skill-popup-name {
-				font-family: "Azeret Mono", monospace;
-				font-size: 14px;
+				padding: 11px 20px;
+				border-radius: 10px;
+				font-size: var(--fs-1);
 				font-weight: 600;
+				text-decoration: none;
+				border: 1px solid var(--line-strong);
+				background: transparent;
+				color: var(--heading);
+				cursor: pointer;
+				transition: transform 0.15s, background 0.15s, border-color 0.15s;
 			}
-			.skill-popup-cat {
-				font-family: "Azeret Mono", monospace;
-				font-size: 9px;
-				letter-spacing: 0.1em;
+			.btn:hover {
+				border-color: var(--accent);
+				background: var(--accent-soft);
 			}
-			.skill-popup-label {
-				font-family: "Azeret Mono", monospace;
-				font-size: 9px;
-				color: var(--text-muted);
-				letter-spacing: 0.1em;
-				margin-bottom: 8px;
+			.btn-primary {
+				background: var(--accent);
+				color: var(--accent-ink);
+				border-color: var(--accent);
 			}
-			.skill-popup-item {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 12.5px;
-				color: var(--text-primary);
-				padding: 5px 0;
-				font-weight: 300;
+			.btn-primary:hover {
+				background: var(--accent);
+				filter: brightness(1.08);
+				transform: translateY(-1px);
 			}
-			.skill-popup-item + .skill-popup-item {
-				border-top: 1px solid rgba(255,255,255,0.04);
+			.btn svg {
+				width: 16px;
+				height: 16px;
 			}
-			.skill-popup-empty {
-				font-family: "IBM Plex Sans", sans-serif;
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+			}
+			.tag {
 				font-size: 12px;
-				color: var(--text-muted);
-				font-style: italic;
+				line-height: 1;
+				padding: 6px 10px;
+				border-radius: 999px;
+				color: var(--muted);
+				border: 1px solid var(--line);
+				background: var(--surface-2);
+				white-space: nowrap;
+			}
+			.pill {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.02em;
+				padding: 4px 10px;
+				border-radius: 999px;
+				line-height: 1.2;
+			}
+			.link {
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: 600;
+				font-size: var(--fs-0);
+			}
+			.link:hover {
+				text-decoration: underline;
+				text-underline-offset: 3px;
 			}
 
-			/* ── Stat tooltip ── */
-			.stat-with-tooltip {
-				position: relative;
-				cursor: default;
+			/* ── Nav ── */
+			header.nav {
+				position: fixed;
+				inset: 0 0 auto 0;
+				z-index: 100;
+				border-bottom: 1px solid transparent;
+				transition: background 0.25s, border-color 0.25s, backdrop-filter 0.25s;
 			}
-			.stat-tooltip {
+			header.nav.scrolled {
+				background: var(--nav-bg);
+				-webkit-backdrop-filter: blur(14px) saturate(1.4);
+				backdrop-filter: blur(14px) saturate(1.4);
+				border-bottom-color: var(--line);
+			}
+			.nav-inner {
+				max-width: var(--wrap);
+				margin: 0 auto;
+				padding: 0 24px;
+				height: 60px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+			}
+			.logo {
+				font-family: var(--mono);
+				font-weight: 700;
+				font-size: var(--fs-2);
+				color: var(--heading);
+				text-decoration: none;
+				letter-spacing: 0.02em;
+			}
+			.logo span {
+				color: var(--accent);
+			}
+			.nav-links {
+				display: flex;
+				gap: 4px;
+				align-items: center;
+			}
+			.nav-links a {
+				padding: 8px 10px;
+				font-size: var(--fs-0);
+				color: var(--muted);
+				text-decoration: none;
+				border-radius: 8px;
+				transition: color 0.15s;
+			}
+			.nav-links a:hover,
+			.nav-links a.active {
+				color: var(--heading);
+			}
+			.nav-links a.active {
+				background: var(--accent-soft);
+			}
+			.icon-btn {
+				width: 38px;
+				height: 38px;
+				display: inline-grid;
+				place-items: center;
+				border-radius: 10px;
+				border: 1px solid var(--line);
+				background: transparent;
+				cursor: pointer;
+				color: var(--heading);
+				transition: border-color 0.15s, background 0.15s;
+			}
+			.icon-btn:hover {
+				border-color: var(--accent);
+				background: var(--accent-soft);
+			}
+			.icon-btn svg {
+				width: 18px;
+				height: 18px;
+			}
+			.nav-tools {
+				display: flex;
+				gap: 8px;
+				align-items: center;
+			}
+			.menu-btn {
 				display: none;
-				position: absolute;
-				bottom: calc(100% + 10px);
-				left: 0;
-				background: var(--bg-elevated);
-				border: 1px solid var(--border-hover);
-				border-radius: 2px;
-				padding: 10px 14px;
-				white-space: nowrap;
-				z-index: 10;
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 12px;
-				color: var(--text-primary);
-				line-height: 1.6;
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 			}
-			.stat-tooltip::after {
-				content: "";
-				position: absolute;
-				top: 100%;
-				left: 20px;
-				border: 6px solid transparent;
-				border-top-color: var(--border-hover);
+			.mobile-menu {
+				display: none;
+				background: var(--bg);
+				border-bottom: 1px solid var(--line);
+				padding: 8px 24px 16px;
 			}
-			.stat-with-tooltip:hover .stat-tooltip {
+			.mobile-menu a {
+				display: block;
+				padding: 12px 0;
+				text-decoration: none;
+				color: var(--heading);
+				border-bottom: 1px solid var(--line);
+			}
+			.mobile-menu.open {
+				display: block;
+			}
+			@media (max-width: 900px) {
+				.nav-links {
+					display: none;
+				}
+				.menu-btn {
+					display: inline-grid;
+				}
+				header.nav.menu-open {
+					background: var(--bg);
+				}
+			}
+			.theme-moon {
+				display: none;
+			}
+			:root:not([data-theme="light"]) .theme-sun {
+				display: none;
+			}
+			:root:not([data-theme="light"]) .theme-moon {
+				display: block;
+			}
+			@media (prefers-color-scheme: light) {
+				:root:not([data-theme="dark"]) .theme-sun {
+					display: block;
+				}
+				:root:not([data-theme="dark"]) .theme-moon {
+					display: none;
+				}
+			}
+			:root[data-theme="dark"] .theme-sun {
+				display: none;
+			}
+			:root[data-theme="dark"] .theme-moon {
 				display: block;
 			}
 
-			/* ── Buttons ── */
-			.btn-primary {
-				font-family: "Azeret Mono", monospace;
-				font-size: 13px;
-				color: var(--bg-primary);
-				background: var(--accent-primary);
-				padding: 10px 24px;
-				border-radius: 2px;
-				text-decoration: none;
-				font-weight: 500;
-				letter-spacing: 0.04em;
-				transition: opacity 0.15s;
-				border: none;
-				cursor: pointer;
-			}
-			.btn-primary:hover {
-				opacity: 0.85;
-			}
-			.btn-outline {
-				font-family: "Azeret Mono", monospace;
-				font-size: 13px;
-				color: var(--accent-primary);
-				background: transparent;
-				padding: 10px 24px;
-				border-radius: 2px;
-				text-decoration: none;
-				font-weight: 500;
-				letter-spacing: 0.04em;
-				transition: all 0.15s;
-				border: 1px solid var(--border-default);
-				cursor: pointer;
-			}
-			.btn-outline:hover {
-				border-color: var(--border-hover);
-				background: rgba(0, 221, 192, 0.04);
-			}
-
-			/* ── Sections ── */
-			.section {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 48px 24px;
-			}
-			.section-tight {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 24px 24px 48px;
-			}
-
-			/* ── Tags ── */
-			.tag {
-				display: inline-block;
-				font-size: 11px;
-				font-family: "IBM Plex Sans", sans-serif;
-				padding: 3px 10px;
-				border-radius: 2px;
-				margin-right: 6px;
-				margin-bottom: 6px;
-				letter-spacing: 0.02em;
-			}
-			.tag-border {
-				border: 1px solid var(--border-default);
-				background: transparent;
-				color: var(--text-muted);
-			}
-
-			/* ── About / Profile ── */
-			.profile-card {
-				display: flex;
-				gap: 32px;
-				align-items: flex-start;
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 28px;
-			}
-			.profile-image {
-				width: 120px;
-				height: 120px;
-				border-radius: 50%;
-				object-fit: cover;
-				object-position: center calc(50% + 20px);
-				border: 2px solid var(--border-default);
-				flex-shrink: 0;
-			}
-			.profile-links {
-				display: flex;
-				gap: 12px;
-				margin-top: 16px;
-				flex-wrap: wrap;
-			}
-			.about-text p {
-				font-size: 16px;
-				line-height: 1.75;
-				color: var(--text-primary);
-				font-weight: 300;
-			}
-			.about-text p + p {
-				margin-top: 16px;
-			}
-
-			/* ── Education ── */
-			.edu-grid {
-				display: grid;
-				grid-template-columns: repeat(
-					auto-fill,
-					minmax(min(100%, 340px), 1fr)
-				);
-				gap: 20px;
-			}
-			.edu-card {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 20px 24px;
-				cursor: pointer;
-				transition: all 0.2s ease;
-			}
-			.edu-card:hover {
-				border-color: var(--border-hover);
-				background: var(--bg-elevated);
-			}
-			.edu-card-header {
-				display: flex;
-				gap: 14px;
-				align-items: center;
-				margin-bottom: 12px;
-			}
-			.edu-card-logo {
-				width: 48px;
-				height: 48px;
-				object-fit: contain;
-				border-radius: 4px;
-				background: var(--bg-elevated);
-				padding: 4px;
-				flex-shrink: 0;
-			}
-			.edu-card-school {
-				font-family: "Azeret Mono", monospace;
-				font-size: 14px;
-				color: var(--text-heading);
-				font-weight: 500;
-			}
-			.edu-card-degree {
-				font-size: 13px;
-				color: var(--accent-primary);
-				margin-top: 2px;
-			}
-
-			/* ── Experience Timeline ── */
-			.timeline {
+			/* ── Hero ── */
+			.hero {
+				padding: 132px 0 24px;
 				position: relative;
-				padding-left: 32px;
+				isolation: isolate;
 			}
-			.timeline-line {
+			.hero::before {
+				content: "";
+				position: absolute;
+				inset: -120px 0 0 0;
+				z-index: -1;
+				background:
+					radial-gradient(600px 360px at 12% 8%, var(--glow-a), transparent 70%),
+					radial-gradient(520px 340px at 88% 22%, var(--glow-b), transparent 70%);
+			}
+			.hero-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr);
+				gap: 56px;
+				align-items: center;
+			}
+			.status {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				padding: 6px 14px 6px 12px;
+				border-radius: 999px;
+				border: 1px solid var(--line);
+				background: var(--surface);
+				font-size: var(--fs-0);
+				color: var(--muted);
+				margin-bottom: 26px;
+				max-width: 100%;
+			}
+			.status i {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: var(--ok);
+				box-shadow: 0 0 0 0 var(--ok);
+				animation: ping 2.4s ease-out infinite;
+				flex: none;
+			}
+			@keyframes ping {
+				0% {
+					box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent);
+				}
+				80%,
+				100% {
+					box-shadow: 0 0 0 9px transparent;
+				}
+			}
+			.hero h1 {
+				font-size: var(--fs-5);
+				line-height: 1.02;
+				letter-spacing: -0.035em;
+				font-weight: 800;
+				color: var(--heading);
+			}
+			.hero .role {
+				margin-top: 14px;
+				font-size: var(--fs-3);
+				font-weight: 600;
+				color: var(--accent);
+				letter-spacing: -0.01em;
+			}
+			.hero .lede {
+				margin-top: 22px;
+				font-size: var(--fs-2);
+				line-height: 1.7;
+				max-width: 56ch;
+			}
+			.hero-actions {
+				margin-top: 30px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+			.hero-meta {
+				margin-top: 20px;
+				color: var(--muted);
+				font-size: var(--fs-0);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.hero-meta svg {
+				width: 14px;
+				height: 14px;
+				flex: none;
+			}
+			.portrait {
+				position: relative;
+				justify-self: end;
+				width: min(100%, 340px);
+			}
+			.portrait::before {
+				content: "";
+				position: absolute;
+				inset: 14px -14px -14px 14px;
+				border-radius: 28px;
+				border: 1px solid var(--accent);
+				opacity: 0.45;
+			}
+			.portrait img {
+				position: relative;
+				width: 100%;
+				aspect-ratio: 4 / 5;
+				object-fit: cover;
+				object-position: center 20%;
+				border-radius: 28px;
+				border: 1px solid var(--line-strong);
+				background: var(--surface-2);
+				box-shadow: var(--shadow);
+			}
+			.stats {
+				margin-top: 64px;
+				display: grid;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+				border: 1px solid var(--line);
+				border-radius: var(--radius);
+				background: var(--surface);
+				overflow: hidden;
+			}
+			.stat {
+				padding: 22px 24px;
+			}
+			.stat + .stat {
+				border-left: 1px solid var(--line);
+			}
+			.stat-num {
+				font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+				font-weight: 800;
+				letter-spacing: -0.03em;
+				color: var(--heading);
+				line-height: 1;
+				font-variant-numeric: tabular-nums;
+			}
+			.stat-label {
+				margin-top: 8px;
+				font-size: var(--fs-0);
+				color: var(--muted);
+			}
+			@media (max-width: 860px) {
+				.hero {
+					padding-top: 108px;
+				}
+				.hero-grid {
+					grid-template-columns: 1fr;
+					gap: 40px;
+				}
+				.portrait {
+					order: -1;
+					justify-self: start;
+					width: 132px;
+				}
+				.portrait::before {
+					inset: 8px -8px -8px 8px;
+					border-radius: 22px;
+				}
+				.portrait img {
+					border-radius: 22px;
+					aspect-ratio: 1;
+				}
+				.stats {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+					margin-top: 48px;
+				}
+				.stat:nth-child(3) {
+					border-left: 0;
+				}
+				.stat:nth-child(n + 3) {
+					border-top: 1px solid var(--line);
+				}
+			}
+
+			/* ── About ── */
+			.about-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+				gap: 56px;
+				align-items: start;
+			}
+			.prose p {
+				font-size: var(--fs-2);
+				line-height: 1.75;
+				max-width: 68ch;
+			}
+			.prose p + p {
+				margin-top: 18px;
+			}
+			.prose p:first-child {
+				color: var(--heading);
+				font-size: var(--fs-3);
+				line-height: 1.55;
+				letter-spacing: -0.01em;
+			}
+			.aside-card {
+				border: 1px solid var(--line);
+				background: var(--surface);
+				border-radius: var(--radius);
+				padding: 22px;
+				position: sticky;
+				top: 84px;
+			}
+			.aside-card h3 {
+				font-family: var(--mono);
+				font-size: var(--fs-0);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--muted);
+				margin-bottom: 14px;
+				font-weight: 500;
+			}
+			.facts {
+				list-style: none;
+				padding: 0;
+				display: grid;
+				gap: 12px;
+				font-size: var(--fs-1);
+			}
+			.facts li {
+				display: grid;
+				gap: 2px;
+			}
+			.facts b {
+				color: var(--heading);
+				font-weight: 600;
+			}
+			.facts span {
+				color: var(--muted);
+				font-size: var(--fs-0);
+			}
+			.aside-card .hero-actions {
+				margin-top: 20px;
+			}
+			@media (max-width: 860px) {
+				.about-grid {
+					grid-template-columns: 1fr;
+					gap: 32px;
+				}
+				.aside-card {
+					position: static;
+				}
+			}
+
+			/* ── Timeline ── */
+			.timeline {
+				list-style: none;
+				padding: 0;
+				position: relative;
+				display: grid;
+				gap: 16px;
+			}
+			.timeline::before {
+				content: "";
 				position: absolute;
 				left: 7px;
-				top: 8px;
-				bottom: 8px;
+				top: 10px;
+				bottom: 10px;
 				width: 1px;
-				background: var(--border-default);
+				background: var(--line-strong);
 			}
-			.timeline-item {
+			.tl-item {
 				position: relative;
-				margin-bottom: 20px;
-				padding-bottom: 4px;
+				padding-left: 36px;
+				min-width: 0;
 			}
-			.timeline-dot {
+			.tl-dot {
 				position: absolute;
-				left: -29px;
-				top: 8px;
-				width: 9px;
-				height: 9px;
+				left: 0;
+				top: 26px;
+				width: 15px;
+				height: 15px;
 				border-radius: 50%;
+				background: var(--bg);
+				border: 2px solid var(--line-strong);
 			}
-			.timeline-dot.current {
-				background: var(--accent-primary);
-				box-shadow: 0 0 8px rgba(0, 221, 192, 0.4);
+			.tl-item.current .tl-dot {
+				border-color: var(--accent);
+				background: var(--accent);
+				box-shadow: 0 0 0 5px var(--accent-soft);
 			}
-			.timeline-dot.past {
-				background: var(--bg-elevated);
-				border: 1.5px solid var(--text-muted);
+			.card {
+				border: 1px solid var(--line);
+				background: var(--surface);
+				border-radius: var(--radius);
+				transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+				min-width: 0;
 			}
-			.timeline-card {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 20px 24px;
+			.card.clickable {
 				cursor: pointer;
-				transition: all 0.2s ease;
 			}
-			.timeline-card:hover {
-				border-color: var(--border-hover);
-				background: var(--bg-elevated);
+			.card.clickable:hover {
+				border-color: var(--line-strong);
+				transform: translateY(-2px);
+				box-shadow: var(--shadow);
 			}
-			.timeline-header {
+			.tl-card {
+				padding: 22px 24px;
+			}
+			.tl-top {
 				display: flex;
+				gap: 16px;
 				justify-content: space-between;
 				align-items: flex-start;
 				flex-wrap: wrap;
-				gap: 8px;
 			}
-			.timeline-title {
-				font-family: "Azeret Mono", monospace;
-				font-size: 16px;
-				color: var(--text-heading);
-				font-weight: 500;
+			.tl-top > div {
+				min-width: 0;
+			}
+			.tl-title {
+				font-size: var(--fs-2);
+				font-weight: 700;
+				letter-spacing: -0.01em;
+				color: var(--heading);
 				line-height: 1.3;
 			}
-			.timeline-company {
-				font-size: 14px;
-				color: var(--accent-primary);
-				margin-top: 4px;
+			.tl-title button {
+				all: unset;
+				cursor: pointer;
+			}
+			.tl-title button:focus-visible {
+				outline: 2px solid var(--accent);
+				outline-offset: 3px;
+			}
+			.tl-company {
+				color: var(--accent);
+				font-weight: 600;
+				font-size: var(--fs-1);
+				margin-top: 2px;
+			}
+			.tl-date {
+				font-family: var(--mono);
+				font-size: var(--fs-0);
+				color: var(--muted);
+			}
+			.tl-desc {
+				margin-top: 12px;
+				color: var(--text);
+			}
+			.tl-card .tags {
+				margin-top: 16px;
+			}
+			.tl-item.minor .tl-card {
+				padding: 14px 20px;
+				background: transparent;
+			}
+			.tl-item.minor .tl-title {
+				font-size: var(--fs-1);
+				font-weight: 600;
+			}
+			.tl-item.minor .tl-company {
+				color: var(--muted);
 				font-weight: 500;
 			}
-			.timeline-date {
-				font-family: "Azeret Mono", monospace;
-				font-size: 12px;
-				color: var(--text-muted);
-				white-space: nowrap;
+			.tl-item.minor .tl-dot {
+				top: 18px;
+				width: 11px;
+				height: 11px;
+				left: 2px;
 			}
-			.timeline-desc {
-				font-size: 14px;
-				line-height: 1.65;
-				color: var(--text-primary);
-				margin-top: 12px;
-				font-weight: 300;
-			}
-			.timeline-tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0;
-				margin-top: 14px;
+			.more-btn {
+				margin-top: 20px;
 			}
 
 			/* ── Projects ── */
 			.projects-grid {
 				display: grid;
-				grid-template-columns: repeat(
-					auto-fill,
-					minmax(min(100%, 480px), 1fr)
-				);
+				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 24px;
 			}
-			.project-card {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				transition: all 0.2s ease;
+			.project {
 				display: flex;
 				flex-direction: column;
 				overflow: hidden;
-				cursor: pointer;
 			}
-			.project-card:hover {
-				border-color: var(--border-hover);
-				background: var(--bg-elevated);
+			.project.lead {
+				grid-column: 1 / -1;
+				flex-direction: row;
 			}
-			.project-card-media {
-				width: 100%;
-				aspect-ratio: 16/9;
-				background: var(--bg-elevated);
-				border-bottom: 1px solid var(--border-default);
-				display: flex;
-				align-items: center;
-				justify-content: center;
+			.project.lead .media {
+				flex: 1.15;
+				aspect-ratio: auto;
+				min-height: 320px;
+				border-bottom: 0;
+				border-right: 1px solid var(--line);
+			}
+			.project.lead .p-body {
+				flex: 1;
+				padding: 32px;
+			}
+			.media {
 				position: relative;
+				aspect-ratio: 16 / 9;
+				background: var(--surface-2);
+				border-bottom: 1px solid var(--line);
 				overflow: hidden;
 			}
-			.project-card-media img,
-			.project-card-media video {
+			.media img,
+			.media video {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
 			}
-			.project-card-media video {
-				object-position: top;
-			}
-			/* Portrait video with blurred background */
-			.video-portrait-wrap {
-				position: relative;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-			}
-			.video-portrait-wrap .video-bg {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				min-width: 100%;
-				min-height: 100%;
-				transform: translate(-50%, -50%) scale(1.3);
-				filter: blur(20px) brightness(0.5);
-				object-fit: cover;
-			}
-			.video-portrait-wrap .video-fg {
-				position: relative;
-				width: 100%;
-				height: 100%;
+			.media img.icon {
 				object-fit: contain;
-				z-index: 1;
+				padding: 12%;
+				opacity: 0.9;
 			}
-			/* Carousel */
-			.project-carousel {
-				position: relative;
-			}
-			.carousel-slide {
+			.media .vid-bg {
 				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
+				inset: 0;
+				transform: scale(1.3);
+				filter: blur(22px) brightness(0.55);
+			}
+			.media .vid-fg {
+				position: relative;
+				object-fit: contain;
+			}
+			.media-empty {
 				height: 100%;
-				object-fit: cover;
+				display: grid;
+				place-items: center;
+				background:
+					linear-gradient(135deg, var(--accent-soft), transparent 60%),
+					repeating-linear-gradient(45deg, transparent 0 14px, var(--line) 14px 15px);
+				font-family: var(--mono);
+				font-size: var(--fs-0);
+				letter-spacing: 0.14em;
+				color: var(--muted);
+				text-transform: uppercase;
+			}
+			.slide {
+				position: absolute;
+				inset: 0;
 				opacity: 0;
 				transition: opacity 0.8s ease;
 			}
-			.carousel-slide.active {
+			.slide.active {
 				opacity: 1;
 			}
-			.carousel-dots {
+			.dots {
 				position: absolute;
-				bottom: 10px;
 				left: 50%;
+				bottom: 10px;
 				transform: translateX(-50%);
 				display: flex;
 				gap: 6px;
 				z-index: 2;
 			}
-			.carousel-dots .dot {
-				width: 8px;
-				height: 8px;
+			.dots i {
+				width: 7px;
+				height: 7px;
 				border-radius: 50%;
-				background: rgba(255, 255, 255, 0.35);
-				border: 1px solid rgba(255, 255, 255, 0.5);
-				transition: background 0.3s ease;
+				background: rgba(255, 255, 255, 0.4);
+				transition: background 0.3s;
 			}
-			.carousel-dots .dot.active {
-				background: rgba(255, 255, 255, 0.9);
+			.dots i.active {
+				background: #fff;
 			}
-			.project-modal-media-container.project-carousel {
-				aspect-ratio: 16/9;
-			}
-			.project-card-placeholder {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--text-muted);
-				letter-spacing: 0.1em;
-			}
-			.project-card-body {
-				padding: 20px 24px 24px;
-			}
-			.project-card-categories {
-				display: flex;
-				gap: 6px;
-				flex-wrap: wrap;
-				margin-bottom: 12px;
-			}
-			.project-card h3 {
-				font-family: "Azeret Mono", monospace;
-				font-size: 18px;
-				color: var(--text-heading);
-				margin: 0;
-				line-height: 1.3;
-			}
-			.project-card .project-subtitle {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--text-muted);
-				margin: 4px 0 16px;
-				line-height: 1.4;
-			}
-			.project-card .project-desc {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 14px;
-				color: var(--text-primary);
-				line-height: 1.65;
-				margin: 0 0 16px;
-			}
-			.project-card .project-link {
-				font-family: "Azeret Mono", monospace;
-				font-size: 12px;
-				color: var(--accent-primary);
-				text-decoration: none;
-				display: inline-flex;
-				align-items: center;
-				gap: 6px;
-			}
-			.project-card .project-date {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 11px;
-				color: var(--text-muted);
-				margin-top: 12px;
-			}
-
-			/* Additional projects */
-			.additional-projects {
-				margin-top: 24px;
-			}
-			.toggle-btn {
-				background: none;
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 10px 20px;
-				cursor: pointer;
-				font-family: "Azeret Mono", monospace;
-				font-size: 12px;
-				color: var(--text-muted);
-				letter-spacing: 0.08em;
-				transition: all 0.15s;
-			}
-			.toggle-btn:hover {
-				border-color: var(--border-hover);
-				color: var(--accent-primary);
-			}
-			.additional-list {
-				margin-top: 20px;
+			.p-body {
+				padding: 24px;
 				display: flex;
 				flex-direction: column;
-				gap: 12px;
+				gap: 4px;
+				flex: 1;
+				min-width: 0;
 			}
-			.additional-item {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 16px 20px;
+			.p-cats {
 				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				gap: 16px;
 				flex-wrap: wrap;
-				cursor: pointer;
-				transition: all 0.2s ease;
+				gap: 6px;
+				margin-bottom: 10px;
 			}
-			.additional-item:hover {
-				border-color: var(--border-hover);
-				background: var(--bg-elevated);
+			.project h3 {
+				font-size: var(--fs-3);
+				letter-spacing: -0.02em;
+				line-height: 1.25;
+				color: var(--heading);
+				font-weight: 700;
+				overflow-wrap: anywhere;
 			}
-			.additional-item h4 {
-				font-family: "Azeret Mono", monospace;
-				font-size: 14px;
-				color: var(--text-heading);
-				font-weight: 500;
+			.project.lead h3 {
+				font-size: var(--fs-4);
 			}
-			.additional-item p {
-				font-size: 13px;
-				color: var(--text-primary);
-				margin-top: 6px;
-				line-height: 1.5;
-				font-weight: 300;
+			.p-sub {
+				color: var(--muted);
+				font-size: var(--fs-1);
+				line-height: 1.45;
 			}
-			.additional-item .date {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--text-muted);
+			.p-desc {
+				margin: 12px 0 16px;
+			}
+			.p-foot {
+				margin-top: auto;
+				display: grid;
+				gap: 14px;
+			}
+			.p-links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 18px;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.p-links .links {
+				display: flex;
+				gap: 18px;
+				flex-wrap: wrap;
+			}
+			.p-date {
+				font-family: var(--mono);
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.other-list {
+				margin-top: 24px;
+				display: none;
+				gap: 10px;
+			}
+			.other-list.open {
+				display: grid;
+			}
+			.other-item {
+				padding: 16px 20px;
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto;
+				gap: 4px 20px;
+				align-items: baseline;
+			}
+			.other-item h4 {
+				font-size: var(--fs-1);
+				color: var(--heading);
+				font-weight: 600;
+				overflow-wrap: anywhere;
+			}
+			.other-item p {
+				grid-column: 1;
+				font-size: var(--fs-0);
+				color: var(--muted);
+				line-height: 1.55;
+			}
+			.other-item .p-date {
+				grid-row: 1;
+				grid-column: 2;
 				white-space: nowrap;
+			}
+			@media (max-width: 860px) {
+				.projects-grid {
+					grid-template-columns: 1fr;
+				}
+				.project.lead {
+					flex-direction: column;
+				}
+				.project.lead .media {
+					min-height: 0;
+					aspect-ratio: 16 / 9;
+					border-right: 0;
+					border-bottom: 1px solid var(--line);
+				}
+				.project.lead .p-body {
+					padding: 24px;
+				}
+				.other-item {
+					grid-template-columns: 1fr;
+				}
+				.other-item .p-date {
+					grid-row: auto;
+					grid-column: 1;
+				}
+			}
+
+			/* ── Publications ── */
+			.pubs {
+				display: grid;
+				gap: 14px;
+			}
+			.pub {
+				display: grid;
+				grid-template-columns: 76px minmax(0, 1fr);
+				gap: 20px;
+				padding: 22px 24px;
+			}
+			.pub-year {
+				font-family: var(--mono);
+				font-weight: 700;
+				font-size: var(--fs-3);
+				color: var(--warm);
+				letter-spacing: -0.02em;
+			}
+			.pub h3 {
+				font-size: var(--fs-2);
+				line-height: 1.4;
+				color: var(--heading);
+				font-weight: 600;
+				letter-spacing: -0.01em;
+			}
+			.pub-authors {
+				margin-top: 8px;
+				font-size: var(--fs-0);
+			}
+			.pub-authors .me {
+				color: var(--heading);
+				font-weight: 700;
+			}
+			.pub-conf {
+				margin-top: 4px;
+				font-size: var(--fs-0);
+				color: var(--muted);
+			}
+			.pub .link {
+				display: inline-block;
+				margin-top: 10px;
+				font-family: var(--mono);
+				font-weight: 500;
+				overflow-wrap: anywhere;
+			}
+			@media (max-width: 560px) {
+				.pub {
+					grid-template-columns: 1fr;
+					gap: 6px;
+					padding: 20px;
+				}
+			}
+
+			/* ── Education ── */
+			.edu-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 20px;
+			}
+			.edu {
+				padding: 24px;
+				display: grid;
+				gap: 14px;
+			}
+			.edu-head {
+				display: flex;
+				gap: 14px;
+				align-items: center;
+			}
+			.logo-box {
+				width: 48px;
+				height: 48px;
+				flex: none;
+				border-radius: 10px;
+				background: #fff;
+				border: 1px solid var(--line);
+				padding: 5px;
+				object-fit: contain;
+			}
+			.edu h3 {
+				font-size: var(--fs-2);
+				color: var(--heading);
+				font-weight: 700;
+				line-height: 1.3;
+			}
+			.edu .deg {
+				color: var(--accent);
+				font-weight: 600;
+				font-size: var(--fs-0);
+			}
+			.edu .grade {
+				color: var(--text);
+				font-size: var(--fs-0);
+			}
+			@media (max-width: 760px) {
+				.edu-grid {
+					grid-template-columns: 1fr;
+				}
 			}
 
 			/* ── Skills ── */
 			.skills-grid {
 				display: grid;
-				grid-template-columns: repeat(
-					auto-fill,
-					minmax(min(100%, 340px), 1fr)
-				);
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 20px;
 			}
 			.skill-group {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 20px 22px;
+				padding: 22px;
 			}
 			.skill-group h3 {
-				font-family: "Azeret Mono", monospace;
-				font-size: 12px;
-				color: var(--accent-primary);
+				font-family: var(--mono);
+				font-size: var(--fs-0);
 				font-weight: 500;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--accent);
 				margin-bottom: 14px;
-				letter-spacing: 0.06em;
 			}
-			.skill-items {
+			.chips {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0;
+				gap: 8px;
 			}
-			.skill-chip {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--text-primary);
-				padding: 5px 12px;
-				border-radius: 2px;
-				margin: 0 6px 6px 0;
-				background: rgba(0, 221, 192, 0.04);
-				border: 1px solid var(--border-default);
+			.chip {
 				display: inline-flex;
 				align-items: center;
 				gap: 8px;
+				font-size: var(--fs-0);
+				padding: 6px 12px 6px 8px;
+				border-radius: 999px;
+				border: 1px solid var(--line);
+				background: var(--surface-2);
+				color: var(--text);
 			}
-			.skill-chip img {
+			.chip img {
 				width: 16px;
 				height: 16px;
 				object-fit: contain;
+				border-radius: 3px;
 			}
-
-			/* ── Publications ── */
-			.pub-list {
-				display: flex;
-				flex-direction: column;
-				gap: 16px;
+			@media (max-width: 960px) {
+				.skills-grid {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+				}
 			}
-			.pub-card {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 20px 24px;
-			}
-			.pub-card-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				gap: 16px;
-				flex-wrap: wrap;
-			}
-			.pub-card h3 {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 15px;
-				color: var(--text-heading);
-				font-weight: 500;
-				line-height: 1.4;
-				flex: 1;
-				min-width: 240px;
-			}
-			.pub-year {
-				font-family: "Azeret Mono", monospace;
-				font-size: 13px;
-				color: var(--accent-secondary);
-				font-weight: 600;
-			}
-			.pub-authors {
-				font-size: 13px;
-				color: var(--text-primary);
-				margin-top: 8px;
-				line-height: 1.5;
-			}
-			.pub-authors .me {
-				color: var(--accent-primary);
-				font-weight: 500;
-			}
-			.pub-conf {
-				font-size: 13px;
-				color: var(--text-muted);
-				margin-top: 6px;
-			}
-			.pub-doi {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--accent-primary);
-				text-decoration: none;
-				margin-top: 8px;
-				display: inline-block;
+			@media (max-width: 600px) {
+				.skills-grid {
+					grid-template-columns: 1fr;
+				}
 			}
 
 			/* ── Certifications ── */
 			.cert-grid {
 				display: grid;
-				grid-template-columns: repeat(
-					auto-fill,
-					minmax(min(100%, 280px), 1fr)
-				);
+				grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 				gap: 16px;
 			}
-			.cert-card-new {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 18px 20px;
+			.cert {
+				padding: 20px;
 				display: flex;
 				flex-direction: column;
-				gap: 8px;
-			}
-			.cert-card-header {
-				display: flex;
-				align-items: center;
 				gap: 10px;
 			}
-			.cert-icon {
-				width: 40px;
-				height: 40px;
-				border-radius: 2px;
-				background: var(--bg-elevated);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				flex-shrink: 0;
-				overflow: hidden;
+			.cert.expired {
+				background: transparent;
 			}
-			.cert-icon img {
-				width: 100%;
-				height: 100%;
+			.cert.expired .cert-name,
+			.cert.expired .cert-badge {
+				opacity: 0.6;
+			}
+			.cert-head {
+				display: flex;
+				gap: 14px;
+				align-items: flex-start;
+			}
+			.cert-badge {
+				width: 52px;
+				height: 52px;
+				flex: none;
+				border-radius: 10px;
 				object-fit: contain;
+				background: #fff;
+				border: 1px solid var(--line);
+				padding: 4px;
+			}
+			.cert-badge.ph {
+				display: grid;
+				place-items: center;
+				background: var(--surface-2);
+				color: var(--accent);
+				font-family: var(--mono);
+				font-weight: 700;
+				font-size: var(--fs-0);
 			}
 			.cert-name {
-				font-family: "IBM Plex Sans", sans-serif;
-				font-size: 13px;
-				color: var(--text-heading);
-				font-weight: 500;
-				line-height: 1.3;
+				color: var(--heading);
+				font-weight: 600;
+				line-height: 1.35;
+				font-size: var(--fs-1);
 			}
-			.cert-date {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--text-muted);
+			.cert-org {
+				font-size: 12px;
+				color: var(--muted);
+				margin-top: 2px;
 			}
-			.cert-verify {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--accent-primary);
-				text-decoration: none;
+			.cert-meta {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				align-items: center;
+				font-family: var(--mono);
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.cert p {
+				font-size: var(--fs-0);
+				color: var(--muted);
+				line-height: 1.55;
+			}
+			.cert .link {
+				margin-top: auto;
 			}
 
 			/* ── GitHub ── */
-			.github-section-new {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
+			.gh {
 				padding: 24px;
-				margin-top: 16px;
 			}
-			.github-subtitle-new {
-				text-align: center;
-				color: var(--text-muted);
-				margin-bottom: 16px;
-				font-size: 13px;
-			}
-			.github-subtitle-new a {
-				color: var(--accent-primary);
-				text-decoration: none;
-			}
-			.calendar {
-				max-width: 100%;
-				margin: 0 auto;
-				overflow-x: auto;
-				border: 0;
-				border-radius: 0;
-			}
-			#github-calendar.calendar {
-				border: 0 !important;
-				border-radius: 0 !important;
-			}
-			.calendar h2,
-			.calendar h3,
-			.calendar .float-left,
-			.calendar .float-right {
-				display: none !important;
-			}
-			.calendar .position-relative a {
-				display: none !important;
-			}
-			.calendar rect.ContribCalendar-day[data-level="0"] {
-				fill: var(--bg-elevated) !important;
-			}
-			.calendar rect.ContribCalendar-day[data-level="1"],
-			.calendar rect.ContribCalendar-day[data-level="2"],
-			.calendar rect.ContribCalendar-day[data-level="3"],
-			.calendar rect.ContribCalendar-day[data-level="4"] {
-				fill: var(--accent-primary) !important;
-			}
-			.calendar svg rect[data-level]:not([data-level="0"]) {
-				fill: var(--accent-primary) !important;
-			}
-			.calendar text {
-				fill: var(--text-muted) !important;
-			}
-
-			/* ── Resume ── */
-			.resume-section-new {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				padding: 28px;
-				text-align: center;
-			}
-			.resume-section-new p {
-				color: var(--text-primary);
-				margin-bottom: 20px;
-				font-size: 15px;
-			}
-
-			/* ── Contact / Footer ── */
-			.contact-section {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 36px 24px 28px;
-				border-top: 1px solid var(--border-default);
-			}
-			.contact-heading {
-				font-size: 17px;
-				color: var(--text-heading);
-				font-weight: 400;
-				margin-bottom: 8px;
-				font-family: "IBM Plex Sans", sans-serif;
-			}
-			.contact-sub {
-				font-size: 14px;
-				color: var(--text-muted);
-				margin-bottom: 28px;
-			}
-			.contact-links-row {
-				display: flex;
-				gap: 16px;
-				flex-wrap: wrap;
-			}
-			.contact-link {
-				font-family: "Azeret Mono", monospace;
-				font-size: 13px;
-				color: var(--accent-primary);
-				text-decoration: none;
-				padding: 8px 18px;
-				border: 1px solid var(--border-default);
-				border-radius: 2px;
-				transition: all 0.15s;
-			}
-			.contact-link:hover {
-				border-color: var(--border-hover);
-				background: rgba(0, 221, 192, 0.04);
-			}
-			.footer-bar {
-				margin-top: 36px;
-				padding-top: 16px;
-				border-top: 1px solid var(--border-default);
+			.gh-head {
 				display: flex;
 				justify-content: space-between;
-				flex-wrap: wrap;
 				gap: 12px;
+				flex-wrap: wrap;
+				margin-bottom: 16px;
+				font-size: var(--fs-0);
+				color: var(--muted);
 			}
-			.footer-text {
-				font-family: "Azeret Mono", monospace;
-				font-size: 11px;
-				color: var(--text-muted);
+			#github-calendar {
+				overflow-x: auto;
+				min-height: 120px;
+				display: grid;
+				place-items: center;
+				color: var(--muted);
+				font-size: var(--fs-0);
+			}
+			#github-calendar h2,
+			#github-calendar h3,
+			#github-calendar .float-left,
+			#github-calendar .float-right,
+			#github-calendar .position-relative a {
+				display: none !important;
+			}
+			#github-calendar {
+				--color-calendar-graph-day-bg: var(--surface-2);
+				--color-calendar-graph-day-L1-bg: color-mix(in srgb, var(--accent) 35%, var(--surface-2));
+				--color-calendar-graph-day-L2-bg: color-mix(in srgb, var(--accent) 60%, var(--surface-2));
+				--color-calendar-graph-day-L3-bg: color-mix(in srgb, var(--accent) 82%, var(--surface-2));
+				--color-calendar-graph-day-L4-bg: var(--accent);
+				border: 0 !important;
+			}
+			#github-calendar text {
+				fill: var(--muted) !important;
+			}
+			#github-calendar svg {
+				max-width: none;
 			}
 
-			/* ── Modals ── */
-			.modal-overlay {
-				display: none;
+			/* ── Contact ── */
+			.contact-box {
+				border: 1px solid var(--line);
+				border-radius: 24px;
+				padding: clamp(28px, 5vw, 56px);
+				background:
+					radial-gradient(500px 240px at 90% 0%, var(--glow-a), transparent 70%),
+					var(--surface);
+			}
+			.contact-box h2 {
+				font-size: var(--fs-5);
+				letter-spacing: -0.03em;
+				line-height: 1.05;
+				max-width: 18ch;
+			}
+			.contact-box p {
+				margin-top: 16px;
+				max-width: 52ch;
+				font-size: var(--fs-2);
+			}
+			.contact-box .hero-actions {
+				margin-top: 28px;
+			}
+			footer {
+				margin-top: 64px;
+				padding: 24px 0 40px;
+				border-top: 1px solid var(--line);
+				font-size: var(--fs-0);
+				color: var(--muted);
+			}
+			footer .wrap {
+				display: flex;
+				justify-content: space-between;
+				gap: 12px;
+				flex-wrap: wrap;
+			}
+
+			/* ── Modal ── */
+			.overlay {
 				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				background: rgba(0, 0, 0, 0.85);
-				z-index: 10000;
+				inset: 0;
+				z-index: 200;
+				background: rgba(4, 6, 10, 0.72);
+				-webkit-backdrop-filter: blur(4px);
+				backdrop-filter: blur(4px);
+				display: none;
 				align-items: center;
 				justify-content: center;
-				padding: 2rem;
-				overflow-y: auto;
+				padding: 20px;
 			}
-			.modal-overlay.active {
+			.overlay.open {
 				display: flex;
 			}
-			.modal-content {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				border-radius: 4px;
-				max-width: 800px;
-				width: 100%;
-				max-height: 90vh;
-				overflow-y: auto;
+			.modal {
 				position: relative;
-				padding: 2rem;
+				width: 100%;
+				max-width: 820px;
+				max-height: calc(100vh - 40px);
+				max-height: calc(100dvh - 40px);
+				overflow-y: auto;
+				overscroll-behavior: contain;
+				background: var(--surface);
+				border: 1px solid var(--line-strong);
+				border-radius: 20px;
+				box-shadow: var(--shadow);
+				animation: pop 0.22s ease;
+			}
+			@keyframes pop {
+				from {
+					opacity: 0;
+					transform: translateY(12px) scale(0.985);
+				}
 			}
 			.modal-close {
-				position: absolute;
-				top: 1rem;
-				right: 1rem;
-				background: var(--bg-elevated);
-				color: var(--text-heading);
-				border: 1px solid var(--border-default);
-				width: 36px;
-				height: 36px;
-				border-radius: 50%;
-				cursor: pointer;
-				font-size: 1.2rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.3s;
-				z-index: 10;
+				position: sticky;
+				top: 12px;
+				float: right;
+				margin: 12px 12px -50px 0;
+				z-index: 5;
+				background: var(--surface);
 			}
-			.modal-close:hover {
-				background: var(--border-hover);
+			.modal-body {
+				padding: 32px;
 			}
-			.modal-header {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				margin-bottom: 1.5rem;
-				padding-bottom: 1.5rem;
-				border-bottom: 1px solid var(--border-default);
+			.modal .media {
+				border-bottom: 1px solid var(--line);
 			}
-			.modal-logo {
-				width: 60px;
-				height: 60px;
-				object-fit: contain;
-				border-radius: 4px;
-				border: 1px solid var(--border-default);
-				padding: 6px;
-				background: var(--bg-elevated);
-				flex-shrink: 0;
+			.modal h2 {
+				padding-right: 40px;
 			}
-			.modal-title {
-				font-family: "Azeret Mono", monospace;
-				font-size: 1.3rem;
+			.modal .m-sub {
+				color: var(--accent);
 				font-weight: 600;
-				color: var(--text-heading);
-				margin-bottom: 0.25rem;
+				margin-top: 4px;
 			}
-			.modal-subtitle {
-				font-size: 1rem;
-				color: var(--accent-primary);
-			}
-			.modal-meta {
+			.m-meta {
+				margin: 18px 0;
 				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
-				margin-bottom: 1.5rem;
-				padding: 1rem;
-				background: var(--bg-elevated);
-				border-radius: 4px;
-			}
-			.modal-meta-item {
-				font-size: 0.95rem;
-				color: var(--text-primary);
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-			.modal-description {
-				color: var(--text-primary);
-				line-height: 1.7;
-				margin-bottom: 1.5rem;
-				font-size: 1rem;
-				white-space: pre-wrap;
-			}
-			.modal-skills {
-				display: flex;
-				gap: 0.5rem;
 				flex-wrap: wrap;
+				gap: 6px 18px;
+				font-size: var(--fs-0);
+				color: var(--muted);
 			}
-			.modal-skill-tag {
-				padding: 0.4rem 0.8rem;
-				border-radius: 2px;
-				background: rgba(0, 221, 192, 0.1);
-				color: var(--accent-primary);
-				font-weight: 500;
-				font-size: 0.8rem;
+			.m-desc {
+				white-space: pre-line;
+				margin: 16px 0 20px;
 			}
-
-			/* Project modal */
-			.project-modal-new .modal-content {
-				max-width: 1000px;
-				padding: 0;
+			.m-h {
+				font-family: var(--mono);
+				font-size: var(--fs-0);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--muted);
+				margin-bottom: 10px;
 			}
-			.project-modal-media-container {
-				width: 100%;
-				max-height: 400px;
-				overflow: hidden;
-				background: var(--bg-elevated);
-				display: flex;
-				align-items: center;
-				justify-content: center;
+			.modal .hero-actions {
+				margin-top: 24px;
 			}
-			.project-modal-media-container img,
-			.project-modal-media-container video {
-				width: 100%;
-				height: auto;
-				max-height: 400px;
-				object-fit: cover;
-			}
-			.project-modal-body {
-				padding: 2rem;
-			}
-
-			/* Image modal */
-			.image-modal {
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				background: rgba(0, 0, 0, 0.9);
-				z-index: 9999;
-				align-items: center;
-				justify-content: center;
-				padding: 2rem;
-				cursor: pointer;
-			}
-			.image-modal.active {
-				display: flex;
-			}
-			.image-modal img {
-				max-width: 90%;
-				max-height: 90%;
-				object-fit: contain;
-				cursor: default;
+			@media (max-width: 560px) {
+				.modal-body {
+					padding: 22px;
+				}
 			}
 
 			/* ── Back to top ── */
-			.back-to-top {
+			.to-top {
 				position: fixed;
-				bottom: 1.5rem;
-				right: 1.5rem;
-				width: 40px;
-				height: 40px;
-				background: var(--bg-surface);
-				border: 1px solid var(--border-default);
-				color: var(--accent-primary);
-				border-radius: 2px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				cursor: pointer;
-				transition: all 0.3s;
-				z-index: 999;
-				font-size: 1rem;
-				font-family: "Azeret Mono", monospace;
-			}
-			.back-to-top:hover {
-				border-color: var(--border-hover);
-				background: var(--bg-elevated);
-			}
-
-			/* ── Topographic background ── */
-			.topo-bg {
-				position: fixed;
-				inset: 0;
-				z-index: 0;
+				right: 18px;
+				bottom: 18px;
+				z-index: 90;
+				background: var(--surface);
+				opacity: 0;
 				pointer-events: none;
-				overflow: hidden;
+				transform: translateY(8px);
+				transition: opacity 0.2s, transform 0.2s;
 			}
-			.topo-bg svg {
-				width: 100%;
-				height: 100%;
-				opacity: 0.025;
+			.to-top.show {
+				opacity: 1;
+				pointer-events: auto;
+				transform: none;
 			}
 
-			/* ── Responsive ── */
-			@media (max-width: 768px) {
-				.hero-main,
-				.hero-stats-bar {
-					max-width: 100% !important;
+			/* ── Reveal ── */
+			.js .reveal {
+				opacity: 0;
+				transform: translateY(16px);
+				transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+					transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+				transition-delay: var(--d, 0ms);
+			}
+			.js .reveal.in {
+				opacity: 1;
+				transform: none;
+			}
+
+			@media (max-width: 560px) {
+				.wrap,
+				.nav-inner {
+					padding-left: 20px;
+					padding-right: 20px;
 				}
-				.hero-hex-canvas {
-					display: none;
+				section {
+					padding-top: 64px;
 				}
-				.profile-card {
-					flex-direction: column;
-					align-items: center;
-					text-align: center;
+				.tl-card {
+					padding: 18px;
 				}
-				.profile-links {
-					justify-content: center;
+				.tl-item {
+					padding-left: 30px;
 				}
-				.stats-bar {
-					gap: 24px;
+				.p-body {
+					padding: 20px;
 				}
-				.projects-grid {
-					grid-template-columns: 1fr;
+				.stat {
+					padding: 18px;
 				}
-				.github-section-new {
-					overflow-x: auto;
-					padding: 16px;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				html {
+					scroll-behavior: auto;
 				}
-				.calendar {
-					overflow-x: scroll;
-					-webkit-overflow-scrolling: touch;
+				*,
+				*::before,
+				*::after {
+					animation-duration: 0.001ms !important;
+					animation-iteration-count: 1 !important;
+					transition-duration: 0.001ms !important;
+					transition-delay: 0ms !important;
 				}
-				.resume-section-new {
-					padding: 24px;
+				.js .reveal {
+					opacity: 1;
+					transform: none;
 				}
 			}
 		</style>
 	</head>
 	<body>
-		<!-- Topographic Background -->
-		<div class="topo-bg">
-			<svg
-				viewBox="0 0 1200 900"
-				preserveAspectRatio="xMidYMid slice"
-			>
-				<g
-					fill="none"
-					stroke="#00DDC0"
-					stroke-width="0.8"
-				>
-					<path d="M-50,200 Q200,150 400,220 T800,180 T1250,240" />
-					<path d="M-50,280 Q150,250 350,300 T750,260 T1250,310" />
-					<path d="M-50,370 Q250,320 500,380 T900,340 T1250,400" />
-					<path d="M-50,460 Q180,430 420,480 T850,440 T1250,500" />
-					<path d="M-50,550 Q300,510 550,560 T950,530 T1250,590" />
-					<path d="M-50,640 Q220,610 480,660 T880,620 T1250,680" />
-					<path d="M-50,730 Q280,700 520,740 T920,710 T1250,770" />
-				</g>
-			</svg>
-		</div>
+		<a class="skip" href="#main">Skip to content</a>
 
-		<!-- Navigation -->
-		<nav id="mainNav">
+		<header class="nav" id="nav">
 			<div class="nav-inner">
-				<button
-					class="logo"
-					id="nav-logo"
-					onclick="scrollToSection('hero')"
-				>
-					TS<span class="dot">.</span>
-				</button>
-				<div
-					class="nav-links"
-					id="desktopNav"
-				></div>
-				<button
-					class="mobile-toggle"
-					id="mobileToggle"
-					onclick="toggleMobileNav()"
-				>
-					&#9776;
-				</button>
-			</div>
-			<div
-				class="mobile-menu"
-				id="mobileMenu"
-			></div>
-		</nav>
-
-		<!-- Hero -->
-		<section
-			class="hero"
-			id="hero"
-		></section>
-
-		<!-- About -->
-		<div
-			class="section"
-			id="about"
-		></div>
-
-		<!-- Education -->
-		<div
-			class="section-tight"
-			id="education"
-		></div>
-
-		<!-- Experience -->
-		<div
-			class="section-tight"
-			id="experience"
-		></div>
-
-		<!-- Projects -->
-		<div
-			class="section-tight"
-			id="projects"
-		></div>
-
-		<!-- GitHub -->
-		<div
-			class="section-tight"
-			id="github"
-		>
-			<div class="animate-in">
-				<h2 class="section-label">
-					<span class="prefix">// </span>GitHub Activity
-				</h2>
-			</div>
-			<div class="github-section-new">
-				<p class="github-subtitle-new">
-					Live contribution data from
-					<a
-						href="https://github.com/Tom-Sloan"
-						target="_blank"
-						>@Tom-Sloan</a
-					>
-				</p>
-				<div
-					class="calendar"
-					id="github-calendar"
-				>
-					<div
-						style="
-							text-align: center;
-							padding: 2rem;
-							color: var(--text-muted);
-							font-size: 0.9rem;
-						"
-					>
-						Loading...
-					</div>
+				<a class="logo" href="#top" id="logo" aria-label="Back to top">TS<span>.</span></a>
+				<nav class="nav-links" id="navLinks" aria-label="Primary"></nav>
+				<div class="nav-tools">
+					<button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle color theme">
+						<svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+						<svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+					</button>
+					<button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+					</button>
 				</div>
 			</div>
-		</div>
+			<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile"></nav>
+		</header>
 
-		<!-- Skills -->
-		<div
-			class="section-tight"
-			id="skills"
-		></div>
+		<main id="main">
+			<div class="hero" id="top"><div class="wrap" id="hero"></div></div>
+			<section id="about"><div class="wrap" id="aboutInner"></div></section>
+			<section id="experience"><div class="wrap" id="experienceInner"></div></section>
+			<section id="projects"><div class="wrap" id="projectsInner"></div></section>
+			<section id="publications"><div class="wrap" id="publicationsInner"></div></section>
+			<section id="education"><div class="wrap" id="educationInner"></div></section>
+			<section id="skills"><div class="wrap" id="skillsInner"></div></section>
+			<section id="certifications"><div class="wrap" id="certificationsInner"></div></section>
+			<section id="github">
+				<div class="wrap">
+					<div class="section-head reveal">
+						<p class="eyebrow">Activity</p>
+						<h2>GitHub</h2>
+					</div>
+					<div class="card gh reveal">
+						<div class="gh-head">
+							<span>Public contributions over the last year</span>
+							<a class="link" href="https://github.com/Tom-Sloan" target="_blank" rel="noopener" id="ghLink">@Tom-Sloan</a>
+						</div>
+						<div id="github-calendar">Loading...</div>
+					</div>
+				</div>
+			</section>
+			<section id="contact"><div class="wrap" id="contactInner"></div></section>
+		</main>
 
-		<!-- Certifications -->
-		<div
-			class="section-tight"
-			id="certifications"
-		></div>
+		<footer>
+			<div class="wrap" id="footerInner"></div>
+		</footer>
 
-		<!-- Publications -->
-		<div
-			class="section-tight"
-			id="publications"
-		></div>
+		<button class="icon-btn to-top" id="toTop" type="button" aria-label="Back to top">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+		</button>
 
-		<!-- Contact / Footer -->
-		<div
-			class="contact-section"
-			id="contact"
-		></div>
-
-		<!-- Back to Top -->
-		<div
-			class="back-to-top"
-			id="backToTop"
-			onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-		>
-			&uarr;
-		</div>
-
-		<!-- Image Modal -->
-		<div
-			class="image-modal"
-			id="imageModal"
-		>
-			<img
-				src=""
-				alt="Full view"
-				id="modalImage"
-				onclick="event.stopPropagation()"
-			/>
-		</div>
-
-		<!-- Project Modal -->
-		<div
-			class="modal-overlay project-modal-new"
-			id="projectModal"
-		>
-			<div class="modal-content">
-				<button
-					class="modal-close"
-					onclick="closeProjectModal()"
-				>
-					&times;
+		<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+			<div class="modal" id="modal">
+				<button class="icon-btn modal-close" id="modalClose" type="button" aria-label="Close">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
 				</button>
-				<div id="projectModalContent"></div>
+				<div id="modalContent"></div>
 			</div>
 		</div>
 
-		<!-- Experience Modal -->
-		<div
-			class="modal-overlay"
-			id="experienceModal"
-		>
-			<div class="modal-content">
-				<button
-					class="modal-close"
-					onclick="closeExperienceModal()"
-				>
-					&times;
-				</button>
-				<div id="experienceModalContent"></div>
-			</div>
-		</div>
-
-		<!-- Education Modal -->
-		<div
-			class="modal-overlay"
-			id="educationModal"
-		>
-			<div class="modal-content">
-				<button
-					class="modal-close"
-					onclick="closeEducationModal()"
-				>
-					&times;
-				</button>
-				<div id="educationModalContent"></div>
-			</div>
-		</div>
-
-		<!-- Load Data -->
 		<script src="data.js"></script>
-
-		<!-- GitHub Calendar Library (deferred - below fold) -->
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/github-calendar@2.3.4/dist/github-calendar-responsive.css"
-			media="print"
-			onload="this.media = 'all'"
-		/>
-		<script
-			defer
-			src="https://unpkg.com/github-calendar@2.3.4/dist/github-calendar.min.js"
-		></script>
-
 		<script>
-			// ─── Navigation ─────────────────────────────────────────────────
-			const NAV_ITEMS = [
-				"About",
-				"Education",
-				"Experience",
-				"Projects",
-				"GitHub",
-				"Skills",
-				"Certifications",
-				"Publications",
-				"Contact",
-			];
-			let mobileNavOpen = false;
+			document.documentElement.classList.add("js");
 
-			function scrollToSection(id) {
-				document
-					.getElementById(id)
-					?.scrollIntoView({ behavior: "smooth", block: "start" });
-				closeMobileNav();
-			}
+			const D = portfolioData;
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-			function toggleMobileNav() {
-				mobileNavOpen = !mobileNavOpen;
-				document
-					.getElementById("mobileMenu")
-					.classList.toggle("active", mobileNavOpen);
-				document.getElementById("mobileToggle").innerHTML =
-					mobileNavOpen ? "&#10005;" : "&#9776;";
-			}
-
-			function closeMobileNav() {
-				mobileNavOpen = false;
-				document
-					.getElementById("mobileMenu")
-					.classList.remove("active");
-				document.getElementById("mobileToggle").innerHTML = "&#9776;";
-			}
-
-			function renderNav() {
-				const desktop = document.getElementById("desktopNav");
-				const mobile = document.getElementById("mobileMenu");
-
-				desktop.innerHTML = NAV_ITEMS.map(
-					(item) =>
-						`<button onclick="scrollToSection('${item.toLowerCase()}')">${item}</button>`,
-				).join("");
-
-				mobile.innerHTML = NAV_ITEMS.map(
-					(item) =>
-						`<button onclick="scrollToSection('${item.toLowerCase()}')">${item}</button>`,
-				).join("");
-			}
-
-			// Nav scroll effect
-			window.addEventListener(
-				"scroll",
-				() => {
-					document
-						.getElementById("mainNav")
-						.classList.toggle("scrolled", window.scrollY > 40);
-					const btn = document.getElementById("backToTop");
-					btn.style.opacity = window.scrollY > 300 ? "1" : "0";
-					btn.style.pointerEvents =
-						window.scrollY > 300 ? "auto" : "none";
-				},
-				{ passive: true },
-			);
-
-			// ─── Tag helpers ────────────────────────────────────────────────
-			function tagColor(text, color) {
-				return `<span class="tag" style="background: ${color}22; color: ${color}; border: none;">${text}</span>`;
-			}
-			function tagBorder(text) {
-				return `<span class="tag tag-border">${text}</span>`;
-			}
-
-			// ─── Image Modal ────────────────────────────────────────────────
-			function openImageModal(src) {
-				document.getElementById("modalImage").src = src;
-				document.getElementById("imageModal").classList.add("active");
-				document.body.style.overflow = "hidden";
-			}
-			function closeImageModal() {
-				document
-					.getElementById("imageModal")
-					.classList.remove("active");
-				document.body.style.overflow = "auto";
-			}
-			document
-				.getElementById("imageModal")
-				.addEventListener("click", (e) => {
-					if (e.target === document.getElementById("imageModal"))
-						closeImageModal();
-				});
-
-			// ─── Hero Hex Grid Skills Data ──────────────────────────────────
-			const HERO_SKILLS = [
-				{ label: "PyTorch", cat: 1, pri: 10, used: ["SAM3 - ML Researcher", "Carleton - Research Asst", "LeRobot SO-101", "M.A.Sc. Thesis"] },
-				{ label: "SLAM", cat: 1, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
-				{ label: "Comp Vision", cat: 1, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
-				{ label: "RAG", cat: 1, pri: 7, used: ["SAM3 - ML Researcher"] },
-				{ label: "Claude API", cat: 1, pri: 7, used: ["SAM3 - ML Researcher"] },
-				{ label: "Hugging Face", cat: 1, pri: 7, used: ["LeRobot SO-101"] },
-				{ label: "n8n", cat: 1, pri: 6, used: ["SAM3 - ML Researcher"] },
-				{ label: "TensorFlow", cat: 1, pri: 5, used: [] },
-				{ label: "scikit-learn", cat: 1, pri: 4, used: [] },
-				{ label: "Vec Search", cat: 1, pri: 3, used: [] },
-				{ label: "Prompt Eng", cat: 1, pri: 3, used: [] },
-				{ label: "OpenClaw", cat: 1, pri: 2, used: [] },
-				{ label: "Jetson", cat: 2, pri: 10, used: ["LeRobot SO-101"] },
-				{ label: "PCB", cat: 2, pri: 9, used: ["Smart Band", "Carleton - Research/TA"] },
-				{ label: "Drones", cat: 2, pri: 9, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
-				{ label: "IoT", cat: 2, pri: 8, used: ["SAM3 - ML Researcher", "Smart Band"] },
-				{ label: "Arduino", cat: 2, pri: 7, used: ["Smart Band", "Hydroponics System"] },
-				{ label: "ROS 2", cat: 2, pri: 7, used: ["M.A.Sc. Thesis"] },
-				{ label: "Isaac Sim", cat: 2, pri: 6, used: ["LeRobot SO-101"] },
-				{ label: "MCU", cat: 2, pri: 5, used: ["Smart Band"] },
-				{ label: "Circuits", cat: 2, pri: 4, used: ["Carleton - Research/TA"] },
-				{ label: "FPGA", cat: 2, pri: 3, used: [] },
-				{ label: "Gazebo", cat: 2, pri: 2, used: [] },
-				{ label: "AWS", cat: 3, pri: 9, used: ["Magnet Forensics - DevOps"] },
-				{ label: "Docker", cat: 3, pri: 8, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
-				{ label: "Linux", cat: 3, pri: 7, used: ["Magnet Forensics - DevOps"] },
-				{ label: "Jenkins", cat: 3, pri: 5, used: ["Magnet Forensics - DevOps"] },
-				{ label: "RabbitMQ", cat: 3, pri: 5, used: ["Carleton - Research Asst", "M.A.Sc. Thesis"] },
-				{ label: "React", cat: 4, pri: 8, used: ["Carleton - Research Asst", "LidarWorld", "M.A.Sc. Thesis"] },
-				{ label: "PostgreSQL", cat: 4, pri: 6, used: ["Speakeasy"] },
-				{ label: "Supabase", cat: 4, pri: 5, used: ["Speakeasy"] },
-				{ label: "Node.js", cat: 4, pri: 4, used: [] },
-				{ label: "Redux", cat: 4, pri: 2, used: [] },
-				{ label: "HTML/CSS", cat: 4, pri: 2, used: [] },
-				{ label: "Sass", cat: 4, pri: 1, used: [] },
-				{ label: "MongoDB", cat: 4, pri: 3, used: [] },
-				{ label: "Firebase", cat: 4, pri: 2, used: [] },
-				{ label: "Git", cat: 4, pri: 4, used: [] },
-				{ label: "Python", cat: 5, pri: 10, used: ["SAM3", "Carleton", "Magnet Forensics", "Telesat", "Speakeasy", "Algo Trading", "LeRobot SO-101"] },
-				{ label: "C/C++", cat: 5, pri: 8, used: ["Carleton - Research/TA", "Smart Band", "M.A.Sc. Thesis"] },
-				{ label: "TypeScript", cat: 5, pri: 7, used: ["LidarWorld", "Speakeasy"] },
-				{ label: "JavaScript", cat: 5, pri: 5, used: ["LidarWorld"] },
-				{ label: "Rust", cat: 5, pri: 3, used: [] },
-				{ label: "SQL", cat: 5, pri: 4, used: [] },
-			];
-
-			const HEX_CAT_COLORS = {
-				0: [0, 221, 192],
-				1: [90, 180, 255],
-				2: [245, 175, 50],
-				3: [120, 160, 220],
-				4: [110, 210, 160],
-				5: [170, 200, 140],
-				empty: [20, 30, 42],
+			// ── helpers ──
+			const esc = (s) =>
+				String(s == null ? "" : s)
+					.replace(/&/g, "&amp;")
+					.replace(/</g, "&lt;")
+					.replace(/>/g, "&gt;")
+					.replace(/"/g, "&quot;");
+			const $ = (id) => document.getElementById(id);
+			const range = (o) => `${esc(o.startDate)} &ndash; ${esc(o.endDate)}`;
+			const clip = (s, n) => {
+				if (s.length <= n) return s;
+				const cut = s.slice(0, n);
+				return cut.slice(0, cut.lastIndexOf(" ")) + "...";
+			};
+			const reveal = (i) => `reveal" style="--d:${Math.min(i, 8) * 60}ms`;
+			const hexAlpha = (c, a) => /^#[0-9a-f]{6}$/i.test(c) ? c + a : "transparent";
+			const ICON = {
+				arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+				pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+				doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+				gh: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
+				in: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>',
 			};
 
-			const HEX_CAT_NAMES = { 1: "AI/ML", 2: "Hardware", 3: "Cloud", 4: "Web/DB", 5: "Languages" };
+			const SECTIONS = [
+				["about", "About"],
+				["experience", "Experience"],
+				["projects", "Projects"],
+				["publications", "Publications"],
+				["education", "Education"],
+				["skills", "Skills"],
+				["certifications", "Certifications"],
+				["github", "GitHub"],
+				["contact", "Contact"],
+			];
 
-			// ─── Hero Hex Grid Animation ────────────────────────────────────
-			function initHeroHexGrid() {
-				const canvas = document.getElementById("heroHexCanvas");
-				if (!canvas) return;
-				const ctx = canvas.getContext("2d");
-				let animId, t = 0;
-				let builtW = 0, builtH = 0;
-				const mouse = { x: -9999, y: -9999 };
-				let smx = -9999, smy = -9999;
-				const trail = [];
-				let frameCount = 0;
-				let hexPositions = [];
-
-				const TRAIL_LEN = 150;
-				const BORDER_BASE = 0.15;
-				const DOT_MOD = 7;
-				const DOT_SIZE = 3.0;
-				const MIN_COLS = 5;
-
-				function hexPath(cx, cy, size) {
-					ctx.beginPath();
-					for (let i = 0; i < 6; i++) {
-						const a = Math.PI / 180 * (60 * i - 30);
-						const px = cx + size * Math.cos(a), py = cy + size * Math.sin(a);
-						i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-					}
-					ctx.closePath();
-				}
-
-				function buildGrid(w, h) {
-					const baseHex = 48;
-					const hSp = baseHex * 1.82;
-					const vSp = baseHex * 1.58;
-					const cols = Math.ceil(w / hSp) + 1;
-					const rows = Math.ceil(h / vSp) + 1;
-
-					const availWidth = w * 0.48;
-					const fittingCols = Math.floor(availWidth / hSp);
-					if (fittingCols < MIN_COLS) {
-						hexPositions = [];
-						builtW = w; builtH = h;
-						updateHeroLayout(false);
-						return;
-					}
-
-					const exL = 0.52, exT = 0.10, exB = 0.84;
-					const navBottom = 0.07;
-					const positions = [];
-					for (let r = 0; r < rows; r++) {
-						for (let c = 0; c < cols; c++) {
-							const cx = c * hSp + (r % 2 ? hSp * 0.5 : 0);
-							const cy = r * vSp + vSp * 0.5;
-							const nx = cx / w, ny = cy / h;
-							if (ny < navBottom) continue;
-							if (nx < exL && ny > exT && ny < exB) continue;
-							positions.push({ cx, cy, nx, ny, skill: null, baseR: baseHex });
-						}
-					}
-
-					let centerIdx = 0, minD = Infinity;
-					positions.forEach((p, i) => {
-						const d = Math.sqrt((p.nx - 0.62) ** 2 + (p.ny - 0.46) ** 2);
-						if (d < minD) { minD = d; centerIdx = i; }
-					});
-					positions[centerIdx].skill = { label: "TS", cat: 0, pri: 99, used: [] };
-					positions[centerIdx].isCenter = true;
-
-					const centerPos = positions[centerIdx];
-					const available = positions.filter((_, i) => i !== centerIdx);
-					available.sort((a, b) => {
-						const da = Math.sqrt((a.cx - centerPos.cx) ** 2 + (a.cy - centerPos.cy) ** 2);
-						const db = Math.sqrt((b.cx - centerPos.cx) ** 2 + (b.cy - centerPos.cy) ** 2);
-						return da - db;
-					});
-
-					const sorted = [...HERO_SKILLS].sort((a, b) => b.pri - a.pri);
-					const count = Math.min(sorted.length, available.length);
-					for (let i = 0; i < count; i++) {
-						available[i].skill = sorted[i];
-					}
-
-					hexPositions = positions;
-					builtW = w; builtH = h;
-					updateHeroLayout(true);
-				}
-
-				function updateHeroLayout(tilesVisible) {
-					const main = document.querySelector('.hero-main');
-					const statsBar = document.querySelector('.hero-stats-bar');
-					if (main) main.classList.toggle('full-width', !tilesVisible);
-					if (statsBar) statsBar.classList.toggle('full-width', !tilesVisible);
-				}
-
-				function resize() {
-					const dpr = window.devicePixelRatio || 1;
-					const rect = canvas.getBoundingClientRect();
-					if (rect.width < 10) return;
-					canvas.width = rect.width * dpr;
-					canvas.height = rect.height * dpr;
-					ctx.scale(dpr, dpr);
-					if (Math.abs(rect.width - builtW) > 30 || Math.abs(rect.height - builtH) > 30) {
-						buildGrid(rect.width, rect.height);
-					}
-				}
-
-				function onMouse(e) {
-					const r = canvas.getBoundingClientRect();
-					mouse.x = e.clientX - r.left;
-					mouse.y = e.clientY - r.top;
-				}
-				function onLeave() { mouse.x = -9999; mouse.y = -9999; }
-				function onClick(e) {
-					const r = canvas.getBoundingClientRect();
-					const mx = e.clientX - r.left, my = e.clientY - r.top;
-					let closest = null, minD = Infinity;
-					hexPositions.forEach(p => {
-						if (!p.skill || p.isCenter) return;
-						const d = Math.sqrt((mx - p.cx) ** 2 + (my - p.cy) ** 2);
-						if (d < p.baseR * 1.2 && d < minD) { minD = d; closest = p; }
-					});
-					if (closest) {
-						showSkillPopup(closest.skill, e.clientX, e.clientY);
-					}
-				}
-
-				canvas.addEventListener("mousemove", onMouse);
-				canvas.addEventListener("mouseleave", onLeave);
-				canvas.addEventListener("click", onClick);
-				resize();
-				setTimeout(resize, 100);
-				setTimeout(resize, 500);
-				window.addEventListener("resize", resize);
-
-				function getProx(px, py) {
-					const mActive = smx > -1000;
-					if (!mActive) return 0;
-					const spotR = 170;
-					const dCur = Math.sqrt((smx - px) ** 2 + (smy - py) ** 2);
-					let best = Math.max(0, 1 - dCur / spotR);
-					best = best * best;
-					for (let i = trail.length - 1; i >= 0; i--) {
-						const age = (trail.length - 1 - i) / TRAIL_LEN;
-						const decay = (1 - age) * 0.55;
-						const d = Math.sqrt((trail[i].x - px) ** 2 + (trail[i].y - py) ** 2);
-						let p = Math.max(0, 1 - d / spotR);
-						p = p * p * decay;
-						if (p > best) best = p;
-					}
-					return best;
-				}
-
-				function draw() {
-					t += 0.004;
-					frameCount++;
-					const rect = canvas.getBoundingClientRect();
-					const w = rect.width, h = rect.height;
-					if (w < 10 || h < 10) { animId = requestAnimationFrame(draw); return; }
-
-					ctx.clearRect(0, 0, w, h);
-					if (hexPositions.length === 0) { animId = requestAnimationFrame(draw); return; }
-
-					const mx = mouse.x, my = mouse.y;
-					smx += (mx - smx) * 0.12; smy += (my - smy) * 0.12;
-					const mActive = smx > -1000;
-					const spotR = 170;
-
-					if (mActive && frameCount % 2 === 0) {
-						trail.push({ x: smx, y: smy });
-						if (trail.length > TRAIL_LEN) trail.shift();
-					}
-					if (!mActive) { trail.length = 0; }
-
-					// Pass 1: Edges with traveling dots
-					hexPositions.forEach((a, ai) => {
-						if (!a.skill) return;
-						hexPositions.forEach((b, bi) => {
-							if (bi <= ai || !b.skill) return;
-							const dx = a.cx - b.cx, dy = a.cy - b.cy;
-							const dist = Math.sqrt(dx * dx + dy * dy);
-							if (dist > a.baseR * 3.8) return;
-
-							let eProx = Math.max(getProx(a.cx, a.cy), getProx(b.cx, b.cy));
-							if (eProx < 0.005) return;
-
-							ctx.beginPath(); ctx.moveTo(a.cx, a.cy); ctx.lineTo(b.cx, b.cy);
-							ctx.strokeStyle = "rgba(0,221,192," + (eProx * 0.12).toFixed(4) + ")";
-							ctx.lineWidth = eProx > 0.1 ? 1.2 : 0.4;
-							ctx.stroke();
-
-							const bothLit = Math.min(getProx(a.cx, a.cy), getProx(b.cx, b.cy));
-							if (bothLit > 0.08 && (ai + bi) % DOT_MOD === 0) {
-								const pulse = (t * 0.3 + ai * 0.1) % 1;
-								const px = a.cx + (b.cx - a.cx) * pulse;
-								const py = a.cy + (b.cy - a.cy) * pulse;
-								const dToA = Math.sqrt((px - a.cx) ** 2 + (py - a.cy) ** 2);
-								const dToB = Math.sqrt((px - b.cx) ** 2 + (py - b.cy) ** 2);
-								const nearCat = dToA < dToB ? a.skill.cat : b.skill.cat;
-								const dc = HEX_CAT_COLORS[nearCat] || HEX_CAT_COLORS[0];
-								ctx.beginPath();
-								ctx.arc(px, py, DOT_SIZE, 0, Math.PI * 2);
-								ctx.fillStyle = "rgba(" + dc[0] + "," + dc[1] + "," + dc[2] + "," + (bothLit * 0.4).toFixed(4) + ")";
-								ctx.fill();
-							}
-						});
-					});
-
-					// Pass 2: Hexes
-					hexPositions.forEach(hex => {
-						const isEmpty = !hex.skill;
-						const isCenter = hex.isCenter;
-						const sk = hex.skill;
-						const c = isEmpty ? HEX_CAT_COLORS.empty : HEX_CAT_COLORS[sk.cat];
-						const hr = hex.baseR;
-						const prox = isEmpty ? 0 : getProx(hex.cx, hex.cy);
-						const breathe = Math.sin(t * 1.2 + hex.cx * 0.003 + hex.cy * 0.005) * 0.06 + 0.94;
-
-						// Bloom glow
-						if (prox > 0.03 && !isEmpty) {
-							const glR = hr * 3.5;
-							const grd = ctx.createRadialGradient(hex.cx, hex.cy, 0, hex.cx, hex.cy, glR);
-							grd.addColorStop(0, "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.2).toFixed(4) + ")");
-							grd.addColorStop(0.3, "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.05).toFixed(4) + ")");
-							grd.addColorStop(1, "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0)");
-							ctx.fillStyle = grd;
-							ctx.beginPath(); ctx.arc(hex.cx, hex.cy, glR, 0, Math.PI * 2); ctx.fill();
-							if (prox > 0.08) {
-								hexPath(hex.cx, hex.cy, hr + 7);
-								ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (prox * 0.4).toFixed(4) + ")";
-								ctx.lineWidth = 1.5; ctx.stroke();
-							}
-						}
-
-						// Hex fill
-						hexPath(hex.cx, hex.cy, hr);
-						let fillA = isEmpty ? 0 : (isCenter
-							? (0.005 + prox * 0.22) * breathe
-							: (0.0 + prox * 0.16) * breathe);
-						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + fillA.toFixed(4) + ")";
-						ctx.fill();
-
-						// Border
-						let borderA;
-						if (isEmpty) {
-							borderA = BORDER_BASE * 0.55;
-						} else if (isCenter) {
-							borderA = (BORDER_BASE * 1.3 + prox * 0.60) * breathe;
-						} else {
-							borderA = (BORDER_BASE + prox * 0.50) * breathe;
-						}
-						ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + borderA.toFixed(4) + ")";
-						ctx.lineWidth = isCenter ? 2 : (prox > 0.1 ? 2 : 0.8);
-						ctx.stroke();
-
-						// Label
-						if (sk && !isEmpty) {
-							let textA = isCenter ? 0.02 + prox * 0.90 : 0.0 + prox * 0.95;
-							if (textA > 0.01) {
-								const fs = isCenter ? 15 : 11;
-								ctx.font = (isCenter ? "700 " : "500 ") + fs + "px 'Azeret Mono', monospace";
-								ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + Math.min(textA, 1).toFixed(4) + ")";
-								ctx.textAlign = "center"; ctx.textBaseline = "middle";
-								ctx.fillText(sk.label, hex.cx, hex.cy);
-							}
-						}
-					});
-
-					// Legend
-					const lgX = 20, lgY = h - 22;
-					ctx.font = "500 11px 'Azeret Mono', monospace";
-					let lx = lgX;
-					[
-						{ l: "AI/ML", cat: 1 }, { l: "Hardware", cat: 2 },
-						{ l: "Cloud", cat: 3 }, { l: "Web/DB", cat: 4 }, { l: "Languages", cat: 5 },
-					].forEach(item => {
-						const c = HEX_CAT_COLORS[item.cat];
-						ctx.beginPath(); ctx.arc(lx, lgY, 4.5, 0, Math.PI * 2);
-						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0.6)"; ctx.fill();
-						ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + ",0.5)";
-						ctx.textAlign = "left"; ctx.textBaseline = "middle";
-						ctx.fillText(item.l, lx + 9, lgY);
-						lx += ctx.measureText(item.l).width + 30;
-					});
-
-					ctx.font = "400 9px 'Azeret Mono', monospace";
-					ctx.fillStyle = "rgba(81,91,107,0.35)";
-					ctx.textAlign = "right";
-					ctx.fillText("hover to explore \u00b7 click for details", w - 16, lgY);
-
-					animId = requestAnimationFrame(draw);
-				}
-				draw();
+			function head(eyebrow, title, sub) {
+				return `<div class="section-head reveal"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2>${sub ? `<p class="section-sub">${esc(sub)}</p>` : ""}</div>`;
 			}
 
-			// ─── Skill Popup ────────────────────────────────────────────────
-			function showSkillPopup(skill, x, y) {
-				closeSkillPopup();
-				const c = HEX_CAT_COLORS[skill.cat];
-				const catName = HEX_CAT_NAMES[skill.cat] || "";
-				const rgb = c[0] + "," + c[1] + "," + c[2];
-				const left = Math.min(x + 12, window.innerWidth - 280);
-				const top = Math.min(y - 20, window.innerHeight - 200);
+			// ── nav / theme ──
+			function renderNav() {
+				const links = SECTIONS.map(([id, label]) => `<a href="#${id}" data-id="${id}">${label}</a>`).join("");
+				$("navLinks").innerHTML = links;
+				$("mobileMenu").innerHTML = links;
+				$("mobileMenu").addEventListener("click", (e) => {
+					if (e.target.closest("a")) setMenu(false);
+				});
+			}
+			function setMenu(open) {
+				$("mobileMenu").classList.toggle("open", open);
+				$("nav").classList.toggle("menu-open", open);
+				$("menuBtn").setAttribute("aria-expanded", String(open));
+			}
+			$("menuBtn").addEventListener("click", () => setMenu(!$("mobileMenu").classList.contains("open")));
+			$("themeBtn").addEventListener("click", () => {
+				const root = document.documentElement;
+				const cur = root.getAttribute("data-theme") ||
+					(window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+				const next = cur === "light" ? "dark" : "light";
+				root.setAttribute("data-theme", next);
+				try { localStorage.setItem("theme", next); } catch (e) {}
+			});
+			$("toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }));
+			$("logo").addEventListener("click", () => setMenu(false));
+			window.addEventListener("scroll", () => {
+				$("nav").classList.toggle("scrolled", window.scrollY > 24);
+				$("toTop").classList.toggle("show", window.scrollY > 600);
+			}, { passive: true });
 
-				let usedHtml;
-				if (skill.used && skill.used.length > 0) {
-					usedHtml = '<div class="skill-popup-label">USED AT</div>' +
-						skill.used.map(u => '<div class="skill-popup-item">' + u + '</div>').join('');
-				} else {
-					usedHtml = '<div class="skill-popup-empty">Skill in toolkit</div>';
-				}
-
-				const overlay = document.createElement('div');
-				overlay.className = 'skill-popup-overlay';
-				overlay.id = 'skillPopupOverlay';
-				overlay.onclick = closeSkillPopup;
-
-				const popup = document.createElement('div');
-				popup.className = 'skill-popup';
-				popup.id = 'skillPopup';
-				popup.style.left = left + 'px';
-				popup.style.top = top + 'px';
-				popup.style.border = '1px solid rgba(' + rgb + ',0.25)';
-				popup.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(' + rgb + ',0.06)';
-				popup.innerHTML = '<div class="skill-popup-header">' +
-					'<span class="skill-popup-name" style="color:rgba(' + rgb + ',0.9)">' + skill.label + '</span>' +
-					'<span class="skill-popup-cat" style="color:rgba(' + rgb + ',0.4)">' + catName + '</span>' +
-					'</div>' + usedHtml;
-
-				document.body.appendChild(overlay);
-				document.body.appendChild(popup);
-
-				function onEsc(e) { if (e.key === 'Escape') { closeSkillPopup(); window.removeEventListener('keydown', onEsc); } }
-				window.addEventListener('keydown', onEsc);
+			function setupScrollSpy() {
+				const links = document.querySelectorAll("#navLinks a");
+				const io = new IntersectionObserver((entries) => {
+					entries.forEach((en) => {
+						if (en.isIntersecting) {
+							links.forEach((a) => a.classList.toggle("active", a.dataset.id === en.target.id));
+						}
+					});
+				}, { rootMargin: "-45% 0px -50% 0px" });
+				SECTIONS.forEach(([id]) => { const el = $(id); if (el) io.observe(el); });
 			}
 
-			function closeSkillPopup() {
-				const overlay = document.getElementById('skillPopupOverlay');
-				const popup = document.getElementById('skillPopup');
-				if (overlay) overlay.remove();
-				if (popup) popup.remove();
-			}
-
-			// ─── Render Hero ────────────────────────────────────────────────
+			// ── hero ──
 			function renderHero() {
-				const p = portfolioData.profile;
-				const currentJob = portfolioData.experience.find(
-					(e) => e.current,
-				);
-				const pubCount = portfolioData.publications.length;
-				const certCount = portfolioData.certifications.filter((c) => !c.expired).length;
-				const activeProjects = portfolioData.projects.filter(
-					(proj) => proj.current,
-				);
-				const projectCount = activeProjects.length;
+				const p = D.profile;
+				const current = D.experience.find((e) => e.current);
+				const pubCount = D.publications.length;
+				const certCount = D.certifications.filter((c) => !c.expired).length;
+				const projectCount = D.projects.filter((x) => x.current).length;
+				const years = new Date().getFullYear() - D.experience
+					.filter((e) => e.engineering !== false)
+					.reduce((min, e) => {
+						const m = e.startDate.match(/\d{4}/);
+						return m ? Math.min(min, parseInt(m[0], 10)) : min;
+					}, 9999);
 
-				const experiences = portfolioData.experience.filter(
-						(e) => e.engineering !== false,
-					);
-				const earliest = experiences.reduce((min, exp) => {
-					const match = exp.startDate.match(/\d{4}/);
-					const year = match ? parseInt(match[0]) : 9999;
-					return year < min ? year : min;
-				}, 9999);
-				const years = new Date().getFullYear() - earliest;
-
-				const awsCerts = portfolioData.certifications.filter(c => c.organization.includes("AWS")).length;
-
-				document.getElementById("hero").innerHTML = `
-					<canvas class="hero-hex-canvas" id="heroHexCanvas"></canvas>
-					<div class="hero-content">
-						<div class="hero-main">
-							<div class="hero-text-block" style="transition-delay: 0ms">
-								<div class="status-badge">
-									<span class="status-dot"></span>
-									<span class="status-text">Currently at ${currentJob ? currentJob.company : "work"}</span>
-								</div>
+				$("hero").innerHTML = `
+					<div class="hero-grid">
+						<div>
+							<div class="status reveal"><i></i><span>Currently at ${esc(current ? current.company : "work")}</span></div>
+							<h1 class="reveal" style="--d:60ms">${esc(p.name)}</h1>
+							<p class="role reveal" style="--d:120ms">${esc(p.headline)}</p>
+							<p class="lede reveal" style="--d:180ms">${esc(p.tagline || p.about[0])}</p>
+							<div class="hero-actions reveal" style="--d:240ms">
+								<a class="btn btn-primary" href="#contact">Get in touch ${ICON.arrow}</a>
+								<a class="btn" href="#projects">See projects</a>
+								${D.resume ? `<a class="btn" href="${esc(D.resume.path)}" target="_blank" rel="noopener">${ICON.doc} Resume</a>` : ""}
+								<a class="btn" href="${esc(p.links.github)}" target="_blank" rel="noopener">${ICON.gh} GitHub</a>
 							</div>
-							<div class="hero-text-block" style="transition-delay: 100ms">
-								<h1>${p.name}</h1>
-							</div>
-							<div class="hero-text-block" style="transition-delay: 200ms">
-								<p class="subtitle">${p.headline}</p>
-							</div>
-							<div class="hero-text-block" style="transition-delay: 300ms">
-								<p class="tagline">${p.tagline || p.about[0]}</p>
-								<p class="hero-stats-line">${pubCount} IEEE publications · AWS Certified Machine Learning Engineer · Transport Canada RPAS pilot · Training imitation learning policies on a Jetson Orin Nano.</p>
-							</div>
-							<div class="hero-text-block" style="transition-delay: 400ms">
-								<div class="hero-actions">
-									<a href="#contact" onclick="event.preventDefault(); scrollToSection('contact');" class="btn-primary">Get in touch</a>
-									<a href="${p.links.github}" target="_blank" class="btn-outline">GitHub</a>
-									<span class="hero-location">${p.location}</span>
-								</div>
-							</div>
+							<p class="hero-meta reveal" style="--d:300ms">${ICON.pin}<span>${esc(p.location)}</span></p>
 						</div>
-						<div class="hero-text-block" style="transition-delay: 550ms">
-							<div class="hero-stats-bar">
-								<div class="stat-item">
-									<div class="stat-num">${pubCount}</div>
-									<div class="stat-label">Publications</div>
-								</div>
-								<div class="stat-item">
-									<div class="stat-num">${certCount}</div>
-									<div class="stat-label">Certs</div>
-								</div>
-								<div class="stat-item">
-									<div class="stat-num">${years}+</div>
-									<div class="stat-label">Yrs Eng.</div>
-								</div>
-								<div class="stat-item">
-									<div class="stat-num">${projectCount}</div>
-									<div class="stat-label">Projects</div>
-								</div>
-							</div>
+						<div class="portrait reveal" style="--d:120ms">
+							<img src="${esc(p.image)}" alt="Portrait of ${esc(p.name)}" width="340" height="425" fetchpriority="high" decoding="async" />
 						</div>
 					</div>
-				`;
-
-				// Trigger staggered entrance animation
-				setTimeout(() => {
-					document.querySelectorAll('.hero-text-block').forEach(el => el.classList.add('visible'));
-				}, 150);
-
-				initHeroHexGrid();
+					<div class="stats reveal" style="--d:360ms">
+						<div class="stat"><div class="stat-num">${pubCount}</div><div class="stat-label">IEEE publications</div></div>
+						<div class="stat"><div class="stat-num">${certCount}</div><div class="stat-label">Active certifications</div></div>
+						<div class="stat"><div class="stat-num">${years}+</div><div class="stat-label">Years engineering</div></div>
+						<div class="stat"><div class="stat-num">${projectCount}</div><div class="stat-label">Projects in progress</div></div>
+					</div>`;
 			}
 
-			// ─── Render About ───────────────────────────────────────────────
+			// ── about ──
 			function renderAbout() {
-				const p = portfolioData.profile;
-				document.getElementById("about").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>About</h2>
-					</div>
-					<div class="animate-in" style="transition-delay: 80ms">
-						<div class="profile-card">
-							<div>
-								<div style="font-family: 'Azeret Mono', monospace; font-size: 20px; color: var(--text-heading); font-weight: 600; margin-bottom: 4px;">${p.name}</div>
-								<div style="font-size: 14px; color: var(--accent-primary); margin-bottom: 12px; font-weight: 500;">${p.headline}</div>
-								<div class="about-text">
-									${p.about.map((text) => `<p>${text}</p>`).join("")}
-								</div>
-								<div class="profile-links">
-									<a href="${p.links.linkedin}" target="_blank" class="btn-outline">
-										<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: -2px; margin-right: 6px;">
-											<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-										</svg>
-										LinkedIn
-									</a>
-									<a href="${p.links.github}" target="_blank" class="btn-outline">
-										<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: -2px; margin-right: 6px;">
-											<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-										</svg>
-										GitHub
-									</a>
-								</div>
+				const p = D.profile;
+				const now = D.experience.find((e) => e.current);
+				const edu = D.education[0];
+				$("aboutInner").innerHTML = `
+					${head("About", "Sensors, autonomy and the software around them")}
+					<div class="about-grid">
+						<div class="prose reveal">${p.about.map((t) => `<p>${esc(t)}</p>`).join("")}</div>
+						<aside class="aside-card reveal" style="--d:100ms">
+							<h3>At a glance</h3>
+							<ul class="facts">
+								${now ? `<li><b>${esc(now.title)}</b><span>${esc(now.company)}</span></li>` : ""}
+								${edu ? `<li><b>${esc(edu.degree.split(" - ")[1] || edu.degree)}, ${esc(edu.field)}</b><span>${esc(edu.school)}</span></li>` : ""}
+								<li><b>${esc(p.location)}</b><span>Based in</span></li>
+							</ul>
+							<div class="hero-actions">
+								<a class="btn" href="${esc(p.links.linkedin)}" target="_blank" rel="noopener">${ICON.in} LinkedIn</a>
+								<a class="btn" href="${esc(p.links.github)}" target="_blank" rel="noopener">${ICON.gh} GitHub</a>
 							</div>
-						</div>
-					</div>
-				`;
+						</aside>
+					</div>`;
 			}
 
-			// ─── Render Education ───────────────────────────────────────────
-			function renderEducation() {
-				const education = portfolioData.education;
-				document.getElementById("education").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Education</h2>
-					</div>
-					<div class="edu-grid">
-						${education
-							.map(
-								(edu, i) => `
-							<div class="edu-card animate-in" style="transition-delay: ${i * 60}ms" onclick='openEducationModal(${JSON.stringify(edu).replace(/'/g, "&#39;")})'>
-								<div class="edu-card-header">
-									<img src="${edu.logo}" alt="${edu.school}" class="edu-card-logo" loading="lazy" />
-									<div>
-										<div class="edu-card-school">${edu.school}</div>
-										<div class="edu-card-degree">${edu.degree}</div>
-									</div>
-								</div>
-								<div style="font-family: 'Azeret Mono', monospace; font-size: 11px; color: var(--text-muted);">${edu.startDate} &ndash; ${edu.endDate}</div>
-								${edu.grade ? `<div style="font-size: 12px; color: var(--accent-secondary); margin-top: 4px; font-weight: 500;">${edu.grade}</div>` : ""}
-							</div>
-						`,
-							)
-							.join("")}
-					</div>
-				`;
-			}
-
-			// ─── Render Experience ──────────────────────────────────────────
+			// ── experience ──
 			function renderExperience() {
-				const experience = portfolioData.experience;
-				document.getElementById("experience").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Experience</h2>
-					</div>
-					<div class="timeline">
-						<div class="timeline-line"></div>
-						${experience
-							.map(
-								(exp, i) => `
-							<div class="timeline-item animate-in" style="transition-delay: ${i * 70}ms">
-								<div class="timeline-dot ${exp.current ? "current" : "past"}"></div>
-								<div class="timeline-card" onclick='openExperienceModal(${JSON.stringify(exp).replace(/'/g, "&#39;")})'>
-									<div class="timeline-header">
-										<div>
-											<div class="timeline-title">${exp.title}</div>
-											<div class="timeline-company">${exp.company}</div>
-										</div>
-										<div class="timeline-date">${exp.startDate} &ndash; ${exp.endDate}</div>
-									</div>
-									<p class="timeline-desc">${exp.description.length > 200 ? exp.description.substring(0, 200) + "..." : exp.description}</p>
-									<div class="timeline-tags">
-										${exp.skills.map((s) => tagBorder(s)).join("")}
-									</div>
+				const item = (e, i) => {
+					const minor = e.engineering === false;
+					return `<li class="tl-item ${e.current ? "current" : ""} ${minor ? "minor" : ""} ${reveal(i)}${minor ? '" hidden-extra="1' : ""}">
+						<span class="tl-dot"></span>
+						<div class="card tl-card ${minor ? "" : "clickable"}" ${minor ? "" : `data-exp="${i}"`}>
+							<div class="tl-top">
+								<div>
+									<div class="tl-title">${minor ? esc(e.title) : `<button type="button" data-exp="${i}">${esc(e.title)}</button>`}</div>
+									<div class="tl-company">${esc(e.company)}</div>
 								</div>
+								<div class="tl-date">${range(e)}</div>
 							</div>
-						`,
-							)
-							.join("")}
-					</div>
-				`;
-			}
-
-			// ─── Render Projects ────────────────────────────────────────────
-			function renderProjects() {
-				const projects = portfolioData.projects;
-				const featured = projects.filter((p) => p.featured);
-				const additional = projects
-					.filter((p) => !p.featured)
-					.sort((a, b) => {
-						const dA = new Date(
-							a.endDate === "Ongoing" ? "9999-12-31" : a.endDate,
-						);
-						const dB = new Date(
-							b.endDate === "Ongoing" ? "9999-12-31" : b.endDate,
-						);
-						return dB - dA;
-					});
-
-				const featuredHTML = featured
-					.map((p, i) => {
-						const images = Array.isArray(p.image) ? p.image : p.image ? [p.image] : [];
-						const isVideo = images.length === 1 && images[0].endsWith(".mp4");
-						let mediaHTML;
-						if (images.length === 0) {
-							mediaHTML = `<div class="project-card-media"><span class="project-card-placeholder">${p.current ? "[ IN PROGRESS ]" : "[ PROJECT ]"}</span></div>`;
-						} else if (isVideo) {
-							mediaHTML = `<div class="project-card-media"><div class="video-portrait-wrap"><video class="lazy-video video-bg" data-src="${images[0]}" loop muted playsinline></video><video class="lazy-video video-fg" data-src="${images[0]}" loop muted playsinline></video></div></div>`;
-						} else if (images.length === 1) {
-							mediaHTML = `<div class="project-card-media"><img src="${images[0]}" alt="${p.title}" loading="lazy" /></div>`;
-						} else {
-							mediaHTML = `<div class="project-card-media project-carousel">${images.map((img, idx) =>
-								`<img class="carousel-slide${idx === 0 ? ' active' : ''}" ${idx === 0 ? `src="${img}"` : `data-src="${img}"`} alt="${p.title}" />`
-							).join('')}<div class="carousel-dots">${images.map((_, idx) =>
-								`<span class="dot${idx === 0 ? ' active' : ''}"></span>`
-							).join('')}</div></div>`;
-						}
-
-						return `
-							<div class="project-card animate-in" style="transition-delay: ${i * 80}ms" onclick='openProjectModal(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
-								${mediaHTML}
-								<div class="project-card-body">
-									<div class="project-card-categories">
-										${p.category.map((c) => tagColor(c.tag, c.color)).join("")}
-									</div>
-									<h3>${p.title}</h3>
-									<p class="project-subtitle">${p.subtitle}</p>
-									<p class="project-desc">${p.description.length > 180 ? p.description.substring(0, 180) + "..." : p.description}</p>
-									<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: ${p.link ? "16px" : "0"}">
-										${p.technologies
-											.slice(0, 6)
-											.map((t) => tagBorder(t))
-											.join("")}
-										${p.technologies.length > 6 ? tagBorder("+" + (p.technologies.length - 6)) : ""}
-									</div>
-									<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-										${p.link ? `<a href="${p.link}" target="_blank" class="project-link" onclick="event.stopPropagation()">View Project <span>&rarr;</span></a>` : ""}
-										${p.viewer3d ? `<a href="${p.viewer3d}" target="_blank" class="project-link" style="color: #8b5cf6;" onclick="event.stopPropagation()">View in 3D <span>&rarr;</span></a>` : ""}
-									</div>
-									<div class="project-date">${p.startDate} &ndash; ${p.endDate}</div>
-								</div>
-							</div>
-						`;
-					})
-					.join("");
-
-				const showTileInGrid =
-					additional.length > 0 && featured.length % 2 !== 0;
-				const otherTileHTML = showTileInGrid
-					? `
-					<div class="project-card animate-in" style="transition-delay: ${featured.length * 80}ms; cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 300px;" onclick="toggleAdditionalProjects(); this.style.display='none';">
-						<div style="text-align: center; padding: 40px;">
-							<div style="font-family: 'Azeret Mono', monospace; font-size: 36px; color: var(--text-heading); margin-bottom: 12px;">${additional.length}</div>
-							<div style="font-family: 'Azeret Mono', monospace; font-size: 14px; color: var(--accent-primary); letter-spacing: 0.08em; margin-bottom: 8px;">MORE PROJECTS</div>
-							<div style="font-size: 13px; color: var(--text-muted);">Click to explore</div>
+							${e.description ? `<p class="tl-desc">${esc(clip(e.description, 240))}</p>` : ""}
+							${e.skills && e.skills.length ? `<div class="tags">${e.skills.slice(0, 8).map((s) => `<span class="tag">${esc(s)}</span>`).join("")}${e.skills.length > 8 ? `<span class="tag">+${e.skills.length - 8}</span>` : ""}</div>` : ""}
 						</div>
-					</div>
-				`
-					: "";
+					</li>`;
+				};
+				const major = D.experience.map((e, i) => [e, i]).filter(([e]) => e.engineering !== false);
+				const minor = D.experience.map((e, i) => [e, i]).filter(([e]) => e.engineering === false);
+				$("experienceInner").innerHTML = `
+					${head("Experience", "Where I've worked")}
+					<ol class="timeline">${major.map(([e, i], k) => item(e, i, k)).join("")}</ol>
+					${minor.length ? `<button class="btn more-btn" type="button" id="moreExp" aria-expanded="false">Earlier roles (${minor.length})</button>
+					<ol class="timeline" id="minorExp" hidden style="margin-top:16px">${minor.map(([e, i], k) => item(e, i, k)).join("")}</ol>` : ""}`;
 
-				const additionalHTML =
-					additional.length > 0
-						? `
-					<div class="additional-projects animate-in" style="transition-delay: 350ms">
-						${
-							!showTileInGrid
-								? `<button class="toggle-btn" id="toggleOtherProjects" onclick="toggleAdditionalProjects()">
-							SHOW OTHER PROJECTS (${additional.length})
-						</button>`
-								: ""
-						}
-						<div class="additional-list" id="additionalProjectsList" style="display: none;">
-							${additional
-								.map(
-									(p) => `
-								<div class="additional-item" onclick='openProjectModal(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
-									<div style="flex: 1; min-width: 240px;">
-										<h4>${p.title}</h4>
-										<p>${p.description.length > 150 ? p.description.substring(0, 150) + "..." : p.description}</p>
-									</div>
-									<span class="date">${p.startDate} &ndash; ${p.endDate}</span>
-								</div>
-							`,
-								)
-								.join("")}
-						</div>
-					</div>
-				`
-						: "";
-
-				document.getElementById("projects").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Projects</h2>
-					</div>
-					<div class="projects-grid">${featuredHTML}${otherTileHTML}</div>
-					${additionalHTML}
-				`;
-
-				// Setup lazy video loading
-				setTimeout(() => {
-					const lazyVideos =
-						document.querySelectorAll("video.lazy-video");
-					const obs = new IntersectionObserver(
-						(entries) => {
-							entries.forEach((entry) => {
-								if (entry.isIntersecting) {
-									const v = entry.target;
-									v.src = v.dataset.src;
-									v.load();
-									v.play().catch(() => {});
-									v.classList.remove("lazy-video");
-									obs.unobserve(v);
-								}
-							});
-						},
-						{ rootMargin: "50px" },
-					);
-					lazyVideos.forEach((v) => obs.observe(v));
-					// Start carousels
-					document.querySelectorAll(".project-carousel").forEach(c => startCarousel(c));
-				}, 100);
-			}
-
-			let additionalVisible = false;
-			function toggleAdditionalProjects() {
-				additionalVisible = !additionalVisible;
-				const list = document.getElementById("additionalProjectsList");
-				const btn = document.getElementById("toggleOtherProjects");
-				if (list)
-					list.style.display = additionalVisible ? "flex" : "none";
+				const btn = $("moreExp");
 				if (btn) {
-					const count = portfolioData.projects.filter(
-						(p) => !p.featured,
-					).length;
-					btn.textContent = additionalVisible
-						? "HIDE OTHER PROJECTS"
-						: `SHOW OTHER PROJECTS (${count})`;
+					btn.addEventListener("click", () => {
+						const list = $("minorExp");
+						const open = list.hasAttribute("hidden");
+						list.toggleAttribute("hidden", !open);
+						list.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+						btn.setAttribute("aria-expanded", String(open));
+						btn.textContent = open ? "Hide earlier roles" : `Earlier roles (${minor.length})`;
+					});
 				}
+				$("experienceInner").addEventListener("click", (e) => {
+					const t = e.target.closest("[data-exp]");
+					if (t) openExperience(D.experience[+t.dataset.exp]);
+				});
 			}
 
-			// ─── Render Skills ──────────────────────────────────────────────
-			function renderSkills() {
-				const skills = portfolioData.skills;
-				const groupsHTML = Object.entries(skills)
-					.map(
-						([category, skillList], i) => `
-					<div class="skill-group animate-in" style="transition-delay: ${i * 60}ms">
-						<h3>${category}</h3>
-						<div class="skill-items">
-							${skillList
-								.map(
-									(s) => `
-								<span class="skill-chip">
-									<img src="${s.icon}" alt="${s.name}" loading="lazy" />
-									${s.name}
-								</span>
-							`,
-								)
-								.join("")}
-						</div>
-					</div>
-				`,
-					)
-					.join("");
-
-				document.getElementById("skills").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Skills</h2>
-					</div>
-					<div class="skills-grid">${groupsHTML}</div>
-				`;
-			}
-
-			// ─── Render Certifications ──────────────────────────────────────
-			function renderCertifications() {
-				const certs = portfolioData.certifications;
-				document.getElementById("certifications").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Certifications</h2>
-					</div>
-					<div class="cert-grid">
-						${certs
-							.map(
-								(cert, i) => `
-							<div class="cert-card-new animate-in" style="transition-delay: ${i * 50}ms">
-								<div class="cert-card-header">
-									<div class="cert-icon">
-										${
-											cert.badgeImage
-												? `<img src="${cert.badgeImage}" alt="${cert.organization}" loading="lazy" />`
-												: `<span style="font-family: 'Azeret Mono', monospace; font-size: 10px; color: var(--accent-secondary); font-weight: 600;">${cert.organization}</span>`
-										}
-									</div>
-									<div>
-										<div class="cert-name">${cert.name}</div>
-										<div class="cert-date">${cert.issueDate}${cert.expirationDate ? ` &middot; ${cert.expired ? "Expired" : "Expires"} ${cert.expirationDate}` : ""}</div>
-									</div>
-								</div>
-								${cert.description ? `<p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">${cert.description}</p>` : ""}
-								${cert.credentialUrl ? `<a href="${cert.credentialUrl}" target="_blank" class="cert-verify">Verify &rarr;</a>` : ""}
-							</div>
-						`,
-							)
-							.join("")}
-					</div>
-				`;
-			}
-
-			// ─── Render Publications ────────────────────────────────────────
-			function renderPublications() {
-				const pubs = portfolioData.publications;
-				document.getElementById("publications").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Publications</h2>
-					</div>
-					<div class="pub-list">
-						${pubs
-							.map(
-								(pub, i) => `
-							<div class="pub-card animate-in" style="transition-delay: ${i * 70}ms">
-								<div class="pub-card-header">
-									<h3>${pub.title}</h3>
-									<span class="pub-year">${pub.year}</span>
-								</div>
-								<p class="pub-authors">
-									${pub.authors
-										.map((a) =>
-											a.includes("T. Sloan") ||
-											a.includes("Tom Sloan")
-												? `<span class="me">${a}</span>`
-												: a,
-										)
-										.join(", ")}
-								</p>
-								<p class="pub-conf">${pub.conference} &middot; ${pub.location}</p>
-								${
-									pub.doi
-										? `<a href="${pub.url || "https://doi.org/" + pub.doi}" target="_blank" class="pub-doi">DOI: ${pub.doi}</a>`
-										: pub.url
-											? `<a href="${pub.url}" target="_blank" class="pub-doi">View Paper &rarr;</a>`
-											: ""
-								}
-							</div>
-						`,
-							)
-							.join("")}
-					</div>
-				`;
-			}
-
-			// ─── Render Resume ──────────────────────────────────────────────
-
-			// ─── Render Contact / Footer ────────────────────────────────────
-			function renderContact() {
-				const p = portfolioData.profile;
-				document.getElementById("contact").innerHTML = `
-					<div class="animate-in">
-						<h2 class="section-label"><span class="prefix">// </span>Contact</h2>
-					</div>
-					<div class="animate-in" style="transition-delay: 80ms">
-						<p class="contact-heading">Open to opportunities in robotics, defense, and applied AI.</p>
-						<p class="contact-sub">Let's build something that operates in the real world.</p>
-						<div class="contact-links-row">
-							<a href="${p.links.github}" target="_blank" class="contact-link">GitHub</a>
-							<a href="${p.links.linkedin}" target="_blank" class="contact-link">LinkedIn</a>
-							${p.links.scholar ? `<a href="${p.links.scholar}" target="_blank" class="contact-link">Google Scholar</a>` : ""}
-							${p.links.email ? `<a href="mailto:${p.links.email}" class="contact-link">Email</a>` : ""}
-						</div>
-					</div>
-					<div class="footer-bar">
-						<span class="footer-text">&copy; ${new Date().getFullYear()} ${p.name}</span>
-						<span class="footer-text">${p.location}</span>
-					</div>
-				`;
-			}
-
-			// ─── Render GitHub Calendar ─────────────────────────────────────
-			function renderGitHubCalendar() {
-				const profile = portfolioData.profile;
-				const githubUsername = profile.links.github.split("/").pop();
-
-				setTimeout(() => {
-					if (typeof GitHubCalendar !== "undefined") {
-						try {
-							GitHubCalendar("#github-calendar", githubUsername, {
-								responsive: true,
-								tooltips: true,
-								global_stats: false,
-							});
-
-							setTimeout(() => {
-								const cal =
-									document.querySelector("#github-calendar");
-								if (cal) {
-									cal.style.setProperty(
-										"--color-calendar-graph-day-bg",
-										"#1E2A3A",
-									);
-									cal.style.setProperty(
-										"--color-calendar-graph-day-L1-bg",
-										"#00DDC0",
-									);
-									cal.style.setProperty(
-										"--color-calendar-graph-day-L2-bg",
-										"#00DDC0",
-									);
-									cal.style.setProperty(
-										"--color-calendar-graph-day-L3-bg",
-										"#00DDC0",
-									);
-									cal.style.setProperty(
-										"--color-calendar-graph-day-L4-bg",
-										"#00DDC0",
-									);
-									cal.style.border = "0";
-									cal.style.borderRadius = "0";
-									cal.querySelectorAll("p, h2, h3").forEach(
-										(el) => el.remove(),
-									);
-									const skipLink = cal.querySelector(
-										'a[href*="contributions"]',
-									);
-									if (skipLink) skipLink.remove();
-								}
-							}, 1000);
-						} catch (e) {
-							console.error("GitHub calendar error:", e);
-							showGitHubFallback(profile.links.github);
-						}
-					} else {
-						showGitHubFallback(profile.links.github);
-					}
-				}, 500);
-			}
-
-			function showGitHubFallback(url) {
-				document.getElementById("github-calendar").innerHTML = `
-					<div style="text-align: center; padding: 2rem;">
-						<p style="color: var(--text-muted); margin-bottom: 1rem;">Unable to load contribution graph.</p>
-						<a href="${url}" target="_blank" class="btn-outline">Visit GitHub Profile</a>
-					</div>
-				`;
-			}
-
-			// ─── Carousel ──────────────────────────────────────────────────
-			function startCarousel(container, interval = 4000) {
-				const slides = container.querySelectorAll('.carousel-slide');
-				const dots = container.querySelectorAll('.dot');
-				if (slides.length <= 1) return null;
-				let current = 0;
-				return setInterval(() => {
-					const prev = current;
-					current = (current + 1) % slides.length;
-					const nextSlide = slides[current];
-					// Lazy load current
-					if (nextSlide.dataset && nextSlide.dataset.src) {
-						nextSlide.src = nextSlide.dataset.src;
-						delete nextSlide.dataset.src;
-						nextSlide.removeAttribute('data-src');
-					}
-					// Preload next
-					const preloadIdx = (current + 1) % slides.length;
-					const preloadSlide = slides[preloadIdx];
-					if (preloadSlide.dataset && preloadSlide.dataset.src) {
-						preloadSlide.src = preloadSlide.dataset.src;
-						delete preloadSlide.dataset.src;
-						preloadSlide.removeAttribute('data-src');
-					}
-					slides[prev].classList.remove('active');
-					nextSlide.classList.add('active');
-					if (dots[prev]) dots[prev].classList.remove('active');
-					if (dots[current]) dots[current].classList.add('active');
-				}, interval);
-			}
-
-			// ─── Modal Functions ────────────────────────────────────────────
-			let modalCarouselId = null;
-			function openProjectModal(project) {
-				const modal = document.getElementById("projectModal");
-				const content = document.getElementById("projectModalContent");
-				if (modalCarouselId) { clearInterval(modalCarouselId); modalCarouselId = null; }
-				const images = Array.isArray(project.image) ? project.image : project.image ? [project.image] : [];
-				const isVideo = images.length === 1 && images[0].endsWith(".mp4");
-				let mediaHTML;
-				if (images.length === 0) {
-					mediaHTML = "";
-				} else if (isVideo) {
-					mediaHTML = `<div class="project-modal-media-container"><div class="video-portrait-wrap"><video class="video-bg" autoplay loop muted playsinline><source src="${images[0]}" type="video/mp4"></video><video class="video-fg" autoplay loop muted playsinline><source src="${images[0]}" type="video/mp4"></video></div></div>`;
-				} else if (images.length === 1) {
-					mediaHTML = `<div class="project-modal-media-container"><img src="${images[0]}" alt="${project.title}" /></div>`;
-				} else {
-					mediaHTML = `<div class="project-modal-media-container project-carousel">${images.map((img, idx) =>
-						`<img class="carousel-slide${idx === 0 ? ' active' : ''}" src="${img}" alt="${project.title}" />`
-					).join('')}<div class="carousel-dots">${images.map((_, idx) =>
-						`<span class="dot${idx === 0 ? ' active' : ''}"></span>`
-					).join('')}</div></div>`;
+			// ── projects ──
+			function mediaFor(p, forModal) {
+				const imgs = Array.isArray(p.image) ? p.image : p.image ? [p.image] : [];
+				if (!imgs.length) {
+					return forModal ? "" : `<div class="media"><div class="media-empty">${p.current ? "In progress" : "Project"}</div></div>`;
 				}
+				if (imgs.length === 1 && /\.mp4$/i.test(imgs[0])) {
+					const src = esc(imgs[0]);
+					const attrs = reduceMotion ? 'preload="metadata"' : "";
+					const lazy = forModal ? `src="${src}"` : `data-src="${src}"`;
+					const auto = forModal && !reduceMotion ? "autoplay" : "";
+					return `<div class="media"><video class="vid-bg" ${lazy} ${auto} ${attrs} loop muted playsinline aria-hidden="true" tabindex="-1"></video><video class="vid-fg" ${lazy} ${auto} ${attrs} ${reduceMotion ? "controls" : ""} loop muted playsinline aria-label="${esc(p.title)} demo"></video></div>`;
+				}
+				if (imgs.length === 1) {
+					const remote = /^https?:/.test(imgs[0]);
+					return `<div class="media"><img class="${remote ? "icon" : ""}" src="${esc(imgs[0])}" alt="${esc(p.title)}" loading="lazy" decoding="async" /></div>`;
+				}
+				return `<div class="media carousel">${imgs.map((src, i) =>
+					`<img class="slide${i === 0 ? " active" : ""}" ${i === 0 ? `src="${esc(src)}"` : `data-src="${esc(src)}"`} alt="${esc(p.title)}, image ${i + 1}" ${forModal ? "" : 'loading="lazy"'} decoding="async" />`).join("")}<div class="dots">${imgs.map((_, i) => `<i class="${i === 0 ? "active" : ""}"></i>`).join("")}</div></div>`;
+			}
 
-				content.innerHTML = `
-					${mediaHTML}
-					<div class="project-modal-body">
-						<h2 class="modal-title">${project.title}</h2>
-						<div class="modal-subtitle">${project.subtitle || ""}</div>
-						<div style="margin: 12px 0 16px; display: flex; gap: 6px; flex-wrap: wrap;">
-							${project.category.map((c) => tagColor(c.tag, c.color)).join("")}
+			function renderProjects() {
+				const featured = D.projects.map((p, i) => [p, i]).filter(([p]) => p.featured);
+				const other = D.projects.map((p, i) => [p, i]).filter(([p]) => !p.featured)
+					.sort((a, b) => (Date.parse(b[0].endDate) || 9e12) - (Date.parse(a[0].endDate) || 9e12));
+
+				const card = ([p, i], k) => `
+					<article class="card clickable project ${k === 0 ? "lead" : ""} ${reveal(k % 2)}" data-proj="${i}">
+						${mediaFor(p)}
+						<div class="p-body">
+							<div class="p-cats">${p.category.map((c) => `<span class="pill" style="color:${esc(c.color)};background:${hexAlpha(c.color, "22")}">${esc(c.tag)}</span>`).join("")}</div>
+							<h3>${esc(p.title)}</h3>
+							<p class="p-sub">${esc(p.subtitle)}</p>
+							<p class="p-desc">${esc(clip(p.description, k === 0 ? 300 : 190))}</p>
+							<div class="p-foot">
+								<div class="tags">${p.technologies.slice(0, 6).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}${p.technologies.length > 6 ? `<span class="tag">+${p.technologies.length - 6}</span>` : ""}</div>
+								<div class="p-links">
+									<div class="links">
+										${p.link ? `<a class="link" href="${esc(p.link)}" target="_blank" rel="noopener" data-stop>View project &rarr;</a>` : ""}
+										${p.viewer3d ? `<a class="link" href="${esc(p.viewer3d)}" target="_blank" rel="noopener" data-stop>View in 3D &rarr;</a>` : ""}
+									</div>
+									<span class="p-date">${range(p)}</span>
+								</div>
+							</div>
 						</div>
-						<p class="modal-description">${project.description}</p>
-						${
-							project.technologies &&
-							project.technologies.length > 0
-								? `
-							<h3 style="font-family: 'Azeret Mono', monospace; font-size: 13px; color: var(--accent-primary); margin-bottom: 10px; letter-spacing: 0.06em;">Technologies</h3>
-							<div class="modal-skills">${project.technologies.map((t) => `<span class="modal-skill-tag">${t}</span>`).join("")}</div>
-						`
-								: ""
+					</article>`;
+
+				$("projectsInner").innerHTML = `
+					${head("Projects", "Things I've built", "Research, hardware and software. Select a card for the full write-up.")}
+					<div class="projects-grid">${featured.map(card).join("")}</div>
+					${other.length ? `
+						<button class="btn more-btn" type="button" id="moreProj" aria-expanded="false" aria-controls="otherProj">More projects (${other.length})</button>
+						<div class="other-list" id="otherProj">
+							${other.map(([p, i]) => `
+								<div class="card clickable other-item" data-proj="${i}">
+									<h4>${esc(p.title)}</h4>
+									<span class="p-date">${range(p)}</span>
+									<p>${esc(clip(p.description, 150))}</p>
+								</div>`).join("")}
+						</div>` : ""}`;
+
+				const root = $("projectsInner");
+				root.addEventListener("click", (e) => {
+					if (e.target.closest("[data-stop]")) return;
+					const c = e.target.closest("[data-proj]");
+					if (c) openProject(D.projects[+c.dataset.proj]);
+				});
+				root.querySelectorAll("[data-proj]").forEach((c) => {
+					c.tabIndex = 0;
+					c.setAttribute("role", "button");
+					c.addEventListener("keydown", (e) => {
+						if ((e.key === "Enter" || e.key === " ") && e.target === c) {
+							e.preventDefault();
+							openProject(D.projects[+c.dataset.proj]);
 						}
-						<div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
-							${project.link ? `<a href="${project.link}" target="_blank" class="btn-primary" style="display: inline-block; text-decoration: none;">View Project &rarr;</a>` : ""}
-							${project.viewer3d ? `<a href="${project.viewer3d}" target="_blank" class="btn-outline" style="display: inline-block; text-decoration: none; border-color: rgba(139,92,246,0.3); color: #8b5cf6;">View in 3D &rarr;</a>` : ""}
-						</div>
-					</div>
-				`;
-
-				modal.classList.add("active");
-				document.body.style.overflow = "hidden";
-				const mc = content.querySelector(".project-carousel");
-				if (mc) modalCarouselId = startCarousel(mc);
+					});
+				});
+				const mb = $("moreProj");
+				if (mb) {
+					mb.addEventListener("click", () => {
+						const open = !$("otherProj").classList.contains("open");
+						$("otherProj").classList.toggle("open", open);
+						mb.setAttribute("aria-expanded", String(open));
+						mb.textContent = open ? "Hide other projects" : `More projects (${other.length})`;
+					});
+				}
+				setupMedia(root);
 			}
 
-			function closeProjectModal() {
-				if (modalCarouselId) { clearInterval(modalCarouselId); modalCarouselId = null; }
-				document
-					.getElementById("projectModal")
-					.classList.remove("active");
-				document.body.style.overflow = "";
-			}
-
-			function openExperienceModal(exp) {
-				const modal = document.getElementById("experienceModal");
-				const content = document.getElementById(
-					"experienceModalContent",
-				);
-
-				const logoHTML = exp.logo
-					? `<img src="${exp.logo}" alt="${exp.company}" class="modal-logo" />`
-					: `<div class="modal-logo" style="display: flex; align-items: center; justify-content: center;"><span style="font-weight: 700; color: var(--accent-primary); font-size: 1.1rem;">${exp.company.substring(0, 2).toUpperCase()}</span></div>`;
-
-				content.innerHTML = `
-					<div class="modal-header">
-						${logoHTML}
-						<div>
-							<h2 class="modal-title">${exp.title}</h2>
-							<div class="modal-subtitle">${exp.company}${exp.current ? ' <span style="background: var(--accent-primary); color: var(--bg-primary); padding: 2px 8px; border-radius: 2px; font-size: 11px; font-weight: 600; margin-left: 8px;">Current</span>' : ""}</div>
-						</div>
-					</div>
-					<div class="modal-meta">
-						<div class="modal-meta-item">${exp.startDate} &ndash; ${exp.endDate}</div>
-						<div class="modal-meta-item">${exp.location}</div>
-						<div class="modal-meta-item">${exp.employmentType}</div>
-					</div>
-					<div class="modal-description">${exp.description}</div>
-					${
-						exp.skills && exp.skills.length > 0
-							? `
-						<h3 style="font-family: 'Azeret Mono', monospace; font-size: 13px; color: var(--accent-primary); margin-bottom: 10px; letter-spacing: 0.06em;">Skills</h3>
-						<div class="modal-skills">${exp.skills.map((s) => `<span class="modal-skill-tag">${s}</span>`).join("")}</div>
-					`
-							: ""
-					}
-				`;
-
-				modal.classList.add("active");
-				document.body.style.overflow = "hidden";
-			}
-
-			function closeExperienceModal() {
-				document
-					.getElementById("experienceModal")
-					.classList.remove("active");
-				document.body.style.overflow = "";
-			}
-
-			function openEducationModal(edu) {
-				const modal = document.getElementById("educationModal");
-				const content = document.getElementById(
-					"educationModalContent",
-				);
-
-				content.innerHTML = `
-					<div class="modal-header">
-						<img src="${edu.logo}" alt="${edu.school}" class="modal-logo" />
-						<div>
-							<h2 class="modal-title">${edu.school}</h2>
-							<div class="modal-subtitle">${edu.degree}</div>
-						</div>
-					</div>
-					<div class="modal-meta">
-						<div class="modal-meta-item">Field: ${edu.field}</div>
-						<div class="modal-meta-item">${edu.startDate} &ndash; ${edu.endDate}</div>
-						${edu.grade ? `<div class="modal-meta-item">${edu.grade}</div>` : ""}
-					</div>
-					<div class="modal-description">${edu.description}</div>
-				`;
-
-				modal.classList.add("active");
-				document.body.style.overflow = "hidden";
-			}
-
-			function closeEducationModal() {
-				document
-					.getElementById("educationModal")
-					.classList.remove("active");
-				document.body.style.overflow = "";
-			}
-
-			// Close modals on overlay click
-			["projectModal", "experienceModal", "educationModal"].forEach(
-				(id) => {
-					document
-						.getElementById(id)
-						.addEventListener("click", function (e) {
-							if (e.target === this) {
-								if (id === "projectModal") closeProjectModal();
-								else if (id === "experienceModal")
-									closeExperienceModal();
-								else closeEducationModal();
+			// Lazy video + carousel; skipped under reduced motion
+			function setupMedia(root) {
+				const vids = root.querySelectorAll("video[data-src]");
+				if (vids.length) {
+					const io = new IntersectionObserver((entries) => {
+						entries.forEach((en) => {
+							const v = en.target;
+							if (en.isIntersecting) {
+								if (!v.src) { v.src = v.dataset.src; v.load(); }
+								if (!reduceMotion) v.play().catch(() => {});
+							} else if (v.src) {
+								v.pause();
 							}
 						});
-				},
-			);
+					}, { rootMargin: "100px" });
+					vids.forEach((v) => io.observe(v));
+				}
+				if (!reduceMotion) {
+					root.querySelectorAll(".carousel").forEach((c) => startCarousel(c));
+				}
+			}
 
-			// Close on ESC
+			function loadSlide(s) {
+				if (s && s.dataset.src) { s.src = s.dataset.src; s.removeAttribute("data-src"); }
+			}
+			function startCarousel(box) {
+				const slides = box.querySelectorAll(".slide");
+				const dots = box.querySelectorAll(".dots i");
+				if (slides.length < 2) return null;
+				let cur = 0;
+				return setInterval(() => {
+					const prev = cur;
+					cur = (cur + 1) % slides.length;
+					loadSlide(slides[cur]);
+					loadSlide(slides[(cur + 1) % slides.length]);
+					slides[prev].classList.remove("active");
+					slides[cur].classList.add("active");
+					dots[prev] && dots[prev].classList.remove("active");
+					dots[cur] && dots[cur].classList.add("active");
+				}, 4000);
+			}
+
+			// ── publications ──
+			function renderPublications() {
+				$("publicationsInner").innerHTML = `
+					${head("Publications", "Peer-reviewed work")}
+					<div class="pubs">
+						${D.publications.map((pub, i) => `
+							<article class="card pub ${reveal(i)}">
+								<div class="pub-year">${esc(pub.year)}</div>
+								<div>
+									<h3>${esc(pub.title)}</h3>
+									<p class="pub-authors">${pub.authors.map((a) => /T\. Sloan|Tom Sloan/.test(a) ? `<span class="me">${esc(a)}</span>` : esc(a)).join(", ")}</p>
+									<p class="pub-conf">${esc(pub.conference)} &middot; ${esc(pub.location)}</p>
+									${pub.doi ? `<a class="link" href="${esc(pub.url || "https://doi.org/" + pub.doi)}" target="_blank" rel="noopener">DOI: ${esc(pub.doi)}</a>`
+										: pub.url ? `<a class="link" href="${esc(pub.url)}" target="_blank" rel="noopener">View paper &rarr;</a>` : ""}
+								</div>
+							</article>`).join("")}
+					</div>`;
+			}
+
+			// ── education ──
+			function renderEducation() {
+				$("educationInner").innerHTML = `
+					${head("Education", "Carleton University")}
+					<div class="edu-grid">
+						${D.education.map((e, i) => `
+							<article class="card clickable edu ${reveal(i)}" data-edu="${i}" tabindex="0" role="button">
+								<div class="edu-head">
+									<img class="logo-box" src="${esc(e.logo)}" alt="" loading="lazy" decoding="async" width="48" height="48" />
+									<div><h3>${esc(e.school)}</h3><div class="deg">${esc(e.degree)}</div></div>
+								</div>
+								<div class="tl-date">${range(e)} &middot; ${esc(e.field)}</div>
+								${e.grade ? `<p class="grade">${esc(e.grade)}</p>` : ""}
+							</article>`).join("")}
+					</div>`;
+				$("educationInner").addEventListener("click", (e) => {
+					const t = e.target.closest("[data-edu]");
+					if (t) openEducation(D.education[+t.dataset.edu]);
+				});
+				$("educationInner").addEventListener("keydown", (e) => {
+					const t = e.target.closest("[data-edu]");
+					if (t && t === e.target && (e.key === "Enter" || e.key === " ")) {
+						e.preventDefault();
+						openEducation(D.education[+t.dataset.edu]);
+					}
+				});
+			}
+
+			// ── skills ──
+			function renderSkills() {
+				$("skillsInner").innerHTML = `
+					${head("Skills", "Tools I work with")}
+					<div class="skills-grid">
+						${Object.entries(D.skills).map(([cat, list], i) => `
+							<div class="card skill-group ${reveal(i % 3)}">
+								<h3>${esc(cat)}</h3>
+								<div class="chips">${list.map((s) => `<span class="chip"><img src="${esc(s.icon)}" alt="" width="16" height="16" loading="lazy" decoding="async" />${esc(s.name)}</span>`).join("")}</div>
+							</div>`).join("")}
+					</div>`;
+			}
+
+			// ── certifications ──
+			function renderCertifications() {
+				const certs = [...D.certifications].sort((a, b) => (a.expired ? 1 : 0) - (b.expired ? 1 : 0));
+				$("certificationsInner").innerHTML = `
+					${head("Certifications", "Credentials")}
+					<div class="cert-grid">
+						${certs.map((c, i) => `
+							<article class="card cert ${c.expired ? "expired" : ""} ${reveal(i % 3)}">
+								<div class="cert-head">
+									${c.badgeImage ? `<img class="cert-badge" src="${esc(c.badgeImage)}" alt="" loading="lazy" decoding="async" width="52" height="52" />` : `<div class="cert-badge ph">${esc(c.organization.slice(0, 2))}</div>`}
+									<div><div class="cert-name">${esc(c.name)}</div><div class="cert-org">${esc(c.organization)}</div></div>
+								</div>
+								<div class="cert-meta"><span>${esc(c.issueDate)}</span>${c.expirationDate ? `<span>&middot; ${c.expired ? "Expired" : "Expires"} ${esc(c.expirationDate)}</span>` : ""}</div>
+								${c.description ? `<p>${esc(c.description)}</p>` : ""}
+								${c.credentialUrl && !/credly\.com\/badges\/?$/.test(c.credentialUrl) ? `<a class="link" href="${esc(c.credentialUrl)}" target="_blank" rel="noopener">Verify &rarr;</a>` : ""}
+							</article>`).join("")}
+					</div>`;
+			}
+
+			// ── contact ──
+			function renderContact() {
+				const p = D.profile;
+				$("contactInner").innerHTML = `
+					<div class="contact-box reveal">
+						<p class="eyebrow">Contact</p>
+						<h2>Let's build something that operates in the real world.</h2>
+						<p>Open to opportunities in robotics, defense, and applied AI.</p>
+						<div class="hero-actions">
+							<a class="btn btn-primary" href="${esc(p.links.linkedin)}" target="_blank" rel="noopener">${ICON.in} LinkedIn</a>
+							<a class="btn" href="${esc(p.links.github)}" target="_blank" rel="noopener">${ICON.gh} GitHub</a>
+							${p.links.scholar ? `<a class="btn" href="${esc(p.links.scholar)}" target="_blank" rel="noopener">Google Scholar</a>` : ""}
+							${p.links.email ? `<a class="btn" href="mailto:${esc(p.links.email)}">Email</a>` : ""}
+							${D.resume ? `<a class="btn" href="${esc(D.resume.path)}" target="_blank" rel="noopener">${ICON.doc} Resume</a>` : ""}
+						</div>
+					</div>`;
+				$("footerInner").innerHTML = `<span>&copy; ${new Date().getFullYear()} ${esc(p.name)}</span><span>${esc(p.location)}</span>`;
+				$("ghLink").href = p.links.github;
+			}
+
+			// ── GitHub calendar: load library only when near viewport ──
+			function setupGitHub() {
+				const user = D.profile.links.github.split("/").filter(Boolean).pop();
+				const box = $("github-calendar");
+				const fallback = () => {
+					box.innerHTML = `<div><p style="margin-bottom:12px">Unable to load the contribution graph.</p><a class="btn" href="${esc(D.profile.links.github)}" target="_blank" rel="noopener">Visit GitHub profile</a></div>`;
+				};
+				const load = () => {
+					const css = document.createElement("link");
+					css.rel = "stylesheet";
+					css.href = "https://unpkg.com/github-calendar@2.3.4/dist/github-calendar-responsive.css";
+					document.head.appendChild(css);
+					const s = document.createElement("script");
+					s.src = "https://unpkg.com/github-calendar@2.3.4/dist/github-calendar.min.js";
+					s.onload = () => {
+						try {
+							Promise.resolve(GitHubCalendar("#github-calendar", user, { responsive: true, tooltips: true, global_stats: false }))
+								.then(() => { box.style.display = "block"; })
+								.catch(fallback);
+						} catch (e) { fallback(); }
+					};
+					s.onerror = fallback;
+					document.body.appendChild(s);
+				};
+				if (!("IntersectionObserver" in window)) return load();
+				const io = new IntersectionObserver((en) => {
+					if (en[0].isIntersecting) { io.disconnect(); load(); }
+				}, { rootMargin: "400px" });
+				io.observe(box);
+			}
+
+			// ── modal ──
+			let lastFocus = null;
+			let modalTimer = null;
+			function openModal(html) {
+				lastFocus = document.activeElement;
+				$("modalContent").innerHTML = html;
+				$("overlay").classList.add("open");
+				$("modal").scrollTop = 0;
+				document.body.style.overflow = "hidden";
+				const car = $("modalContent").querySelector(".carousel");
+				if (car) {
+					car.querySelectorAll(".slide[data-src]").forEach(loadSlide);
+					if (!reduceMotion) modalTimer = startCarousel(car);
+				}
+				$("modalClose").focus();
+			}
+			function closeModal() {
+				if (!$("overlay").classList.contains("open")) return;
+				$("overlay").classList.remove("open");
+				$("modalContent").innerHTML = "";
+				document.body.style.overflow = "";
+				if (modalTimer) { clearInterval(modalTimer); modalTimer = null; }
+				if (lastFocus && lastFocus.focus) lastFocus.focus();
+			}
+			$("modalClose").addEventListener("click", closeModal);
+			$("overlay").addEventListener("click", (e) => { if (e.target === $("overlay")) closeModal(); });
 			document.addEventListener("keydown", (e) => {
-				if (e.key === "Escape") {
-					closeProjectModal();
-					closeExperienceModal();
-					closeEducationModal();
-					closeImageModal();
+				if (e.key === "Escape") closeModal();
+				if (e.key === "Tab" && $("overlay").classList.contains("open")) {
+					const f = $("modal").querySelectorAll("a[href],button");
+					if (!f.length) return;
+					const first = f[0], last = f[f.length - 1];
+					if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+					else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 				}
 			});
 
-			// ─── Intersection Observer for animations ───────────────────────
-			function setupAnimations() {
-				const observer = new IntersectionObserver(
-					(entries) => {
-						entries.forEach((entry) => {
-							if (entry.isIntersecting) {
-								entry.target.classList.add("visible");
-								observer.unobserve(entry.target);
-							}
-						});
-					},
-					{ threshold: 0.08 },
-				);
-				document
-					.querySelectorAll(".animate-in")
-					.forEach((el) => observer.observe(el));
+			function openProject(p) {
+				openModal(`
+					${mediaFor(p, true)}
+					<div class="modal-body">
+						<div class="p-cats">${p.category.map((c) => `<span class="pill" style="color:${esc(c.color)};background:${hexAlpha(c.color, "22")}">${esc(c.tag)}</span>`).join("")}</div>
+						<h2 id="modalTitle">${esc(p.title)}</h2>
+						<div class="m-sub">${esc(p.subtitle || "")}</div>
+						<div class="m-meta"><span>${range(p)}</span></div>
+						<p class="m-desc">${esc(p.description.trim())}</p>
+						${p.technologies && p.technologies.length ? `<div class="m-h">Technologies</div><div class="tags">${p.technologies.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+						<div class="hero-actions">
+							${p.link ? `<a class="btn btn-primary" href="${esc(p.link)}" target="_blank" rel="noopener">View project ${ICON.arrow}</a>` : ""}
+							${p.viewer3d ? `<a class="btn" href="${esc(p.viewer3d)}" target="_blank" rel="noopener">View in 3D ${ICON.arrow}</a>` : ""}
+						</div>
+					</div>`);
+			}
+			function openExperience(e) {
+				openModal(`
+					<div class="modal-body">
+						<p class="eyebrow">${e.current ? "Current role" : "Experience"}</p>
+						<h2 id="modalTitle">${esc(e.title)}</h2>
+						<div class="m-sub">${esc(e.company)}</div>
+						<div class="m-meta"><span>${range(e)}</span>${e.location ? `<span>${esc(e.location)}</span>` : ""}${e.employmentType ? `<span>${esc(e.employmentType)}</span>` : ""}</div>
+						<p class="m-desc">${esc(e.description)}</p>
+						${e.skills && e.skills.length ? `<div class="m-h">Skills</div><div class="tags">${e.skills.map((s) => `<span class="tag">${esc(s)}</span>`).join("")}</div>` : ""}
+					</div>`);
+			}
+			function openEducation(e) {
+				openModal(`
+					<div class="modal-body">
+						<p class="eyebrow">Education</p>
+						<h2 id="modalTitle">${esc(e.school)}</h2>
+						<div class="m-sub">${esc(e.degree)}</div>
+						<div class="m-meta"><span>${esc(e.field)}</span><span>${range(e)}</span>${e.grade ? `<span>${esc(e.grade)}</span>` : ""}</div>
+						<p class="m-desc">${esc(e.description)}</p>
+					</div>`);
 			}
 
-			// ─── Initialize ─────────────────────────────────────────────────
-			document.addEventListener("DOMContentLoaded", function () {
-				// Update page title
-				document.getElementById("page-title").textContent =
-					`${portfolioData.profile.name} - ${portfolioData.profile.headline}`;
+			// ── reveal on scroll ──
+			function setupReveal() {
+				const els = document.querySelectorAll(".reveal");
+				if (reduceMotion || !("IntersectionObserver" in window)) {
+					els.forEach((el) => el.classList.add("in"));
+					return;
+				}
+				const io = new IntersectionObserver((entries) => {
+					entries.forEach((en) => {
+						if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+					});
+				}, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
+				els.forEach((el) => io.observe(el));
+			}
 
-				// Update nav logo with initials
-				const names = portfolioData.profile.name.split(" ");
-				const initials =
-					names.length >= 2
-						? names[0][0] + names[1][0]
-						: names[0].substring(0, 2);
-				document.getElementById("nav-logo").innerHTML =
-					`${initials}<span class="dot">.</span>`;
-
-				// Render all sections
+			// ── init ──
+			function init() {
+				document.title = `${D.profile.name} - ${D.profile.headline}`;
+				const n = D.profile.name.split(" ");
+				$("logo").innerHTML = `${esc(n.length > 1 ? n[0][0] + n[1][0] : n[0].slice(0, 2))}<span>.</span>`;
 				renderNav();
 				renderHero();
 				renderAbout();
-				renderEducation();
 				renderExperience();
 				renderProjects();
-				renderGitHubCalendar();
+				renderPublications();
+				renderEducation();
 				renderSkills();
 				renderCertifications();
-				renderPublications();
 				renderContact();
-
-				// Setup scroll animations
-				setupAnimations();
-
-				// Back to top initial state
-				document.getElementById("backToTop").style.opacity = "0";
-			});
+				setupReveal();
+				setupScrollSpy();
+				setupGitHub();
+				window.dispatchEvent(new Event("scroll"));
+			}
+			if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+			else init();
 		</script>
 	</body>
 </html>

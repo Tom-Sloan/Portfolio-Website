@@ -40,7 +40,8 @@ export interface PortfolioData {
     endDate: string;
     description: string;
     skills: string[];
-    logo?: string;
+    engineering?: boolean;
+    logo?: string | null;
   }>;
   projects: Array<{
     title: string;
@@ -58,6 +59,7 @@ export interface PortfolioData {
     organization: string;
     issueDate: string;
     expirationDate: string | null;
+    expired?: boolean;
     description: string;
     credentialUrl: string;
     badgeImage: string;

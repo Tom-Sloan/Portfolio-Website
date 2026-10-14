@@ -2186,13 +2186,15 @@
 					(e) => e.current,
 				);
 				const pubCount = portfolioData.publications.length;
-				const certCount = portfolioData.certifications.length;
+				const certCount = portfolioData.certifications.filter((c) => !c.expired).length;
 				const activeProjects = portfolioData.projects.filter(
 					(proj) => proj.current,
 				);
 				const projectCount = activeProjects.length;
 
-				const experiences = portfolioData.experience;
+				const experiences = portfolioData.experience.filter(
+						(e) => e.engineering !== false,
+					);
 				const earliest = experiences.reduce((min, exp) => {
 					const match = exp.startDate.match(/\d{4}/);
 					const year = match ? parseInt(match[0]) : 9999;
@@ -2209,7 +2211,7 @@
 							<div class="hero-text-block" style="transition-delay: 0ms">
 								<div class="status-badge">
 									<span class="status-dot"></span>
-									<span class="status-text">Building robots at ${currentJob ? currentJob.company : "work"}</span>
+									<span class="status-text">Currently at ${currentJob ? currentJob.company : "work"}</span>
 								</div>
 							</div>
 							<div class="hero-text-block" style="transition-delay: 100ms">
@@ -2220,7 +2222,7 @@
 							</div>
 							<div class="hero-text-block" style="transition-delay: 300ms">
 								<p class="tagline">${p.tagline || p.about[0]}</p>
-								<p class="hero-stats-line">${pubCount} IEEE publications · ${awsCerts} AWS certifications · Training imitation learning policies on a Jetson Orin Nano.</p>
+								<p class="hero-stats-line">${pubCount} IEEE publications · AWS Certified Machine Learning Engineer · Transport Canada RPAS pilot · Training imitation learning policies on a Jetson Orin Nano.</p>
 							</div>
 							<div class="hero-text-block" style="transition-delay: 400ms">
 								<div class="hero-actions">
@@ -2572,7 +2574,7 @@
 									</div>
 									<div>
 										<div class="cert-name">${cert.name}</div>
-										<div class="cert-date">${cert.issueDate}</div>
+										<div class="cert-date">${cert.issueDate}${cert.expirationDate ? ` &middot; ${cert.expired ? "Expired" : "Expires"} ${cert.expirationDate}` : ""}</div>
 									</div>
 								</div>
 								${cert.description ? `<p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">${cert.description}</p>` : ""}
@@ -2648,7 +2650,7 @@
 					</div>
 					<div class="footer-bar">
 						<span class="footer-text">&copy; ${new Date().getFullYear()} ${p.name}</span>
-						<span class="footer-text">Ottawa, Canada</span>
+						<span class="footer-text">${p.location}</span>
 					</div>
 				`;
 			}

@@ -4,14 +4,25 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 const EXPERIENCE = [
   {
-    title: "Machine Learning Researcher",
-    company: "SAM3",
-    type: "Full-time",
+    title: "Payload Sensor Specialist",
+    company: "National Research Council Canada",
+    type: "On-site",
     location: "Ottawa, ON",
-    start: "Nov 2025",
+    start: "Jul 2026",
     end: "Present",
     current: true,
-    description: "Building predictive models for fall detection, UTI risk, and sleep pattern analysis using multi-modal IoT sensors for elderly patient monitoring. Developing time-series classification pipelines for AGE-WELL-funded envisAGE aging-in-place study. Deployed n8n automation pipelines for IoT sensor notifications. Engineered multi-step LLM pipelines using Claude API for automated research workflows.",
+    description: "I integrate and test sensor payloads on NRC aircraft, including drones, to support full-scale aircraft autonomy. The work covers sensor characterization and calibration, alignment and geo-referencing, and synchronized multi-sensor data acquisition.",
+    tags: ["Flight Test", "UAV", "Sensor Integration", "Sensor Calibration", "Georeferencing", "Data Acquisition"],
+  },
+  {
+    title: "Machine Learning Researcher",
+    company: "SAM3",
+    type: "Permanent Full-time",
+    location: "Ottawa, ON",
+    start: "Nov 2025",
+    end: "Jul 2026",
+    current: false,
+    description: "Integrated and calibrated multi-modal sensors (pressure mats, thermal cameras, contact sensors) for real-time health monitoring in the AGE-WELL envisAGE study. Built time-series classification pipelines that synchronize data streams from distributed IoT sensor nodes, with cross-sensor alignment and metadata tagging. Presented multi-sensor exploratory analysis to clinical stakeholders, informing study design and sensor placement. I also built predictive models for fall detection, UTI risk, and sleep pattern analysis, set up n8n automation pipelines for IoT sensor notifications, and built multi-step LLM pipelines with the Claude API for automated research workflows.",
     tags: ["PyTorch", "Time-Series", "IoT", "n8n", "Claude API", "RAG", "Python", "LLM"],
   },
   {
@@ -144,12 +155,13 @@ const PUBLICATIONS = [
 ];
 
 const CERTIFICATIONS = [
-  { name: "AWS ML Engineer – Associate", org: "AWS", date: "Nov 2025", url: "https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140" },
-  { name: "AWS Security Specialty", org: "AWS", date: "Oct 2022", url: null },
-  { name: "AWS SysOps Administrator", org: "AWS", date: "May 2022", url: null },
-  { name: "AWS Solutions Architect", org: "AWS", date: "Jan 2022", url: null },
-  { name: "AWS Developer – Associate", org: "AWS", date: "Feb 2022", url: null },
-  { name: "AWS Cloud Practitioner", org: "AWS", date: "Jul 2020", url: "https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3" },
+  { name: "Small Remotely Piloted Aircraft (VLOS) – Basic operations", org: "Transport Canada", date: "Mar 2026", url: null },
+  { name: "AWS Certified Machine Learning Engineer – Associate", org: "AWS", date: "Nov 2025 · Expires Nov 2028", url: "https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140" },
+  { name: "AWS Certified Security – Specialty", org: "AWS", date: "Oct 2022 · Expired Oct 2025", url: null },
+  { name: "AWS SysOps Administrator – Associate", org: "AWS", date: "May 2022 · Expired May 2025", url: null },
+  { name: "AWS Solutions Architect – Associate", org: "AWS", date: "Jan 2022 · Expired Jan 2025", url: null },
+  { name: "AWS Developer – Associate", org: "AWS", date: "Feb 2022 · Expired Feb 2025", url: null },
+  { name: "AWS Certified Cloud Practitioner", org: "AWS", date: "Jul 2020 · Expired May 2025", url: "https://www.credly.com/badges/c9afdb1e-f344-459e-b580-4534fae732d3" },
   { name: "Canadian Securities Course", org: "CSI", date: "Aug 2018", url: null },
 ];
 
@@ -409,17 +421,17 @@ export default function TomSloanPortfolio() {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
               <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--accent-primary)", animation: "pulse-dot 2.5s ease-in-out infinite" }} />
               <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--accent-primary)", fontWeight: 500 }}>
-                Currently building robots at SAM3
+                Currently at National Research Council Canada
               </span>
             </div>
             <h1 style={{ fontFamily: "'Azeret Mono', monospace", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 700, color: "var(--text-heading)", lineHeight: 1.1, marginBottom: 12 }}>
               Tom Sloan
             </h1>
             <p style={{ fontFamily: "'Azeret Mono', monospace", fontSize: "clamp(16px, 2.2vw, 22px)", color: "var(--accent-primary)", fontWeight: 400, marginBottom: 24, lineHeight: 1.4 }}>
-              Applied AI Engineer
+              Payload Sensor Specialist at NRC Aerospace
             </p>
             <p style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 17, color: "var(--text-primary)", maxWidth: 560, lineHeight: 1.7, marginBottom: 32, fontWeight: 300 }}>
-              I build intelligent physical systems — from custom circuits to neural policies.
+              I integrate sensors into autonomous systems and build the software that makes their data usable.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
               <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }} style={{
@@ -432,7 +444,7 @@ export default function TomSloanPortfolio() {
               >
                 Get in touch
               </a>
-              <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-muted)" }}>Ottawa, Canada</span>
+              <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 13, color: "var(--text-muted)" }}>Nepean, Ontario, Canada</span>
             </div>
           </div>
           {/* Stats bar */}
@@ -443,7 +455,7 @@ export default function TomSloanPortfolio() {
           }}>
             {[
               { num: "4", label: "IEEE Publications" },
-              { num: "6", label: "AWS Certifications" },
+              { num: "1", label: "Current AWS Certification" },
               { num: "7+", label: "Years Engineering" },
               { num: "3", label: "Active Projects" },
             ].map((s, i) => (
@@ -464,10 +476,10 @@ export default function TomSloanPortfolio() {
         <AnimateIn delay={80}>
           <div style={{ maxWidth: 720 }}>
             <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--text-primary)", fontWeight: 300 }}>
-              I'm an engineer who works across the full stack of intelligent machines — I've designed PCBs, trained SLAM models on consumer drones, deployed cloud pipelines, and built the React frontends to visualize it all. Currently focused on robotics and applied ML for defense and healthcare applications.
+              I integrate sensors into autonomous systems and build the software that makes their data usable. I'm a Payload Sensor Specialist at the National Research Council Canada's Aerospace Research Centre, where I integrate and test sensor payloads on NRC aircraft, including drones, as the Centre expands into full-scale aircraft autonomy.
             </p>
             <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--text-primary)", marginTop: 16, fontWeight: 300 }}>
-              I'm at my best when the problem requires understanding every layer, from silicon to software. I want to build machines that operate in the real world — systems that sense, decide, and act.
+              For my MASc at Carleton, I built a drone-based indoor mapping system and benchmarked neural SLAM against visual-inertial methods, reaching 6.61 cm RMSE at 21 FPS on the Replica benchmark. The work led to three IEEE papers: ICCE 2026, I2MTC 2025 and SAS 2025.
             </p>
           </div>
         </AnimateIn>

@@ -137,26 +137,43 @@ const portfolioData = {
 
 	certifications: [
 		{
-			name: "Small Remotely Piloted Aircraft (VLOS), Basic operations",
+			name: "Transport Canada Small RPAS (VLOS) Basic Operations",
 			organization: "Transport Canada",
 			issueDate: "March 2026",
-			expirationDate: null,
 			description: "Pilot certificate for basic operations of small RPAS in visual line-of-sight",
 		},
 		{
-			name: "AWS Certified Machine Learning Engineer, Associate",
+			name: "AWS Certified Machine Learning Engineer - Associate",
 			organization: "Amazon Web Services (AWS)",
 			issueDate: "November 2025",
-			expirationDate: "November 2028",
 			description: "Implementing ML workloads in production on AWS",
 			credentialUrl:
 				"https://www.credly.com/badges/9ae1b780-1c2c-4b5a-b25f-c9fad4707140",
 		},
 		{
+			name: "AWS Certified Security - Specialty",
+			organization: "Amazon Web Services",
+		},
+		{
+			name: "AWS Certified SysOps Administrator - Associate",
+			organization: "Amazon Web Services",
+		},
+		{
+			name: "AWS Certified Developer - Associate",
+			organization: "Amazon Web Services",
+		},
+		{
+			name: "AWS Certified Solutions Architect - Associate",
+			organization: "Amazon Web Services",
+		},
+		{
+			name: "AWS Certified Cloud Practitioner",
+			organization: "Amazon Web Services",
+		},
+		{
 			name: "Canadian Securities Course",
 			organization: "Canadian Securities Institute (CSI)",
 			issueDate: "August 2018",
-			expirationDate: null,
 			description: "Canadian capital markets, securities, and investment products",
 			credentialUrl:
 				"https://www.credly.com/earner/earned/badge/565999ea-75d7-4ad5-996c-e33ca6f0e8e1",

@@ -51,9 +51,8 @@ export interface PortfolioData {
   certifications: Array<{
     name: string;
     organization: string;
-    issueDate: string;
-    expirationDate: string | null;
-    description: string;
+    issueDate?: string;
+    description?: string;
     credentialUrl?: string;
   }>;
   publications: Array<{
@@ -472,7 +471,7 @@ export function createMcpServer(): Server {
           const queryLower = query.toLowerCase();
           results = results.filter((cert) =>
             cert.name.toLowerCase().includes(queryLower) ||
-            cert.description.toLowerCase().includes(queryLower)
+            (cert.description ?? '').toLowerCase().includes(queryLower)
           );
         }
 

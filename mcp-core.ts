@@ -28,52 +28,41 @@ export interface PortfolioData {
     field: string;
     startDate: string;
     endDate: string;
-    description: string;
-    logo?: string;
+    description?: string;
   }>;
   experience: Array<{
     company: string;
     title: string;
-    employmentType?: string;
     location: string;
     startDate: string;
     endDate: string;
+    current?: boolean;
     description: string;
     skills: string[];
-    engineering?: boolean;
-    logo?: string | null;
   }>;
   projects: Array<{
     title: string;
-    subtitle?: string;
     description: string;
-    dates?: string;
     category: Array<{ tag: string; color: string }>;
-    image?: string;
-    link?: string;
-    featured?: boolean;
+    technologies?: string[];
+    link?: string | null;
   }>;
-  skills: Record<string, Array<{ name: string; icon?: string }>>;
+  skills: Record<string, Array<{ name: string }>>;
   certifications: Array<{
     name: string;
     organization: string;
     issueDate: string;
     expirationDate: string | null;
-    expired?: boolean;
     description: string;
-    credentialUrl: string;
-    badgeImage: string;
+    credentialUrl?: string;
   }>;
   publications: Array<{
     title: string;
     authors: string[];
     conference: string;
-    location: string;
+    location?: string;
     year: number;
-    pages: string;
-    doi: string;
-    url: string;
-    image?: string;
+    url?: string;
     keywords: string[];
   }>;
 }
@@ -432,7 +421,7 @@ export function createMcpServer(): Server {
         const { query } = FindSkillsSchema.parse(args);
         const data = await fetchPortfolioData();
         const queryLower = query.toLowerCase();
-        const results: Array<{ category: string; skills: Array<{ name: string; icon?: string }> }> = [];
+        const results: Array<{ category: string; skills: Array<{ name: string }> }> = [];
 
         // If query is 'all' or empty, return all skills
         if (queryLower === 'all' || queryLower.trim() === '') {

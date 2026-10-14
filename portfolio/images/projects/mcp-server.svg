@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-  <!-- Black background -->
-  <rect width="800" height="600" fill="#000000"/>
-
-  <!-- MCP text in center -->
-  <text x="400" y="330" font-family="Arial, sans-serif" font-size="120" fill="white" text-anchor="middle" font-weight="bold">MCP</text>
-</svg>

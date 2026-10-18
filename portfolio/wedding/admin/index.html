@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>Tom &amp; Dani — Admin</title>
+  <link rel="stylesheet" href="/wedding/wedding.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <h1>Tom &amp; Dani</h1>
+    <div class="sub">OCTOBER 3, 2026 · ADMIN</div>
+  </header>
+
+  <main>
+    <section id="login-view" class="login" hidden>
+      <form id="login-form" class="panel">
+        <div class="field">
+          <label class="label" for="password">Couple password</label>
+          <input id="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="primary big" type="submit">Enter</button>
+        <p class="error" id="login-error" role="alert"></p>
+      </form>
+    </section>
+
+    <div id="main-view" hidden>
+      <div class="stats">
+        <div class="stat"><b id="st-total">0</b><span>Total</span></div>
+        <div class="stat"><b id="st-shared">0</b><span>Shared</span></div>
+        <div class="stat"><b id="st-private">0</b><span>Private</span></div>
+        <div class="stat"><b id="st-size">0 B</b><span>Size</span></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="chips" id="chips">
+          <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="shared" aria-pressed="false">Shared</button>
+          <button type="button" class="chip" data-filter="private" aria-pressed="false">Private</button>
+        </div>
+        <span class="grow"></span>
+        <button type="button" id="refresh-btn">Refresh</button>
+        <button type="button" id="reset-limits-btn">Reset login lockouts</button>
+        <button type="button" id="logout-btn">Log out</button>
+      </div>
+      <p class="hint" id="reset-result" role="status"></p>
+
+      <div class="toolbar">
+        <button type="button" id="select-all-btn">Select all</button>
+        <button type="button" class="primary" id="dl-selected-btn" disabled>Download selected</button>
+        <button type="button" class="primary" id="dl-all-btn">Download all as zip</button>
+      </div>
+
+      <div class="progress-list" id="zip-progress"></div>
+      <p class="error" id="admin-error" role="alert"></p>
+
+      <div class="grid" id="gallery"></div>
+      <p class="empty" id="gallery-empty" hidden>No uploads yet.</p>
+    </div>
+  </main>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="close" id="lightbox-close" aria-label="Close">✕</button>
+  <div id="lightbox-body"></div>
+  <div class="cap" id="lightbox-cap"></div>
+</div>
+
+<script type="module" src="/wedding/admin.js"></script>
+</body>
+</html>

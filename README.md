@@ -18,6 +18,23 @@ I finished my MASc at Carleton, where I built a drone-based indoor mapping syste
 
 A single static page, `portfolio/index.html`, rendered from `portfolio/data.js`. Edit `data.js` to change the content.
 
+## Wedding uploads
+
+A private photo/video upload page at `/wedding` (guests) and `/wedding/admin` (the couple). Files go straight from the browser to a Cloudflare R2 bucket via presigned multipart uploads; Netlify Functions (`netlify/functions/wedding-*.ts`, shared code in `netlify/lib/wedding/`) handle auth and signing. Guests can upload as "shared" (visible in the guest gallery) or "private" (admin only).
+
+Environment variables (names only): `WEDDING_PASSWORD`, `WEDDING_COOKIE_SECRET`, `COUPLE_PASSWORD`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`. Dev/test only: `R2_ENDPOINT`, `WEDDING_COOKIE_INSECURE`.
+
+The R2 bucket needs a CORS rule allowing `PUT`/`GET` from the site origin and exposing the `ETag` header.
+
+Local dev and tests:
+
+```
+npm install
+npx tsc
+node scripts/wedding-dev-server.mjs      # PORT env, default 8888
+npm run test:wedding                     # API tests need R2_ENDPOINT etc. pointing at an S3-compatible server
+```
+
 ## MCP Server Integration
 
 This portfolio includes a Model Context Protocol (MCP) server written in TypeScript that provides AI assistants like Claude Desktop with structured access to portfolio data.

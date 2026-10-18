@@ -13,6 +13,34 @@
   directory = "dist/netlify/functions"
   node_bundler = "esbuild"
 
+# Wedding upload pages
+[[redirects]]
+  from = "/wedding"
+  to = "/wedding/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/wedding/"
+  to = "/wedding/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/wedding/admin"
+  to = "/wedding/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/wedding/admin/"
+  to = "/wedding/admin/index.html"
+  status = 200
+
+# Safety net: unknown wedding API paths must not fall through to the SPA.
+# Functions with config.path take precedence over this rule.
+[[redirects]]
+  from = "/api/wedding/*"
+  to = "/404"
+  status = 404
+
 # Optional: Set up redirects for clean URLs
 [[redirects]]
   from = "/*"
@@ -28,3 +56,15 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "no-referrer-when-downgrade"
+
+[[headers]]
+  for = "/wedding/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/wedding"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"

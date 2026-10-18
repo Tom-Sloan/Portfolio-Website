@@ -19,7 +19,8 @@
   "include": [
     "mcp-core.ts",
     "mcp-server-stdio.ts",
-    "netlify/functions/**/*.ts"
+    "netlify/functions/**/*.ts",
+    "netlify/lib/**/*.ts"
   ],
   "exclude": [
     "node_modules",

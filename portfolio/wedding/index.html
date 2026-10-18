@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>Tom &amp; Dani — Share your photos</title>
+  <link rel="stylesheet" href="/wedding/wedding.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <h1>Tom &amp; Dani</h1>
+    <div class="sub">OCTOBER 3, 2026</div>
+  </header>
+
+  <main>
+    <section id="login-view" class="login" hidden>
+      <form id="login-form" class="panel">
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" required>
+          <p class="hint">Use the same password as our wedding website.</p>
+        </div>
+        <button class="primary big" type="submit" id="login-btn">Enter</button>
+        <p class="error" id="login-error" role="alert"></p>
+      </form>
+    </section>
+
+    <div id="main-view" hidden>
+      <section class="panel">
+        <div class="field">
+          <label class="label" for="uploader">Your name</label>
+          <input id="uploader" type="text" maxlength="60" autocomplete="name" placeholder="So we know who to thank">
+        </div>
+
+        <span class="label">Who can see these?</span>
+        <div class="cards" role="radiogroup" aria-label="Visibility">
+          <label class="card">
+            <input type="radio" name="visibility" value="shared" checked>
+            <strong>Share with everyone</strong>
+            <span>Appears in the guest gallery below</span>
+          </label>
+          <label class="card">
+            <input type="radio" name="visibility" value="private">
+            <strong>Just for Tom &amp; Dani</strong>
+            <span>Only the couple can see these</span>
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="label" for="caption">Caption (optional)</label>
+          <input id="caption" type="text" maxlength="280" placeholder="Applies to this batch">
+        </div>
+
+        <input id="file-input" type="file" multiple accept="image/*,video/*" hidden>
+        <button class="primary big" type="button" id="choose-btn">Choose photos &amp; videos</button>
+        <p class="error" id="upload-error" role="alert"></p>
+        <ul class="queue" id="queue"></ul>
+      </section>
+
+      <section>
+        <h2>Shared by guests</h2>
+        <div class="toolbar">
+          <span class="hint grow" id="gallery-count"></span>
+          <button type="button" id="refresh-btn">Refresh</button>
+        </div>
+        <div class="grid" id="gallery"></div>
+        <p class="empty" id="gallery-empty" hidden>Nothing shared yet — be the first!</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="note">Photos and videos marked “Just for Tom &amp; Dani” are visible only to Tom &amp; Dani.</footer>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="close" id="lightbox-close" aria-label="Close">✕</button>
+  <div id="lightbox-body"></div>
+  <div class="cap" id="lightbox-cap"></div>
+</div>
+
+<script type="module" src="/wedding/wedding.js"></script>
+</body>
+</html>

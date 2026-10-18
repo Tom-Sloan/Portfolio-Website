@@ -39,14 +39,15 @@ test("expired token is rejected", () => {
   assert.equal(auth.verifyToken(token), null);
 });
 
-test("upload token binds key and uploadId", () => {
+test("upload token binds key, uploadId and size", () => {
   const key = "shared/abc-12345678-1234-1234-1234-123456789012/original.jpg";
-  const token = auth.signUploadToken(key, "upload-1");
-  assert.equal(auth.verifyUploadToken(key, "upload-1", token), true);
-  assert.equal(auth.verifyUploadToken(key, "upload-2", token), false);
-  assert.equal(auth.verifyUploadToken(key.replace("shared", "private"), "upload-1", token), false);
-  assert.equal(auth.verifyUploadToken(key, "upload-1", ""), false);
-  assert.equal(auth.verifyUploadToken(key, "upload-1", "nope"), false);
+  const token = auth.signUploadToken(key, "upload-1", 5000);
+  assert.equal(auth.verifyUploadToken(key, "upload-1", 5000, token), true);
+  assert.equal(auth.verifyUploadToken(key, "upload-2", 5000, token), false);
+  assert.equal(auth.verifyUploadToken(key, "upload-1", 5001, token), false);
+  assert.equal(auth.verifyUploadToken(key.replace("shared", "private"), "upload-1", 5000, token), false);
+  assert.equal(auth.verifyUploadToken(key, "upload-1", 5000, ""), false);
+  assert.equal(auth.verifyUploadToken(key, "upload-1", 5000, "nope"), false);
 });
 
 test("password comparison", () => {

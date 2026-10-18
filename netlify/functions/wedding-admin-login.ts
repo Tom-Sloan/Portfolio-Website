@@ -1,14 +1,24 @@
 import { adminCookie, failedLoginDelay, guestCookie, passwordMatches } from "../lib/wedding/auth.js";
 import { requireEnv } from "../lib/wedding/config.js";
-import { error, json, readJson, wrap } from "../lib/wedding/http.js";
+import { error, json, rateLimited, readJson, unavailable, wrap } from "../lib/wedding/http.js";
+import { RateLimitUnavailable, clientIp, reserve, type Reservation } from "../lib/wedding/ratelimit.js";
 
-export default wrap("POST", async (req) => {
+export default wrap("POST", async (req, context) => {
+  let r: Reservation;
+  try {
+    r = await reserve("admin-login", clientIp(req, context));
+  } catch (e) {
+    if (e instanceof RateLimitUnavailable) return unavailable();
+    throw e;
+  }
+  if (r.blocked) return rateLimited(r.retryAfterSec);
   const body = await readJson(req);
   const password = typeof body.password === "string" ? body.password : "";
   if (!passwordMatches(password, requireEnv("COUPLE_PASSWORD"))) {
     await failedLoginDelay();
     return error(401, "Wrong password");
   }
+  await r.release();
   return json({ ok: true }, 200, [adminCookie(), guestCookie()]);
 });
 

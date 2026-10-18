@@ -1,6 +1,7 @@
 // Tiny dev server: serves portfolio/ and routes /api/wedding/<name> to the compiled
 // Netlify functions in dist/netlify/functions/wedding-<name>.js. Run `npx tsc` first.
 import { createServer } from "node:http";
+import { readFileSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -28,6 +29,76 @@ const REWRITES = new Map([
   ["/wedding/admin", "/wedding/admin/index.html"],
   ["/wedding/admin/", "/wedding/admin/index.html"],
 ]);
+
+// Minimal parser for the [[headers]] blocks in netlify.toml: `for = "..."` plus the
+// `key = "value"` lines under [headers.values]. Returns [{ for, values }].
+function loadHeaderRules() {
+  let text = "";
+  try {
+    text = readFileSync(join(root, "netlify.toml"), "utf8");
+  } catch {
+    return [];
+  }
+  const rules = [];
+  let rule = null;
+  let inValues = false;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (line === "[[headers]]") {
+      rule = { for: "", values: {} };
+      rules.push(rule);
+      inValues = false;
+    } else if (line === "[headers.values]") {
+      inValues = rule !== null;
+    } else if (line.startsWith("[")) {
+      rule = null;
+      inValues = false;
+    } else if (rule) {
+      const m = /^([A-Za-z0-9_-]+)\s*=\s*"(.*)"\s*(?:#.*)?$/.exec(line);
+      if (!m) continue;
+      if (inValues) rule.values[m[1]] = m[2];
+      else if (m[1] === "for") rule.for = m[2];
+    }
+  }
+  return rules;
+}
+
+const headerRules = loadHeaderRules();
+
+function ruleMatches(pattern, pathname) {
+  if (pattern.endsWith("/*")) return pathname === pattern.slice(0, -2) || pathname.startsWith(pattern.slice(0, -1));
+  return pathname === pattern;
+}
+
+// With R2_ENDPOINT set (local S3-compatible server), allow its origin for media and uploads.
+function r2Origin() {
+  try {
+    return process.env.R2_ENDPOINT ? new URL(process.env.R2_ENDPOINT).origin : null;
+  } catch {
+    return null;
+  }
+}
+
+function withR2Origin(csp, origin) {
+  return csp
+    .split(";")
+    .map((d) => d.trim())
+    .filter(Boolean)
+    .map((d) => (/^(img-src|media-src|connect-src)\s/.test(d) ? `${d} ${origin}` : d))
+    .join("; ");
+}
+
+function headersFor(pathname) {
+  const out = {};
+  for (const rule of headerRules) {
+    if (ruleMatches(rule.for, pathname)) Object.assign(out, rule.values);
+  }
+  const origin = r2Origin();
+  if (origin && out["Content-Security-Policy"]) {
+    out["Content-Security-Policy"] = withR2Origin(out["Content-Security-Policy"], origin);
+  }
+  return out;
+}
 
 async function readBody(req) {
   const chunks = [];
@@ -60,7 +131,7 @@ async function handleApi(req, res, url) {
     headers,
     body: hasBody ? await readBody(req) : undefined,
   });
-  const response = await handler(request, {});
+  const response = await handler(request, { ip: req.headers["x-nf-client-connection-ip"] ?? req.socket.remoteAddress });
   const out = {};
   response.headers.forEach((value, key) => {
     if (key !== "set-cookie") out[key] = value;
@@ -85,6 +156,7 @@ async function handleStatic(req, res, url) {
     res.writeHead(200, {
       "Content-Type": TYPES[extname(file)] || "application/octet-stream",
       "Cache-Control": "no-cache",
+      ...headersFor(url.pathname),
     });
     res.end(data);
   } catch {

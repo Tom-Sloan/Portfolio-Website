@@ -4,52 +4,32 @@ import {
   CompleteMultipartUploadCommand,
   CreateMultipartUploadCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   HeadObjectCommand,
   ListPartsCommand,
 } from "@aws-sdk/client-s3";
-import { signUploadToken, verifyUploadToken } from "../lib/wedding/auth.js";
+import { signUploadToken } from "../lib/wedding/auth.js";
 import {
   MAX_FILE_BYTES,
   MAX_PARTS,
   MAX_SIGN_PARTS_PER_CALL,
-  MAX_THUMB_BYTES,
   PART_SIZE,
-  isAllowedType,
-  safeExt,
+  classifyFilename,
+  mediaTypeForKey,
 } from "../lib/wedding/config.js";
-import { HttpError, json, readJson, requireRole, str, wrap } from "../lib/wedding/http.js";
+import { HttpError, error, json, rateLimited, readJson, requireRole, str, unavailable, wrap } from "../lib/wedding/http.js";
+import { matchesMagic } from "../lib/wedding/media.js";
+import { RateLimitUnavailable, clientIp, reserve, type Reservation } from "../lib/wedding/ratelimit.js";
 import {
   bucketName,
   getS3,
-  getText,
   isNoSuchUpload,
   isNotFound,
-  presignPut,
   presignUploadPart,
   putJson,
 } from "../lib/wedding/s3.js";
-import { KEY_PATTERN, metaKey, parseMeta, thumbKey, type Meta, type Visibility } from "../lib/wedding/store.js";
-
-interface Owned {
-  key: string;
-  uploadId: string;
-  visibility: Visibility;
-  id: string;
-}
-
-/** Validates key/uploadId and that the token was issued for exactly this pair. */
-function authorizeUpload(body: Record<string, unknown>): Owned {
-  const { key, uploadId, token } = body;
-  if (typeof key !== "string" || !KEY_PATTERN.test(key)) throw new HttpError(403, "Forbidden");
-  if (typeof uploadId !== "string" || uploadId.length === 0 || uploadId.length > 1024) {
-    throw new HttpError(403, "Forbidden");
-  }
-  if (typeof token !== "string" || !verifyUploadToken(key, uploadId, token)) {
-    throw new HttpError(403, "Forbidden");
-  }
-  const [visibility, id] = key.split("/");
-  return { key, uploadId, visibility: visibility as Visibility, id };
-}
+import { metaKey, type Meta } from "../lib/wedding/store.js";
+import { authorizeUpload, partCountFor, partLength } from "../lib/wedding/uploads.js";
 
 function decode(value: string | undefined): string {
   if (!value) return "";
@@ -60,9 +40,17 @@ function decode(value: string | undefined): string {
   }
 }
 
-async function create(body: Record<string, unknown>): Promise<Response> {
+async function create(req: Request, context: unknown, body: Record<string, unknown>): Promise<Response> {
+  let r: Reservation;
+  try {
+    r = await reserve("create", clientIp(req, context));
+  } catch (e) {
+    if (e instanceof RateLimitUnavailable) return unavailable();
+    throw e;
+  }
+  if (r.blocked) return rateLimited(r.retryAfterSec);
+
   const filename = str(body.filename, "filename", 1, 255);
-  const contentType = str(body.contentType, "contentType", 1, 127).toLowerCase();
   const uploader = str(body.uploader, "uploader", 1, 60);
   let caption = "";
   if (typeof body.caption === "string") caption = body.caption.trim();
@@ -73,17 +61,20 @@ async function create(body: Record<string, unknown>): Promise<Response> {
   if (visibility !== "shared" && visibility !== "private") throw new HttpError(400, "Invalid visibility");
   if (typeof size !== "number" || !Number.isInteger(size) || size < 1) throw new HttpError(400, "Invalid size");
   if (size > MAX_FILE_BYTES) throw new HttpError(413, "File too large");
-  if (!isAllowedType(contentType, filename)) throw new HttpError(415, "Unsupported file type");
+  // The client-declared contentType is ignored; the type comes from the filename's extension.
+  const media = classifyFilename(filename);
+  if (!media) throw new HttpError(400, "Only photos and videos can be uploaded");
 
-  const partCount = Math.ceil(size / PART_SIZE);
+  const partCount = partCountFor(size);
   if (partCount > MAX_PARTS) throw new HttpError(413, "File too large");
 
   const id = `${Date.now().toString(36)}-${randomUUID()}`;
-  const key = `${visibility}/${id}/original.${safeExt(filename)}`;
+  const key = `${visibility}/${id}/original.${media.ext}`;
   const metadata: Record<string, string> = {
     uploader: encodeURIComponent(uploader),
     visibility,
     originalname: encodeURIComponent(filename),
+    declaredsize: String(size),
   };
   const encodedCaption = encodeURIComponent(caption);
   if (encodedCaption.length > 0 && encodedCaption.length <= 700) metadata.caption = encodedCaption;
@@ -92,7 +83,7 @@ async function create(body: Record<string, unknown>): Promise<Response> {
     new CreateMultipartUploadCommand({
       Bucket: bucketName(),
       Key: key,
-      ContentType: contentType,
+      ContentType: media.mime,
       Metadata: metadata,
     }),
   );
@@ -101,7 +92,7 @@ async function create(body: Record<string, unknown>): Promise<Response> {
     id,
     key,
     uploadId: res.UploadId,
-    token: signUploadToken(key, res.UploadId),
+    token: signUploadToken(key, res.UploadId, size),
     partSize: PART_SIZE,
     partCount,
   });
@@ -114,12 +105,12 @@ async function signParts(body: Record<string, unknown>): Promise<Response> {
     throw new HttpError(400, "Invalid partNumbers");
   }
   for (const n of nums) {
-    if (typeof n !== "number" || !Number.isInteger(n) || n < 1 || n > MAX_PARTS) {
+    if (typeof n !== "number" || !Number.isInteger(n) || n < 1 || n > o.partCount) {
       throw new HttpError(400, "Invalid partNumbers");
     }
   }
   const list = nums as number[];
-  const signed = await Promise.all(list.map((n) => presignUploadPart(o.key, o.uploadId, n)));
+  const signed = await Promise.all(list.map((n) => presignUploadPart(o.key, o.uploadId, n, partLength(o, n))));
   const urls: Record<string, string> = {};
   list.forEach((n, i) => {
     urls[String(n)] = signed[i];
@@ -159,7 +150,7 @@ async function listParts(body: Record<string, unknown>): Promise<Response> {
 async function complete(body: Record<string, unknown>): Promise<Response> {
   const o = authorizeUpload(body);
   const rawParts = body.parts;
-  if (!Array.isArray(rawParts) || rawParts.length === 0 || rawParts.length > MAX_PARTS) {
+  if (!Array.isArray(rawParts) || rawParts.length !== o.partCount) {
     throw new HttpError(400, "Invalid parts");
   }
   const parts = rawParts.map((p) => {
@@ -169,7 +160,7 @@ async function complete(body: Record<string, unknown>): Promise<Response> {
       typeof part.PartNumber !== "number" ||
       !Number.isInteger(part.PartNumber) ||
       part.PartNumber < 1 ||
-      part.PartNumber > MAX_PARTS ||
+      part.PartNumber > o.partCount ||
       typeof part.ETag !== "string" ||
       part.ETag.length === 0 ||
       part.ETag.length > 200
@@ -179,6 +170,8 @@ async function complete(body: Record<string, unknown>): Promise<Response> {
     return { PartNumber: part.PartNumber, ETag: part.ETag };
   });
   parts.sort((a, b) => a.PartNumber - b.PartNumber);
+  // Exactly parts 1..partCount, each once.
+  if (parts.some((p, i) => p.PartNumber !== i + 1)) throw new HttpError(400, "Invalid parts");
 
   const s3 = getS3();
   const bucket = bucketName();
@@ -203,10 +196,21 @@ async function complete(body: Record<string, unknown>): Promise<Response> {
     if (isNotFound(e)) throw new HttpError(404, "Upload not found");
     throw e;
   }
-  const size = head.ContentLength ?? 0;
-  if (size > MAX_FILE_BYTES) {
+  const discard = async (): Promise<void> => {
     await s3.send(new DeleteObjectCommand({ Bucket: bucket, Key: o.key }));
-    throw new HttpError(413, "File too large");
+  };
+  if (head.ContentLength !== o.size) {
+    await discard();
+    throw new HttpError(400, "Size mismatch");
+  }
+
+  // Content must look like what its extension claims.
+  const media = mediaTypeForKey(o.key);
+  const first = await s3.send(new GetObjectCommand({ Bucket: bucket, Key: o.key, Range: "bytes=0-63" }));
+  const prefix = (await first.Body?.transformToByteArray()) ?? new Uint8Array(0);
+  if (!media || !matchesMagic(media.ext, prefix)) {
+    await discard();
+    throw new HttpError(415, "File content doesn't match its type");
   }
 
   const md = head.Metadata ?? {};
@@ -218,8 +222,8 @@ async function complete(body: Record<string, unknown>): Promise<Response> {
     uploader: decode(md.uploader),
     caption,
     originalName: decode(md.originalname),
-    contentType: head.ContentType ?? "application/octet-stream",
-    size,
+    contentType: media.mime,
+    size: o.size,
     createdAt: new Date().toISOString(),
     hasThumb: false,
     key: o.key,
@@ -240,42 +244,12 @@ async function abort(body: Record<string, unknown>): Promise<Response> {
   return json({ ok: true });
 }
 
-async function thumb(body: Record<string, unknown>): Promise<Response> {
-  const o = authorizeUpload(body);
-  const url = await presignPut(thumbKey(o.visibility, o.id), "image/jpeg");
-  return json({ url });
-}
-
-async function thumbDone(body: Record<string, unknown>): Promise<Response> {
-  const o = authorizeUpload(body);
-  const s3 = getS3();
-  const bucket = bucketName();
-  const key = thumbKey(o.visibility, o.id);
-  let head;
-  try {
-    head = await s3.send(new HeadObjectCommand({ Bucket: bucket, Key: key }));
-  } catch (e) {
-    if (isNotFound(e)) throw new HttpError(404, "Thumbnail not found");
-    throw e;
-  }
-  if ((head.ContentLength ?? 0) > MAX_THUMB_BYTES) {
-    await s3.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }));
-    throw new HttpError(413, "Thumbnail too large");
-  }
-  const text = await getText(metaKey(o.visibility, o.id));
-  const meta = text === null ? null : parseMeta(text);
-  if (!meta) throw new HttpError(409, "Upload not complete");
-  meta.hasThumb = true;
-  await putJson(metaKey(o.visibility, o.id), meta);
-  return json({ ok: true });
-}
-
-export default wrap("POST", async (req) => {
+export default wrap("POST", async (req, context) => {
   requireRole(req, "guest");
   const body = await readJson(req);
   switch (body.action) {
     case "create":
-      return create(body);
+      return create(req, context, body);
     case "sign-parts":
       return signParts(body);
     case "list-parts":
@@ -284,12 +258,8 @@ export default wrap("POST", async (req) => {
       return complete(body);
     case "abort":
       return abort(body);
-    case "thumb":
-      return thumb(body);
-    case "thumb-done":
-      return thumbDone(body);
     default:
-      throw new HttpError(400, "Unknown action");
+      return error(400, "Unknown action");
   }
 });
 

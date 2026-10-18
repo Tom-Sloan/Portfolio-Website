@@ -8,7 +8,19 @@ const SIGN_BATCH = 50;
 const STATE_PREFIX = "wedding-upload:";
 const STATE_MAX_AGE_MS = 5 * 24 * 60 * 60 * 1000;
 
+const MAX_THUMB_BYTES = 300 * 1024;
+const THUMB_TIMEOUT_MS = 15000;
+// Thumbnail attempts, smallest-effort first; the server rejects anything over 300 KB.
+const THUMB_ATTEMPTS = [
+  { maxEdge: 480, quality: 0.8 },
+  { maxEdge: 480, quality: 0.6 },
+  { maxEdge: 320, quality: 0.6 },
+];
+
 const fingerprintOf = (file) => `${file.name}|${file.size}|${file.lastModified}`;
+
+// Every upload call carries the key, uploadId, declared size and the token bound to all three.
+const authOf = (state, file) => ({ key: state.key, uploadId: state.uploadId, token: state.token, size: file.size });
 
 function loadState(fp) {
   try {
@@ -122,7 +134,7 @@ export function createUploader() {
 
     if (state && state.visibility !== task.visibility) {
       // The saved upload targets a different visibility; start over.
-      api("presign", { method: "POST", body: { action: "abort", key: state.key, uploadId: state.uploadId, token: state.token } }).catch(() => {});
+      api("presign", { method: "POST", body: { action: "abort", ...authOf(state, file) } }).catch(() => {});
       clearState(fp);
       state = null;
     }
@@ -131,7 +143,7 @@ export function createUploader() {
       try {
         const { parts } = await api("presign", {
           method: "POST",
-          body: { action: "list-parts", key: state.key, uploadId: state.uploadId, token: state.token },
+          body: { action: "list-parts", ...authOf(state, file) },
         });
         for (const p of parts) {
           const expected = Math.min(state.partSize, file.size - (p.PartNumber - 1) * state.partSize);
@@ -155,7 +167,6 @@ export function createUploader() {
         body: {
           action: "create",
           filename: file.name,
-          contentType: file.type || "application/octet-stream",
           size: file.size,
           visibility: task.visibility,
           uploader: task.uploader,
@@ -205,7 +216,7 @@ export function createUploader() {
           index,
           api("presign", {
             method: "POST",
-            body: { action: "sign-parts", key: state.key, uploadId: state.uploadId, token: state.token, partNumbers: nums },
+            body: { action: "sign-parts", ...authOf(state, file), partNumbers: nums },
           }).then((res) => {
             for (const [k, v] of Object.entries(res.urls)) urls.set(Number(k), v);
           }),
@@ -217,7 +228,7 @@ export function createUploader() {
     const resign = async (n) => {
       const res = await api("presign", {
         method: "POST",
-        body: { action: "sign-parts", key: state.key, uploadId: state.uploadId, token: state.token, partNumbers: [n] },
+        body: { action: "sign-parts", ...authOf(state, file), partNumbers: [n] },
       });
       urls.set(n, res.urls[String(n)]);
     };
@@ -271,17 +282,45 @@ export function createUploader() {
     await Promise.all(Array.from({ length: Math.min(PART_CONCURRENCY, missing.length) }, worker));
   }
 
+  async function uploadThumbInner(task, state, signal) {
+    let blob = null;
+    for (const opts of THUMB_ATTEMPTS) {
+      blob = await makeThumb(task.file, opts);
+      if (!blob || blob.size <= MAX_THUMB_BYTES) break;
+    }
+    if (!blob || blob.size > MAX_THUMB_BYTES) return;
+    const auth = authOf(state, task.file);
+    await fetch("/api/wedding/thumb", {
+      method: "POST",
+      credentials: "same-origin",
+      signal,
+      headers: {
+        "Content-Type": "image/jpeg",
+        "x-upload-key": auth.key,
+        "x-upload-id": auth.uploadId,
+        "x-upload-size": String(auth.size),
+        "x-upload-token": auth.token,
+      },
+      body: blob,
+    });
+  }
+
+  // Best effort: never throws, never takes longer than THUMB_TIMEOUT_MS.
   async function uploadThumb(task, state) {
+    const ctrl = new AbortController();
+    let timer;
+    const timeout = new Promise((resolve) => {
+      timer = setTimeout(() => {
+        ctrl.abort();
+        resolve();
+      }, THUMB_TIMEOUT_MS);
+    });
     try {
-      const blob = await makeThumb(task.file);
-      if (!blob) return;
-      const base = { key: state.key, uploadId: state.uploadId, token: state.token };
-      const { url } = await api("presign", { method: "POST", body: { action: "thumb", ...base } });
-      const put = await fetch(url, { method: "PUT", headers: { "Content-Type": "image/jpeg" }, body: blob });
-      if (!put.ok) return;
-      await api("presign", { method: "POST", body: { action: "thumb-done", ...base } });
+      await Promise.race([uploadThumbInner(task, state, ctrl.signal), timeout]);
     } catch {
       // thumbnails are best effort
+    } finally {
+      clearTimeout(timer);
     }
   }
 
@@ -298,7 +337,7 @@ export function createUploader() {
         .map(([PartNumber, ETag]) => ({ PartNumber, ETag }));
       await api("presign", {
         method: "POST",
-        body: { action: "complete", key: state.key, uploadId: state.uploadId, token: state.token, parts, caption: state.caption },
+        body: { action: "complete", ...authOf(state, task.file), parts, caption: state.caption },
       });
       clearState(state.fingerprint);
       update(task, { status: "done", progress: 1 });
@@ -306,11 +345,11 @@ export function createUploader() {
       update(task, { status: "failed", error: e && e.message ? e.message : "Upload failed" });
       state = null;
     }
+    current = null;
     if (task.status === "done" && state) {
       await uploadThumb(task, state);
       emit("settled", task);
     }
-    current = null;
   }
 
   async function pump() {

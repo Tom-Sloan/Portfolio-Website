@@ -1,3 +1,4 @@
+import { mediaTypeForKey } from "../lib/wedding/config.js";
 import { HttpError, json, readJson, requireRole, wrap } from "../lib/wedding/http.js";
 import { presignGet } from "../lib/wedding/s3.js";
 import { ID_PATTERN, KEY_PATTERN, readMeta, type Visibility } from "../lib/wedding/store.js";
@@ -12,6 +13,15 @@ function sanitizeName(name: string): string {
     .trim()
     .slice(0, 180);
   return cleaned || "file";
+}
+
+/** `<uploader>-<stem>.<canonical ext>`; dots in the parts are neutralised so the ext is ours alone. */
+function downloadName(uploader: string, originalName: string, ext: string): string {
+  const dot = originalName.lastIndexOf(".");
+  const stem = dot > 0 ? originalName.slice(0, dot) : originalName;
+  const who = sanitizeName(uploader).replace(/\./g, "_").slice(0, 60);
+  const base = sanitizeName(stem).replace(/\./g, "_").slice(0, 100);
+  return `${who}-${base}.${ext}`;
 }
 
 function asciiFallback(name: string): string {
@@ -50,10 +60,12 @@ export default wrap("POST", async (req) => {
       const meta = await readMeta(w.visibility, w.id);
       if (!meta || typeof meta.key !== "string" || !KEY_PATTERN.test(meta.key)) continue;
       if (!meta.key.startsWith(`${w.visibility}/${w.id}/`)) continue;
-      const name = sanitizeName(`${meta.uploader}-${meta.originalName}`);
+      // Type and extension come from the key, never from stored metadata.
+      const media = mediaTypeForKey(meta.key);
+      const name = downloadName(meta.uploader, meta.originalName, media?.ext ?? "bin");
       const url = await presignGet(meta.key, {
         disposition: contentDisposition(name),
-        contentType: meta.contentType,
+        contentType: media?.mime ?? "application/octet-stream",
       });
       files.push({
         id: w.id,

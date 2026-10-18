@@ -11,10 +11,16 @@ export class HttpError extends Error {
   }
 }
 
-export function json(data: unknown, status = 200, cookies: string[] = []): Response {
+export function json(
+  data: unknown,
+  status = 200,
+  cookies: string[] = [],
+  extraHeaders: Record<string, string> = {},
+): Response {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
+    ...extraHeaders,
   });
   for (const cookie of cookies) headers.append("Set-Cookie", cookie);
   return new Response(JSON.stringify(data), { status, headers });
@@ -22,6 +28,16 @@ export function json(data: unknown, status = 200, cookies: string[] = []): Respo
 
 export function error(status: number, message: string): Response {
   return json({ error: message }, status);
+}
+
+export function rateLimited(retryAfterSec: number): Response {
+  return json({ error: "Too many attempts. Please wait a few minutes and try again." }, 429, [], {
+    "Retry-After": String(Math.max(1, Math.ceil(retryAfterSec))),
+  });
+}
+
+export function unavailable(): Response {
+  return error(503, "Temporarily unavailable, please try again shortly.");
 }
 
 export async function readJson(req: Request): Promise<Record<string, unknown>> {
@@ -50,13 +66,13 @@ function checkSameOrigin(req: Request): void {
 /** Wrap a handler: method check, same-origin check on POST, error mapping. */
 export function wrap(
   method: "GET" | "POST",
-  fn: (req: Request) => Promise<Response>,
+  fn: (req: Request, context: unknown) => Promise<Response>,
 ): (req: Request, context?: unknown) => Promise<Response> {
-  return async (req: Request): Promise<Response> => {
+  return async (req: Request, context?: unknown): Promise<Response> => {
     try {
       if (req.method !== method) throw new HttpError(405, "Method not allowed");
       if (method === "POST") checkSameOrigin(req);
-      return await fn(req);
+      return await fn(req, context);
     } catch (e) {
       if (e instanceof HttpError) return error(e.status, e.message);
       console.error("wedding function error:", e instanceof Error ? `${e.name}: ${e.message}` : "unknown");

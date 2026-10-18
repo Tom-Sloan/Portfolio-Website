@@ -60,13 +60,18 @@ export function verifyToken(token: string, now: number = Date.now()): TokenPaylo
   }
 }
 
-export function signUploadToken(key: string, uploadId: string): string {
-  return hmac(`upload:${key}\n${uploadId}`).toString("base64url");
+function uploadPayload(key: string, uploadId: string, size: number): string {
+  return `upload:${key}\n${uploadId}\n${size}`;
 }
 
-export function verifyUploadToken(key: string, uploadId: string, token: string): boolean {
+/** Token binding an upload to its exact key, uploadId and declared size. */
+export function signUploadToken(key: string, uploadId: string, size: number): string {
+  return hmac(uploadPayload(key, uploadId, size)).toString("base64url");
+}
+
+export function verifyUploadToken(key: string, uploadId: string, size: number, token: string): boolean {
   if (typeof token !== "string" || token.length === 0) return false;
-  const expected = hmac(`upload:${key}\n${uploadId}`);
+  const expected = hmac(uploadPayload(key, uploadId, size));
   let given: Buffer;
   try {
     given = Buffer.from(token, "base64url");

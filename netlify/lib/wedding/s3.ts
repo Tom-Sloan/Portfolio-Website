@@ -28,6 +28,11 @@ function ctx(): { client: S3Client; bucket: string } {
   return cached;
 }
 
+/** Drop the cached client so changed R2_* env vars take effect (tests). */
+export function resetS3Cache(): void {
+  cached = undefined;
+}
+
 export function getS3(): S3Client {
   return ctx().client;
 }
@@ -53,22 +58,33 @@ export function presignGet(
   );
 }
 
-export function presignUploadPart(key: string, uploadId: string, partNumber: number): Promise<string> {
+/**
+ * Presign one multipart part. `contentLength` is signed, so storage rejects any PUT
+ * whose body is not exactly that many bytes.
+ */
+export function presignUploadPart(
+  key: string,
+  uploadId: string,
+  partNumber: number,
+  contentLength: number,
+): Promise<string> {
   const { client, bucket } = ctx();
   return getSignedUrl(
     client,
-    new UploadPartCommand({ Bucket: bucket, Key: key, UploadId: uploadId, PartNumber: partNumber }),
-    { expiresIn: URL_EXPIRY_SECONDS },
+    new UploadPartCommand({
+      Bucket: bucket,
+      Key: key,
+      UploadId: uploadId,
+      PartNumber: partNumber,
+      ContentLength: contentLength,
+    }),
+    { expiresIn: URL_EXPIRY_SECONDS, signableHeaders: new Set(["content-length"]) },
   );
 }
 
-export function presignPut(key: string, contentType: string): Promise<string> {
+export async function putObject(key: string, body: Uint8Array, contentType: string): Promise<void> {
   const { client, bucket } = ctx();
-  return getSignedUrl(
-    client,
-    new PutObjectCommand({ Bucket: bucket, Key: key, ContentType: contentType }),
-    { expiresIn: URL_EXPIRY_SECONDS },
-  );
+  await client.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: body, ContentType: contentType }));
 }
 
 export async function getText(key: string): Promise<string | null> {

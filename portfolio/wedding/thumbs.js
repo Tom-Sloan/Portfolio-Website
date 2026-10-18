@@ -18,8 +18,10 @@ function isVideo(file) {
   return (file.type || "").startsWith("video/") || ["mov", "mp4", "m4v", "webm"].includes(extOf(file.name));
 }
 
-function drawToBlob(source, width, height) {
-  const scale = Math.min(1, MAX_EDGE / Math.max(width, height));
+function drawToBlob(source, width, height, opts = {}) {
+  const maxEdge = opts.maxEdge || MAX_EDGE;
+  const quality = opts.quality || QUALITY;
+  const scale = Math.min(1, maxEdge / Math.max(width, height));
   const w = Math.max(1, Math.round(width * scale));
   const h = Math.max(1, Math.round(height * scale));
   const canvas = document.createElement("canvas");
@@ -28,46 +30,49 @@ function drawToBlob(source, width, height) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return Promise.resolve(null);
   ctx.drawImage(source, 0, 0, w, h);
-  return new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/jpeg", QUALITY));
+  return new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/jpeg", quality));
 }
 
-let heicLoader = null;
-function loadHeic2any() {
-  if (window.heic2any) return Promise.resolve(window.heic2any);
-  if (!heicLoader) {
-    heicLoader = new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = "/wedding/vendor/heic2any.min.js";
-      s.onload = () => (window.heic2any ? resolve(window.heic2any) : reject(new Error("heic2any missing")));
-      s.onerror = () => reject(new Error("heic2any failed to load"));
-      document.head.append(s);
-    });
-    heicLoader.catch(() => {
-      heicLoader = null;
-    });
-  }
-  return heicLoader;
+// <img> decode fallback (Safari decodes HEIC natively).
+function decodeImg(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(img);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("decode failed"));
+    };
+    img.src = url;
+  });
 }
 
-async function imageThumb(file) {
-  let bitmap = null;
+async function imageThumb(file, opts) {
+  let source = null;
   try {
-    bitmap = await createImageBitmap(file);
+    source = await createImageBitmap(file);
   } catch {
     if (!isHeic(file)) return null;
-    const heic2any = await loadHeic2any();
-    const out = await heic2any({ blob: file, toType: "image/jpeg", quality: QUALITY });
-    const jpeg = Array.isArray(out) ? out[0] : out;
-    bitmap = await createImageBitmap(jpeg);
+    try {
+      source = await decodeImg(file);
+    } catch {
+      return null;
+    }
   }
   try {
-    return await drawToBlob(bitmap, bitmap.width, bitmap.height);
+    const w = source.naturalWidth || source.width;
+    const h = source.naturalHeight || source.height;
+    if (!w || !h) return null;
+    return await drawToBlob(source, w, h, opts);
   } finally {
-    if (bitmap.close) bitmap.close();
+    if (source.close) source.close();
   }
 }
 
-function videoThumb(file) {
+function videoThumb(file, opts) {
   return new Promise((resolve) => {
     const url = URL.createObjectURL(file);
     const video = document.createElement("video");
@@ -96,15 +101,16 @@ function videoThumb(file) {
     });
     video.addEventListener("seeked", () => {
       if (!video.videoWidth || !video.videoHeight) return finish(null);
-      drawToBlob(video, video.videoWidth, video.videoHeight).then(finish, () => finish(null));
+      drawToBlob(video, video.videoWidth, video.videoHeight, opts).then(finish, () => finish(null));
     });
     video.src = url;
   });
 }
 
-export async function makeThumb(file) {
+// opts: { maxEdge, quality } override the defaults (480px, q0.8).
+export async function makeThumb(file, opts = {}) {
   try {
-    return isVideo(file) ? await videoThumb(file) : await imageThumb(file);
+    return isVideo(file) ? await videoThumb(file, opts) : await imageThumb(file, opts);
   } catch {
     return null;
   }

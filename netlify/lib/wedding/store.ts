@@ -1,4 +1,5 @@
 import { ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { MAX_THUMB_BYTES, mediaTypeForKey } from "./config.js";
 import { bucketName, getS3, getText, presignGet } from "./s3.js";
 
 export type Visibility = "shared" | "private";
@@ -114,7 +115,7 @@ async function listPrefix(visibility: Visibility): Promise<Group[]> {
         groups.set(id, g);
       }
       if (name === "meta.json") g.metaEtag = obj.ETag ?? "";
-      else if (name === "thumb.jpg") g.hasThumbObject = true;
+      else if (name === "thumb.jpg") g.hasThumbObject = (obj.Size ?? 0) <= MAX_THUMB_BYTES;
       else if (/^original\.[a-z0-9]{1,5}$/.test(name)) g.original = { key, size: obj.Size ?? 0 };
     }
     token = res.IsTruncated ? res.NextContinuationToken : undefined;
@@ -140,9 +141,13 @@ export async function listItems(visibilities: Visibility[]): Promise<Item[]> {
   const items = await mapLimit(complete, 16, async (g): Promise<Item | null> => {
     const meta = await loadMeta(g);
     if (!meta || !g.original) return null;
+    // Served type comes from the key's extension, never from stored metadata.
+    const contentType = mediaTypeForKey(g.original.key)?.mime ?? "application/octet-stream";
     const [url, thumbUrl] = await Promise.all([
-      presignGet(g.original.key, { contentType: meta.contentType }),
-      meta.hasThumb && g.hasThumbObject ? presignGet(thumbKey(g.visibility, g.id)) : Promise.resolve(null),
+      presignGet(g.original.key, { contentType }),
+      meta.hasThumb && g.hasThumbObject
+        ? presignGet(thumbKey(g.visibility, g.id), { contentType: "image/jpeg" })
+        : Promise.resolve(null),
     ]);
     return {
       id: g.id,
@@ -150,7 +155,7 @@ export async function listItems(visibilities: Visibility[]): Promise<Item[]> {
       uploader: meta.uploader,
       caption: meta.caption,
       originalName: meta.originalName,
-      contentType: meta.contentType,
+      contentType,
       size: g.original.size,
       createdAt: meta.createdAt,
       thumbUrl,

@@ -31,6 +31,7 @@ $("login-form").addEventListener("submit", async (e) => {
     show(true);
     await load();
   } catch (ex) {
+    // 429 carries the server's "Too many attempts" message.
     err.textContent = ex.status === 401 ? "Wrong password." : ex.message;
   }
 });
@@ -42,6 +43,21 @@ $("logout-btn").addEventListener("click", async () => {
     allItems = [];
     selected.clear();
     show(false);
+  }
+});
+
+$("reset-limits-btn").addEventListener("click", async (e) => {
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  $("reset-result").textContent = "";
+  setError("");
+  try {
+    const { deleted } = await api("admin-reset-ratelimit", { method: "POST", body: {} });
+    $("reset-result").textContent = `Cleared ${deleted} lockout record${deleted === 1 ? "" : "s"}.`;
+  } catch (ex) {
+    setError(ex.message);
+  } finally {
+    btn.disabled = false;
   }
 });
 

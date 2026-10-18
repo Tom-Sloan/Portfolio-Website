@@ -26,6 +26,14 @@ Environment variables (names only): `WEDDING_PASSWORD`, `WEDDING_COOKIE_SECRET`,
 
 The R2 bucket needs a CORS rule allowing `PUT`/`GET` from the site origin and exposing the `ETag` header.
 
+Safeguards:
+
+- **Login rate limiting** is durable and race-free: every attempt writes a reservation object under `ratelimit/` in the R2 bucket *before* the password is checked, then counts the objects in its window (IPs are stored only as a truncated SHA-256; the IP comes from Netlify's trusted `context.ip`). Limits per 15-minute window: guest login 10 per IP plus a global cap of 300; admin login 10 per IP with no global cap (so nobody can lock the couple out wholesale); upload `create` 600 per IP plus a global cap of 5000. Successful logins release their reservation; failed or blocked attempts count. Blocked requests get a 429 with `Retry-After`, even with the right password. If storage is unreachable, logins fail closed with a 503. Because the admin login can be brute-forced at ~10 guesses per IP per window, `COUPLE_PASSWORD` must be a long random passphrase.
+- **Lockout recovery:** use **Reset login lockouts** on `/wedding/admin`. If nobody can log in at all, just wait 15 minutes (windows expire on their own); the `expire-ratelimit-1d` lifecycle rule deletes the old reservation objects after a day. (`wrangler r2 object delete` works per object only, so it isn't a practical bulk reset.)
+- **Uploads** are restricted to an allowlist of photo/video extensions; the stored `Content-Type` is derived from the extension, part sizes are signed, the total size must match what was declared, and the file's magic bytes are checked on completion. Thumbnails are sent to `/api/wedding/thumb` (JPEG, max 300 KB), not directly to R2.
+- **Abandoned multipart uploads** are not cleaned up by the app. Add an R2 lifecycle rule to abort incomplete multipart uploads after a day or two (configured in the Cloudflare dashboard, outside this repo).
+- `/wedding` pages are served with a strict Content-Security-Policy (see `netlify.toml`); keep scripts and styles in external files.
+
 Local dev and tests:
 
 ```
